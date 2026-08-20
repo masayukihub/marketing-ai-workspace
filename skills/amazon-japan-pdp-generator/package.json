@@ -1,0 +1,18 @@
+{
+  "name": "switchbot-amazon-japan-pdp-generator",
+  "version": "1.0.0-workspace",
+  "private": true,
+  "type": "module",
+  "description": "Workspace dependency manifest for the Amazon Japan PDP Skill.",
+  "scripts": {
+    "test:production-safety": "node tests/production_safety_regression.mjs",
+    "test:reference": "node tests/reference_system_regression.mjs",
+    "test": "npm run test:production-safety && npm run test:reference"
+  },
+  "dependencies": {
+    "sharp": "0.35.3"
+  },
+  "optionalDependencies": {
+    "playwright": "1.62.1"
+  }
+}

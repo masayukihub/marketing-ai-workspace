@@ -4,7 +4,7 @@
 
 | Skill | 方式 | 说明 |
 | --- | --- | --- |
-| amazon-japan-pdp-generator | 完整安全副本 | 保留 scripts、references、tests |
+| amazon-japan-pdp-generator | 完整安全副本 | 保留 scripts、references、tests；补充独立 Node 依赖清单，不依赖本机缓存符号链接 |
 | product-knowledge | 完整安全副本 | 作为版本副本；正式事实仍需 canonical source 验证 |
 | switchbot-campaign-review | 完整安全副本 | 保留原正式名称 |
 | customer-review-intelligence | 完整安全副本 | 作为 VOC Analyzer 正式实现；包含非敏感分类与采集配置，不包含评论原始数据 |

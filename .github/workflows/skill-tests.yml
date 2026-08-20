@@ -28,5 +28,7 @@ jobs:
         run: >-
           python -m pip install "pytest>=8,<9" openpyxl "pandas>=2.2,<3" pyarrow PyYAML xlrd
           matplotlib Jinja2 pdfplumber
+      - name: Install Amazon PDP Node dependencies
+        run: npm install --prefix skills/amazon-japan-pdp-generator --no-audit --no-fund
       - name: Run Skill tests
         run: bash tests/run_skill_tests.sh
