@@ -1,0 +1,53 @@
+schema_version: "1.0"
+market: JP
+products:
+  - product_id: ai_art_canvas
+    slug: ai-art-canvas
+    official_name: SwitchBot AIアートキャンバス
+    aliases: [SwitchBot AI Art Canvas, AI Art Canvas, AI Art Frame, AIアートキャンバス, アートキャバス]
+    identifiers:
+      asin: [B0FVFPD7D5, B0FVFQBCNW, B0FVFS6FKN]
+      sku: [810150547436JP, 810150547412JP, 810150547429JP, 810150547436JPX2, 810150547412JPX2, 810150547429JPX2]
+      jan: ["810150547436", "810150547412", "810150547429"]
+    sources:
+      amazon_jp: {url: "https://www.amazon.co.jp/dp/B0FVFPD7D5/", required: true}
+      rakuten: {url: "https://review.rakuten.co.jp/item/1/415408_10000307/1.1/", required: true}
+      yahoo_shopping: {url: "https://shopping.yahoo.co.jp/review/item/list?page_key=w8402010&store_id=switchbot", required: true}
+      switchbot_official: {url: "https://www.switchbot.jp/products/switchbot-ai-art-frame", required: true}
+      youtube: {url: "https://www.youtube.com/results?search_query=SwitchBot+AIアートキャンバス+レビュー", required: true}
+      x: {url: "https://search.yahoo.co.jp/realtime/search?p=SwitchBot%20AIアートキャンバス", required: true}
+  - product_id: lock_ultra
+    slug: lock-ultra
+    official_name: SwitchBot Lock Ultra
+    aliases: [Lock Ultra, ロックUltra, スマートロックUltra]
+    identifiers:
+      model: [W5600000, W5600004]
+      sku: [810150543469JP, 810150543513JP]
+      upc: ["0810150543360", "0810150543469", "0810150543513"]
+    sources:
+      amazon_jp: {url: "", required: true}
+      rakuten: {url: "https://product.rakuten.co.jp/product/-/90fcb16d4f2d29543249a4195d94e3ba/review/", required: true}
+      yahoo_shopping: {url: "https://shopping.yahoo.co.jp/review/item/list?page_key=w5600000&store_id=switchbot", required: true}
+      switchbot_official: {url: "https://www.switchbot.jp/products/switchbot-lock-ultra", required: true}
+  - product_id: hub_3
+    slug: hub-3
+    official_name: SwitchBot Hub 3
+    aliases: [Hub 3, Hub3, ハブ3]
+    identifiers:
+      model: [W7202100, W7202101]
+      upc: ["0810150543353"]
+    sources:
+      amazon_jp: {url: "", required: true}
+      rakuten: {url: "https://product.rakuten.co.jp/product/-/30d96b5a70a42f82d550794743a89e07/review/", required: true}
+      yahoo_shopping: {url: "https://shopping.yahoo.co.jp/review/item/list?page_key=w7202100&store_id=switchbot", required: true}
+      switchbot_official: {url: "https://www.switchbot.jp/products/switchbot-hub3", required: true}
+  - product_id: ai_mindclip
+    slug: ai-mindclip
+    official_name: SwitchBot AI MindClip
+    aliases: [AI MindClip, MindClip, AI マインドクリップ]
+    identifiers: {}
+    sources:
+      amazon_jp: {url: "", required: true}
+      rakuten: {url: "", required: true}
+      yahoo_shopping: {url: "", required: true}
+      switchbot_official: {url: "", required: true}

@@ -1,0 +1,10 @@
+schema_version: "1.0"
+timezone: Asia/Tokyo
+cadence: biweekly
+weekday: Monday
+time: "10:00"
+mode: incremental
+modules: [ec, sns, kol, pr, official, competitor]
+products: [lock_ultra, hub_3, ai_mindclip]
+external_publish: false
+

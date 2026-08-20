@@ -1,0 +1,104 @@
+schema_version: "1.0"
+topics:
+  Display Quality:
+    keywords: [暗い, 暗すぎる, 見づらい, 見ずらい, 発色, 鮮やか, 画質, 解像度, 粒状, ドット, 青み, E-Ink, 電子ペーパー]
+    owner: Product
+  Content Capacity:
+    keywords: [10枚, 8枚, ローカル, クラウド, スライドショー, 保存枚数, 枚まで]
+    owner: App
+  Purchase Motivation:
+    keywords: [子ども, 子供, 家族写真, ペット, 思い出, 絵を飾, インテリア, プレゼント, 作品]
+    owner: Marketing
+  Competitor Comparison:
+    keywords: [他社, 比較, デジタルフォトフレーム, WaveShare, Aura, InkPoster, The Frame]
+    owner: Product Marketing
+  Product Quality:
+    keywords: [壊れた, 故障, 不良, 初期不良, 破損, すぐ壊れた, 画面がつかない, ディスプレイが表示されない, ディスプレイが表示されなくな, 傷]
+    owner: Quality Assurance
+  Installation:
+    keywords: [取り付け, 取付, 設置, 壁掛け, フック, 水平器, 額縁, ネジ, 両面テープ, サイズが合わない, 扉に合わない]
+    owner: Product
+  Setup:
+    keywords: [設定, 初期設定, セットアップ, 登録できない]
+    owner: Product
+  App:
+    keywords: [アプリ, ログイン, アップロード, 同期, 転送, 再接続, リセット, 通知, 権限, クラッシュ]
+    owner: App
+  Connectivity:
+    keywords: [接続, 繋がらない, つながらない, オフライン, Bluetooth, Wi-Fi, Matter, Alexa, Google Home, Apple Home]
+    owner: Firmware
+  Automation:
+    keywords: [自動化, オートメーション, シーン]
+    owner: Product
+  Compatibility:
+    keywords: [対応していない, 非対応, 互換性, 適合, Hubが必要]
+    owner: Product
+  Performance:
+    keywords: [反応が遅い, 遅延, 認識しない, 精度, 速度]
+    owner: Product
+  Reliability:
+    keywords: [不安定, 頻繁, 何度も, 再発]
+    owner: Quality Assurance
+  Battery:
+    keywords: [電池, バッテリー, 充電, すぐ切れる]
+    owner: Hardware
+  Noise:
+    keywords: [うるさい, 騒音, 音が大きい, 静か]
+    owner: Hardware
+  Design:
+    keywords: [デザイン, 見た目, 色, 質感]
+    owner: Product
+  Size:
+    keywords: [大きい, 小さい, 厚い, 薄い, サイズ]
+    owner: Product
+  Ease of Use:
+    keywords: [使いやすい, 簡単, 分かりやすい, 使いにくい]
+    owner: Product
+  Security:
+    keywords: [防犯, 鍵が開かない, 締め出し, 施錠, 解錠]
+    owner: Product
+  Privacy:
+    keywords: [プライバシー, 個人情報, 録画, 顔データ]
+    owner: Product
+  AI Function:
+    keywords: [AI, 認識, 要約, 検索]
+    owner: Product
+  Firmware:
+    keywords: [ファームウェア, アップデート, 更新後]
+    owner: Firmware
+  Customer Support:
+    keywords: [サポート, 問い合わせ, 返信, カスタマーサービス]
+    owner: Customer Support
+  Delivery:
+    keywords: [配送, 届かない, 遅配, 到着]
+    owner: Logistics
+  Packaging:
+    keywords: [梱包, 箱, 包装]
+    owner: Logistics
+  Price:
+    keywords: [価格, 高い, 安い, 値段, セール]
+    owner: EC
+  Value for Money:
+    keywords: [コスパ, 買ってよかった, お得]
+    owner: Marketing
+  Instructions:
+    keywords: [説明書, マニュアル, わかりにくい, 説明不足]
+    owner: Marketing
+  Accessories:
+    keywords: [付属品, アクセサリー, 別売り]
+    owner: Product
+  Subscription:
+    keywords: [サブスク, 月額, 課金]
+    owner: Product
+  Return / Refund:
+    keywords: [返品, 返金, 交換]
+    owner: Customer Support
+  Expectation Gap:
+    keywords: [期待外れ, 思っていた, 想像と違う]
+    owner: Marketing
+  Positive Experience:
+    keywords: [便利, 満足, 快適, おすすめ, 買ってよかった, 助かった]
+    owner: Marketing
+  Other:
+    keywords: []
+    owner: Product

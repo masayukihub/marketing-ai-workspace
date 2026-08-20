@@ -3,12 +3,13 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
-SCRIPTS = Path(__file__).resolve().parents[1] / "scripts"
+SKILL = Path(__file__).resolve().parents[1]
+SCRIPTS = SKILL / "scripts"
 sys.path.insert(0, str(SCRIPTS))
 
 from review_core import classify_rows, load_yaml, normalize_record
 
-WORKSPACE = Path("/Users/lai/Documents/marketing/customer-review-intelligence")
+WORKSPACE = SKILL
 SENTIMENT = load_yaml(WORKSPACE / "config" / "sentiment_rules.yaml")
 TAXONOMY = load_yaml(WORKSPACE / "config" / "taxonomy.yaml")
 

@@ -7,7 +7,7 @@
 | amazon-japan-pdp-generator | 完整安全副本 | 保留 scripts、references、tests |
 | product-knowledge | 完整安全副本 | 作为版本副本；正式事实仍需 canonical source 验证 |
 | switchbot-campaign-review | 完整安全副本 | 保留原正式名称 |
-| customer-review-intelligence | 完整安全副本 | 作为 VOC Analyzer 正式实现 |
+| customer-review-intelligence | 完整安全副本 | 作为 VOC Analyzer 正式实现；包含非敏感分类与采集配置，不包含评论原始数据 |
 | amazon-listing-creative | 完整安全副本 | 保留独立 Creative 责任边界 |
 | project-memory-manager | 完整安全副本 | 管理 Project Memory，而非产品事实 |
 | influencer-marketing | 完整安全副本 | 提供 KOL 策略能力，不包含联系人数据库 |

@@ -1,0 +1,28 @@
+schema_version: "1.0"
+browser: external
+capture:
+  screenshot_format: png
+  save_dom_text: true
+  save_visible_ids: true
+  save_boundaries: true
+  hash_algorithm: sha256
+  preserve_reviewer_names_raw_only: true
+stop_conditions:
+  - captcha
+  - rate_limit
+  - sign_in_prompt
+  - consent_loop
+  - repeated_no_progress
+  - comments_disabled
+no_progress_limit: 3
+channels:
+  amazon_jp:
+    pagination: page_control
+    completion_rule: exact_asin_pages_reconciled_to_displayed_scope
+  youtube:
+    pagination: scroll_and_expand_all_replies
+    completion_rule: fixed_video_list_end_reached_and_displayed_counts_reconciled
+  x:
+    pagination: scroll
+    completion_rule: never_complete_from_browser_ui
+    maximum_status: Partial

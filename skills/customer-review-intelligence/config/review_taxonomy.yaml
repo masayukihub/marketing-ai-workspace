@@ -1,0 +1,25 @@
+schema_version: "2.0"
+extends: taxonomy.yaml
+sentiment_levels: [Strong Positive, Positive, Neutral, Negative, Strong Negative, Mixed]
+need_types: [Satisfied, Partially Satisfied, Unmet, Feature Request, Improvement Request, How-to Question, Expectation Gap, Competitor Comparison, Purchase Barrier, Repurchase Signal, Recommendation Signal, Churn Risk]
+responsibility_types: [Hardware, Software, Firmware, App, UX, Japan Localization, Product Design, Compatibility, Instructions, Marketing Expectation Gap, Installation Environment, User Operation, Logistics, Customer Support, Undetermined]
+priority_levels: [P0, P1, P2, P3, Monitor]
+priority_weights:
+  frequency: 0.25
+  negative_intensity: 0.20
+  rating_impact: 0.15
+  helpfulness: 0.10
+  recency_growth: 0.15
+  product_importance: 0.15
+scenarios:
+  - Family memories
+  - Children artwork
+  - Interior decoration
+  - Entrance
+  - Living room
+  - Desk
+  - Rental home
+  - Gift
+  - Travel memories
+  - Creative work
+quality_flags: [Valid, Empty Text, Suspected Template, Product Mismatch, Rating Sentiment Mismatch, Partial Source, Manual Review]

@@ -8,8 +8,8 @@ from pathlib import Path
 import yaml
 
 SKILL = Path(__file__).resolve().parents[1]
-SOURCE_WORKSPACE = Path("/Users/lai/Documents/marketing/customer-review-intelligence")
-PRODUCT_KNOWLEDGE = Path("/Users/lai/Documents/marketing/.skill-build/product-knowledge")
+SOURCE_WORKSPACE = SKILL
+PRODUCT_KNOWLEDGE = SKILL.parent / "product-knowledge"
 
 
 def test_import_pipeline_and_second_run_are_idempotent(tmp_path: Path) -> None:

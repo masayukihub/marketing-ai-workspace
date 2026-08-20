@@ -1,0 +1,69 @@
+schema_version: "1.0"
+market: JP
+default_language: ja
+sources:
+  amazon_jp:
+    enabled: true
+    source_name: Amazon Japan
+    domain: amazon.co.jp
+    module: ec
+    collection_method: public_http_or_user_authorized_browser_capture
+    browser_capture: {screenshots: true, dom_text: true, resume_by: review_id_and_page}
+    review_pagination: true
+    login_required: false
+    required_fields: [rating, review_body, review_date, review_url]
+  rakuten:
+    enabled: true
+    source_name: 楽天市場
+    domain: review.rakuten.co.jp
+    module: ec
+    collection_method: public_http_or_browser
+    review_pagination: true
+    login_required: false
+  yahoo_shopping:
+    enabled: true
+    source_name: Yahoo!ショッピング
+    domain: shopping.yahoo.co.jp
+    module: ec
+    collection_method: public_http_or_browser
+    review_pagination: true
+    login_required: false
+  switchbot_official:
+    enabled: true
+    source_name: SwitchBot 日本公式サイト
+    domain: switchbot.jp
+    module: ec
+    collection_method: public_http_or_browser
+    review_pagination: true
+    login_required: false
+  kakaku:
+    enabled: false
+    source_name: 価格.com
+    domain: kakaku.com
+    module: competitor
+    collection_method: public_http_or_browser
+  youtube:
+    enabled: false
+    browser_enabled: true
+    source_name: YouTube
+    domain: youtube.com
+    module: kol
+    collection_method: user_authorized_browser_capture_or_official_api_or_user_export
+    credential_env: YOUTUBE_API_KEY
+    pagination: commentThreads.nextPageToken_and_comments.nextPageToken
+    browser_capture: {screenshots: true, dom_text: true, expand_replies: true, resume_by: video_id_comment_id_scroll_index}
+  x:
+    enabled: false
+    browser_enabled: true
+    source_name: X
+    domain: x.com
+    module: sns
+    collection_method: user_authorized_browser_capture_or_official_full_archive_api_or_user_export
+    credential_env: X_BEARER_TOKEN
+    pagination: meta.next_token
+    browser_capture: {screenshots: true, dom_text: true, resume_by: post_id_scroll_index, maximum_status: Partial}
+  blog:
+    enabled: false
+    source_name: Blog / Media
+    module: pr
+    collection_method: public_http_or_user_links

@@ -1,0 +1,2 @@
+source,source_review_id,product_id,asin,variant_id,rating,review_title,review_body,review_date,review_url,verified_purchase,helpful_votes,record_type,relationship_type,voc_eligibility,coverage_status,notes
+amazon_jp,,ai_art_canvas,,,,,,,,Unknown,,ec_review,organic,Natural VOC,Partial,Populate from authorized Brand Customer Reviews evidence; do not include customer contact details.

@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "",
+  "product_id": "",
+  "source": "",
+  "requested_window": {"date_from": "", "date_to": ""},
+  "browser_surface": "external_user_authorized",
+  "sort_mode": "",
+  "declared_total": null,
+  "frames": [
+    {
+      "frame_id": "",
+      "url": "",
+      "captured_at": "",
+      "page_number": null,
+      "scroll_index": 0,
+      "screenshot_path": "",
+      "screenshot_sha256": "",
+      "dom_snapshot_path": "",
+      "dom_snapshot_sha256": "",
+      "visible_first_id": "",
+      "visible_last_id": "",
+      "visible_first_date": "",
+      "visible_last_date": "",
+      "unique_ids_visible": [],
+      "loaded_count_before": 0,
+      "loaded_count_after": 0,
+      "status": "Captured",
+      "failure_reason": ""
+    }
+  ],
+  "unique_record_ids": [],
+  "failed_boundaries": [],
+  "end_reached": false,
+  "count_reconciled": false,
+  "coverage_status": "Partial"
+}
