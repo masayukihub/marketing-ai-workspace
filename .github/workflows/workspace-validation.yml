@@ -1,0 +1,30 @@
+name: Workspace Validation
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: workspace-validation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - name: Structure and local links
+        run: |
+          python3 tests/validate_workspace.py --check structure
+          python3 tests/validate_workspace.py --check links
+      - name: Secret scan
+        run: python3 tests/validate_workspace.py --check secrets
+      - name: Project Memory validation
+        run: python3 tests/validate_workspace.py --check memory
+      - name: Large file guard
+        run: python3 tests/validate_workspace.py --check large-files

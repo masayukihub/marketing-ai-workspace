@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.0",
+  "category_id": "smart-lock",
+  "category_name": "Smart Lock / Retrofit Door Lock",
+  "match_terms": ["smart lock", "door lock", "retrofit door-lock", "スマートロック", "ロックUltra", "智能门锁", "门锁"],
+  "core_consumer_questions": [
+    "What is different from my current lock?",
+    "Will it fit my door and thumbturn?",
+    "Is installation difficult or reversible?",
+    "Which unlocking methods belong to the lock and which require an accessory?",
+    "What happens if power, communication or the app is unavailable?",
+    "How are lock state, security and household access handled?",
+    "Which SKU, accessory and configuration should I choose?"
+  ],
+  "trust_dimensions": [
+    "fit accuracy",
+    "installation accuracy",
+    "capability ownership",
+    "power and exception handling",
+    "physical-key relationship",
+    "communication dependency",
+    "support and recovery path"
+  ],
+  "compatibility_questions": [
+    "door and thumbturn geometry",
+    "mounting surface and surrounding clearance",
+    "rotation interference",
+    "required adapter or accessory",
+    "current Japan compatibility guide"
+  ],
+  "installation_questions": [
+    "indoor-side mounting position",
+    "measurement order",
+    "mounting method and removal boundary",
+    "calibration or setup prerequisites",
+    "what must be confirmed before adhesion"
+  ],
+  "security_questions": [
+    "lock-state confidence",
+    "power-loss behavior",
+    "communication-loss behavior",
+    "physical-key availability",
+    "household and guest access boundaries",
+    "unsupported zero-risk or absolute-safety claims"
+  ],
+  "unlock_scenarios": [
+    "returning home with hands occupied",
+    "family members with different input needs",
+    "night entry",
+    "guest or service access",
+    "manual or physical fallback"
+  ],
+  "ownership_questions": [
+    "battery and alert routine",
+    "app, hub and account dependencies",
+    "recalibration or maintenance",
+    "support information to prepare",
+    "accessory and SKU changes over time"
+  ],
+  "visual_proof_types": [
+    "official installed-door photo",
+    "engineering-approved door and thumbturn section",
+    "measured compatibility diagram",
+    "verified installation sequence",
+    "approved power and exception-state diagram",
+    "capability-owner map",
+    "exact-SKU in-box flat lay"
+  ],
+  "high_risk_claim_types": [
+    "universal compatibility",
+    "zero lockout risk",
+    "absolute security or safety",
+    "battery duration without conditions",
+    "unlock speed, torque, noise or reliability",
+    "remote operation without dependency conditions",
+    "recognition capability attributed to the lock body",
+    "No.1, best, first or superiority language"
+  ],
+  "forbidden_cross_product_semantics": [
+    "roller", "mop", "washing", "base station", "floor cleaning", "obstacle avoidance", "vacuum",
+    "滚刷", "拖布", "洗地", "基站", "地板清洁", "地面清洁", "避障", "扫地机", "扫地机器人", "吸尘器",
+    "ローラー", "モップ", "水拭き", "床洗浄", "ステーション", "床清掃", "障害物回避", "ロボット掃除機", "掃除機", "吸引"
+  ],
+  "intent_keywords": {
+    "main_identity": ["product recognition", "what is it", "商品識別"],
+    "compatibility_fit": ["fit", "compatibility", "compatible", "サムターン", "適合", "相性", "ドア", "干渉", "取り付け条件"],
+    "installation": ["install", "installation", "取り付け", "設置", "室内側", "測定"],
+    "unlock_scenario": ["unlock", "解錠", "帰宅", "家族", "入口", "手がふさが", "来客"],
+    "power_exception": ["power", "battery", "電源", "電池", "止まった", "非常時", "物理鍵"],
+    "security_trust": ["security", "safe", "trust", "防犯", "安全", "信頼", "施解錠", "通信"],
+    "configuration": ["sku", "bundle", "accessory", "別売", "同梱", "構成", "configuration"],
+    "support_closure": ["support", "faq", "サポート", "迷ったら", "確認導線"],
+    "daily_routine": ["routine", "ownership", "日常", "毎日", "夜間", "生活"]
+  }
+}

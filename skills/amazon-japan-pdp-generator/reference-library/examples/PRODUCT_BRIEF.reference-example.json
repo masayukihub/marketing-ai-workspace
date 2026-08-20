@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "artifact": "PRODUCT_BRIEF_REFERENCE_EXAMPLE",
+  "status": "Illustrative only — not a product fact or approved claim",
+  "product": {
+    "brand": "SwitchBot",
+    "name": "Illustrative Smart Home Control Hub",
+    "category": "smart home hub"
+  },
+  "reference_profile": {
+    "category": ["smart home", "consumer electronics"],
+    "product_complexity": "high",
+    "primary_usp": ["physical control plus visible information", "ecosystem orchestration"],
+    "consumer_tension": ["too many remotes and apps", "family cannot share app-only control", "compatibility uncertainty"],
+    "product_type": ["smart home device", "system product"],
+    "story_requirement": ["Category-education", "Technology-led", "Scenario-led"],
+    "technical_complexity": "high",
+    "target_audience": ["Japanese household", "smart-home first-time buyer"]
+  }
+}

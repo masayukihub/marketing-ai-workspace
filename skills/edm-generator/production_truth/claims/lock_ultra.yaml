@@ -1,0 +1,14 @@
+schema_version: 1.0.0
+product_id: lock_ultra
+approved_external_claims: {value: [], status: MISSING, source: /Users/lai/.codex/skills/product-knowledge/outputs/product_index.json#lock_ultra}
+conditional_claims:
+  - claim_id: CLM-001
+    value: 電池切れの不安を抑える、3段階の電源バックアップ設計。
+    status: UNVERIFIED
+    source: /Users/lai/.codex/skills/product-knowledge/references/claim.md#CLM-001
+    allowed_channels: []
+prohibited_claims:
+  - {claim_id: CLM-005, value: 日本第一のスマートロック。, status: VERIFIED, source: /Users/lai/.codex/skills/product-knowledge/references/claim.md#CLM-005}
+  - {value: Lock Ultra 本体への顔認証機能帰属, status: VERIFIED, source: /Users/lai/.codex/skills/product-knowledge/references/known_issues.md#ISSUE-001}
+phase6_use_policy: Product name, official non-numeric design wording and purchase-condition reminders only; no numeric, superiority, performance or security guarantee claim.
+

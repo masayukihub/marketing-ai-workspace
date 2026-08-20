@@ -1,0 +1,22 @@
+name: Research
+description: 新品、竞品、VOC、媒体或市场调研
+title: "[Research] "
+labels: ["research"]
+body:
+  - type: textarea
+    attributes: {label: Project}
+  - type: dropdown
+    attributes: {label: Priority, options: [P0, P1, P2]}
+  - type: input
+    attributes: {label: Owner}
+  - type: input
+    attributes: {label: Deadline}
+  - type: textarea
+    attributes: {label: Research Question and Input}
+    validations: {required: true}
+  - type: textarea
+    attributes: {label: Expected Output}
+  - type: textarea
+    attributes: {label: Source Scope}
+  - type: textarea
+    attributes: {label: Acceptance Criteria}

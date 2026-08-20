@@ -1,0 +1,1365 @@
+{
+  "schema_version": "1.1",
+  "generated_at": "2026-08-20T15:27:05+08:00",
+  "as_of": "2026-07-30",
+  "structural_validation_status": "pass",
+  "validation_status": "pass",
+  "conflict_status": "pass_with_noncritical_findings",
+  "external_publication_ready": false,
+  "publication_note": "Structural PASS does not mean a product or claim is approved for external publication.",
+  "products": [
+    {
+      "product_id": "hub_3",
+      "official_name": {
+        "en": "SwitchBot Hub 3",
+        "ja": "",
+        "zh": ""
+      },
+      "aliases": [
+        {
+          "alias": "SwitchBot Hub 3",
+          "language": "en",
+          "alias_type": "official",
+          "usage_status": "current"
+        },
+        {
+          "alias": "Hub 3",
+          "language": "en",
+          "alias_type": "short_name",
+          "usage_status": "current"
+        },
+        {
+          "alias": "Hub3",
+          "language": "en",
+          "alias_type": "short_name",
+          "usage_status": "current"
+        },
+        {
+          "alias": "ハブ3",
+          "language": "ja",
+          "alias_type": "short_name",
+          "usage_status": "current"
+        }
+      ],
+      "model_number": "",
+      "market": "JP",
+      "status": "unknown",
+      "profile_path": "products/hub-3.md",
+      "completeness": "partial",
+      "related_product_ids": [],
+      "review_status": "pending_verification",
+      "last_verified_date": "2026-07-30",
+      "external_publish_ready": false,
+      "readiness": {
+        "approved_external_claim_ids": [],
+        "approved_external_claim_count": 0,
+        "current_price_ready": false,
+        "launch_status_ready": false,
+        "competitor_evidence_ready": false,
+        "blocking_reasons": [
+          "profile_not_verified",
+          "lifecycle_not_verified_active",
+          "no_approved_external_claim",
+          "facts_not_fully_verified"
+        ]
+      }
+    },
+    {
+      "product_id": "lock_ultra",
+      "official_name": {
+        "en": "SwitchBot Lock Ultra",
+        "ja": "",
+        "zh": ""
+      },
+      "aliases": [
+        {
+          "alias": "SwitchBot Lock Ultra",
+          "language": "en",
+          "alias_type": "official",
+          "usage_status": "current"
+        },
+        {
+          "alias": "Lock Ultra",
+          "language": "en",
+          "alias_type": "short_name",
+          "usage_status": "current"
+        }
+      ],
+      "model_number": "",
+      "market": "JP",
+      "status": "unknown",
+      "profile_path": "products/lock-ultra.md",
+      "completeness": "partial",
+      "related_product_ids": [
+        "keypad_vision_pro"
+      ],
+      "review_status": "conflict",
+      "last_verified_date": "2026-07-30",
+      "external_publish_ready": false,
+      "readiness": {
+        "approved_external_claim_ids": [],
+        "approved_external_claim_count": 0,
+        "current_price_ready": false,
+        "launch_status_ready": false,
+        "competitor_evidence_ready": false,
+        "blocking_reasons": [
+          "profile_not_verified",
+          "profile_conflict",
+          "lifecycle_not_verified_active",
+          "no_approved_external_claim",
+          "facts_not_fully_verified"
+        ]
+      }
+    },
+    {
+      "product_id": "keypad_vision_pro",
+      "official_name": {
+        "en": "SwitchBot Keypad Vision Pro",
+        "ja": "",
+        "zh": ""
+      },
+      "aliases": [
+        {
+          "alias": "SwitchBot Keypad Vision Pro",
+          "language": "en",
+          "alias_type": "official",
+          "usage_status": "current"
+        },
+        {
+          "alias": "Keypad Vision Pro",
+          "language": "en",
+          "alias_type": "short_name",
+          "usage_status": "current"
+        },
+        {
+          "alias": "Keypad Vision",
+          "language": "en",
+          "alias_type": "former_name",
+          "usage_status": "ambiguous"
+        }
+      ],
+      "model_number": "",
+      "market": "JP",
+      "status": "unknown",
+      "profile_path": "products/keypad-vision-pro.md",
+      "completeness": "partial",
+      "related_product_ids": [
+        "lock_ultra"
+      ],
+      "review_status": "conflict",
+      "last_verified_date": "2026-07-30",
+      "external_publish_ready": false,
+      "readiness": {
+        "approved_external_claim_ids": [],
+        "approved_external_claim_count": 0,
+        "current_price_ready": false,
+        "launch_status_ready": false,
+        "competitor_evidence_ready": false,
+        "blocking_reasons": [
+          "profile_not_verified",
+          "profile_conflict",
+          "lifecycle_not_verified_active",
+          "no_approved_external_claim",
+          "facts_not_fully_verified"
+        ]
+      }
+    },
+    {
+      "product_id": "ai_mindclip",
+      "official_name": {
+        "en": "SwitchBot AI MindClip",
+        "ja": "",
+        "zh": ""
+      },
+      "aliases": [
+        {
+          "alias": "SwitchBot AI MindClip",
+          "language": "en",
+          "alias_type": "official",
+          "usage_status": "current"
+        },
+        {
+          "alias": "AI MindClip",
+          "language": "en",
+          "alias_type": "short_name",
+          "usage_status": "current"
+        },
+        {
+          "alias": "MindClip",
+          "language": "en",
+          "alias_type": "short_name",
+          "usage_status": "current"
+        },
+        {
+          "alias": "AI マインドクリップ",
+          "language": "ja",
+          "alias_type": "short_name",
+          "usage_status": "current"
+        }
+      ],
+      "model_number": "",
+      "market": "JP",
+      "status": "unknown",
+      "profile_path": "products/ai-mindclip.md",
+      "completeness": "partial",
+      "related_product_ids": [],
+      "review_status": "pending_verification",
+      "last_verified_date": "2026-07-30",
+      "external_publish_ready": false,
+      "readiness": {
+        "approved_external_claim_ids": [],
+        "approved_external_claim_count": 0,
+        "current_price_ready": false,
+        "launch_status_ready": false,
+        "competitor_evidence_ready": false,
+        "blocking_reasons": [
+          "profile_not_verified",
+          "lifecycle_not_verified_active",
+          "no_approved_external_claim"
+        ]
+      }
+    },
+    {
+      "product_id": "video_doorbell",
+      "official_name": {
+        "en": "SwitchBot Video Doorbell",
+        "ja": "",
+        "zh": ""
+      },
+      "aliases": [
+        {
+          "alias": "SwitchBot Video Doorbell",
+          "language": "en",
+          "alias_type": "official",
+          "usage_status": "current"
+        },
+        {
+          "alias": "Video Doorbell",
+          "language": "en",
+          "alias_type": "short_name",
+          "usage_status": "current"
+        }
+      ],
+      "model_number": "",
+      "market": "JP",
+      "status": "unknown",
+      "profile_path": "products/video-doorbell.md",
+      "completeness": "skeleton",
+      "related_product_ids": [],
+      "review_status": "pending_verification",
+      "last_verified_date": "2026-07-30",
+      "external_publish_ready": false,
+      "readiness": {
+        "approved_external_claim_ids": [],
+        "approved_external_claim_count": 0,
+        "current_price_ready": false,
+        "launch_status_ready": false,
+        "competitor_evidence_ready": false,
+        "blocking_reasons": [
+          "profile_not_verified",
+          "lifecycle_not_verified_active",
+          "no_approved_external_claim"
+        ]
+      }
+    },
+    {
+      "product_id": "battery_circulator_fan",
+      "official_name": {
+        "en": "SwitchBot Battery Circulator Fan",
+        "ja": "",
+        "zh": ""
+      },
+      "aliases": [
+        {
+          "alias": "SwitchBot Battery Circulator Fan",
+          "language": "en",
+          "alias_type": "official",
+          "usage_status": "current"
+        },
+        {
+          "alias": "Battery Circulator Fan",
+          "language": "en",
+          "alias_type": "short_name",
+          "usage_status": "current"
+        }
+      ],
+      "model_number": "",
+      "market": "JP",
+      "status": "unknown",
+      "profile_path": "products/battery-circulator-fan.md",
+      "completeness": "skeleton",
+      "related_product_ids": [],
+      "review_status": "pending_verification",
+      "last_verified_date": "2026-07-30",
+      "external_publish_ready": false,
+      "readiness": {
+        "approved_external_claim_ids": [],
+        "approved_external_claim_count": 0,
+        "current_price_ready": false,
+        "launch_status_ready": false,
+        "competitor_evidence_ready": false,
+        "blocking_reasons": [
+          "profile_not_verified",
+          "lifecycle_not_verified_active",
+          "no_approved_external_claim"
+        ]
+      }
+    },
+    {
+      "product_id": "circulator_fan_2_pro",
+      "official_name": {
+        "en": "SwitchBot Circulator Fan 2 Pro",
+        "ja": "",
+        "zh": ""
+      },
+      "aliases": [
+        {
+          "alias": "SwitchBot Circulator Fan 2 Pro",
+          "language": "en",
+          "alias_type": "official",
+          "usage_status": "current"
+        },
+        {
+          "alias": "Circulator Fan 2 Pro",
+          "language": "en",
+          "alias_type": "short_name",
+          "usage_status": "current"
+        }
+      ],
+      "model_number": "",
+      "market": "JP",
+      "status": "unknown",
+      "profile_path": "products/circulator-fan-2-pro.md",
+      "completeness": "skeleton",
+      "related_product_ids": [],
+      "review_status": "pending_verification",
+      "last_verified_date": "2026-07-30",
+      "external_publish_ready": false,
+      "readiness": {
+        "approved_external_claim_ids": [],
+        "approved_external_claim_count": 0,
+        "current_price_ready": false,
+        "launch_status_ready": false,
+        "competitor_evidence_ready": false,
+        "blocking_reasons": [
+          "profile_not_verified",
+          "lifecycle_not_verified_active",
+          "no_approved_external_claim"
+        ]
+      }
+    },
+    {
+      "product_id": "curtain_3",
+      "official_name": {
+        "en": "SwitchBot Curtain 3",
+        "ja": "",
+        "zh": ""
+      },
+      "aliases": [
+        {
+          "alias": "SwitchBot Curtain 3",
+          "language": "en",
+          "alias_type": "official",
+          "usage_status": "current"
+        },
+        {
+          "alias": "Curtain 3",
+          "language": "en",
+          "alias_type": "short_name",
+          "usage_status": "current"
+        }
+      ],
+      "model_number": "",
+      "market": "JP",
+      "status": "unknown",
+      "profile_path": "products/curtain-3.md",
+      "completeness": "skeleton",
+      "related_product_ids": [],
+      "review_status": "pending_verification",
+      "last_verified_date": "2026-07-30",
+      "external_publish_ready": false,
+      "readiness": {
+        "approved_external_claim_ids": [],
+        "approved_external_claim_count": 0,
+        "current_price_ready": false,
+        "launch_status_ready": false,
+        "competitor_evidence_ready": false,
+        "blocking_reasons": [
+          "profile_not_verified",
+          "lifecycle_not_verified_active",
+          "no_approved_external_claim"
+        ]
+      }
+    },
+    {
+      "product_id": "k10_pro_combo",
+      "official_name": {
+        "en": "SwitchBot K10+ Pro Combo",
+        "ja": "",
+        "zh": ""
+      },
+      "aliases": [
+        {
+          "alias": "SwitchBot K10+ Pro Combo",
+          "language": "en",
+          "alias_type": "official",
+          "usage_status": "current"
+        },
+        {
+          "alias": "K10+ Pro Combo",
+          "language": "en",
+          "alias_type": "short_name",
+          "usage_status": "current"
+        }
+      ],
+      "model_number": "",
+      "market": "JP",
+      "status": "unknown",
+      "profile_path": "products/k10-pro-combo.md",
+      "completeness": "skeleton",
+      "related_product_ids": [],
+      "review_status": "pending_verification",
+      "last_verified_date": "2026-07-30",
+      "external_publish_ready": false,
+      "readiness": {
+        "approved_external_claim_ids": [],
+        "approved_external_claim_count": 0,
+        "current_price_ready": false,
+        "launch_status_ready": false,
+        "competitor_evidence_ready": false,
+        "blocking_reasons": [
+          "profile_not_verified",
+          "lifecycle_not_verified_active",
+          "no_approved_external_claim"
+        ]
+      }
+    },
+    {
+      "product_id": "k11_plus",
+      "official_name": {
+        "en": "SwitchBot K11+",
+        "ja": "",
+        "zh": ""
+      },
+      "aliases": [
+        {
+          "alias": "SwitchBot K11+",
+          "language": "en",
+          "alias_type": "official",
+          "usage_status": "current"
+        },
+        {
+          "alias": "K11+",
+          "language": "en",
+          "alias_type": "short_name",
+          "usage_status": "current"
+        }
+      ],
+      "model_number": "",
+      "market": "JP",
+      "status": "unknown",
+      "profile_path": "products/k11-plus.md",
+      "completeness": "skeleton",
+      "related_product_ids": [],
+      "review_status": "pending_verification",
+      "last_verified_date": "2026-07-30",
+      "external_publish_ready": false,
+      "readiness": {
+        "approved_external_claim_ids": [],
+        "approved_external_claim_count": 0,
+        "current_price_ready": false,
+        "launch_status_ready": false,
+        "competitor_evidence_ready": false,
+        "blocking_reasons": [
+          "profile_not_verified",
+          "lifecycle_not_verified_active",
+          "no_approved_external_claim"
+        ]
+      }
+    },
+    {
+      "product_id": "s10",
+      "official_name": {
+        "en": "SwitchBot S10",
+        "ja": "",
+        "zh": ""
+      },
+      "aliases": [
+        {
+          "alias": "SwitchBot S10",
+          "language": "en",
+          "alias_type": "official",
+          "usage_status": "current"
+        },
+        {
+          "alias": "S10",
+          "language": "en",
+          "alias_type": "short_name",
+          "usage_status": "current"
+        }
+      ],
+      "model_number": "",
+      "market": "JP",
+      "status": "unknown",
+      "profile_path": "products/s10.md",
+      "completeness": "skeleton",
+      "related_product_ids": [],
+      "review_status": "pending_verification",
+      "last_verified_date": "2026-07-30",
+      "external_publish_ready": false,
+      "readiness": {
+        "approved_external_claim_ids": [],
+        "approved_external_claim_count": 0,
+        "current_price_ready": false,
+        "launch_status_ready": false,
+        "competitor_evidence_ready": false,
+        "blocking_reasons": [
+          "profile_not_verified",
+          "lifecycle_not_verified_active",
+          "no_approved_external_claim"
+        ]
+      }
+    },
+    {
+      "product_id": "s20",
+      "official_name": {
+        "en": "SwitchBot S20",
+        "ja": "",
+        "zh": ""
+      },
+      "aliases": [
+        {
+          "alias": "SwitchBot S20",
+          "language": "en",
+          "alias_type": "official",
+          "usage_status": "current"
+        },
+        {
+          "alias": "S20",
+          "language": "en",
+          "alias_type": "short_name",
+          "usage_status": "current"
+        }
+      ],
+      "model_number": "",
+      "market": "JP",
+      "status": "unknown",
+      "profile_path": "products/s20.md",
+      "completeness": "skeleton",
+      "related_product_ids": [],
+      "review_status": "pending_verification",
+      "last_verified_date": "2026-07-30",
+      "external_publish_ready": false,
+      "readiness": {
+        "approved_external_claim_ids": [],
+        "approved_external_claim_count": 0,
+        "current_price_ready": false,
+        "launch_status_ready": false,
+        "competitor_evidence_ready": false,
+        "blocking_reasons": [
+          "profile_not_verified",
+          "lifecycle_not_verified_active",
+          "no_approved_external_claim"
+        ]
+      }
+    },
+    {
+      "product_id": "daily_station",
+      "official_name": {
+        "en": "SwitchBot Daily Station",
+        "ja": "",
+        "zh": ""
+      },
+      "aliases": [
+        {
+          "alias": "SwitchBot Daily Station",
+          "language": "en",
+          "alias_type": "official",
+          "usage_status": "current"
+        },
+        {
+          "alias": "Daily Station",
+          "language": "en",
+          "alias_type": "short_name",
+          "usage_status": "current"
+        }
+      ],
+      "model_number": "",
+      "market": "JP",
+      "status": "unknown",
+      "profile_path": "products/daily-station.md",
+      "completeness": "skeleton",
+      "related_product_ids": [],
+      "review_status": "pending_verification",
+      "last_verified_date": "2026-07-30",
+      "external_publish_ready": false,
+      "readiness": {
+        "approved_external_claim_ids": [],
+        "approved_external_claim_count": 0,
+        "current_price_ready": false,
+        "launch_status_ready": false,
+        "competitor_evidence_ready": false,
+        "blocking_reasons": [
+          "profile_not_verified",
+          "lifecycle_not_verified_active",
+          "no_approved_external_claim"
+        ]
+      }
+    },
+    {
+      "product_id": "weather_station",
+      "official_name": {
+        "en": "SwitchBot Weather Station",
+        "ja": "",
+        "zh": ""
+      },
+      "aliases": [
+        {
+          "alias": "SwitchBot Weather Station",
+          "language": "en",
+          "alias_type": "official",
+          "usage_status": "current"
+        },
+        {
+          "alias": "Weather Station",
+          "language": "en",
+          "alias_type": "short_name",
+          "usage_status": "current"
+        }
+      ],
+      "model_number": "",
+      "market": "JP",
+      "status": "unknown",
+      "profile_path": "products/weather-station.md",
+      "completeness": "skeleton",
+      "related_product_ids": [],
+      "review_status": "pending_verification",
+      "last_verified_date": "2026-07-30",
+      "external_publish_ready": false,
+      "readiness": {
+        "approved_external_claim_ids": [],
+        "approved_external_claim_count": 0,
+        "current_price_ready": false,
+        "launch_status_ready": false,
+        "competitor_evidence_ready": false,
+        "blocking_reasons": [
+          "profile_not_verified",
+          "lifecycle_not_verified_active",
+          "no_approved_external_claim"
+        ]
+      }
+    },
+    {
+      "product_id": "ai_art_canvas",
+      "official_name": {
+        "en": "SwitchBot AI Art Canvas",
+        "ja": "",
+        "zh": ""
+      },
+      "aliases": [
+        {
+          "alias": "SwitchBot AI Art Canvas",
+          "language": "en",
+          "alias_type": "official",
+          "usage_status": "current"
+        },
+        {
+          "alias": "AI Art Canvas",
+          "language": "en",
+          "alias_type": "short_name",
+          "usage_status": "current"
+        },
+        {
+          "alias": "AI Art Frame",
+          "language": "en",
+          "alias_type": "competitor_confusion",
+          "usage_status": "ambiguous"
+        }
+      ],
+      "model_number": "",
+      "market": "JP",
+      "status": "unknown",
+      "profile_path": "products/ai-art-canvas.md",
+      "completeness": "skeleton",
+      "related_product_ids": [],
+      "review_status": "conflict",
+      "last_verified_date": "2026-07-30",
+      "external_publish_ready": false,
+      "readiness": {
+        "approved_external_claim_ids": [],
+        "approved_external_claim_count": 0,
+        "current_price_ready": false,
+        "launch_status_ready": false,
+        "competitor_evidence_ready": false,
+        "blocking_reasons": [
+          "profile_not_verified",
+          "profile_conflict",
+          "lifecycle_not_verified_active",
+          "no_approved_external_claim"
+        ]
+      }
+    },
+    {
+      "product_id": "relay_switch_1",
+      "official_name": {
+        "en": "SwitchBot Relay Switch 1",
+        "ja": "",
+        "zh": ""
+      },
+      "aliases": [
+        {
+          "alias": "SwitchBot Relay Switch 1",
+          "language": "en",
+          "alias_type": "official",
+          "usage_status": "current"
+        },
+        {
+          "alias": "Relay Switch 1",
+          "language": "en",
+          "alias_type": "short_name",
+          "usage_status": "current"
+        }
+      ],
+      "model_number": "",
+      "market": "JP",
+      "status": "unknown",
+      "profile_path": "products/relay-switch-1.md",
+      "completeness": "skeleton",
+      "related_product_ids": [],
+      "review_status": "pending_verification",
+      "last_verified_date": "2026-07-30",
+      "external_publish_ready": false,
+      "readiness": {
+        "approved_external_claim_ids": [],
+        "approved_external_claim_count": 0,
+        "current_price_ready": false,
+        "launch_status_ready": false,
+        "competitor_evidence_ready": false,
+        "blocking_reasons": [
+          "profile_not_verified",
+          "lifecycle_not_verified_active",
+          "no_approved_external_claim"
+        ]
+      }
+    },
+    {
+      "product_id": "kata_friends",
+      "official_name": {
+        "en": "SwitchBot KATA Friends",
+        "ja": "",
+        "zh": ""
+      },
+      "aliases": [
+        {
+          "alias": "SwitchBot KATA Friends",
+          "language": "en",
+          "alias_type": "official",
+          "usage_status": "current"
+        },
+        {
+          "alias": "KATA Friends",
+          "language": "en",
+          "alias_type": "short_name",
+          "usage_status": "current"
+        },
+        {
+          "alias": "KATAフレンズ",
+          "language": "ja",
+          "alias_type": "short_name",
+          "usage_status": "current"
+        }
+      ],
+      "model_number": "",
+      "market": "JP",
+      "status": "unknown",
+      "profile_path": "products/kata-friends.md",
+      "completeness": "skeleton",
+      "related_product_ids": [],
+      "review_status": "pending_verification",
+      "last_verified_date": "2026-07-30",
+      "external_publish_ready": false,
+      "readiness": {
+        "approved_external_claim_ids": [],
+        "approved_external_claim_count": 0,
+        "current_price_ready": false,
+        "launch_status_ready": false,
+        "competitor_evidence_ready": false,
+        "blocking_reasons": [
+          "profile_not_verified",
+          "lifecycle_not_verified_active",
+          "no_approved_external_claim"
+        ]
+      }
+    },
+    {
+      "product_id": "homerunpet_series",
+      "official_name": {
+        "en": "homerunPET Series",
+        "ja": "",
+        "zh": ""
+      },
+      "aliases": [
+        {
+          "alias": "homerunPET",
+          "language": "en",
+          "alias_type": "official",
+          "usage_status": "current"
+        },
+        {
+          "alias": "homerunPET Series",
+          "language": "en",
+          "alias_type": "short_name",
+          "usage_status": "current"
+        }
+      ],
+      "model_number": "",
+      "market": "JP",
+      "status": "unknown",
+      "profile_path": "products/homerunpet-series.md",
+      "completeness": "skeleton",
+      "related_product_ids": [],
+      "review_status": "pending_verification",
+      "last_verified_date": "2026-07-30",
+      "external_publish_ready": false,
+      "readiness": {
+        "approved_external_claim_ids": [],
+        "approved_external_claim_count": 0,
+        "current_price_ready": false,
+        "launch_status_ready": false,
+        "competitor_evidence_ready": false,
+        "blocking_reasons": [
+          "profile_not_verified",
+          "lifecycle_not_verified_active",
+          "no_approved_external_claim"
+        ]
+      }
+    }
+  ],
+  "entities": [
+    {
+      "entity_id": "product:hub_3",
+      "product_id": "hub_3",
+      "entity_type": "product",
+      "variant_id": "",
+      "bundle_id": "",
+      "official_name": "SwitchBot Hub 3",
+      "market": "JP",
+      "identifiers": {},
+      "valid_from": "",
+      "valid_to": "",
+      "source_id": "SRC-004",
+      "review_status": "pending_verification",
+      "last_verified_date": "2026-07-30",
+      "notes": "Product-level entity only. Add variant or bundle rows only with verified identifiers."
+    },
+    {
+      "entity_id": "product:lock_ultra",
+      "product_id": "lock_ultra",
+      "entity_type": "product",
+      "variant_id": "",
+      "bundle_id": "",
+      "official_name": "SwitchBot Lock Ultra",
+      "market": "JP",
+      "identifiers": {},
+      "valid_from": "",
+      "valid_to": "",
+      "source_id": "SRC-002",
+      "review_status": "pending_verification",
+      "last_verified_date": "2026-07-30",
+      "notes": "Product-level entity only. Add variant or bundle rows only with verified identifiers."
+    },
+    {
+      "entity_id": "product:keypad_vision_pro",
+      "product_id": "keypad_vision_pro",
+      "entity_type": "product",
+      "variant_id": "",
+      "bundle_id": "",
+      "official_name": "SwitchBot Keypad Vision Pro",
+      "market": "JP",
+      "identifiers": {},
+      "valid_from": "",
+      "valid_to": "",
+      "source_id": "SRC-003",
+      "review_status": "pending_verification",
+      "last_verified_date": "2026-07-30",
+      "notes": "Product-level entity only. Add variant or bundle rows only with verified identifiers."
+    },
+    {
+      "entity_id": "product:ai_mindclip",
+      "product_id": "ai_mindclip",
+      "entity_type": "product",
+      "variant_id": "",
+      "bundle_id": "",
+      "official_name": "SwitchBot AI MindClip",
+      "market": "JP",
+      "identifiers": {},
+      "valid_from": "",
+      "valid_to": "",
+      "source_id": "SRC-005",
+      "review_status": "pending_verification",
+      "last_verified_date": "2026-07-30",
+      "notes": "Product-level entity only. Add variant or bundle rows only with verified identifiers."
+    },
+    {
+      "entity_id": "product:video_doorbell",
+      "product_id": "video_doorbell",
+      "entity_type": "product",
+      "variant_id": "",
+      "bundle_id": "",
+      "official_name": "SwitchBot Video Doorbell",
+      "market": "JP",
+      "identifiers": {},
+      "valid_from": "",
+      "valid_to": "",
+      "source_id": "SRC-006",
+      "review_status": "pending_verification",
+      "last_verified_date": "2026-07-30",
+      "notes": "Product-level entity only. Add variant or bundle rows only with verified identifiers."
+    },
+    {
+      "entity_id": "product:battery_circulator_fan",
+      "product_id": "battery_circulator_fan",
+      "entity_type": "product",
+      "variant_id": "",
+      "bundle_id": "",
+      "official_name": "SwitchBot Battery Circulator Fan",
+      "market": "JP",
+      "identifiers": {},
+      "valid_from": "",
+      "valid_to": "",
+      "source_id": "SRC-000",
+      "review_status": "pending_verification",
+      "last_verified_date": "2026-07-30",
+      "notes": "Product-level entity only. Add variant or bundle rows only with verified identifiers."
+    },
+    {
+      "entity_id": "product:circulator_fan_2_pro",
+      "product_id": "circulator_fan_2_pro",
+      "entity_type": "product",
+      "variant_id": "",
+      "bundle_id": "",
+      "official_name": "SwitchBot Circulator Fan 2 Pro",
+      "market": "JP",
+      "identifiers": {},
+      "valid_from": "",
+      "valid_to": "",
+      "source_id": "SRC-007",
+      "review_status": "pending_verification",
+      "last_verified_date": "2026-07-30",
+      "notes": "Product-level entity only. Add variant or bundle rows only with verified identifiers."
+    },
+    {
+      "entity_id": "product:curtain_3",
+      "product_id": "curtain_3",
+      "entity_type": "product",
+      "variant_id": "",
+      "bundle_id": "",
+      "official_name": "SwitchBot Curtain 3",
+      "market": "JP",
+      "identifiers": {},
+      "valid_from": "",
+      "valid_to": "",
+      "source_id": "SRC-008",
+      "review_status": "pending_verification",
+      "last_verified_date": "2026-07-30",
+      "notes": "Product-level entity only. Add variant or bundle rows only with verified identifiers."
+    },
+    {
+      "entity_id": "product:k10_pro_combo",
+      "product_id": "k10_pro_combo",
+      "entity_type": "product",
+      "variant_id": "",
+      "bundle_id": "",
+      "official_name": "SwitchBot K10+ Pro Combo",
+      "market": "JP",
+      "identifiers": {},
+      "valid_from": "",
+      "valid_to": "",
+      "source_id": "SRC-009",
+      "review_status": "pending_verification",
+      "last_verified_date": "2026-07-30",
+      "notes": "Product-level entity only. Add variant or bundle rows only with verified identifiers."
+    },
+    {
+      "entity_id": "product:k11_plus",
+      "product_id": "k11_plus",
+      "entity_type": "product",
+      "variant_id": "",
+      "bundle_id": "",
+      "official_name": "SwitchBot K11+",
+      "market": "JP",
+      "identifiers": {},
+      "valid_from": "",
+      "valid_to": "",
+      "source_id": "SRC-001",
+      "review_status": "pending_verification",
+      "last_verified_date": "2026-07-30",
+      "notes": "Product-level entity only. Add variant or bundle rows only with verified identifiers."
+    },
+    {
+      "entity_id": "product:s10",
+      "product_id": "s10",
+      "entity_type": "product",
+      "variant_id": "",
+      "bundle_id": "",
+      "official_name": "SwitchBot S10",
+      "market": "JP",
+      "identifiers": {},
+      "valid_from": "",
+      "valid_to": "",
+      "source_id": "SRC-018",
+      "review_status": "pending_verification",
+      "last_verified_date": "2026-07-30",
+      "notes": "Product-level entity only. Add variant or bundle rows only with verified identifiers."
+    },
+    {
+      "entity_id": "product:s20",
+      "product_id": "s20",
+      "entity_type": "product",
+      "variant_id": "",
+      "bundle_id": "",
+      "official_name": "SwitchBot S20",
+      "market": "JP",
+      "identifiers": {},
+      "valid_from": "",
+      "valid_to": "",
+      "source_id": "SRC-001",
+      "review_status": "pending_verification",
+      "last_verified_date": "2026-07-30",
+      "notes": "Product-level entity only. Add variant or bundle rows only with verified identifiers."
+    },
+    {
+      "entity_id": "product:daily_station",
+      "product_id": "daily_station",
+      "entity_type": "product",
+      "variant_id": "",
+      "bundle_id": "",
+      "official_name": "SwitchBot Daily Station",
+      "market": "JP",
+      "identifiers": {},
+      "valid_from": "",
+      "valid_to": "",
+      "source_id": "SRC-017",
+      "review_status": "pending_verification",
+      "last_verified_date": "2026-07-30",
+      "notes": "Product-level entity only. Add variant or bundle rows only with verified identifiers."
+    },
+    {
+      "entity_id": "product:weather_station",
+      "product_id": "weather_station",
+      "entity_type": "product",
+      "variant_id": "",
+      "bundle_id": "",
+      "official_name": "SwitchBot Weather Station",
+      "market": "JP",
+      "identifiers": {},
+      "valid_from": "",
+      "valid_to": "",
+      "source_id": "SRC-016",
+      "review_status": "pending_verification",
+      "last_verified_date": "2026-07-30",
+      "notes": "Product-level entity only. Add variant or bundle rows only with verified identifiers."
+    },
+    {
+      "entity_id": "product:ai_art_canvas",
+      "product_id": "ai_art_canvas",
+      "entity_type": "product",
+      "variant_id": "",
+      "bundle_id": "",
+      "official_name": "SwitchBot AI Art Canvas",
+      "market": "JP",
+      "identifiers": {},
+      "valid_from": "",
+      "valid_to": "",
+      "source_id": "SRC-000",
+      "review_status": "pending_verification",
+      "last_verified_date": "2026-07-30",
+      "notes": "Product-level entity only. Add variant or bundle rows only with verified identifiers."
+    },
+    {
+      "entity_id": "product:relay_switch_1",
+      "product_id": "relay_switch_1",
+      "entity_type": "product",
+      "variant_id": "",
+      "bundle_id": "",
+      "official_name": "SwitchBot Relay Switch 1",
+      "market": "JP",
+      "identifiers": {},
+      "valid_from": "",
+      "valid_to": "",
+      "source_id": "SRC-015",
+      "review_status": "pending_verification",
+      "last_verified_date": "2026-07-30",
+      "notes": "Product-level entity only. Add variant or bundle rows only with verified identifiers."
+    },
+    {
+      "entity_id": "product:kata_friends",
+      "product_id": "kata_friends",
+      "entity_type": "product",
+      "variant_id": "",
+      "bundle_id": "",
+      "official_name": "SwitchBot KATA Friends",
+      "market": "JP",
+      "identifiers": {},
+      "valid_from": "",
+      "valid_to": "",
+      "source_id": "SRC-011",
+      "review_status": "pending_verification",
+      "last_verified_date": "2026-07-30",
+      "notes": "Product-level entity only. Add variant or bundle rows only with verified identifiers."
+    },
+    {
+      "entity_id": "product:homerunpet_series",
+      "product_id": "homerunpet_series",
+      "entity_type": "product",
+      "variant_id": "",
+      "bundle_id": "",
+      "official_name": "homerunPET Series",
+      "market": "JP",
+      "identifiers": {},
+      "valid_from": "",
+      "valid_to": "",
+      "source_id": "SRC-013",
+      "review_status": "pending_verification",
+      "last_verified_date": "2026-07-30",
+      "notes": "Product-level entity only. Add variant or bundle rows only with verified identifiers."
+    },
+    {
+      "entity_id": "variant:lock-ultra:black-jp",
+      "product_id": "lock_ultra",
+      "entity_type": "variant",
+      "variant_id": "lock_ultra_black_jp",
+      "bundle_id": "",
+      "official_name": "SwitchBot Lock Ultra Black (JP)",
+      "market": "JP",
+      "identifiers": {
+        "sku": "810150543469JP",
+        "jan": "0810150543469",
+        "model_number": "W5600004"
+      },
+      "valid_from": "2025-04-25",
+      "valid_to": "",
+      "source_id": "SRC-002",
+      "review_status": "verified",
+      "last_verified_date": "2026-07-31",
+      "notes": "Verified from SwitchBot Japan public product JSON and Japanese retail listings."
+    },
+    {
+      "entity_id": "variant:lock-ultra:silver-jp",
+      "product_id": "lock_ultra",
+      "entity_type": "variant",
+      "variant_id": "lock_ultra_silver_jp",
+      "bundle_id": "",
+      "official_name": "SwitchBot Lock Ultra Silver (JP)",
+      "market": "JP",
+      "identifiers": {
+        "sku": "810150543513JP",
+        "jan": "0810150543513",
+        "model_number": "W5600000-S"
+      },
+      "valid_from": "2025-04-29",
+      "valid_to": "",
+      "source_id": "SRC-002",
+      "review_status": "verified",
+      "last_verified_date": "2026-07-31",
+      "notes": "Verified from SwitchBot Japan public product JSON and Japanese retail listings."
+    },
+    {
+      "entity_id": "variant:hub-3:jp",
+      "product_id": "hub_3",
+      "entity_type": "variant",
+      "variant_id": "hub_3_jp",
+      "bundle_id": "",
+      "official_name": "SwitchBot Hub 3 (JP)",
+      "market": "JP",
+      "identifiers": {
+        "jan": "0810150543353",
+        "model_number": "W7202101"
+      },
+      "valid_from": "2025-05-01",
+      "valid_to": "",
+      "source_id": "SRC-004",
+      "review_status": "verified",
+      "last_verified_date": "2026-07-31",
+      "notes": "Verified from Rakuten public product metadata and Japanese retail listings."
+    }
+  ],
+  "identifier_lookup": {
+    "asin": {},
+    "sku": {
+      "810150543469JP": [
+        "variant:lock-ultra:black-jp"
+      ],
+      "810150543513JP": [
+        "variant:lock-ultra:silver-jp"
+      ]
+    },
+    "jan": {
+      "0810150543353": [
+        "variant:hub-3:jp"
+      ],
+      "0810150543469": [
+        "variant:lock-ultra:black-jp"
+      ],
+      "0810150543513": [
+        "variant:lock-ultra:silver-jp"
+      ]
+    },
+    "model_number": {
+      "W5600000-S": [
+        "variant:lock-ultra:silver-jp"
+      ],
+      "W5600004": [
+        "variant:lock-ultra:black-jp"
+      ],
+      "W7202101": [
+        "variant:hub-3:jp"
+      ]
+    }
+  },
+  "alias_lookup": {
+    "AI Art Canvas": [
+      "ai_art_canvas"
+    ],
+    "AI MindClip": [
+      "ai_mindclip"
+    ],
+    "AI マインドクリップ": [
+      "ai_mindclip"
+    ],
+    "Battery Circulator Fan": [
+      "battery_circulator_fan"
+    ],
+    "Circulator Fan 2 Pro": [
+      "circulator_fan_2_pro"
+    ],
+    "Curtain 3": [
+      "curtain_3"
+    ],
+    "Daily Station": [
+      "daily_station"
+    ],
+    "Hub 3": [
+      "hub_3"
+    ],
+    "Hub3": [
+      "hub_3"
+    ],
+    "K10+ Pro Combo": [
+      "k10_pro_combo"
+    ],
+    "K11+": [
+      "k11_plus"
+    ],
+    "KATA Friends": [
+      "kata_friends"
+    ],
+    "KATAフレンズ": [
+      "kata_friends"
+    ],
+    "Keypad Vision Pro": [
+      "keypad_vision_pro"
+    ],
+    "Lock Ultra": [
+      "lock_ultra"
+    ],
+    "MindClip": [
+      "ai_mindclip"
+    ],
+    "Relay Switch 1": [
+      "relay_switch_1"
+    ],
+    "S10": [
+      "s10"
+    ],
+    "S20": [
+      "s20"
+    ],
+    "SwitchBot AI Art Canvas": [
+      "ai_art_canvas"
+    ],
+    "SwitchBot AI MindClip": [
+      "ai_mindclip"
+    ],
+    "SwitchBot Battery Circulator Fan": [
+      "battery_circulator_fan"
+    ],
+    "SwitchBot Circulator Fan 2 Pro": [
+      "circulator_fan_2_pro"
+    ],
+    "SwitchBot Curtain 3": [
+      "curtain_3"
+    ],
+    "SwitchBot Daily Station": [
+      "daily_station"
+    ],
+    "SwitchBot Hub 3": [
+      "hub_3"
+    ],
+    "SwitchBot K10+ Pro Combo": [
+      "k10_pro_combo"
+    ],
+    "SwitchBot K11+": [
+      "k11_plus"
+    ],
+    "SwitchBot KATA Friends": [
+      "kata_friends"
+    ],
+    "SwitchBot Keypad Vision Pro": [
+      "keypad_vision_pro"
+    ],
+    "SwitchBot Lock Ultra": [
+      "lock_ultra"
+    ],
+    "SwitchBot Relay Switch 1": [
+      "relay_switch_1"
+    ],
+    "SwitchBot S10": [
+      "s10"
+    ],
+    "SwitchBot S20": [
+      "s20"
+    ],
+    "SwitchBot Video Doorbell": [
+      "video_doorbell"
+    ],
+    "SwitchBot Weather Station": [
+      "weather_station"
+    ],
+    "Video Doorbell": [
+      "video_doorbell"
+    ],
+    "Weather Station": [
+      "weather_station"
+    ],
+    "homerunPET": [
+      "homerunpet_series"
+    ],
+    "homerunPET Series": [
+      "homerunpet_series"
+    ],
+    "ハブ3": [
+      "hub_3"
+    ]
+  },
+  "excluded_aliases": [
+    {
+      "alias": "Keypad Vision",
+      "language": "en",
+      "alias_type": "former_name",
+      "usage_status": "ambiguous",
+      "product_id": "keypad_vision_pro"
+    },
+    {
+      "alias": "AI Art Frame",
+      "language": "en",
+      "alias_type": "competitor_confusion",
+      "usage_status": "ambiguous",
+      "product_id": "ai_art_canvas"
+    }
+  ],
+  "quality_reports": {
+    "validation": "outputs/validation_report.md",
+    "conflicts": "outputs/conflict_report.md"
+  }
+}

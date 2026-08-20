@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0",
+  "asin": "B0FWQY84L6",
+  "source_url": "https://www.amazon.co.jp/gp/product/B0FWQY84L6",
+  "observed_on": "2026-08-18",
+  "observation": {
+    "desktop": "Live Amazon.co.jp page inspected in Chrome at 1440 x 1000; 11 gallery items and 8 major A+ containers recorded.",
+    "mobile": "The same live page inspected at a 390 x 844 browser viewport; Amazon retained a fixed desktop-width content region in this environment.",
+    "limitations": ["The browser automation layer did not expose mobile user-agent switching; mobile findings describe a real 390px viewport, not Amazon m-site.", "Reference images and competitor copy are observation evidence only and are not packaged into the reusable Skill."]
+  },
+  "brand": "EarFun",
+  "product": "EarFun Air Pro 4+",
+  "category": "完全ワイヤレスイヤホン",
+  "page_type": ["Technology-led", "Feature-led", "Premium-brand-led", "Scenario-led"],
+  "complexity": "high",
+  "gallery_patterns": [
+    {"position":1,"image_role":"Main image","consumer_question":"イヤホンとケースの外観はどうか","main_message":"本体とケースを白背景で提示","feature":"Product form","benefit":"商品を即座に識別できる","layout_type":"Official product on white","product_scale":"dominant","text_density":"none","background":"pure white","content_type":["Product"],"why_effective":"後続の暗色技術面と明確に役割分担する。"},
+    {"position":2,"image_role":"Award/value hero","consumer_question":"この製品の価値を信頼できるか","main_message":"複数受賞と主要機能を一面に集約","feature":"Recognition and value bundle","benefit":"価格以上の性能期待を持てる","layout_type":"Dark hero with awards, product and feature labels","product_scale":"large","text_density":"very_high","background":"black gradient","content_type":["Hero","Proof","Feature"],"why_effective":"強い第一印象は作るが、視線がバッジと機能に分散する。"},
+    {"position":3,"image_role":"Audio mechanism","consumer_question":"音質の仕組みは何か","main_message":"ハイブリッドドライバーを分解して示す","feature":"Hybrid driver system","benefit":"音質差の理由を技術的に理解できる","layout_type":"Exploded product diagram","product_scale":"large","text_density":"high","background":"dark metallic","content_type":["Technical","Proof"],"why_effective":"音質という抽象価値を内部構造へ接続する。"},
+    {"position":4,"image_role":"Lifestyle benefit","consumer_question":"長時間聴く体験はどうか","main_message":"装着感と音の広がりを人物で表現","feature":"Comfort and listening experience","benefit":"日常使用を感情的に想像できる","layout_type":"Lifestyle portrait with product inset","product_scale":"small","text_density":"medium","background":"dark lifestyle","content_type":["Scenario","Benefit"],"why_effective":"連続する技術説明の途中に人を入れ、製品価値を体験へ戻す。"},
+    {"position":5,"image_role":"Platform technology","consumer_question":"接続と処理の基盤は何か","main_message":"チップセットと対応技術を提示","feature":"Audio platform chipset","benefit":"接続品質や処理性能への信頼を持てる","layout_type":"Chip-centered technical composition","product_scale":"medium","text_density":"high","background":"black blue technical","content_type":["Technical","Detail"],"why_effective":"内部技術の信頼を補うが、ブランドロゴ依存が強い。"},
+    {"position":6,"image_role":"ANC scenario","consumer_question":"移動中の雑音に対応できるか","main_message":"都市の人物シーンでANCを訴求","feature":"Noise cancellation","benefit":"通勤場面での効果を想像できる","layout_type":"Full lifestyle with simple performance cue","product_scale":"small","text_density":"low","background":"urban lifestyle","content_type":["Scenario","Performance"],"why_effective":"技術を最頻利用場面へ着地させる。"},
+    {"position":7,"image_role":"Category technology","consumer_question":"新しい共有・接続機能は何か","main_message":"Auracast等の技術概念を教育","feature":"Broadcast audio capability","benefit":"将来の利用可能性を理解できる","layout_type":"Network diagram with devices","product_scale":"medium","text_density":"high","background":"dark gradient technical","content_type":["Category Education","Ecosystem"],"why_effective":"先進性を示すが、対応条件と用途説明が不可欠。"},
+    {"position":8,"image_role":"Battery confidence","consumer_question":"一日使えるか","main_message":"本体とケースの持続時間を整理","feature":"Battery life","benefit":"充電頻度を判断できる","layout_type":"Product hero with large time numerals","product_scale":"large","text_density":"medium","background":"dark green-black","content_type":["Proof","Purchase Confidence"],"why_effective":"購入者が比較しやすい指標を単独で提示する。"},
+    {"position":9,"image_role":"Call scenario","consumer_question":"屋外通話で声が届くか","main_message":"人物通話とマイク処理を組み合わせる","feature":"Call noise reduction","benefit":"仕事や移動中の通話適性を判断できる","layout_type":"Lifestyle plus technical callout","product_scale":"medium","text_density":"medium","background":"urban dark lifestyle","content_type":["Scenario","Technical"],"why_effective":"人物と仕組みを一枚に置き、機能と結果を接続する。"},
+    {"position":10,"image_role":"Lifestyle pause","consumer_question":"装着時の見た目や雰囲気はどうか","main_message":"人物ポートレートで使用イメージを提示","feature":"Wearability","benefit":"自分が使う姿を想像できる","layout_type":"Full lifestyle photography","product_scale":"small","text_density":"none","background":"premium portrait","content_type":["Scenario"],"why_effective":"高密度な仕様の後に文字なしの休止面を作る。"},
+    {"position":11,"image_role":"Lifestyle closure","consumer_question":"日常のどの場面で自然に使えるか","main_message":"別の生活場面で製品の雰囲気を補完","feature":"Daily use","benefit":"製品を生活へ取り込む想像を強める","layout_type":"Full lifestyle photography","product_scale":"small","text_density":"none","background":"premium lifestyle","content_type":["Scenario","Closure"],"why_effective":"感情で閉じるが、前の写真との差が小さく説明責任は弱い。"}
+  ],
+  "aplus_patterns": [
+    {"position":1,"module_type":"Brand Story carousel","story_role":"Awards and brand proof","layout":"Nine brand and review cards","message":"受賞、評価、ブランド背景","visual_density":"very_high","product_presence":"medium","scene_presence":"medium","technical_information":"low","interaction_type":"carousel","rhythm_relation":"商品固有説明前に第三者評価を厚く置く。"},
+    {"position":2,"module_type":"Hero video","story_role":"Premium experience","layout":"Dark full-width video","message":"製品・音・利用場面の統合体験","visual_density":"medium","product_presence":"large","scene_presence":"high","technical_information":"medium","interaction_type":"video","rhythm_relation":"バッジ中心の導入を動的な商品体験へ切り替える。"},
+    {"position":3,"module_type":"Navigation carousel","story_role":"Recognition and overview","layout":"Four dark cards","message":"受賞・レビュー・主要特徴","visual_density":"high","product_presence":"medium","scene_presence":"medium","technical_information":"medium","interaction_type":"tabbed carousel","rhythm_relation":"Brand Storyと内容が重複しやすい。"},
+    {"position":4,"module_type":"Technology carousel","story_role":"Audio mechanism chapter","layout":"Four high-end technical cards","message":"ドライバー・チップ・規格","visual_density":"very_high","product_presence":"large","scene_presence":"low","technical_information":"very_high","interaction_type":"carousel","rhythm_relation":"受賞から内部技術へ焦点を移す。"},
+    {"position":5,"module_type":"Navigation carousel","story_role":"Noise and call chapter","layout":"Five mixed lifestyle/technical cards","message":"ANC・外音・通話・装着検知・防水","visual_density":"high","product_presence":"medium","scene_presence":"high","technical_information":"high","interaction_type":"tabbed carousel","rhythm_relation":"音質技術の後に日常利用性能をまとめる。"},
+    {"position":6,"module_type":"Navigation carousel","story_role":"Connectivity chapter","layout":"Four cards","message":"複数接続・Fast Pair・ゲーム・装着","visual_density":"high","product_presence":"medium","scene_presence":"medium","technical_information":"high","interaction_type":"tabbed carousel","rhythm_relation":"利用機能を追加するが、ページ後半でも密度が下がらない。"},
+    {"position":7,"module_type":"Two-column utility module","story_role":"Battery and app confidence","layout":"Two equal columns","message":"電池とアプリ設定","visual_density":"medium","product_presence":"large","scene_presence":"low","technical_information":"medium","interaction_type":"static","rhythm_relation":"連続輪播の後に静的で読みやすい面を作る。"},
+    {"position":8,"module_type":"Comparison table","story_role":"Model selection closure","layout":"Dark-light comparison table","message":"シリーズ内の選択基準","visual_density":"very_high","product_presence":"small","scene_presence":"none","technical_information":"high","interaction_type":"static table","rhythm_relation":"最後を合理的選択で閉じる。"}
+  ],
+  "story_patterns": ["Technology-led", "Feature-led", "Premium-brand-led", "Scenario-led"],
+  "visual_patterns": {
+    "visual_hierarchy": "Awards and large technical headlines compete for the top level; product renders stay prominent.",
+    "information_density": "High to very high in most technical and award units.",
+    "image_text_ratio": "About 55:45 in technical units and 90:10 in the final lifestyle images.",
+    "whitespace": "Limited on dark feature panels; strong in the final photography.",
+    "full_bleed_usage": "Frequent dark gradients and lifestyle photos.",
+    "card_usage": "A+ navigation cards separate sound, ANC, connectivity and utility chapters.",
+    "product_scale": "Large in technical and battery proof, small in lifestyle.",
+    "typography_hierarchy": "Large white headline, several badges and technology logos, then small explanatory copy.",
+    "dark_light_rhythm": "Mostly dark, with lifestyle photography as the softer interval.",
+    "scene_technical_rhythm": "Technology and award panels are periodically interrupted by human use scenes."
+  },
+  "strengths": ["技术机制与人物场景交替，能把规格转成体验", "电池等关键比较指标独立成图", "A+按音质、降噪、连接、实用性分章", "后段纯场景图提供视觉呼吸"],
+  "weaknesses": ["受赏与Logo堆叠明显", "Gallery 2同时承担过多功能与信任任务", "A+多章密度持续偏高且与Brand Story重复", "最后两张场景差异有限，390px viewport有裁切风险"],
+  "use": ["技术证明之后用人物场景展示使用结果", "将音质、降噪、连接等技术群分章", "把电池等购买指标单独展示", "用无文字场景面控制节奏"],
+  "adapt": ["SwitchBot页面减少受赏依赖，把信任建立在产品机制与官方证据上", "暗色只用于重点技术章节，不形成全页黑色", "程序化生成技术标签和日文，不把文字烘焙进场景"],
+  "avoid": ["复制EarFun黑色渐变、技术Logo墙或受赏墙", "用一张Hero同时塞奖项、规格、功能和口号", "在没有授权与来源时使用第三方Logo", "直接复制竞品技术图、UI、文案或完整布局"],
+  "good_for": ["技术与性价比并重的消费电子", "需要在机制说明和生活场景之间切换的页面", "多项连接与音频标准需要分章解释的产品"],
+  "matcher_profile": {
+    "categories": ["audio", "consumer electronics", "wearable"],
+    "complexities": ["high", "medium"],
+    "primary_usps": ["sound technology", "ANC", "value", "connectivity"],
+    "consumer_tensions": ["performance value", "noise", "battery", "call quality", "compatibility"],
+    "product_types": ["wearable", "personal electronics"],
+    "story_requirements": ["Technology-led", "Feature-led", "Scenario-led", "Premium-brand-led"],
+    "technical_complexities": ["high", "medium"],
+    "target_audiences": ["value-conscious enthusiast", "commuter", "gamer", "mobile worker"]
+  }
+}

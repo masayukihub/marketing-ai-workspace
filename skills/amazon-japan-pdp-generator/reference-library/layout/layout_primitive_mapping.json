@@ -1,0 +1,197 @@
+{
+  "schema_version": "1.0",
+  "principle": "The 19 existing templates remain the only production layouts. This mapping reclassifies each template as a bounded layout primitive and assigns semantic Visual Roles; it does not add templates.",
+  "visual_roles": ["Hero", "Technology", "Scenario", "Feature", "Proof", "Comparison", "Detail", "Closure"],
+  "mappings": [
+    {
+      "template_id": "P-MAIN-OFFICIAL",
+      "family": "product_image",
+      "primitive": "Centered object on white",
+      "primary_role": "Hero",
+      "secondary_roles": ["Detail"],
+      "best_when": "IMAGE-01 must establish exact product identity without marketing copy.",
+      "reference_learning": "All six references separate a neutral official main image from the persuasion sequence.",
+      "boundaries": ["Official Product Layer only", "No text, badge, scene or inferred accessory"]
+    },
+    {
+      "template_id": "P-HERO-SPLIT",
+      "family": "product_image",
+      "primitive": "Asymmetric text-product split",
+      "primary_role": "Hero",
+      "secondary_roles": ["Feature", "Closure"],
+      "best_when": "One value proposition must be understood before details.",
+      "reference_learning": "Eufy and Plaud show that a calm hero can establish fit or workflow value without a feature collage.",
+      "boundaries": ["One hero value", "Product at least 42 percent", "Maximum three information levels"]
+    },
+    {
+      "template_id": "P-FEATURE-CENTER",
+      "family": "product_image",
+      "primitive": "Centered product with top message and limited callouts",
+      "primary_role": "Feature",
+      "secondary_roles": ["Technology", "Detail"],
+      "best_when": "A visible part or interaction is the single visual center.",
+      "reference_learning": "Soundcore product cutaways and Eufy mechanism units work when the object stays central and callouts are limited.",
+      "boundaries": ["One mechanism", "Maximum two callouts", "No radial feature inventory"]
+    },
+    {
+      "template_id": "P-FEATURE-SPLIT",
+      "family": "product_image",
+      "primitive": "Balanced object-copy split",
+      "primary_role": "Feature",
+      "secondary_roles": ["Proof", "Detail"],
+      "best_when": "One feature needs a short benefit and one optional source-backed note.",
+      "reference_learning": "Levoit and Eufy repeatedly pair one visible mechanism with one shopper consequence.",
+      "boundaries": ["One feature and one benefit", "No multi-topic collage", "Text remains readable at 390px"]
+    },
+    {
+      "template_id": "P-LIFESTYLE-FULL",
+      "family": "product_image",
+      "primitive": "Full-bleed scene with controlled product and overlay zones",
+      "primary_role": "Scenario",
+      "secondary_roles": ["Hero", "Closure"],
+      "best_when": "A believable Japanese-life moment answers a concrete purchase question.",
+      "reference_learning": "Plaud, Levoit and Eufy use scenes as fit evidence and rhythm resets, not decoration.",
+      "boundaries": ["Official product remains accurate", "One user moment", "Scene cannot carry unsupported proof"]
+    },
+    {
+      "template_id": "P-TECHNICAL-PROOF",
+      "family": "product_image",
+      "primitive": "Object or diagram plus stacked proof zone",
+      "primary_role": "Proof",
+      "secondary_roles": ["Technology", "Detail"],
+      "best_when": "An invisible mechanism or performance claim needs a source-linked explanation.",
+      "reference_learning": "Soundcore and Eufy are strongest when one mechanism resolves one performance question; ECOVACS shows the density limit.",
+      "boundaries": ["Maximum three proof items", "Every claim has source and condition", "All diagram text is programmatic"]
+    },
+    {
+      "template_id": "P-ECOSYSTEM",
+      "family": "product_image",
+      "primitive": "Centered hub with verified relationship map",
+      "primary_role": "Technology",
+      "secondary_roles": ["Feature", "Detail"],
+      "best_when": "Compatibility and control relationships are a purchase decision.",
+      "reference_learning": "Plaud workflow maps and Eufy control closure are useful only when relationships stay explicit and limited.",
+      "boundaries": ["Verified relationships only", "No invented UI or logos", "Mobile becomes a vertical list"]
+    },
+    {
+      "template_id": "P-COMPARISON",
+      "family": "product_image",
+      "primitive": "Selection headline plus bounded comparison matrix",
+      "primary_role": "Comparison",
+      "secondary_roles": ["Proof", "Closure"],
+      "best_when": "A small number of source-backed criteria will change the shopper's choice.",
+      "reference_learning": "All six references use comparison, but Soundcore and Plaud show that full tables are often too dense for Gallery.",
+      "boundaries": ["Prioritize selection criteria", "Unknown values stay internal", "Do not force a full desktop table into mobile"]
+    },
+    {
+      "template_id": "P-PURCHASE-CONFIDENCE",
+      "family": "product_image",
+      "primitive": "Product anchor plus stacked purchase checks",
+      "primary_role": "Closure",
+      "secondary_roles": ["Detail", "Proof"],
+      "best_when": "Included items, installation, support, privacy or compatibility can block purchase.",
+      "reference_learning": "Eufy closes with support, privacy and ecosystem; Levoit closes with household fit.",
+      "boundaries": ["Maximum three checks", "Separate included and required items", "No vague assurance"]
+    },
+    {
+      "template_id": "A-HERO",
+      "family": "aplus",
+      "primitive": "Wide opening split with one visual center",
+      "primary_role": "Hero",
+      "secondary_roles": ["Scenario", "Feature"],
+      "best_when": "A+ must reframe the category and value without replaying Gallery.",
+      "reference_learning": "Plaud and Levoit use the A+ opening to reset the experience around workflow or audience, not a feature list.",
+      "boundaries": ["Use once", "One category/value statement", "Mobile text precedes image"]
+    },
+    {
+      "template_id": "A-50-50-FEATURE",
+      "family": "aplus",
+      "primitive": "Equal narrative and visual columns",
+      "primary_role": "Feature",
+      "secondary_roles": ["Technology", "Proof", "Scenario"],
+      "best_when": "One mechanism-to-benefit explanation needs more room than Gallery.",
+      "reference_learning": "Eufy keeps mechanism explanations readable by giving one question a complete horizontal unit.",
+      "boundaries": ["One primary feature", "One optional note", "Stack text then image on mobile"]
+    },
+    {
+      "template_id": "A-THREE-FEATURE-GRID",
+      "family": "aplus",
+      "primitive": "Two or three equal semantic cards",
+      "primary_role": "Feature",
+      "secondary_roles": ["Detail", "Proof"],
+      "best_when": "Two or three parallel items answer the same consumer question.",
+      "reference_learning": "Plaud input modes and Eufy three-reason explanations work because cards are parallel; ECOVACS inventories are not.",
+      "boundaries": ["Exactly two or three parallel cards", "Equal image scale", "Never a miscellaneous feature collage"]
+    },
+    {
+      "template_id": "A-LIFESTYLE",
+      "family": "aplus",
+      "primitive": "Wide scene with narrative overlay",
+      "primary_role": "Scenario",
+      "secondary_roles": ["Hero", "Closure"],
+      "best_when": "The page needs to prove fit, routine or relief in a believable context.",
+      "reference_learning": "Levoit uses a dark bedroom as a rhythm change; Plaud uses work scenes to prove workflow fit.",
+      "boundaries": ["One moment", "Product remains accurate", "Crop-safe face and product zones"]
+    },
+    {
+      "template_id": "A-TECHNICAL",
+      "family": "aplus",
+      "primitive": "Large technical visual plus proof column",
+      "primary_role": "Technology",
+      "secondary_roles": ["Proof", "Detail"],
+      "best_when": "The shopper needs mechanism, condition and consequence together.",
+      "reference_learning": "Soundcore demonstrates credibility; ECOVACS demonstrates why density must be capped.",
+      "boundaries": ["Maximum three proof cards", "Claim conditions remain adjacent", "No invented diagram text"]
+    },
+    {
+      "template_id": "A-INSTALLATION",
+      "family": "aplus",
+      "primitive": "Ordered two- or three-step sequence",
+      "primary_role": "Detail",
+      "secondary_roles": ["Proof", "Closure"],
+      "best_when": "Setup effort or accessory sequence is a purchase barrier.",
+      "reference_learning": "Eufy's fit-first story shows installation information is confidence content, not a technical afterthought.",
+      "boundaries": ["Verified steps only", "Official installation assets", "No inferred accessory or omitted prerequisite"]
+    },
+    {
+      "template_id": "A-ECOSYSTEM",
+      "family": "aplus",
+      "primitive": "System relationship map with editable labels",
+      "primary_role": "Technology",
+      "secondary_roles": ["Feature", "Detail"],
+      "best_when": "The product's value depends on verified devices, apps or platforms working together.",
+      "reference_learning": "Plaud's workflow chapters and Eufy's control closure show that relationship maps must follow the user's task.",
+      "boundaries": ["Verified edges only", "No invented UI", "Spokes convert to vertical relationships on mobile"]
+    },
+    {
+      "template_id": "A-COMPARISON",
+      "family": "aplus",
+      "primitive": "Wide source-backed selection matrix",
+      "primary_role": "Comparison",
+      "secondary_roles": ["Proof", "Closure"],
+      "best_when": "The user must choose among current variants or understand a method difference.",
+      "reference_learning": "Comparison works as closure across all references but becomes exhausting when every row is treated equally.",
+      "boundaries": ["Priority rows first", "Uniform scale and current sources", "Selection aid, not superiority theater"]
+    },
+    {
+      "template_id": "A-FAQ",
+      "family": "aplus",
+      "primitive": "Stacked objection-response rows",
+      "primary_role": "Closure",
+      "secondary_roles": ["Detail", "Proof"],
+      "best_when": "Compatibility, requirements or conditions remain after the story.",
+      "reference_learning": "Soundcore's FAQ converts a dense technical story into final purchase clarity.",
+      "boundaries": ["Maximum three priority objections", "Question and answer stay adjacent", "No tiny disclaimer-only answers"]
+    },
+    {
+      "template_id": "A-BRAND",
+      "family": "aplus",
+      "primitive": "Brand statement plus official product or scene",
+      "primary_role": "Closure",
+      "secondary_roles": ["Hero", "Proof"],
+      "best_when": "An approved brand promise materially reduces purchase risk.",
+      "reference_learning": "Competitor Brand Stories often overuse awards; SwitchBot should use brand only when it supports the product decision.",
+      "boundaries": ["One approved brand message", "Official logo asset", "No unsupported leadership or award claim"]
+    }
+  ]
+}

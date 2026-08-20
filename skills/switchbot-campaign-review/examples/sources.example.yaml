@@ -1,0 +1,30 @@
+project:
+  name: Autumn Smart Home Launch
+  market: Japan
+  currency: JPY
+  timezone: Asia/Tokyo
+sources:
+  - id: paid-media-base
+    name: Paid Media Delivery
+    url: https://example.feishu.cn/base/bascnExample?table=tblExample
+    source_type: auto
+    expected_content: Channel and campaign delivery records
+    required: true
+    table_name:
+    view_name:
+    notes: Read all tables unless a table is explicitly configured.
+  - id: crm-workbook
+    name: CRM Performance
+    url: https://example.feishu.cn/sheets/shtcnExample
+    source_type: sheet
+    expected_content: EDM, LINE, and App Push performance
+    required: true
+    sheet_name:
+    notes: Every accessible worksheet must be snapshotted.
+  - id: campaign-brief
+    name: Campaign Brief
+    url: https://example.feishu.cn/docx/doxcnExample
+    source_type: docx
+    expected_content: Campaign dates, objectives, and metric definitions
+    required: false
+    notes: Markdown and structured document exports are retained.

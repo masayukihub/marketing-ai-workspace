@@ -1,0 +1,22 @@
+schema_version: 2.0.0
+product_field_statuses: [APPROVED, INHERITED_APPROVAL, VERIFIED_FROM_OFFICIAL_SOURCE, VERIFIED, DRAFT, HUMAN_REQUIRED, UNVERIFIED, REJECTED, MISSING, NOT_REQUIRED]
+claim_statuses: [APPROVED, INHERITED_APPROVAL, VERIFIED_EXISTING_CLAIM, VERIFIED, DRAFT, HUMAN_REQUIRED, UNVERIFIED, REJECTED, MISSING, NOT_USED]
+claim_requirement_levels: [PRIMARY_REQUIRED, SECONDARY_OPTIONAL, PROHIBITED]
+asset_source_authenticity_statuses: [OFFICIAL_MARKETING_ASSET, OFFICIAL_SOURCE, THIRD_PARTY_LICENSED, UNVERIFIED]
+asset_usage_scope_statuses: [DESIGN_PRODUCTION_APPROVED, CHANNEL_APPROVED, HUMAN_REQUIRED_AT_SEND, INTERNAL_ONLY, REJECTED, UNKNOWN]
+asset_production_statuses: [APPROVED, OFFICIAL_MARKETING_ASSET, DESIGN_PRODUCTION_APPROVED, INTERNAL_ONLY, EXPIRED, REJECTED, UNKNOWN]
+approval_resolution_types: [AUTO_VERIFY, INHERIT, HUMAN_REQUIRED, NOT_REQUIRED]
+human_decisions: [APPROVE, MINOR_REVISION, MAJOR_REVISION, REJECT]
+principles:
+  official_source_can_satisfy_design_truth: true
+  verified_existing_claim_can_satisfy_visual_candidate: true
+  verified_is_not_final_send_approval: true
+  codex_may_approve: false
+  design_renderer_asset_scope: DESIGN_PRODUCTION_APPROVED
+  final_send_asset_scope: CHANNEL_APPROVED
+  unmapped_factual_claim: BLOCK
+  promotion_truth_missing: BLOCK
+  secondary_optional_claim_failure: DROP_OR_SUBSTITUTE
+  primary_required_claim_failure: BLOCK
+  visual_gate_independent_from_esp: true
+  audit_history_append_only: true

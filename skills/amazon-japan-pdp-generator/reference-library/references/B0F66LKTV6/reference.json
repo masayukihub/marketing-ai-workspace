@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0",
+  "asin": "B0F66LKTV6",
+  "source_url": "https://www.amazon.co.jp/dp/B0F66LKTV6",
+  "observed_on": "2026-08-18",
+  "observation": {
+    "desktop": "Live Amazon.co.jp page inspected in Chrome at 1440 x 1000; 9 gallery items and 8 major A+ containers recorded.",
+    "mobile": "The same live page inspected at a 390 x 844 browser viewport; Amazon retained a fixed desktop-width content region in this environment.",
+    "limitations": ["The browser automation layer did not expose mobile user-agent switching; mobile findings describe a real 390px viewport, not Amazon m-site.", "Reference images and competitor copy are observation evidence only and are not packaged into the reusable Skill."]
+  },
+  "brand": "ECOVACS",
+  "product": "DEEBOT T80 OMNI",
+  "category": "ロボット掃除機",
+  "page_type": ["Performance-led", "Technology-led", "Problem-solution", "Feature-led"],
+  "complexity": "very_high",
+  "gallery_patterns": [
+    {"position":1,"image_role":"Main image","consumer_question":"本体とステーションはどのような構成か","main_message":"ロボットと大型ステーションをセットで提示","feature":"Product system","benefit":"設置物の全体構成を最初に理解できる","layout_type":"Official system product on white","product_scale":"dominant","text_density":"none","background":"pure white","content_type":["Product"],"why_effective":"高複雑度な製品群を一つのシステムとして認識させる。"},
+    {"position":2,"image_role":"Performance hero","consumer_question":"掃除性能の中心的な強みは何か","main_message":"清掃力の大幅向上を数値で訴求","feature":"Cleaning performance","benefit":"旧方式より強い清掃期待を持てる","layout_type":"Large system render with performance numeral","product_scale":"large","text_density":"medium","background":"dark blue technical","content_type":["Hero","Performance"],"why_effective":"複雑な機能群より先に一つの性能結論を置く。ただし倍率Claimは比較条件が必須。"},
+    {"position":3,"image_role":"Problem-solution mechanism","consumer_question":"床をこする仕組みは何が違うか","main_message":"ローラー式モップの接触と洗浄を説明","feature":"Roller mop mechanism","benefit":"汚れを広げずに拭く理由を理解できる","layout_type":"Mechanism diagram with before-after logic","product_scale":"large","text_density":"high","background":"blue-white technical","content_type":["Technical","Problem-solution"],"why_effective":"ユーザーの不満である汚れ移りを機構で解く。"},
+    {"position":4,"image_role":"Suction proof","consumer_question":"ゴミをどこまで吸えるか","main_message":"吸引力とゴミ例を提示","feature":"Suction power","benefit":"床上の代表的なゴミへの対応を判断できる","layout_type":"Performance numeral plus debris strip","product_scale":"medium","text_density":"medium","background":"dark blue","content_type":["Performance","Proof"],"why_effective":"数値を実際のゴミ例に接続し、意味を補う。"},
+    {"position":5,"image_role":"Coverage proof","consumer_question":"壁際や角まで掃除できるか","main_message":"エッジへの接近動作を図示","feature":"Edge cleaning","benefit":"取り残しへの不安を下げる","layout_type":"Top-down floor plan and close-up","product_scale":"medium","text_density":"high","background":"light blue technical","content_type":["Technical","Scenario"],"why_effective":"性能を部屋の境界という具体的な失敗点へ結びつける。"},
+    {"position":6,"image_role":"Station inventory","consumer_question":"ステーションは何を自動化するか","main_message":"多数の自動メンテナンス機能を一覧化","feature":"Multi-function station","benefit":"日々の手入れ削減を網羅的に確認できる","layout_type":"Central station with many callouts","product_scale":"large","text_density":"very_high","background":"blue-white feature field","content_type":["Feature","Detail"],"why_effective":"網羅性は高いが、一枚の判断量を超えている。"},
+    {"position":7,"image_role":"Smart operation","consumer_question":"操作を簡単にできるか","main_message":"音声・アプリ等の操作方法をまとめる","feature":"Smart controls","benefit":"自分の生活に合う操作入口を判断できる","layout_type":"Lifestyle scene with interface callouts","product_scale":"medium","text_density":"high","background":"home scene plus blue panels","content_type":["Scenario","Ecosystem"],"why_effective":"清掃機構から日常の操作へ移り、利用の全体像を補う。"},
+    {"position":8,"image_role":"Navigation proof","consumer_question":"障害物を避け、効率よく走れるか","main_message":"認識・経路・制御を一枚に統合","feature":"Navigation and obstacle avoidance","benefit":"家具のある家での失敗リスクを判断できる","layout_type":"Three-zone technical map","product_scale":"medium","text_density":"very_high","background":"blue technical collage","content_type":["Technical","Proof"],"why_effective":"重要な不安を網羅する一方、認識・経路・アプリが競合している。"},
+    {"position":9,"image_role":"Method comparison","consumer_question":"従来の回転モップより何が良いか","main_message":"ローラーとパッド方式の違いを比較","feature":"Cleaning method difference","benefit":"方式選択の理由を理解できる","layout_type":"Side-by-side method comparison","product_scale":"medium","text_density":"high","background":"light comparison field","content_type":["Comparison","Proof"],"why_effective":"主要USPを競合方式との差へ戻して締める。"}
+  ],
+  "aplus_patterns": [
+    {"position":1,"module_type":"Brand Story carousel","story_role":"Brand scale","layout":"Four large brand cards","message":"ブランド・技術・製品群の信頼","visual_density":"medium","product_presence":"medium","scene_presence":"medium","technical_information":"low","interaction_type":"carousel","rhythm_relation":"製品機構前にブランドの大きさを置く導入。"},
+    {"position":2,"module_type":"Full-width hero","story_role":"Performance reset","layout":"Dark full-bleed system hero","message":"清掃力と自動化の統合価値","visual_density":"medium","product_presence":"dominant","scene_presence":"low","technical_information":"medium","interaction_type":"static","rhythm_relation":"ブランド面から商品中心の暗色面へ強く転換する。"},
+    {"position":3,"module_type":"Navigation carousel","story_role":"Mop mechanism chapter","layout":"Blue-black tabs with mechanism cards","message":"ローラー、洗浄、圧力、汚れ処理","visual_density":"very_high","product_presence":"large","scene_presence":"low","technical_information":"very_high","interaction_type":"tabbed carousel","rhythm_relation":"Heroの性能結論を最重要機構へ掘り下げる。"},
+    {"position":4,"module_type":"Navigation carousel","story_role":"Floor coverage chapter","layout":"Four technical cards","message":"壁際・段差・カーペット・持ち上げ","visual_density":"high","product_presence":"medium","scene_presence":"medium","technical_information":"high","interaction_type":"tabbed carousel","rhythm_relation":"機構から部屋内の失敗点へ視点を広げる。"},
+    {"position":5,"module_type":"Navigation carousel","story_role":"Station automation chapter","layout":"Multi-function station cards","message":"ステーションの自動処理","visual_density":"very_high","product_presence":"large","scene_presence":"low","technical_information":"high","interaction_type":"tabbed carousel","rhythm_relation":"床上性能から購入後の手入れ負担へ移る。"},
+    {"position":6,"module_type":"Navigation carousel","story_role":"Intelligence chapter","layout":"Map, recognition and app cards","message":"認識・経路・アプリ・連携","visual_density":"very_high","product_presence":"medium","scene_presence":"medium","technical_information":"very_high","interaction_type":"tabbed carousel","rhythm_relation":"最後の技術章として操作と知能をまとめるが論点が多い。"},
+    {"position":7,"module_type":"Comparison table","story_role":"Model selection","layout":"Wide product comparison","message":"シリーズ内の性能・機能差","visual_density":"very_high","product_presence":"small","scene_presence":"none","technical_information":"very_high","interaction_type":"static table","rhythm_relation":"技術章を選択支援へ切り替える。"},
+    {"position":8,"module_type":"Specification text","story_role":"Condition closure","layout":"Long text and specifications","message":"仕様・条件・注意事項","visual_density":"very_high","product_presence":"none","scene_presence":"none","technical_information":"very_high","interaction_type":"static text","rhythm_relation":"情報は網羅するが、最後の読後感は重い。"}
+  ],
+  "story_patterns": ["Performance-led", "Technology-led", "Problem-solution", "Feature-led"],
+  "visual_patterns": {
+    "visual_hierarchy": "Large numeric performance claims lead; mechanism diagrams and multi-callout panels follow.",
+    "information_density": "High to very high across most gallery and A+ units.",
+    "image_text_ratio": "Roughly 50:50, often with text embedded inside diagrams.",
+    "whitespace": "Low; panels prioritize coverage over breathing room.",
+    "full_bleed_usage": "Frequent blue and dark technical fields.",
+    "card_usage": "Cards and callouts enumerate mechanisms and station functions.",
+    "product_scale": "Large for robot and station, medium inside navigation diagrams.",
+    "typography_hierarchy": "Large blue/white claim, several medium labels and many small annotations.",
+    "dark_light_rhythm": "Dark hero and navigation bars alternate with pale technical panels, but density remains constant.",
+    "scene_technical_rhythm": "Technical chapters dominate; lifestyle scenes are secondary proof contexts."
+  },
+  "strengths": ["机制解释紧贴用户痛点", "从清洁核心到基站再到导航有完整技术链", "性能数字与典型污物、墙角等场景连接", "系列比较提供明确选择入口"],
+  "weaknesses": ["信息密度长期处于高位", "单张图多次出现功能清单和小字", "A+四组导航轮播的视觉变化不足", "规格长文造成疲劳，390px viewport裁切风险明显"],
+  "use": ["把核心清洁问题拆成机制—性能—覆盖—维护链路", "技术Claim后立即呈现失效场景或可见结果", "复杂系统按核心机构、环境适配、自动维护、智能控制分章"],
+  "adapt": ["每个SwitchBot视觉单元只承担一个机制或一个Proof", "将蓝黑重科技改为SwitchBot更清洁、友好的技术层", "把10-in-1式清单拆成按消费者决策顺序的少量节点"],
+  "avoid": ["复制ECOVACS蓝色Trade Dress或模块导航样式", "用未经来源确认的倍数、大数字或对比结论", "在图库或移动端塞入多列小字表", "把所有功能放在一张中央放射图里"],
+  "good_for": ["清洁机制决定性能的复杂家电", "需要解释机器人、基站和软件三层系统的产品", "用户会比较清洁方式而不仅是功能数量的页面"],
+  "matcher_profile": {
+    "categories": ["robot vacuum", "home appliance", "cleaning"],
+    "complexities": ["very_high", "high"],
+    "primary_usps": ["cleaning performance", "mechanism", "automation", "coverage"],
+    "consumer_tensions": ["stains", "manual maintenance", "missed edges", "navigation failure"],
+    "product_types": ["appliance", "robot", "system product"],
+    "story_requirements": ["Performance-led", "Technology-led", "Problem-solution"],
+    "technical_complexities": ["very_high", "high"],
+    "target_audiences": ["tech-aware household", "large household", "pet owner", "automation seeker"]
+  }
+}

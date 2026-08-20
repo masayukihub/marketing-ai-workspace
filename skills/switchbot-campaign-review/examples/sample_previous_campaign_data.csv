@@ -1,0 +1,9 @@
+date,period,campaign,channel,product,spend,budget,impressions,reach,clicks,conversions,revenue,views,engagements,sends,delivered,opens,currency,tax_basis,attribution_window
+2024-07-10,2024,Prime Day 2024,Google Ads,Lock Series,300000,320000,3000000,2400000,30000,900,450000,,,,,,JPY,Tax Included,7-day click
+2024-07-10,2024,Prime Day 2024,YouTube Ads,Hub Series,200000,220000,2000000,1500000,4000,50,100000,800000,20000,,,,JPY,Tax Included,7-day click
+2024-07-10,2024,Prime Day 2024,KOL,Multiple Products,100000,110000,,,1000,20,50000,100000,5000,,,,JPY,Tax Included,7-day click
+2024-07-10,2024,Prime Day 2024,EDM,Multiple Products,50000,55000,,,3000,200,200000,,,100000,95000,30000,JPY,Tax Included,7-day click
+2025-07-10,2025,Prime Day 2025,Google Ads,Lock Series,350000,380000,3200000,2550000,35200,1056,630000,,,,,,JPY,Tax Included,7-day click
+2025-07-10,2025,Prime Day 2025,YouTube Ads,Hub Series,220000,240000,2500000,1800000,5000,60,120000,1000000,28000,,,,JPY,Tax Included,7-day click
+2025-07-10,2025,Prime Day 2025,KOL,Multiple Products,120000,130000,,,1300,25,65000,150000,7500,,,,JPY,Tax Included,7-day click
+2025-07-10,2025,Prime Day 2025,EDM,Multiple Products,50000,55000,,,3500,240,260000,,,110000,104000,34000,JPY,Tax Included,7-day click

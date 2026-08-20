@@ -1,0 +1,45 @@
+schema_version: 1.0.0
+product:
+  product_id: {value: daily_station, status: VERIFIED, source: /Users/lai/.codex/skills/product-knowledge/outputs/product_index.json}
+  official_name_ja: {value: SwitchBot スマートデイリーステーション, status: VERIFIED, source: "https://www.switchbot.jp/products/switchbot-weather-station", verified_on: 2026-08-19}
+  official_name_en: {value: SwitchBot Daily Station, status: VERIFIED, source: /Users/lai/.codex/skills/product-knowledge/references/product_master.xlsx#daily_station}
+  category: {value: 情報ディスプレイ／スマート天気ステーション, status: VERIFIED, source: "https://www.switchbot.jp/products/switchbot-weather-station", verified_on: 2026-08-19}
+  positioning: {value: 暮らしの情報を、この1画面に, status: VERIFIED, source: "https://www.switchbot.jp/products/switchbot-weather-station", approval_scope: internal_renderer_pilot_only}
+  target_audience: {value: null, status: UNVERIFIED, source: /Users/lai/.codex/skills/product-knowledge/references/product_master.xlsx#daily_station}
+message:
+  primary_value: {value: 天気・室内環境・家族の予定を一つの画面で確認, status: VERIFIED, source: "https://www.switchbot.jp/products/switchbot-weather-station", approval_scope: internal_renderer_pilot_only}
+  primary_usp: {value: 家族の予定を画面ひとつに, status: VERIFIED, source: "https://www.switchbot.jp/products/switchbot-weather-station#家族の予定を画面ひとつに", approval_scope: internal_renderer_pilot_only}
+  secondary_usp:
+    - {value: 天気と室内環境を同じ画面で確認, status: VERIFIED, source: "https://www.switchbot.jp/products/switchbot-weather-station", approval_scope: internal_renderer_pilot_only}
+copy_candidates:
+  hero_headline: {value: 暮らしの情報を、この1画面に。, status: UNVERIFIED, source: Phase 6 safe localization based on official page, approval_scope: internal_renderer_pilot_only}
+  hero_body: {value: 天気も室内環境も、家族のスケジュールも。毎日見る情報を、画面ひとつに。, status: VERIFIED, source: "https://www.switchbot.jp/products/switchbot-weather-station", approval_scope: internal_renderer_pilot_only}
+  one_screen_title: {value: 必要な情報を、画面ひとつで確認。, status: UNVERIFIED, source: Phase 6 localization, approval_scope: internal_renderer_pilot_only}
+  ui_title: {value: 暮らしの情報を、手元の1画面へ。, status: UNVERIFIED, source: Phase 6 localization, approval_scope: internal_renderer_pilot_only}
+  environment_title: {value: 空気も天気も、一画面で。, status: UNVERIFIED, source: Phase 6 localization, approval_scope: internal_renderer_pilot_only}
+  schedule_title: {value: 家族の予定を、画面ひとつに。, status: VERIFIED, source: "https://www.switchbot.jp/products/switchbot-weather-station#家族の予定を画面ひとつに", approval_scope: internal_renderer_pilot_only}
+  disclaimer: {value: 表示機能や連携条件は、公式製品ページの最新情報でご確認ください。, status: UNVERIFIED, source: Phase 6 safe disclaimer, approval_scope: internal_renderer_pilot_only}
+claims:
+  approved: []
+  conditional: []
+  prohibited:
+    - {value: 電池寿命・画面サイズ・AI・センサー精度・接続距離・対応数などの数値表現, status: VERIFIED, source: /Users/lai/.codex/skills/product-knowledge/references/compliance.md#CMP-003}
+    - {value: すべてを絶対的な機能保証として展開, status: VERIFIED, source: production_truth/products/daily_station.yaml#positioning}
+  source: {value: Product Knowledge has no Daily Station claim record, status: MISSING, source: /Users/lai/.codex/skills/product-knowledge/references/claim.md}
+specs:
+  verified: []
+  source: {value: Product Knowledge contains no Daily Station spec rows, status: MISSING, source: /Users/lai/.codex/skills/product-knowledge/references/product_specs.xlsx#daily_station}
+compatibility:
+  - {value: カスタムボタン機能の利用にはSwitchBot ハブ製品およびアプリでのシーン設定が必要, status: VERIFIED_EXISTING_CLAIM, source: "https://prtimes.jp/main/html/rd/p/000000164.000057002.html", use_only_when_feature_present: true}
+  - {value: 自動化機能の利用にはSwitchBot ハブ製品が必要, status: VERIFIED_EXISTING_CLAIM, source: "https://prtimes.jp/main/html/rd/p/000000164.000057002.html", use_only_when_feature_present: true}
+proof: {value: [], status: MISSING, source: production_truth/proof/daily_station.yaml}
+service: {value: shared_switchbot_japan, status: VERIFIED, source: production_truth/service/switchbot_japan.yaml, approval_scope: footer_reference_only}
+assets:
+  - {value: ASSET-DAILY-MAIN, status: APPROVED, source: production_truth/assets/asset_registry.yaml, approval_scope: internal_renderer_pilot_only}
+  - {value: ASSET-DAILY-UI, status: APPROVED, source: production_truth/assets/asset_registry.yaml, approval_scope: internal_renderer_pilot_only}
+  - {value: ASSET-DAILY-DETAIL, status: APPROVED, source: production_truth/assets/asset_registry.yaml, approval_scope: internal_renderer_pilot_only}
+status:
+  product_knowledge_review: {value: pending_verification, status: UNVERIFIED, source: /Users/lai/.codex/skills/product-knowledge/outputs/product_index.json#daily_station}
+  external_publish_ready: {value: false, status: UNVERIFIED, source: /Users/lai/.codex/skills/product-knowledge/outputs/product_index.json#daily_station}
+  completeness: {value: 17, status: VERIFIED, source: /Users/lai/.codex/skills/product-knowledge/knowledge/products/daily_station.md}
+  blockers: [profile_skeleton, no_approved_external_claim, lifecycle_unknown, production_asset_scope_missing]

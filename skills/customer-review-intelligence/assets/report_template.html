@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{{TITLE}}</title>
+  <style>
+    :root { --ink:#172033; --muted:#657085; --line:#dce2ea; --brand:#e53935; --soft:#f6f8fb; --good:#1b8f5a; --warn:#b7791f; --bad:#c53030; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--soft); color:var(--ink); font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP","Noto Sans SC",sans-serif; }
+    main { max-width:1180px; margin:32px auto; padding:0 24px 48px; }
+    header,.panel { background:#fff; border:1px solid var(--line); border-radius:16px; box-shadow:0 8px 30px rgba(23,32,51,.05); }
+    header { padding:28px 30px; border-top:5px solid var(--brand); }
+    h1 { margin:0 0 6px; font-size:28px; }
+    h2 { margin:0 0 16px; font-size:19px; }
+    .muted { color:var(--muted); }
+    .grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; margin:18px 0; }
+    .metric { padding:18px; background:#fff; border:1px solid var(--line); border-radius:14px; }
+    .metric strong { display:block; font-size:26px; margin-top:4px; }
+    .panel { padding:22px; margin-top:16px; overflow:auto; }
+    table { width:100%; border-collapse:collapse; }
+    th,td { text-align:left; border-bottom:1px solid var(--line); padding:10px 9px; vertical-align:top; }
+    th { color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.03em; }
+    .good { color:var(--good); } .warn { color:var(--warn); } .bad { color:var(--bad); }
+    @media(max-width:800px){ .grid{grid-template-columns:repeat(2,1fr);} }
+  </style>
+</head>
+<body><main>{{BODY}}</main></body>
+</html>
+

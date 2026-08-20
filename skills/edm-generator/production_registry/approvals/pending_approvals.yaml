@@ -1,0 +1,212 @@
+schema_version: 2.0.0
+decisions: [APPROVE, MINOR_REVISION, MAJOR_REVISION, REJECT]
+before_human_approval_items: 15
+active_human_approval_ids: [APR-LOCK-FINAL, APR-SHARED-ESP]
+after_automation_human_approval_items: 2
+resolution_index:
+  APR-LOCK-PRODUCT: {resolution: AUTO_VERIFY, new_status: VERIFIED_FROM_OFFICIAL_SOURCE}
+  APR-LOCK-CLAIMS: {resolution: AUTO_VERIFY, new_status: VERIFIED_EXISTING_CLAIM}
+  APR-LOCK-COPY: {resolution: NOT_REQUIRED, new_status: MERGED_INTO_WHOLE_EMAIL_FINAL_REVIEW}
+  APR-LOCK-ASSETS: {resolution: AUTO_VERIFY, new_status: DESIGN_PRODUCTION_APPROVED}
+  APR-LOCK-CAMPAIGN: {resolution: AUTO_VERIFY, new_status: VERIFIED_FROM_INPUT_AND_OFFICIAL_DESTINATION}
+  APR-DAILY-PRODUCT: {resolution: AUTO_VERIFY, new_status: VERIFIED_FROM_OFFICIAL_SOURCE}
+  APR-DAILY-CLAIMS: {resolution: AUTO_VERIFY, new_status: VERIFIED_EXISTING_CLAIM}
+  APR-DAILY-COMPAT: {resolution: AUTO_VERIFY, new_status: VERIFIED_EXISTING_CLAIM_OPTIONAL_WITH_FALLBACK}
+  APR-DAILY-COPY: {resolution: NOT_REQUIRED, new_status: DEFERRED_UNTIL_REGENERATED_CANDIDATE}
+  APR-DAILY-ASSETS: {resolution: AUTO_VERIFY, new_status: DESIGN_PRODUCTION_APPROVED}
+  APR-DAILY-CAMPAIGN: {resolution: AUTO_VERIFY, new_status: VERIFIED_FROM_INPUT_AND_OFFICIAL_DESTINATION}
+  APR-SHARED-LEGAL-FOOTER: {resolution: INHERIT, new_status: INHERITED_APPROVAL}
+  APR-SHARED-ESP: {resolution: HUMAN_REQUIRED, new_status: OPEN_FOR_ESP_SEND_ONLY}
+  APR-LOCK-FINAL: {resolution: HUMAN_REQUIRED, new_status: FINAL_WHOLE_EMAIL_REVIEW}
+  APR-DAILY-FINAL: {resolution: NOT_REQUIRED, new_status: DEFERRED_UNTIL_VISUAL_CANDIDATE}
+items:
+  - approval_id: APR-LOCK-PRODUCT
+    type: Product Publication
+    product: SwitchBot ロックUltra
+    proposed_value: Positioning, primary USP, secondary USP and compatibility wording shown in the Lock product registry.
+    source: production_registry/products/lock_ultra.yaml
+    current_status: DRAFT
+    why_needed: Required to pass PRODUCT_PUBLICATION_READY.
+    used_in: PILOT-A product narrative and purchase-check modules
+    risk: Medium — public-page wording is verified, but external EDM usage is not approved.
+    targets:
+      - {file: products/lock_ultra.yaml, path: positioning.status, approve_status: APPROVED}
+      - {file: products/lock_ultra.yaml, path: primary_usp.status, approve_status: APPROVED}
+      - {file: products/lock_ultra.yaml, path: secondary_usps.status, approve_status: APPROVED}
+      - {file: products/lock_ultra.yaml, path: compatibility.status, approve_status: APPROVED}
+      - {file: products/lock_ultra.yaml, path: approval.publication_language.status, approve_status: APPROVED}
+  - approval_id: APR-LOCK-CLAIMS
+    type: Claim Bundle
+    product: SwitchBot ロックUltra
+    proposed_value: CLM-LOCK-FEATURE-001, CLM-LOCK-FEATURE-002 and CLM-LOCK-COMPAT-001.
+    source: production_registry/claims/claim_registry.yaml
+    current_status: VERIFIED
+    why_needed: Every factual line in PILOT-A maps to these three claim IDs.
+    used_in: Hero, product identity, lifestyle and compatibility copy
+    risk: Medium — approval authorizes external EDM usage under the listed conditions.
+    targets:
+      - {file: claims/claim_registry.yaml, selector: {claim_id: CLM-LOCK-FEATURE-001}, path: status, approve_status: APPROVED}
+      - {file: claims/claim_registry.yaml, selector: {claim_id: CLM-LOCK-FEATURE-002}, path: status, approve_status: APPROVED}
+      - {file: claims/claim_registry.yaml, selector: {claim_id: CLM-LOCK-COMPAT-001}, path: status, approve_status: APPROVED}
+  - approval_id: APR-LOCK-COPY
+    type: Final Japanese Copy
+    product: SwitchBot ロックUltra
+    proposed_value: Current Phase 6 final Japanese copy, with no price, numeric performance or proof claim.
+    source: production_output/PILOT-A-LOCK-ULTRA/final_copy.md
+    current_status: DRAFT
+    why_needed: CONTENT_READY requires final Japanese copy approval.
+    used_in: PILOT-A complete EDM
+    risk: Medium — confirm natural Japanese and whether the narrative is publishable as written.
+    targets:
+      - {file: campaigns/PILOT-A-LOCK-ULTRA.yaml, path: approval.final_copy.status, approve_status: APPROVED}
+  - approval_id: APR-LOCK-ASSETS
+    type: Production Asset Scope
+    product: SwitchBot ロックUltra
+    proposed_value: ASSET-LOCK-MAIN, ASSET-LOCK-LIFESTYLE and ASSET-LOCK-DETAIL for Japan EDM production.
+    source: production_registry/assets/asset_registry.yaml
+    current_status: INTERNAL_ONLY
+    why_needed: ASSET_READY requires all three render assets to be Production Approved.
+    used_in: PILOT-A Hero, lifestyle and purchase-check modules
+    risk: Medium — confirm channel usage, currency and embedded copy before approval.
+    targets:
+      - {file: assets/asset_registry.yaml, selector: {asset_id: ASSET-LOCK-MAIN}, path: production_status, approve_status: APPROVED}
+      - {file: assets/asset_registry.yaml, selector: {asset_id: ASSET-LOCK-LIFESTYLE}, path: production_status, approve_status: APPROVED}
+      - {file: assets/asset_registry.yaml, selector: {asset_id: ASSET-LOCK-DETAIL}, path: production_status, approve_status: APPROVED}
+  - approval_id: APR-LOCK-CAMPAIGN
+    type: Campaign / CTA
+    product: SwitchBot ロックUltra
+    proposed_value: Evergreen, no promotion, CTA 「製品を詳しく見る」 to the official Lock Ultra page.
+    source: production_registry/campaigns/PILOT-A-LOCK-ULTRA.yaml
+    current_status: DRAFT
+    why_needed: CAMPAIGN_READY requires owner approval for campaign purpose and CTA.
+    used_in: PILOT-A CTA and campaign truth
+    risk: Low — no price, discount, coupon or deadline is used.
+    targets:
+      - {file: campaigns/PILOT-A-LOCK-ULTRA.yaml, path: approval.campaign_and_cta.status, approve_status: APPROVED}
+  - approval_id: APR-DAILY-PRODUCT
+    type: Product Publication
+    product: SwitchBot スマートデイリーステーション
+    proposed_value: Positioning, primary USP and secondary USP shown in the Daily Station registry.
+    source: production_registry/products/daily_station.yaml
+    current_status: DRAFT
+    why_needed: Required to pass PRODUCT_PUBLICATION_READY.
+    used_in: PILOT-B product education narrative
+    risk: Medium — official-page evidence exists, but Product Knowledge remains a skeleton.
+    targets:
+      - {file: products/daily_station.yaml, path: positioning.status, approve_status: APPROVED}
+      - {file: products/daily_station.yaml, path: primary_usp.status, approve_status: APPROVED}
+      - {file: products/daily_station.yaml, path: secondary_usps.status, approve_status: APPROVED}
+      - {file: products/daily_station.yaml, path: approval.publication_language.status, approve_status: APPROVED}
+  - approval_id: APR-DAILY-CLAIMS
+    type: Claim Bundle
+    product: SwitchBot スマートデイリーステーション
+    proposed_value: CLM-DAILY-FEATURE-001, CLM-DAILY-FEATURE-002 and CLM-DAILY-FEATURE-003.
+    source: production_registry/claims/claim_registry.yaml
+    current_status: VERIFIED
+    why_needed: Most factual lines in PILOT-B map to these feature claims.
+    used_in: Hero, environment, one-screen and schedule copy
+    risk: Medium — approval must preserve the listed feature conditions.
+    targets:
+      - {file: claims/claim_registry.yaml, selector: {claim_id: CLM-DAILY-FEATURE-001}, path: status, approve_status: APPROVED}
+      - {file: claims/claim_registry.yaml, selector: {claim_id: CLM-DAILY-FEATURE-002}, path: status, approve_status: APPROVED}
+      - {file: claims/claim_registry.yaml, selector: {claim_id: CLM-DAILY-FEATURE-003}, path: status, approve_status: APPROVED}
+  - approval_id: APR-DAILY-COMPAT
+    type: Claim Evidence
+    product: SwitchBot スマートデイリーステーション
+    proposed_value: CLM-DAILY-COMPAT-001 connection and linked-device condition statement.
+    source: production_registry/claims/claim_registry.yaml#CLM-DAILY-COMPAT-001
+    current_status: UNVERIFIED
+    why_needed: The current use-condition module contains factual connection conditions.
+    used_in: PILOT-B use-condition copy and disclaimer
+    risk: High — exact official source location is still missing; Needs Evidence is the safe decision unless a source is supplied.
+    requires_evidence_note: true
+    targets:
+      - {file: claims/claim_registry.yaml, selector: {claim_id: CLM-DAILY-COMPAT-001}, path: status, approve_status: APPROVED}
+      - {file: products/daily_station.yaml, path: compatibility.status, approve_status: APPROVED}
+  - approval_id: APR-DAILY-COPY
+    type: Final Japanese Copy
+    product: SwitchBot スマートデイリーステーション
+    proposed_value: Current Phase 6 final Japanese copy, with no price, numeric performance or proof claim.
+    source: production_output/PILOT-B-DAILY-STATION/final_copy.md
+    current_status: DRAFT
+    why_needed: CONTENT_READY requires final Japanese copy approval.
+    used_in: PILOT-B complete EDM
+    risk: Medium — Product Knowledge is incomplete and compatibility language remains unverified.
+    targets:
+      - {file: campaigns/PILOT-B-DAILY-STATION.yaml, path: approval.final_copy.status, approve_status: APPROVED}
+  - approval_id: APR-DAILY-ASSETS
+    type: Production Asset Scope
+    product: SwitchBot スマートデイリーステーション
+    proposed_value: ASSET-DAILY-MAIN, ASSET-DAILY-UI and ASSET-DAILY-DETAIL for Japan EDM production.
+    source: production_registry/assets/asset_registry.yaml
+    current_status: INTERNAL_ONLY
+    why_needed: ASSET_READY requires all three render assets to be Production Approved.
+    used_in: PILOT-B Hero, UI and product-information modules
+    risk: Medium — confirm channel usage and embedded UI/copy currency before approval.
+    targets:
+      - {file: assets/asset_registry.yaml, selector: {asset_id: ASSET-DAILY-MAIN}, path: production_status, approve_status: APPROVED}
+      - {file: assets/asset_registry.yaml, selector: {asset_id: ASSET-DAILY-UI}, path: production_status, approve_status: APPROVED}
+      - {file: assets/asset_registry.yaml, selector: {asset_id: ASSET-DAILY-DETAIL}, path: production_status, approve_status: APPROVED}
+  - approval_id: APR-DAILY-CAMPAIGN
+    type: Campaign / CTA
+    product: SwitchBot スマートデイリーステーション
+    proposed_value: Evergreen, no promotion, CTA 「製品を詳しく見る」 to the official Daily Station page.
+    source: production_registry/campaigns/PILOT-B-DAILY-STATION.yaml
+    current_status: DRAFT
+    why_needed: CAMPAIGN_READY requires owner approval for campaign purpose and CTA.
+    used_in: PILOT-B CTA and campaign truth
+    risk: Low — no price, discount, coupon or deadline is used.
+    targets:
+      - {file: campaigns/PILOT-B-DAILY-STATION.yaml, path: approval.campaign_and_cta.status, approve_status: APPROVED}
+  - approval_id: APR-SHARED-LEGAL-FOOTER
+    type: Footer / Legal
+    product: Shared Japan EDM
+    proposed_value: Verified company identity, official privacy/terms/commerce links, support contact and service/warranty policy references as the reusable production footer package.
+    source: production_registry/footer/switchbot_jp_footer.yaml and production_registry/legal/legal_registry.yaml
+    current_status: DRAFT
+    why_needed: Static footer and legal content must be Approved for PRODUCTION_READY.
+    used_in: Both Pilot footers
+    risk: High — requires Marketing/Legal confirmation for new production use.
+    targets:
+      - {file: footer/switchbot_jp_footer.yaml, path: approval.static_footer.status, approve_status: APPROVED}
+      - {file: legal/legal_registry.yaml, path: approval.static_legal_package.status, approve_status: APPROVED}
+      - {file: legal/legal_registry.yaml, path: approval.service_warranty_reuse.status, approve_status: APPROVED}
+  - approval_id: APR-SHARED-ESP
+    type: ESP Runtime Contract
+    product: Shared Japan EDM
+    proposed_value: preference_center_url, unsubscribe_url and current_year are resolved at send time by the ESP.
+    source: production_registry/footer/switchbot_jp_footer.yaml#runtime_tokens
+    current_status: MISSING
+    why_needed: ESP_READY requires the actual preference/unsubscribe token syntax. This does not block DESIGN_READY or VISUAL_DELIVERABLE_CANDIDATE.
+    used_in: Both Pilot footers at send time
+    risk: Critical — unresolved unsubscribe tokens must never be sent.
+    requires_evidence_note: true
+    targets:
+      - {file: footer/switchbot_jp_footer.yaml, path: approval.esp_token_contract.status, approve_status: APPROVED}
+      - {file: footer/switchbot_jp_footer.yaml, path: runtime_tokens.preference_center.status, approve_status: APPROVED}
+      - {file: footer/switchbot_jp_footer.yaml, path: runtime_tokens.unsubscribe.status, approve_status: APPROVED}
+      - {file: footer/switchbot_jp_footer.yaml, path: runtime_tokens.current_year.status, approve_status: APPROVED}
+  - approval_id: APR-LOCK-FINAL
+    type: Final Delivery
+    product: SwitchBot ロックUltra
+    proposed_value: Review the regenerated PILOT-A whole email once for product accuracy, Japanese usability, SwitchBot brand fit, content completeness and visual delivery quality.
+    source: production_output/PILOT-A-LOCK-ULTRA/
+    current_status: MISSING
+    why_needed: Final business responsibility cannot be machine-inferred. This is the only marketing approval required for the complete Visual Deliverable Candidate.
+    used_in: PILOT-A delivery package
+    risk: High — APPROVE creates VISUAL_DELIVERABLE and CONTENT_APPROVED; ESP and channel gates remain separate before actual sending.
+    targets:
+      - {file: campaigns/PILOT-A-LOCK-ULTRA.yaml, path: approval.final_human_delivery.status, approve_status: APPROVED}
+      - {file: campaigns/PILOT-A-LOCK-ULTRA.yaml, path: approval.final_copy.status, approve_status: APPROVED}
+      - {file: campaigns/PILOT-A-LOCK-ULTRA.yaml, path: visual_delivery.status, approve_status: VISUAL_DELIVERABLE}
+  - approval_id: APR-DAILY-FINAL
+    type: Final Delivery
+    product: SwitchBot スマートデイリーステーション
+    proposed_value: Approve the regenerated PILOT-B package for delivery after all prior gates pass.
+    source: production_output/PILOT-B-DAILY-STATION/
+    current_status: MISSING
+    why_needed: Final human delivery approval is the last PRODUCTION_READY gate.
+    used_in: PILOT-B delivery package
+    risk: Critical — approve only after content, asset, campaign, footer and ESP gates pass.
+    targets:
+      - {file: campaigns/PILOT-B-DAILY-STATION.yaml, path: approval.final_human_delivery.status, approve_status: APPROVED}

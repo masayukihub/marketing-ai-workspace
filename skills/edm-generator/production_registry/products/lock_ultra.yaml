@@ -1,0 +1,128 @@
+---
+schema_version: 2.0.0
+product_id: lock_ultra
+official_name_ja:
+  value: SwitchBot ロックUltra
+  status: VERIFIED_FROM_OFFICIAL_SOURCE
+  source: https://www.switchbot.jp/products/switchbot-lock-ultra
+  source_location: Page title and product heading
+positioning:
+  value: ドアに溶け込む一体型デザイン
+  status: VERIFIED_FROM_OFFICIAL_SOURCE
+  source: https://www.switchbot.jp/products/switchbot-lock-ultra
+  source_location: ドアに溶け込む一体型デザイン section
+primary_usp:
+  value: 一体型カバーデザイン
+  status: VERIFIED_FROM_OFFICIAL_SOURCE
+  source: https://www.switchbot.jp/products/switchbot-lock-ultra
+  source_location: ドアに溶け込む一体型デザイン section
+secondary_usps:
+  value:
+  - ブラックとシルバーの製品外観
+  - マグネットセンサーによるオートロック
+  - アプリからドアの状態と開閉履歴を確認（遠隔操作・通知にはハブ製品が必要）
+  - 購入前に取り付け条件を確認
+  status: VERIFIED_FROM_OFFICIAL_SOURCE
+  source: https://www.switchbot.jp/products/switchbot-lock-ultra
+  source_location: Product visuals and installation guidance
+specs:
+  value: []
+  status: MISSING
+  source: "/Users/lai/.codex/skills/product-knowledge/references/product_specs.xlsx#lock_ultra"
+  notes: Product Knowledge contains pending numeric rows only; the Pilot copy intentionally
+    uses no numeric spec.
+compatibility:
+  value:
+  - ドアとサムターンの形状を購入前に確認
+  - 必要に応じて調整部品を確認
+  status: VERIFIED_FROM_OFFICIAL_SOURCE
+  source: https://www.switchbot.jp/products/switchbot-lock-ultra
+  source_location: Installation and compatibility guidance
+faq:
+  value:
+  - question: ロックUltra本体が顔認証に対応していますか？
+    answer: 顔認証はKeypad Vision Pro側の機能として区別する必要があります。
+  status: DRAFT
+  source: "/Users/lai/.codex/skills/product-knowledge/references/faq.md#lock_ultra"
+  notes: Internal compliance clarification; external FAQ wording needs approval.
+source:
+  value: SwitchBot Japan official product page plus Product Knowledge
+  status: VERIFIED_FROM_OFFICIAL_SOURCE
+  source: "/Users/lai/.codex/skills/product-knowledge/outputs/product_index.json#lock_ultra"
+last_verified: 2026-08-19
+approved_by: 
+approval:
+  publication_language:
+    status: VERIFIED_FROM_OFFICIAL_SOURCE
+    verification_method: AUTO_VERIFY
+    verified_by: Phase 8 official-source resolver
+    verified_at: 2026-08-20
+    source: https://www.switchbot.jp/products/switchbot-lock-ultra
+  product_publication_ready:
+    value: true
+    status: VERIFIED_FROM_OFFICIAL_SOURCE
+    evaluated_by: production_readiness/evaluate_readiness.rb
+    evaluated_at: '2026-08-20T02:39:25Z'
+publication_requirements:
+- path: official_name_ja
+  acceptance:
+  - VERIFIED_FROM_OFFICIAL_SOURCE
+  - VERIFIED
+  - APPROVED
+  - INHERITED_APPROVAL
+  required: true
+- path: positioning
+  acceptance:
+  - VERIFIED_FROM_OFFICIAL_SOURCE
+  - APPROVED
+  - INHERITED_APPROVAL
+  required: true
+- path: primary_usp
+  acceptance:
+  - VERIFIED_FROM_OFFICIAL_SOURCE
+  - APPROVED
+  - INHERITED_APPROVAL
+  required: true
+- path: secondary_usps
+  acceptance:
+  - VERIFIED_FROM_OFFICIAL_SOURCE
+  - APPROVED
+  - INHERITED_APPROVAL
+  required: true
+- path: specs
+  acceptance:
+  - APPROVED
+  required: false
+  reason: No numeric spec is used in this Pilot.
+- path: compatibility
+  acceptance:
+  - VERIFIED_FROM_OFFICIAL_SOURCE
+  - APPROVED
+  - INHERITED_APPROVAL
+  required: true
+- path: faq
+  acceptance:
+  - APPROVED
+  required: false
+  reason: Current output uses a purchase-check module
+  not the face recognition FAQ.: 
+- path: source
+  acceptance:
+  - VERIFIED_FROM_OFFICIAL_SOURCE
+  - VERIFIED
+  - APPROVED
+  - INHERITED_APPROVAL
+  required: true
+verification_boundary:
+  design_truth: PASS
+  external_send_truth: HUMAN_FINAL_REVIEW_REQUIRED
+  notes: Official published wording supports Visual Deliverable Candidate. Product
+    Knowledge conflict still blocks unsupported or numeric claims, not these exact
+    official facts.
+product_knowledge_snapshot:
+  status: conflict
+  completeness: Partial
+  external_publish_ready: false
+  approved_external_claim_count: 0
+  last_verified: 2026-07-30
+  source: "/Users/lai/.codex/skills/product-knowledge/outputs/product_index.json#lock_ultra"

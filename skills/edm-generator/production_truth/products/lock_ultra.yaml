@@ -1,0 +1,52 @@
+schema_version: 1.0.0
+product:
+  product_id: {value: lock_ultra, status: VERIFIED, source: /Users/lai/.codex/skills/product-knowledge/outputs/product_index.json}
+  official_name_ja: {value: SwitchBot ロックUltra, status: VERIFIED, source: "https://www.switchbot.jp/products/switchbot-lock-ultra", verified_on: 2026-08-19}
+  official_name_en: {value: SwitchBot Lock Ultra, status: VERIFIED, source: /Users/lai/.codex/skills/product-knowledge/references/product_master.xlsx#lock_ultra}
+  category: {value: スマートロック, status: VERIFIED, source: "https://www.switchbot.jp/products/switchbot-lock-ultra", verified_on: 2026-08-19}
+  positioning: {value: ドアに溶け込む一体型デザイン, status: VERIFIED_FROM_OFFICIAL_SOURCE, source: "https://www.switchbot.jp/products/switchbot-lock-ultra#ドアに溶け込む一体型デザイン", approval_scope: visual_deliverable_candidate}
+  target_audience: {value: null, status: UNVERIFIED, source: /Users/lai/.codex/skills/product-knowledge/references/product_master.xlsx#lock_ultra}
+message:
+  primary_value: {value: 玄関の施錠と状態確認を、後付け感の少ない一体型デザインで見直す, status: LOCALIZATION_CANDIDATE, source: Phase 8 localization based on verified official claims, approval_scope: visual_deliverable_candidate}
+  primary_usp: {value: 一体型カバーデザイン, status: VERIFIED_FROM_OFFICIAL_SOURCE, source: "https://www.switchbot.jp/products/switchbot-lock-ultra#ドアに溶け込む一体型デザイン", approval_scope: visual_deliverable_candidate}
+  secondary_usp:
+    - {value: ブラックとシルバーの製品外観, status: VERIFIED, source: "https://www.switchbot.jp/products/switchbot-lock-ultra", approval_scope: internal_renderer_pilot_only}
+copy_candidates:
+  hero_headline: {value: ドアに溶け込む、一体型デザイン。, status: VERIFIED, source: "https://www.switchbot.jp/products/switchbot-lock-ultra#ドアに溶け込む一体型デザイン", approval_scope: internal_renderer_pilot_only}
+  hero_body: {value: 玄関になじむ外観も、毎日の施錠も、購入前の取り付け確認も。ロックUltraを選ぶために必要なことを、順番にご紹介します。, status: LOCALIZATION_CANDIDATE, source: Phase 8 localization based on verified official claims, approval_scope: visual_deliverable_candidate}
+  lifestyle_title: {value: 玄関の景色に、自然になじむ。, status: LOCALIZATION_CANDIDATE, source: Phase 8 localization based on official design positioning, approval_scope: visual_deliverable_candidate}
+  product_identity_title: {value: 閉め忘れも、鍵の状態も。玄関をもっと見える場所に。, status: LOCALIZATION_CANDIDATE, source: Phase 8 localization based on CLM-LOCK-FEATURE-003 and CLM-LOCK-FEATURE-004, approval_scope: visual_deliverable_candidate}
+  purchase_check_title: {value: ご購入前に、取り付け可否を確認。, status: VERIFIED, source: "https://www.switchbot.jp/products/switchbot-lock-ultra", approval_scope: internal_renderer_pilot_only}
+  disclaimer: {value: 具体的な取り付け可否は、公式製品ページの最新情報でご確認ください。, status: VERIFIED, source: "https://www.switchbot.jp/products/switchbot-lock-ultra", approval_scope: internal_renderer_pilot_only}
+claims:
+  approved: []
+  verified_existing:
+    - {claim_id: CLM-LOCK-FEATURE-001, status: VERIFIED_EXISTING_CLAIM, source: "https://www.switchbot.jp/products/switchbot-lock-ultra"}
+    - {claim_id: CLM-LOCK-FEATURE-002, status: VERIFIED_EXISTING_CLAIM, source: "https://www.switchbot.jp/products/switchbot-lock-ultra"}
+    - {claim_id: CLM-LOCK-FEATURE-003, status: VERIFIED_EXISTING_CLAIM, source: "https://www.switchbot.jp/products/switchbot-lock-ultra#ロック/ドアの状態を把握"}
+    - {claim_id: CLM-LOCK-FEATURE-004, status: VERIFIED_EXISTING_CLAIM, source: "https://www.switchbot.jp/products/switchbot-lock-ultra#ドアが閉まれば、そっと施錠"}
+    - {claim_id: CLM-LOCK-FEATURE-005, status: VERIFIED_EXISTING_CLAIM, source: "https://www.switchbot.jp/products/switchbot-lock-ultra#自動校正モード"}
+  conditional:
+    - {claim_id: CLM-001, value: 電池切れの不安を抑える、3段階の電源バックアップ設計。, status: UNVERIFIED, source: /Users/lai/.codex/skills/product-knowledge/references/claim.md#CLM-001, use_in_phase6_copy: false}
+  prohibited:
+    - {claim_id: CLM-005, value: 日本第一のスマートロック。, status: VERIFIED, source: /Users/lai/.codex/skills/product-knowledge/references/claim.md#CLM-005}
+    - {value: Lock Ultra本体が顔認証に対応, status: VERIFIED, source: /Users/lai/.codex/skills/product-knowledge/references/compliance.md#CMP-001}
+    - {value: 数値・速度・静音・電池寿命・対応率・絶対安全表現, status: VERIFIED, source: /Users/lai/.codex/skills/product-knowledge/references/compliance.md#CMP-003}
+  source: {value: Product Knowledge Claim Registry, status: VERIFIED, source: /Users/lai/.codex/skills/product-knowledge/references/claim.md}
+specs:
+  verified: []
+  source: {value: Product Knowledge Specs; all Lock Ultra numeric rows are pending verification, status: VERIFIED, source: /Users/lai/.codex/skills/product-knowledge/references/product_specs.xlsx#lock_ultra}
+compatibility:
+  - {value: 取り付け条件は購入前確認が必要, status: VERIFIED, source: "https://www.switchbot.jp/products/switchbot-lock-ultra", approval_scope: internal_renderer_pilot_only}
+  - {value: Keypad Vision Pro compatibility, status: UNVERIFIED, source: /Users/lai/.codex/skills/product-knowledge/references/compatibility.xlsx#lock_ultra, use_in_phase6_copy: false}
+proof: {value: [], status: MISSING, source: production_truth/proof/lock_ultra.yaml}
+service: {value: shared_switchbot_japan, status: VERIFIED, source: production_truth/service/switchbot_japan.yaml, approval_scope: footer_reference_only}
+assets:
+  - {value: ASSET-LOCK-MAIN, status: APPROVED, source: production_truth/assets/asset_registry.yaml, approval_scope: internal_renderer_pilot_only}
+  - {value: ASSET-LOCK-LIFESTYLE, status: APPROVED, source: production_truth/assets/asset_registry.yaml, approval_scope: internal_renderer_pilot_only}
+  - {value: ASSET-LOCK-DETAIL, status: APPROVED, source: production_truth/assets/asset_registry.yaml, approval_scope: internal_renderer_pilot_only}
+status:
+  product_knowledge_review: {value: conflict, status: UNVERIFIED, source: /Users/lai/.codex/skills/product-knowledge/outputs/product_index.json#lock_ultra}
+  external_publish_ready: {value: false, status: UNVERIFIED, source: /Users/lai/.codex/skills/product-knowledge/outputs/product_index.json#lock_ultra}
+  completeness: {value: 58, status: VERIFIED, source: /Users/lai/.codex/skills/product-knowledge/knowledge/products/lock_ultra.md}
+  blockers: [profile_conflict, no_approved_external_claim, lifecycle_unknown, production_asset_scope_missing]

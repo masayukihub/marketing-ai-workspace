@@ -1,0 +1,39 @@
+version: 1
+description: "Source confidence policy for SwitchBot Japan Product Knowledge Hub."
+priorities:
+  P1:
+    rank: 1
+    label: "Authoritative product source"
+    source_types: [product_master, technical_specification, approved_product_database, approved_launch_material]
+    default_fact_status: verified
+    external_claim_permission: "requires_claim_approval"
+  P2:
+    rank: 2
+    label: "Official market-facing source"
+    source_types: [jp_official_page, official_press_release, sales_training, official_faq]
+    default_fact_status: verified
+    external_claim_permission: "requires_claim_approval"
+  P3:
+    rank: 3
+    label: "Marketing working source"
+    source_types: [product_marketing, media_brief, kol_brief, launch_plan]
+    default_fact_status: pending_verification
+    external_claim_permission: "internal_only"
+  P4:
+    rank: 4
+    label: "Historical campaign reference"
+    source_types: [edm, lp, sns_copy, campaign_asset]
+    default_fact_status: pending_verification
+    external_claim_permission: "internal_only"
+  P5:
+    rank: 5
+    label: "Working note"
+    source_types: [meeting_note, temporary_note, discussion_draft, unpublished_draft]
+    default_fact_status: pending_verification
+    external_claim_permission: "internal_only"
+resolution:
+  prefer_lower_rank: true
+  prefer_newer_document_when_rank_equal: true
+  prefer_japan_market_when_market_conflicts: true
+  never_silently_overwrite: true
+  unresolved_status: needs_review

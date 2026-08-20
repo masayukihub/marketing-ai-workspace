@@ -1,0 +1,55 @@
+schema_version: 1.0.0
+status: Frozen for historical-first pilot
+historical_template_first: true
+visual_decision_budget:
+  historical_skeleton_percent: 70
+  controlled_adaptation_percent: 20
+  new_design_fallback_percent: 10
+  interpretation: >-
+    This is a maximum decision budget, not random traffic allocation. Every matched
+    output must inherit at least 70% of its section order, height rhythm, CTA grammar,
+    footer depth and dominant composition from one Historical Template. Controlled
+    adaptation is limited to declared FLEXIBLE regions. Novel design may only fill a
+    documented gap and never redraw a product body.
+source_priority:
+  - approved_switchbot_historical
+  - sent_switchbot_historical
+  - usable_switchbot_historical
+  - generic_template_fallback
+  - external_reference_excluded_from_primary_decision
+selection_policy:
+  score_gte_80: Direct Reuse
+  score_65_to_79: Reuse + Adapt
+  score_50_to_64: Heavy Adapt + Human Review
+  score_lt_50: Generic / New Template Candidate
+  generic_generation_allowed_when:
+    - no_historical_template_score_gte_50
+    - genuinely_new_campaign_structure
+    - user_explicitly_requests_new_design
+  generic_generation_default: false
+inheritance_guards:
+  strict_regions_may_move: false
+  flexible_region_max_count_change: 2
+  optional_regions_may_be_omitted: true
+  undeclared_module_insertion: blocked
+  external_reference_override: blocked
+  ai_product_redraw: blocked
+  unverified_claim_or_price: blocked
+roles:
+  historical_template: primary_visual_skeleton
+  design_standard: qa_and_hard_rule_gate
+  module_library: bounded_add_remove_support
+  renderer: content_asset_swap_and_render
+  generic_template: fallback_only
+template_promotion_loop:
+  eligible_when_any:
+    - actually_launched
+    - human_final_decision_deliverable
+  required_before_promotion:
+    - full_visual_snapshot
+    - source_and_asset_traceability
+    - no_hard_rule_violation
+    - no_fake_claim_price_or_product_asset
+    - campaign_use_boundary_documented
+  generated_draft_auto_promotes: false
+  promotion_action: human_review_then_versioned_library_update

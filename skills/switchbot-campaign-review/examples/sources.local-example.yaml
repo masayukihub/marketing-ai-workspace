@@ -1,0 +1,18 @@
+project:
+  name: Autumn Smart Home Launch
+  market: Japan
+  currency: JPY
+  timezone: Asia/Tokyo
+sources:
+  - id: current-campaign
+    name: Current Campaign Mock
+    url: sample_campaign_data.csv
+    source_type: file
+    expected_content: Current-period multi-channel campaign data
+    required: true
+  - id: comparison-campaign
+    name: Comparison Campaign Mock
+    url: sample_previous_campaign_data.csv
+    source_type: file
+    expected_content: Two historical periods with anomalies
+    required: true

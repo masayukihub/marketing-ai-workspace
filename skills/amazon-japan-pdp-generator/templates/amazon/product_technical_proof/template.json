@@ -1,0 +1,77 @@
+{
+  "template_id": "P-TECHNICAL-PROOF",
+  "family": "product_image",
+  "name": "Technical Proof",
+  "html": {
+    "component": "product-proof",
+    "class": "tpl-p-technical-proof"
+  },
+  "css": {
+    "grid_template_columns": "7fr 5fr",
+    "card_style": "pale-proof"
+  },
+  "svg": {
+    "renderer": "renderProductTechnicalProof",
+    "view_box": "0 0 2000 2000"
+  },
+  "grid": {
+    "columns": 12,
+    "rows": 12,
+    "gutter_px": 40
+  },
+  "product_area": {
+    "columns": "1/8",
+    "rows": "3/12",
+    "fit": "contain"
+  },
+  "text_area": {
+    "columns": "8/13",
+    "rows": "2/11",
+    "align": "left"
+  },
+  "safe_area": {
+    "desktop_px": 110,
+    "mobile_percent": 8
+  },
+  "font_size": {
+    "headline_px": 76,
+    "subcopy_px": 34,
+    "proof_px": 27
+  },
+  "headline_length": {
+    "preferred": 16,
+    "max": 26
+  },
+  "sub_copy_length": {
+    "preferred": 44,
+    "max": 68
+  },
+  "desktop_rules": [
+    "maximum three sourced proof cards",
+    "no decorative statistics",
+    "diagram text is programmatic"
+  ],
+  "mobile_rules": [
+    "proof cards stack",
+    "conditions remain readable",
+    "no text baked into scene"
+  ],
+  "historical_reference": [
+    "REF-AMZ-THERMOMETER-PLUS",
+    "REF-SB-K11"
+  ],
+  "library_version": "2026.08-v4",
+  "source_policy": {
+    "product_layer": "User-provided official product asset only for formal launch",
+    "scene_layer": "Official or licensed scene, then AI background without product, then placeholder",
+    "graphic_layer": "Programmatic HTML/CSS/SVG only",
+    "prohibited_ai": [
+      "SwitchBot product body",
+      "logo",
+      "Japanese text",
+      "comparison table",
+      "technical diagram text",
+      "UI"
+    ]
+  }
+}

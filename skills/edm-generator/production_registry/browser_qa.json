@@ -1,0 +1,214 @@
+{
+  "status": "PASS",
+  "dashboardInitial": {
+    "caseCount": 2,
+    "metricCount": 12,
+    "visualCandidateCount": 1,
+    "designEvidence": [
+      "100.0%",
+      "100.0%"
+    ],
+    "sectionHeadsStacked": true
+  },
+  "dashboardResponsive": {
+    "320": {
+      "innerWidth": 320,
+      "scrollWidth": 320,
+      "noHorizontalOverflow": true,
+      "brokenImages": 0,
+      "controlsMin44px": true,
+      "clickablesSingleLine": true,
+      "consoleMarker": "phase7-almanac"
+    },
+    "375": {
+      "innerWidth": 375,
+      "scrollWidth": 375,
+      "noHorizontalOverflow": true,
+      "brokenImages": 0,
+      "controlsMin44px": true,
+      "clickablesSingleLine": true,
+      "consoleMarker": "phase7-almanac"
+    },
+    "414": {
+      "innerWidth": 414,
+      "scrollWidth": 414,
+      "noHorizontalOverflow": true,
+      "brokenImages": 0,
+      "controlsMin44px": true,
+      "clickablesSingleLine": true,
+      "consoleMarker": "phase7-almanac"
+    },
+    "768": {
+      "innerWidth": 768,
+      "scrollWidth": 768,
+      "noHorizontalOverflow": true,
+      "brokenImages": 0,
+      "controlsMin44px": true,
+      "clickablesSingleLine": true,
+      "consoleMarker": "phase7-almanac"
+    },
+    "1280": {
+      "innerWidth": 1280,
+      "scrollWidth": 1280,
+      "noHorizontalOverflow": true,
+      "brokenImages": 0,
+      "controlsMin44px": true,
+      "clickablesSingleLine": true,
+      "consoleMarker": "phase7-almanac"
+    },
+    "1920": {
+      "innerWidth": 1920,
+      "scrollWidth": 1920,
+      "noHorizontalOverflow": true,
+      "brokenImages": 0,
+      "controlsMin44px": true,
+      "clickablesSingleLine": true,
+      "consoleMarker": "phase7-almanac"
+    }
+  },
+  "queueInitial": {
+    "cardCount": 2,
+    "ids": [
+      "APR-SHARED-ESP",
+      "APR-LOCK-FINAL"
+    ],
+    "blankDecisionCount": 2,
+    "blankReviewerCount": 2
+  },
+  "persistence": {
+    "decision": "APPROVE",
+    "reviewer": "Browser QA Human Placeholder"
+  },
+  "cleared": {
+    "decision": "",
+    "reviewer": ""
+  },
+  "queueCsvValid": true,
+  "queueResponsive": {
+    "320": {
+      "innerWidth": 320,
+      "scrollWidth": 320,
+      "noHorizontalOverflow": true,
+      "brokenImages": 0,
+      "controlsMin44px": true,
+      "clickablesSingleLine": true,
+      "consoleMarker": "phase7-almanac"
+    },
+    "375": {
+      "innerWidth": 375,
+      "scrollWidth": 375,
+      "noHorizontalOverflow": true,
+      "brokenImages": 0,
+      "controlsMin44px": true,
+      "clickablesSingleLine": true,
+      "consoleMarker": "phase7-almanac"
+    },
+    "414": {
+      "innerWidth": 414,
+      "scrollWidth": 414,
+      "noHorizontalOverflow": true,
+      "brokenImages": 0,
+      "controlsMin44px": true,
+      "clickablesSingleLine": true,
+      "consoleMarker": "phase7-almanac"
+    },
+    "768": {
+      "innerWidth": 768,
+      "scrollWidth": 768,
+      "noHorizontalOverflow": true,
+      "brokenImages": 0,
+      "controlsMin44px": true,
+      "clickablesSingleLine": true,
+      "consoleMarker": "phase7-almanac"
+    },
+    "1280": {
+      "innerWidth": 1280,
+      "scrollWidth": 1280,
+      "noHorizontalOverflow": true,
+      "brokenImages": 0,
+      "controlsMin44px": true,
+      "clickablesSingleLine": true,
+      "consoleMarker": "phase7-almanac"
+    },
+    "1920": {
+      "innerWidth": 1920,
+      "scrollWidth": 1920,
+      "noHorizontalOverflow": true,
+      "brokenImages": 0,
+      "controlsMin44px": true,
+      "clickablesSingleLine": true,
+      "consoleMarker": "phase7-almanac"
+    }
+  },
+  "finalReviewInitial": {
+    "fullImagePresent": true,
+    "finalStatus": "VISUAL_DELIVERABLE_CANDIDATE",
+    "fieldCount": 8,
+    "decisionOptions": [
+      "APPROVE",
+      "MINOR_REVISION",
+      "MAJOR_REVISION",
+      "REJECT"
+    ],
+    "blankReviewFields": 8
+  },
+  "reviewCsvValid": true,
+  "reviewResponsive": {
+    "320": {
+      "innerWidth": 320,
+      "scrollWidth": 320,
+      "noHorizontalOverflow": true,
+      "brokenImages": 0,
+      "controlsMin44px": true,
+      "clickablesSingleLine": true,
+      "consoleMarker": "phase7-almanac"
+    },
+    "375": {
+      "innerWidth": 375,
+      "scrollWidth": 375,
+      "noHorizontalOverflow": true,
+      "brokenImages": 0,
+      "controlsMin44px": true,
+      "clickablesSingleLine": true,
+      "consoleMarker": "phase7-almanac"
+    },
+    "414": {
+      "innerWidth": 414,
+      "scrollWidth": 414,
+      "noHorizontalOverflow": true,
+      "brokenImages": 0,
+      "controlsMin44px": true,
+      "clickablesSingleLine": true,
+      "consoleMarker": "phase7-almanac"
+    },
+    "768": {
+      "innerWidth": 768,
+      "scrollWidth": 768,
+      "noHorizontalOverflow": true,
+      "brokenImages": 0,
+      "controlsMin44px": true,
+      "clickablesSingleLine": true,
+      "consoleMarker": "phase7-almanac"
+    },
+    "1280": {
+      "innerWidth": 1280,
+      "scrollWidth": 1280,
+      "noHorizontalOverflow": true,
+      "brokenImages": 0,
+      "controlsMin44px": true,
+      "clickablesSingleLine": true,
+      "consoleMarker": "phase7-almanac"
+    },
+    "1920": {
+      "innerWidth": 1920,
+      "scrollWidth": 1920,
+      "noHorizontalOverflow": true,
+      "brokenImages": 0,
+      "controlsMin44px": true,
+      "clickablesSingleLine": true,
+      "consoleMarker": "phase7-almanac"
+    }
+  },
+  "responsivePass": true,
+  "consoleErrors": []
+}

@@ -1,0 +1,132 @@
+schema_version: 1.0.0
+status: internal_historical_template_validation
+truth_policy:
+  purpose: Matcher and visual-skeleton validation only
+  external_delivery_allowed: false
+  unverified_price_or_promotion_may_render_as_fact: false
+  source_products:
+    - production_truth/products/lock_ultra.yaml
+    - production_truth/products/daily_station.yaml
+  source_assets: production_truth/assets/asset_registry.yaml
+test_cases:
+  - case_id: HIST-VAL-001
+    name: スマートデイリーステーション Product Launch
+    expected_top1: HIST-TPL-002
+    brief:
+      campaign_type: product_launch
+      objective: new_product_value_understanding
+      product_count: 1
+      promotion_level: none
+      content_depth: high
+      asset_types: [product, detail, app_ui]
+      product_complexity: high
+    content:
+      product_name: SwitchBot スマートデイリーステーション
+      headline: 暮らしの情報を、この1画面に
+      body: 天気も室内環境も、家族のスケジュールも。毎日見る情報を、画面ひとつに。
+      primary_feature: 家族の予定を画面ひとつに
+      secondary_features:
+        - 天気と室内環境を同じ画面で確認
+        - 必要な情報を一つの画面にまとめる
+      cta: 製品を詳しく見る
+      cta_url: https://www.switchbot.jp/products/switchbot-weather-station
+      copy_source: production_truth/products/daily_station.yaml
+      truth_status: internal_renderer_pilot_only
+    assets:
+      hero: renderer/assets/official/P04/daily_station_main.jpg
+      detail: renderer/assets/official/P04/daily_station_detail.jpg
+      ui: renderer/assets/official/P04/daily_station_ui.jpg
+
+  - case_id: HIST-VAL-002
+    name: ロックUltra Single Product Conversion
+    expected_top1: HIST-TPL-003
+    brief:
+      campaign_type: single_product_conversion
+      objective: single_product_purchase_confidence
+      product_count: 1
+      promotion_level: none
+      content_depth: medium
+      asset_types: [product, lifestyle, detail]
+      product_complexity: high
+    content:
+      product_name: SwitchBot ロックUltra
+      headline: ドアに溶け込む、一体型デザイン。
+      body: 玄関になじむ外観も、毎日の施錠も、購入前の取り付け確認も。選ぶために必要なことを、順番にご紹介します。
+      primary_feature: 一体型カバーデザイン
+      secondary_features:
+        - ロックとドアの状態を把握
+        - ドアが閉まれば、そっと施錠
+        - ご購入前に取り付け可否を確認
+      cta: 製品を詳しく見る
+      cta_url: https://www.switchbot.jp/products/switchbot-lock-ultra
+      disclaimer: 具体的な取り付け可否は、公式製品ページの最新情報でご確認ください。
+      copy_source: production_truth/products/lock_ultra.yaml
+      truth_status: visual_deliverable_candidate
+    assets:
+      hero: renderer/assets/official/P02/lock_ultra_main.jpg
+      lifestyle: renderer/assets/official/P02/lock_ultra_lifestyle.jpg
+      detail: renderer/assets/official/P02/lock_ultra_detail.jpg
+
+  - case_id: HIST-VAL-003
+    name: 玄関と暮らしの情報 Theme Promotion
+    expected_top1: HIST-TPL-005
+    brief:
+      campaign_type: theme_promotion
+      objective: theme_relevance_then_offer_conversion
+      product_count: 2
+      promotion_level: high
+      content_depth: high
+      asset_types: [product, lifestyle, detail, app_ui]
+      product_complexity: high
+    content:
+      product_name: SwitchBot 暮らしの入口セレクション
+      headline: 暮らしの入口を、まとめて見直す。
+      body: 玄関の施錠と、毎日見る情報。それぞれの製品が担う役割から選べる、社内テンプレート検証用のテーマ構成です。
+      primary_feature: 2つの生活課題を、製品ごとに分けて理解
+      secondary_features:
+        - SwitchBot ロックUltra｜玄関になじむ一体型デザイン
+        - SwitchBot ロックUltra｜施錠とドアの状態を確認
+        - SwitchBot スマートデイリーステーション｜天気と室内環境を一画面に
+        - SwitchBot スマートデイリーステーション｜家族の予定を一画面に
+      cta: 製品を見る
+      cta_url: https://www.switchbot.jp/
+      promotion_notice: キャンペーン条件・価格・期間は未確認のため表示しません
+      copy_source: production_truth/products/lock_ultra.yaml + production_truth/products/daily_station.yaml
+      truth_status: promotion_unverified_skeleton_validation_only
+    assets:
+      hero: renderer/assets/official/P02/lock_ultra_lifestyle.jpg
+      product_a: renderer/assets/official/P02/lock_ultra_main.jpg
+      detail_a: renderer/assets/official/P02/lock_ultra_detail.jpg
+      product_b: renderer/assets/official/P04/daily_station_main.jpg
+      detail_b: renderer/assets/official/P04/daily_station_ui.jpg
+
+  - case_id: HIST-VAL-004
+    name: スマートデイリーステーション Product Education
+    expected_top1: HIST-TPL-008
+    brief:
+      campaign_type: product_education
+      objective: mechanism_or_setup_understanding
+      product_count: 1
+      promotion_level: none
+      content_depth: high
+      asset_types: [product, detail, app_ui]
+      product_complexity: high
+    content:
+      product_name: SwitchBot スマートデイリーステーション
+      headline: 毎日見る情報を、どう一画面にまとめる？
+      body: 天気、室内環境、家族の予定。製品が扱う情報を三つの章に分けて、画面の役割から理解します。
+      primary_feature: 必要な情報を、画面ひとつで確認
+      secondary_features:
+        - 天気と室内環境
+        - 家族のスケジュール
+        - 製品画面での情報確認
+        - 利用条件と連携条件を購入前に確認
+      cta: 製品を詳しく見る
+      cta_url: https://www.switchbot.jp/products/switchbot-weather-station
+      disclaimer: 表示機能や連携条件は、公式製品ページの最新情報でご確認ください。
+      copy_source: production_truth/products/daily_station.yaml
+      truth_status: internal_renderer_pilot_only
+    assets:
+      hero: renderer/assets/official/P04/daily_station_main.jpg
+      detail: renderer/assets/official/P04/daily_station_detail.jpg
+      ui: renderer/assets/official/P04/daily_station_ui.jpg

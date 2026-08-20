@@ -1,0 +1,10 @@
+skill_name,source_path,last_modified,readme,skill_md,references,scripts,tests,migration_status
+amazon-japan-pdp-generator,/Users/lai/.codex/skills/amazon-japan-pdp-generator,2026-08-19T14:25:19,no,yes,yes,yes,yes,migrated
+edm-generator,/Users/lai/Documents/marketing/edm-visual-generator,2026-08-20T11:03:00,yes,no,yes,yes,yes,curated migration
+product-knowledge,/Users/lai/.codex/skills/product-knowledge,2026-08-07T14:49:09,yes,yes,yes,yes,yes,migrated
+switchbot-campaign-review,/Users/lai/Documents/marketing/.agents/skills/switchbot-campaign-review,2026-07-30T19:12:07,no,yes,yes,yes,yes,migrated
+customer-review-intelligence,/Users/lai/Documents/marketing/.agents/skills/customer-review-intelligence,2026-07-31T16:41:31,yes,yes,yes,yes,yes,migrated
+amazon-listing-creative,/Users/lai/.codex/skills/amazon-listing-creative,2026-08-17T15:40:35,no,yes,yes,no,no,migrated
+project-memory-manager,/Users/lai/.codex/skills/project-memory-manager,2026-08-18T12:30:50,no,yes,yes,yes,no,migrated
+influencer-marketing,/Users/lai/Documents/marketing/.agents/skills/influencer-marketing,2026-08-10T17:23:50,no,yes,no,no,no,migrated
+kol-database,/Users/lai/Documents/homerun pet/homerunpet_japan_project/KOL_Master.xlsx,2026-08-06T14:54:41,no,no,no,no,no,not migrated: personal-data review required

@@ -1,0 +1,7 @@
+schema_version: 1.0.0
+product_id: daily_station
+approved_proof: {value: [], status: MISSING, source: Product Knowledge and current Phase 6 review}
+observed_but_excluded:
+  - {value: Official product page review count, status: UNVERIFIED, source: "https://www.switchbot.jp/products/switchbot-weather-station", reason: Dynamic count and no approved review excerpts}
+renderer_behavior: Omit proof module and record MISSING.
+

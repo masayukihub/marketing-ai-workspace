@@ -1,0 +1,13 @@
+schema_version: 1.0.0
+market: Japan
+links:
+  privacy: {value: "https://www.switchbot.jp/pages/privacy-policy", status: VERIFIED, source: "https://www.switchbot.jp/pages/privacy-policy", verified_on: 2026-08-19}
+  terms: {value: "https://www.switchbot.jp/pages/terms-of-service", status: VERIFIED, source: "https://www.switchbot.jp/pages/terms-of-service", verified_on: 2026-08-19}
+  commercial_transactions: {value: "https://www.switchbot.jp/pages/terms-of-service-1", status: VERIFIED, source: "https://www.switchbot.jp/pages/terms-of-service-1", verified_on: 2026-08-19}
+  after_service: {value: "https://www.switchbot.jp/pages/refund-policy", status: VERIFIED, source: "https://www.switchbot.jp/pages/refund-policy", verified_on: 2026-08-19}
+campaign_disclaimer_rules:
+  no_promotion_evergreen: {value: No campaign price/period disclaimer required, status: NOT_REQUIRED, source: production_truth/campaign_truth_schema.yaml}
+  promotion: {value: Channel, price basis, start, end and conditions required, status: VERIFIED, source: production_truth/campaign_truth_schema.yaml}
+approval:
+  legal_package_for_new_edm: {value: false, status: UNVERIFIED, source: Phase 6 Human/Legal approval gate}
+

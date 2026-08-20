@@ -1,0 +1,6 @@
+interface:
+  display_name: "Product Knowledge"
+  short_description: "飞书驱动的 SwitchBot 日本产品营销知识中枢"
+  default_prompt: "Use $product-knowledge to retrieve or update traceable SwitchBot Japan product facts and reusable marketing guidance from Feishu-backed knowledge."
+policy:
+  allow_implicit_invocation: true

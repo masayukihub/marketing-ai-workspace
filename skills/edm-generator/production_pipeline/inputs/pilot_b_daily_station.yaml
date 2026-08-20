@@ -1,0 +1,10 @@
+case_id: PILOT-B-DAILY-STATION
+raw_input: 帮我做一封 SwitchBot スマートデイリーステーション的 Product Education EDM，帮助用户理解一块屏幕能集中查看哪些日常信息，无优惠，常规投放，CTA 为「製品を詳しく見る」。
+product: SwitchBot スマートデイリーステーション
+theme: 暮らしの情報を1画面で理解
+objective: product_mechanism_understanding
+promotion: none
+period: evergreen
+cta_copy: 製品を詳しく見る
+cta_url: "https://www.switchbot.jp/products/switchbot-weather-station"
+

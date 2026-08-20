@@ -1,0 +1,75 @@
+{
+  "template_id": "A-ECOSYSTEM",
+  "family": "aplus",
+  "name": "Ecosystem",
+  "html": {
+    "component": "aplus-ecosystem",
+    "class": "tpl-a-ecosystem"
+  },
+  "css": {
+    "layout": "hub-and-spoke",
+    "min_height_px": 620
+  },
+  "svg": {
+    "renderer": "renderAplusEcosystem",
+    "view_box": "0 0 1464 620"
+  },
+  "grid": {
+    "columns": 12,
+    "rows": 6,
+    "gutter_px": 28
+  },
+  "product_area": {
+    "columns": "5/9",
+    "rows": "2/6",
+    "fit": "contain"
+  },
+  "text_area": {
+    "columns": "1/13",
+    "rows": "1/2",
+    "align": "center"
+  },
+  "safe_area": {
+    "desktop_px": 54,
+    "mobile_percent": 8
+  },
+  "font_size": {
+    "headline_px": 42,
+    "subcopy_px": 21,
+    "label_px": 17
+  },
+  "headline_length": {
+    "preferred": 20,
+    "max": 28
+  },
+  "sub_copy_length": {
+    "preferred": 60,
+    "max": 90
+  },
+  "desktop_rules": [
+    "only verified relationships",
+    "no invented UI",
+    "programmatic labels and lines"
+  ],
+  "mobile_rules": [
+    "convert spokes to vertical relationship list",
+    "do not shrink labels into illegibility"
+  ],
+  "historical_reference": [
+    "REF-SB-K11"
+  ],
+  "library_version": "2026.08-v4",
+  "source_policy": {
+    "product_layer": "User-provided official product asset only for formal launch",
+    "scene_layer": "Official or licensed scene, then AI background without product, then placeholder",
+    "graphic_layer": "Programmatic HTML/CSS/SVG only",
+    "prohibited_ai": [
+      "SwitchBot product body",
+      "logo",
+      "Japanese text",
+      "comparison table",
+      "technical diagram text",
+      "UI"
+    ]
+  }
+}

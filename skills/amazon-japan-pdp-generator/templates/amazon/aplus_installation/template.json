@@ -1,0 +1,74 @@
+{
+  "template_id": "A-INSTALLATION",
+  "family": "aplus",
+  "name": "Installation",
+  "html": {
+    "component": "aplus-installation",
+    "class": "tpl-a-installation"
+  },
+  "css": {
+    "layout": "numbered-steps",
+    "min_height_px": 700
+  },
+  "svg": {
+    "renderer": "renderAplusInstallation",
+    "view_box": "0 0 1464 700"
+  },
+  "grid": {
+    "columns": 3,
+    "rows": 1,
+    "gutter_px": 28
+  },
+  "product_area": {
+    "per_step": "top 55 percent",
+    "fit": "contain"
+  },
+  "text_area": {
+    "per_step": "bottom 45 percent",
+    "align": "left"
+  },
+  "safe_area": {
+    "desktop_px": 54,
+    "mobile_percent": 8
+  },
+  "font_size": {
+    "headline_px": 42,
+    "subcopy_px": 20,
+    "step_px": 18
+  },
+  "headline_length": {
+    "preferred": 20,
+    "max": 30
+  },
+  "sub_copy_length": {
+    "preferred": 54,
+    "max": 82
+  },
+  "desktop_rules": [
+    "two or three verified steps",
+    "official installation assets",
+    "no inferred accessory"
+  ],
+  "mobile_rules": [
+    "steps stack in order",
+    "step number and condition stay adjacent"
+  ],
+  "historical_reference": [
+    "REF-AMZ-A-PLUS",
+    "REF-SB-K11"
+  ],
+  "library_version": "2026.08-v4",
+  "source_policy": {
+    "product_layer": "User-provided official product asset only for formal launch",
+    "scene_layer": "Official or licensed scene, then AI background without product, then placeholder",
+    "graphic_layer": "Programmatic HTML/CSS/SVG only",
+    "prohibited_ai": [
+      "SwitchBot product body",
+      "logo",
+      "Japanese text",
+      "comparison table",
+      "technical diagram text",
+      "UI"
+    ]
+  }
+}

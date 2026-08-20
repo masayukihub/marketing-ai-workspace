@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0",
+  "principle": "A story pattern is a decision path, not a fixed page layout. Select one dominant pattern and at most two supporting patterns; never assemble one module per feature.",
+  "patterns": [
+    {
+      "pattern_id": "STORY-FEATURE-LED",
+      "name": "Feature-led",
+      "consumer_trigger": "The category is already understood and shoppers compare a familiar set of functions.",
+      "recommended_sequence": ["Value compression", "Primary feature", "Secondary feature cluster", "Everyday fit", "Comparison", "Objection closure"],
+      "reference_asins": ["B0GK1QFGF6", "B0FWQY84L6"],
+      "use": ["Bundle many functions into one hierarchy before assigning visuals", "Use chapters for coherent feature families", "Reserve comparison and support for the end"],
+      "adapt": ["Limit feature clusters to one consumer question per visual", "Alternate at least one human scenario with technical chapters"],
+      "avoid": ["One feature equals one image", "Award or logo wallpaper", "A long unranked feature inventory"]
+    },
+    {
+      "pattern_id": "STORY-CATEGORY-EDUCATION",
+      "name": "Category Education",
+      "consumer_trigger": "The product category, workflow or reason to buy is unfamiliar.",
+      "recommended_sequence": ["Problem recognition", "What the category does", "Input or setup", "Mechanism or transformation", "Tangible outcome", "Real scenario", "Fit and conditions"],
+      "reference_asins": ["B0FQ5J7HFQ", "B08131HFSG"],
+      "use": ["Explain the user task before technical vocabulary", "Turn abstract AI or wellness value into visible outputs", "Repeat the product after education so it remains a physical purchase"],
+      "adapt": ["Use SwitchBot user language and approved product UI", "Keep education visual and short enough for Amazon scanning"],
+      "avoid": ["Leading with unexplained technology names", "Claiming category leadership without approved evidence", "Treating lifestyle scenes as technical proof"]
+    },
+    {
+      "pattern_id": "STORY-PERFORMANCE-LED",
+      "name": "Performance-led",
+      "consumer_trigger": "A measurable or observable result is the main reason to switch or pay more.",
+      "recommended_sequence": ["Performance conclusion", "Mechanism", "Failure-point proof", "Result in a real environment", "Method or model comparison", "Ownership confidence"],
+      "reference_asins": ["B0F66LKTV6", "B0FX81HWQ3", "B0GK1QFGF6"],
+      "use": ["Put comparison conditions beside performance claims", "Connect numbers to visible user outcomes", "Break one major USP into specific failure-point proofs"],
+      "adapt": ["Reduce every proof to one result, one mechanism and one source", "Use clean SwitchBot technical diagrams rather than dense ecommerce collages"],
+      "avoid": ["Decorative statistics", "Unqualified multipliers", "Tiny multi-column charts in Gallery"]
+    },
+    {
+      "pattern_id": "STORY-SCENARIO-LED",
+      "name": "Scenario-led",
+      "consumer_trigger": "Fit, routine or emotional context matters more than raw specifications.",
+      "recommended_sequence": ["Audience moment", "Pain in context", "Product intervention", "Before-after benefit", "Second high-value scenario", "Fit check", "Confidence closure"],
+      "reference_asins": ["B0FQ5J7HFQ", "B08131HFSG", "B0FX81HWQ3"],
+      "use": ["Choose scenes that answer a purchase question", "Keep the official product layer visually accurate", "Use scenarios to validate fit after the core value is understood"],
+      "adapt": ["Use believable Japanese homes and work contexts", "Separate AI or stock scene layers from the official product layer"],
+      "avoid": ["Generic decorative lifestyle photography", "Making scenes carry unsupported claims", "Hiding the product to achieve mood"]
+    },
+    {
+      "pattern_id": "STORY-TECHNOLOGY-LED",
+      "name": "Technology-led",
+      "consumer_trigger": "The purchase depends on understanding an invisible mechanism, platform or system relationship.",
+      "recommended_sequence": ["Human value", "Technology concept", "Mechanism", "Proof condition", "Real-world effect", "Compatibility or ecosystem", "FAQ"],
+      "reference_asins": ["B0GK1QFGF6", "B0F66LKTV6", "B0FWQY84L6"],
+      "use": ["Start with the user benefit before naming the technology", "Use programmatic diagrams and source-linked labels", "Show one lived consequence after each technical chapter"],
+      "adapt": ["Use dark contrast only for selected proof moments", "Translate expert detail into Japanese consumer questions"],
+      "avoid": ["Technology logos as the story", "All-dark uninterrupted pages", "Invented UI, connector relationships or technical labels"]
+    }
+  ]
+}

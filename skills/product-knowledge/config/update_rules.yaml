@@ -1,0 +1,35 @@
+version: 1
+incremental_update:
+  default_mode: incremental
+  full_refresh_requires_explicit_flag: true
+  metadata_change_keys: [token, revision_id, modified_time, updated_at, content_hash]
+  create_snapshot_on_each_run: true
+  retain_historical_facts: true
+  never_overwrite_without_source: true
+source_to_fact:
+  P1:
+    automatic_apply: true
+    only_when: "The value is explicit, JP-applicable, date-valid, and non-conflicting."
+  P2:
+    automatic_apply: false
+    default_review_status: verified
+  P3:
+    automatic_apply: false
+    default_review_status: pending_verification
+  P4:
+    automatic_apply: false
+    default_review_status: pending_verification
+  P5:
+    automatic_apply: false
+    default_review_status: pending_verification
+review_queue:
+  required_for: [claim, price, firmware, compatibility, privacy, performance, certification, award, competitor]
+freshness_days:
+  price: 7
+  promotion: 1
+  compatibility: 90
+  firmware: 60
+  app_version: 60
+  claim: 180
+  certification: 180
+  award: 365

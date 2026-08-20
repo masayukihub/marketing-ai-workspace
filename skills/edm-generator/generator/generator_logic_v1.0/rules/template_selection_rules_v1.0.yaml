@@ -1,0 +1,555 @@
+---
+version: 1.0.0
+status: Frozen
+baseline: standards/edm_design_rules_v1.0.yaml
+output_contract:
+  selected_template_id: one template variant or BLOCKED
+  required_module_ids: ordered list
+  optional_module_ids: ordered candidates
+  selection_reasons: all matched rule_ids and score contributions
+  unresolved_inputs: must remain Blocked / Unverified / Conflict / Unknown
+input_schema:
+  campaign_type: &1
+  - product_launch
+  - theme_promotion
+  - countdown_last_chance
+  - single_product_conversion
+  - product_education
+  - category_multi_product
+  - brand_ecosystem_story
+  primary_objective: &2
+  - new_product_value_understanding
+  - problem_recognition_then_product_solution
+  - new_product_desirability_in_context
+  - theme_relevance_then_offer_conversion
+  - multi_product_offer_discovery
+  - deadline_driven_conversion
+  - single_product_purchase_confidence
+  - single_product_offer_conversion
+  - problem_and_solution_understanding
+  - mechanism_or_setup_understanding
+  - choice_framework_and_product_fit
+  - category_context_and_product_discovery
+  - multi_product_choice_decision
+  - brand_meaning_and_trust
+  - ecosystem_relationship_understanding
+  promotion_level:
+  - none
+  - low
+  - medium
+  - high
+  product_count: integer >= 0
+  message_hierarchy:
+  - resolved
+  - unresolved
+  - conflicting
+  asset_availability:
+  - complete
+  - partial
+  - missing_required
+  - unverified
+  product_familiarity:
+  - low
+  - medium
+  - high
+  - unknown
+  deadline_verified:
+  - true
+  - false
+  - unknown
+  comparison_data_available:
+  - true
+  - false
+  - partial
+  lifestyle_asset_available:
+  - true
+  - false
+  - unverified
+  ui_asset_available:
+  - true
+  - false
+  - unverified
+selection_algorithm:
+- step: 1
+  action: normalize_minimum_input_and_resolve_product_identity
+- step: 2
+  action: resolve_campaign_type_and_primary_objective
+  on_unresolved: BLOCKED
+- step: 3
+  action: run_hard_rule_preflight
+  on_failure: BLOCKED
+- step: 4
+  action: filter_by_campaign_type_and_product_count
+- step: 5
+  action: apply_exact_variant_resolution_matrix
+- step: 6
+  action: apply_asset_promotion_and_evidence_rules
+- step: 7
+  action: score_remaining_candidates_and_apply_tie_breakers
+- step: 8
+  action: return_one_template_plus_required_optional_modules_and_reasons
+  on_multiple: BLOCKED_TEMPLATE_SELECTION_AMBIGUOUS
+hard_preflight:
+- id: TSR-GATE-000
+  when:
+    field: campaign_type
+    op: not_in
+    value: *1
+  result: BLOCKED
+  failure_code: CAMPAIGN_TYPE_UNRESOLVED
+  rule_id: R-QA-001
+- id: TSR-GATE-000B
+  when:
+    field: primary_objective
+    op: not_in
+    value: *2
+  result: BLOCKED
+  failure_code: PRIMARY_OBJECTIVE_MISSING_OR_MULTIPLE
+  rule_id: R-BRAND-001
+- id: TSR-GATE-001
+  when:
+    field: message_hierarchy
+    op: not_equal
+    value: resolved
+  result: BLOCKED
+  failure_code: PRIMARY_OBJECTIVE_MISSING_OR_MULTIPLE
+  rule_id: R-BRAND-001
+- id: TSR-GATE-002
+  when:
+    field: asset_availability
+    op: in
+    value:
+    - missing_required
+    - unverified
+  result: BLOCKED
+  failure_code: REQUIRED_INPUT_UNRESOLVED
+  rule_id: R-QA-001
+- id: TSR-GATE-003
+  when:
+    all:
+    - field: campaign_type
+      op: equal
+      value: countdown_last_chance
+    - field: deadline_verified
+      op: not_equal
+      value: true
+  result: BLOCKED
+  failure_code: PROMOTION_FACT_UNVERIFIED
+  rule_id: R-PROMO-002
+candidate_rules:
+- id: TSR-001
+  priority: 100
+  when:
+    field: campaign_type
+    op: equal
+    value: product_launch
+  include_candidates:
+  - TPL-LAUNCH-A
+  - TPL-LAUNCH-B
+  - TPL-LAUNCH-C
+- id: TSR-002
+  priority: 100
+  when:
+    field: campaign_type
+    op: equal
+    value: theme_promotion
+  include_candidates:
+  - TPL-PROMO-A
+  - TPL-PROMO-B
+- id: TSR-003
+  priority: 110
+  when:
+    all:
+    - field: campaign_type
+      op: equal
+      value: countdown_last_chance
+    - field: deadline_verified
+      op: equal
+      value: true
+  include_candidates:
+  - TPL-PROMO-C
+- id: TSR-004
+  priority: 100
+  when:
+    field: campaign_type
+    op: equal
+    value: single_product_conversion
+  include_candidates:
+  - TPL-CONVERT-A
+  - TPL-CONVERT-B
+- id: TSR-005
+  priority: 100
+  when:
+    field: campaign_type
+    op: equal
+    value: product_education
+  include_candidates:
+  - TPL-EDU-A
+  - TPL-EDU-B
+  - TPL-EDU-C
+- id: TSR-006
+  priority: 100
+  when:
+    field: campaign_type
+    op: equal
+    value: category_multi_product
+  include_candidates:
+  - TPL-CATEGORY-A
+  - TPL-CATEGORY-B
+- id: TSR-007
+  priority: 100
+  when:
+    field: campaign_type
+    op: equal
+    value: brand_ecosystem_story
+  include_candidates:
+  - TPL-BRAND-A
+  - TPL-BRAND-B
+- id: TSR-008
+  priority: 90
+  when:
+    field: primary_objective
+    op: in
+    value:
+    - problem_and_solution_understanding
+    - mechanism_or_setup_understanding
+  boost_candidates:
+    TPL-EDU-A: 35
+    TPL-EDU-B: 45
+  reason: product understanding maps to Product Education
+- id: TSR-009
+  priority: 90
+  when:
+    all:
+    - field: campaign_type
+      op: equal
+      value: product_launch
+    - field: primary_objective
+      op: equal
+      value: new_product_value_understanding
+  boost_candidates:
+    TPL-LAUNCH-A: 45
+    TPL-LAUNCH-B: 25
+- id: TSR-010
+  priority: 90
+  when:
+    all:
+    - field: campaign_type
+      op: equal
+      value: product_launch
+    - field: primary_objective
+      op: equal
+      value: problem_recognition_then_product_solution
+  boost_candidates:
+    TPL-LAUNCH-B: 50
+- id: TSR-011
+  priority: 80
+  when:
+    field: lifestyle_asset_available
+    op: equal
+    value: true
+  boost_candidates:
+    TPL-LAUNCH-C: 30
+    TPL-BRAND-A: 15
+    TPL-BRAND-B: 20
+- id: TSR-012
+  priority: 95
+  when:
+    field: ui_asset_available
+    op: equal
+    value: true
+  boost_candidates:
+    TPL-EDU-B: 40
+    TPL-BRAND-B: 35
+- id: TSR-013
+  priority: 95
+  when:
+    field: ui_asset_available
+    op: in
+    value:
+    - false
+    - unverified
+  exclude_candidates:
+  - TPL-EDU-B
+  unless: App/UI module can be replaced by verified Product Detail
+- id: TSR-014
+  priority: 95
+  when:
+    field: comparison_data_available
+    op: equal
+    value: true
+  boost_candidates:
+    TPL-EDU-C: 45
+    TPL-CATEGORY-B: 45
+- id: TSR-015
+  priority: 95
+  when:
+    field: comparison_data_available
+    op: not_equal
+    value: true
+  exclude_candidates:
+  - TPL-EDU-C
+  - TPL-CATEGORY-B
+- id: TSR-016
+  priority: 100
+  when:
+    field: product_count
+    op: greater_than_or_equal
+    value: 4
+  boost_candidates:
+    TPL-PROMO-B: 40
+    TPL-CATEGORY-A: 45
+  required_modules:
+  - MOD-COMMERCE-PRODUCT-GRID
+  forbid_primary_hero:
+  - MOD-HERO-PRODUCT
+  reason: 4+ products require category/grid logic rather than a single-product main
+    structure
+- id: TSR-017
+  priority: 100
+  when:
+    field: product_count
+    op: equal
+    value: 1
+  exclude_candidates:
+  - TPL-PROMO-B
+  - TPL-CATEGORY-A
+  - TPL-CATEGORY-B
+  - TPL-BRAND-B
+- id: TSR-018
+  priority: 85
+  when:
+    field: promotion_level
+    op: equal
+    value: high
+  allow_modules:
+  - MOD-HERO-PROMOTION
+  - MOD-COMMERCE-OFFER-BAND
+  - MOD-COMMERCE-PRICE
+  - MOD-COMMERCE-COUPON
+  required_rule_ids:
+  - R-PROMO-001
+  - R-PROMO-002
+  - R-PROMO-003
+  note: high promotion permits Promotion Hero but does not waive proof or hierarchy
+- id: TSR-019
+  priority: 85
+  when:
+    all:
+    - field: promotion_level
+      op: in
+      value:
+      - medium
+      - high
+    - field: product_count
+      op: equal
+      value: 1
+  boost_candidates:
+    TPL-CONVERT-B: 35
+- id: TSR-020
+  priority: 70
+  when:
+    field: product_familiarity
+    op: equal
+    value: low
+  boost_candidates:
+    TPL-LAUNCH-B: 20
+    TPL-EDU-A: 25
+  penalize_candidates:
+    TPL-CONVERT-B: 25
+- id: TSR-021
+  priority: 70
+  when:
+    field: product_familiarity
+    op: equal
+    value: high
+  boost_candidates:
+    TPL-CONVERT-B: 20
+    TPL-PROMO-B: 15
+- id: TSR-022
+  priority: 60
+  when:
+    field: primary_objective
+    op: equal
+    value: brand_meaning_and_trust
+  boost_candidates:
+    TPL-BRAND-A: 60
+- id: TSR-023
+  priority: 60
+  when:
+    field: primary_objective
+    op: equal
+    value: ecosystem_relationship_understanding
+  boost_candidates:
+    TPL-BRAND-B: 60
+score_model:
+  campaign_type_exact: 50
+  primary_objective_exact: 35
+  product_count_in_range: 20
+  promotion_level_supported: 15
+  required_assets_complete: 20
+  required_asset_missing: exclude
+  asset_substitution_explained: 5
+  high_confidence_template: 5
+tie_breakers:
+- prefer exact campaign_type plus primary_objective matrix match
+- prefer complete current required assets
+- prefer fewer required modules when both satisfy the same objective
+- prefer Tier A anchor fit over Tier C/D novelty
+- if still tied, return BLOCKED_TEMPLATE_SELECTION_AMBIGUOUS and request clarification
+evidence_boundary:
+  Tier_A: highest weight for SwitchBot structure and brand character
+  Tier_B: secondary SwitchBot support
+  Tier_C: Japan localization and visual supplementation
+  Tier_D: layout/module/hero ideas only; cannot determine Japanese copy, density,
+    promotion or CTA
+phase: Phase 3 Closed
+frozen_on: '2026-08-19'
+supersedes: design_system/template_selection_rules.yaml
+human_decision_source: research/phase3_design_system_human_decisions.csv
+hard_rule_inheritance:
+  standard: standards/edm_design_rules_v1.0.yaml
+  rule_ids:
+  - R-BRAND-001
+  - R-WEIGHT-001
+  - R-PRODUCT-001
+  - R-ASSET-001
+  - R-ASSET-002
+  - R-AI-001
+  - R-AI-002
+  - R-CLAIM-001
+  - R-CLAIM-002
+  - R-CTA-001
+  - R-CTA-004
+  - R-MODULE-001
+  - R-PROMO-002
+  - R-COPY-002
+  - R-DESKTOP-001
+  - R-EVIDENCE-001
+  - R-QA-001
+  - R-QA-002
+  failure_behavior: QA=BLOCKED
+variant_resolution_matrix:
+- id: VSR-LAUNCH-A
+  when:
+    campaign_type: product_launch
+    primary_objective: new_product_value_understanding
+  select: TPL-LAUNCH-A
+  decisive_condition: 产品身份与核心价值已明确，先产品后展开
+- id: VSR-LAUNCH-B
+  when:
+    campaign_type: product_launch
+    primary_objective: problem_recognition_then_product_solution
+  select: TPL-LAUNCH-B
+  decisive_condition: 新品需要先建立痛点认知，再导入产品
+- id: VSR-LAUNCH-C
+  when:
+    campaign_type: product_launch
+    primary_objective: new_product_desirability_in_context
+  select: TPL-LAUNCH-C
+  decisive_condition: 强官方 Lifestyle 是新品欲望建立的主要证据
+- id: VSR-PROMO-A
+  when:
+    campaign_type: theme_promotion
+    primary_objective: theme_relevance_then_offer_conversion
+  select: TPL-PROMO-A
+  decisive_condition: 先说明主题相关性，再进入多产品优惠
+- id: VSR-PROMO-B
+  when:
+    campaign_type: theme_promotion
+    primary_objective: multi_product_offer_discovery
+  select: TPL-PROMO-B
+  decisive_condition: 用户已理解活动，4–12 个 SKU 以优惠浏览为主
+- id: VSR-PROMO-C
+  when:
+    campaign_type: countdown_last_chance
+    primary_objective: deadline_driven_conversion
+  select: TPL-PROMO-C
+  decisive_condition: 只用于已验证截止时间的最后提醒
+- id: VSR-CONVERT-A
+  when:
+    campaign_type: single_product_conversion
+    primary_objective: single_product_purchase_confidence
+  select: TPL-CONVERT-A
+  decisive_condition: 单品需要价值与证明后转化，优惠不是唯一理由
+- id: VSR-CONVERT-B
+  when:
+    campaign_type: single_product_conversion
+    primary_objective: single_product_offer_conversion
+  select: TPL-CONVERT-B
+  decisive_condition: 熟悉单品的中高促销快速购买判断
+- id: VSR-EDU-A
+  when:
+    campaign_type: product_education
+    primary_objective: problem_and_solution_understanding
+  select: TPL-EDU-A
+  decisive_condition: 教育任务本身是主目标，不承担新品发布任务
+- id: VSR-EDU-B
+  when:
+    campaign_type: product_education
+    primary_objective: mechanism_or_setup_understanding
+  select: TPL-EDU-B
+  decisive_condition: App、安装、设置或机制是主要理解障碍
+- id: VSR-EDU-C
+  when:
+    campaign_type: product_education
+    primary_objective: choice_framework_and_product_fit
+  select: TPL-EDU-C
+  decisive_condition: 先教授选择框架，再说明型号适配
+- id: VSR-CATEGORY-A
+  when:
+    campaign_type: category_multi_product
+    primary_objective: category_context_and_product_discovery
+  select: TPL-CATEGORY-A
+  decisive_condition: 先建立品类入口，再发现 4–12 个产品
+- id: VSR-CATEGORY-B
+  when:
+    campaign_type: category_multi_product
+    primary_objective: multi_product_choice_decision
+  select: TPL-CATEGORY-B
+  decisive_condition: 用户已进入品类，需要在 2–6 个产品间做购买选择
+- id: VSR-BRAND-A
+  when:
+    campaign_type: brand_ecosystem_story
+    primary_objective: brand_meaning_and_trust
+  select: TPL-BRAND-A
+  decisive_condition: 品牌观点、长期价值与可信故事优先
+- id: VSR-BRAND-B
+  when:
+    campaign_type: brand_ecosystem_story
+    primary_objective: ecosystem_relationship_understanding
+  select: TPL-BRAND-B
+  decisive_condition: 多个产品、App 或关系图构成主要理解对象
+responsibility_boundaries:
+- pair:
+  - TPL-LAUNCH-B
+  - TPL-EDU-A
+  resolution: product_launch selects LAUNCH-B; product_education selects EDU-A
+  never_use_score_to_cross_campaign_family: true
+- pair:
+  - TPL-PROMO-B
+  - TPL-CONVERT-B
+  resolution: one promoted SKU selects CONVERT-B; 4–12 promoted SKUs select PROMO-B
+  never_use_score_to_cross_campaign_family: true
+- pair:
+  - TPL-PROMO-B
+  - TPL-CATEGORY-A
+  resolution: offer discovery selects PROMO-B; category/product discovery selects
+    CATEGORY-A
+  never_use_score_to_cross_campaign_family: true
+- pair:
+  - TPL-EDU-C
+  - TPL-CATEGORY-B
+  resolution: teaching a choice framework selects EDU-C; choosing current SKUs selects
+    CATEGORY-B
+  never_use_score_to_cross_campaign_family: true
+conflict_policy:
+  campaign_family_is_authoritative: true
+  exact_matrix_precedes_scoring: true
+  cross_family_score_override: false
+  ambiguous_result: BLOCKED_TEMPLATE_SELECTION_AMBIGUOUS
+  request_fields:
+  - campaign_type
+  - primary_objective
+  - product_count
+  - promotion_level

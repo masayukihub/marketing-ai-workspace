@@ -1,0 +1,48 @@
+# SwitchBot AI MindClip
+
+此文件为从规范事实层生成的营销知识摘要，不是事实源。每次更新后重新生成。
+
+## Overview
+
+- Product ID: ai_mindclip
+- 日本正式名称: 未确认
+- 中文名称: 未确认
+- Category: 未确认
+- Lifecycle: unknown
+- Completeness: 33/100; Freshness: 92/100
+
+## Positioning
+
+- 未确认
+
+## Selling Points
+
+- 未确认：尚无可复用的原子事实。
+
+## Specifications
+
+- 未确认。
+
+## Claims
+
+- `CLM-004` — 会話から重要事項やタスクを整理するウェアラブルAIデバイス。 (Pending Verification; SRC-005)
+
+## Compatibility
+
+- 未确认。
+
+## FAQ
+
+- 已登记。
+
+## Channel Reuse
+
+- 可复用外发Message：暂无。必须先获得Approved Claim。
+
+## Risks and Limitations
+
+- 未确认、冲突或非Approved Claim不得用于外发。
+
+## Sources
+
+- `SRC-005` — SwitchBot AI MindClip 产品营销文档-JP

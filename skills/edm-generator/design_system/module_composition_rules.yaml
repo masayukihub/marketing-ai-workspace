@@ -1,0 +1,207 @@
+version: 1.0.0-phase3-review
+status: Human Review Required
+baseline: standards/edm_design_rules_v1.0.yaml
+validation_levels:
+  blocked: only a v1.0 Hard Rule violation can block
+  explain: Soft Rule or composition default deviation requires reason
+  advisory: Experimental and rhythm guidance never blocks Production
+global_invariants:
+- id: MCR-HARD-001
+  level: blocked
+  rule_id: R-MODULE-001
+  require:
+  - hero
+  - primary_message
+  - primary_cta
+  - product_or_proof_visual
+  - brand_footer
+- id: MCR-HARD-002
+  level: blocked
+  rule_id: R-BRAND-001
+  constraint: exactly one Primary Objective per EDM
+- id: MCR-HARD-003
+  level: blocked
+  rule_id: R-CTA-001
+  constraint: one Primary CTA per module and 1–2 destinations per email
+- id: MCR-HARD-004
+  level: blocked
+  rule_id: R-ASSET-001
+  constraint: all product/UI/detail assets require provenance
+- id: MCR-HARD-005
+  level: blocked
+  rule_id: R-QA-002
+  constraint: Experimental rules never block
+sequence_rules:
+- id: MCR-001
+  level: blocked
+  when_module: ANY_HERO
+  position: 1
+  reason: Final EDM requires a Hero
+- id: MCR-002
+  level: explain
+  pattern:
+  - MOD-HERO-PROMOTION
+  - MOD-COMMERCE-PRICE
+  constraint: avoid immediate adjacency unless price is the Primary Objective
+  replacement:
+  - MOD-COMMERCE-OFFER-BAND
+  - MOD-STORY-PRODUCT-DETAIL
+  - MOD-COMMERCE-PRODUCT-GRID
+- id: MCR-003
+  level: explain
+  pattern:
+  - MOD-STORY-FEATURE-SPLIT
+  - MOD-STORY-FEATURE-SPLIT
+  - MOD-STORY-FEATURE-SPLIT
+  constraint: 'forbidden default: three consecutive isomorphic Feature Split modules'
+  replacement: insert Lifestyle Scene, Product Detail, Feature Icons or a full-width
+    proof module
+- id: MCR-004
+  level: explain
+  when_module: MOD-COMMERCE-PRODUCT-GRID
+  requires_previous_any:
+  - MOD-HERO-MULTI
+  - MOD-HERO-PROMOTION
+  - MOD-HERO-EDITORIAL
+  - MOD-STORY-IMAGE-TEXT
+  - MOD-STORY-PROBLEM
+  - MOD-COMMERCE-COMPARISON
+  reason: Product Grid needs Category / Theme Context
+- id: MCR-005
+  level: blocked
+  when_module: MOD-TRUST-USER-VOICE
+  requires_inputs:
+  - source
+  - usage_basis
+  rule_id: R-CLAIM-001
+- id: MCR-006
+  level: explain
+  pattern:
+  - MOD-CONV-CTA-BAND
+  - MOD-CONV-CTA-BAND
+  constraint: CTA Bands cannot be consecutive
+- id: MCR-007
+  level: blocked
+  when_module: MOD-CONV-LAST-CHANCE
+  requires_inputs:
+  - verified_deadline
+  rule_id: R-PROMO-002
+- id: MCR-008
+  level: explain
+  when_module: MOD-STORY-LIFESTYLE
+  requires_adjacent_any:
+  - MOD-HERO-PRODUCT
+  - MOD-STORY-PRIMARY-USP
+  - MOD-STORY-PRODUCT-DETAIL
+  - MOD-STORY-FEATURE-SPLIT
+  - MOD-COMMERCE-PRODUCT-GRID
+  reason: Lifestyle cannot be the only product evidence
+- id: MCR-009
+  level: blocked
+  when_module: MOD-STORY-APP-UI
+  requires_inputs:
+  - official_ui_asset
+  - verified_ui_state
+  rule_id: R-ASSET-001
+- id: MCR-010
+  level: explain
+  when_module: MOD-COMMERCE-COMPARISON
+  requires_previous_any:
+  - MOD-HERO-EDITORIAL
+  - MOD-STORY-IMAGE-TEXT
+  - MOD-STORY-PROBLEM
+  reason: comparison needs a stated choice question
+- id: MCR-011
+  level: explain
+  when_module: MOD-COMMERCE-COUPON
+  requires_previous_any:
+  - MOD-COMMERCE-OFFER-BAND
+  - MOD-COMMERCE-PRICE
+  - MOD-COMMERCE-PRODUCT-GRID
+  reason: Coupon should attach to an offer or product context
+- id: MCR-012
+  level: explain
+  when_module: MOD-TRUST-REVIEW
+  requires_previous_any:
+  - MOD-STORY-PRIMARY-USP
+  - MOD-STORY-PRODUCT-DETAIL
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-COMMERCE-COMPARISON
+  reason: proof should follow the claim or choice it supports
+- id: MCR-013
+  level: blocked
+  when_module: MOD-SYSTEM-BRAND-FOOTER
+  position: last
+  rule_id: R-MODULE-001
+- id: MCR-014
+  level: explain
+  constraint: a System Spacer cannot appear twice consecutively and cannot open or
+    close the email
+- id: MCR-015
+  level: explain
+  constraint: after two card-dominant modules, change to full-width, split, text or
+    lifestyle rhythm
+- id: MCR-016
+  level: explain
+  constraint: after two high-density modules, use a low/medium-density module unless
+    legal requirements demand continuity
+- id: MCR-017
+  level: advisory
+  experimental_rule_id: R-MOBILE-002
+  constraint: Desktop split modules should stack semantically; 3–4 column grids test
+    as one column
+- id: MCR-018
+  level: advisory
+  experimental_rule_id: R-HERO-003
+  constraint: product visual ratio is a test range, never a composition blocker
+repetition_limits:
+  same_module_consecutive: 1
+  same_layout_family_consecutive: 2
+  feature_split_consecutive: 2
+  cta_band_consecutive: 1
+  high_density_consecutive: 2
+  card_surface_consecutive: 2
+  note: These are Soft composition defaults, not v1.0 Hard Rules. Deviations require
+    an explicit Campaign/Content reason.
+required_transitions:
+- from_state: high_density_card
+  to_state_options:
+  - low_density_full_bleed
+  - medium_density_split
+  - proof_band
+  after_max_run: 2
+- from_state: product_only
+  to_state_options:
+  - lifestyle
+  - context
+  - proof
+  after_max_run: 2
+- from_state: text_heavy
+  to_state_options:
+  - visual_heavy
+  - product_detail
+  - proof_strip
+  after_max_run: 2
+- from_state: dark
+  to_state_options:
+  - light
+  - neutral
+  after_max_run: 1
+module_aliases:
+  ANY_HERO:
+  - MOD-HERO-PRODUCT
+  - MOD-HERO-LIFESTYLE
+  - MOD-HERO-PROMOTION
+  - MOD-HERO-MULTI
+  - MOD-HERO-EDITORIAL
+  ANY_FOOTER:
+  - MOD-SYSTEM-LEGAL-FOOTER
+  - MOD-SYSTEM-BRAND-FOOTER
+  ANY_PRODUCT_PROOF:
+  - MOD-HERO-PRODUCT
+  - MOD-HERO-LIFESTYLE
+  - MOD-HERO-MULTI
+  - MOD-STORY-PRODUCT-DETAIL
+  - MOD-STORY-APP-UI
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-TRUST-REVIEW

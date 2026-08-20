@@ -1,0 +1,75 @@
+{
+  "template_id": "A-BRAND",
+  "family": "aplus",
+  "name": "Brand",
+  "html": {
+    "component": "aplus-brand",
+    "class": "tpl-a-brand"
+  },
+  "css": {
+    "layout": "brand-story",
+    "min_height_px": 600
+  },
+  "svg": {
+    "renderer": "renderAplusBrand",
+    "view_box": "0 0 1464 600"
+  },
+  "grid": {
+    "columns": 12,
+    "rows": 6,
+    "gutter_px": 32
+  },
+  "product_area": {
+    "columns": "7/13",
+    "rows": "1/7",
+    "fit": "contain"
+  },
+  "text_area": {
+    "columns": "1/7",
+    "rows": "2/6",
+    "align": "left"
+  },
+  "safe_area": {
+    "desktop_px": 54,
+    "mobile_percent": 8
+  },
+  "font_size": {
+    "headline_px": 46,
+    "subcopy_px": 22
+  },
+  "headline_length": {
+    "preferred": 20,
+    "max": 32
+  },
+  "sub_copy_length": {
+    "preferred": 68,
+    "max": 100
+  },
+  "desktop_rules": [
+    "one approved brand message",
+    "no unsupported award or leadership claim",
+    "logo uses official graphic layer asset"
+  ],
+  "mobile_rules": [
+    "brand message before image",
+    "logo and copy remain separately editable"
+  ],
+  "historical_reference": [
+    "REF-AMZ-PLUG-MINI",
+    "REF-AMZ-A-PLUS"
+  ],
+  "library_version": "2026.08-v4",
+  "source_policy": {
+    "product_layer": "User-provided official product asset only for formal launch",
+    "scene_layer": "Official or licensed scene, then AI background without product, then placeholder",
+    "graphic_layer": "Programmatic HTML/CSS/SVG only",
+    "prohibited_ai": [
+      "SwitchBot product body",
+      "logo",
+      "Japanese text",
+      "comparison table",
+      "technical diagram text",
+      "UI"
+    ]
+  }
+}

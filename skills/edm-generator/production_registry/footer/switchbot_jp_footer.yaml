@@ -1,0 +1,52 @@
+schema_version: 2.0.0
+component_id: switchbot_jp_production_footer_v1
+company:
+  brand: SwitchBot
+  legal_name: SWITCHBOT株式会社
+  address: 〒150-0013 東京都渋谷区恵比寿1-21-17 Sreed Ebisu+C
+  support_email: support@switchbot.jp
+  support_phone: 0120-676-162
+  official_store: https://www.switchbot.jp/
+  status: VERIFIED
+  source: research/mobile_evidence/html/SBG_001.html#L409-L413 and official store
+required_legal_ids: [LEGAL-JP-PRIVACY, LEGAL-JP-TERMS, LEGAL-JP-COMMERCE]
+runtime_tokens:
+  preference_center:
+    label: 好みを設定する
+    token: "{{preference_center_url}}"
+    status: DRAFT
+    source: ESP runtime interface pending confirmation
+  unsubscribe:
+    label: 登録を解除する
+    token: "{{unsubscribe_url}}"
+    status: DRAFT
+    source: ESP runtime interface pending confirmation
+  current_year:
+    token: "{{current_year}}"
+    status: DRAFT
+    source: Renderer runtime interface
+channel_requirements:
+  EDM:
+    unsubscribe_required: true
+    preference_center_required: true
+    privacy_required: true
+    company_identity_required: true
+approval:
+  static_footer:
+    status: INHERITED_APPROVAL
+    resolution: INHERIT
+    inherited_from: [research/mobile_evidence/html/SBG_001.html, research/mobile_evidence/html/SBG_016.html, research/mobile_evidence/html/SBG_019.html]
+    verified_at: 2026-08-20
+  esp_token_contract:
+    status: MISSING
+    approved_by: null
+    approved_at: null
+renderer_behavior:
+  unresolved_token_policy: ALLOW_VISUAL_BLOCK_ESP_SEND
+  static_component_requires_approval: false
+  runtime_values_injected_by_esp: true
+  visual_render_tokens_as_labels: true
+  customer_facing_internal_notes: false
+gate_separation:
+  visual_production: PASS
+  esp_send: BLOCK_UNTIL_RUNTIME_CONTRACT

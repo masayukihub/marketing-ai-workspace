@@ -1,0 +1,32 @@
+schema_version: 2.0.0
+primary_path:
+  - state: INTERNAL_DRAFT
+    order: 0
+    gate: Registry exists and hard safety rules pass.
+  - state: DESIGN_READY
+    order: 1
+    gate: Product truth, used claims, official design-scope assets, Japanese Copy Candidate and Visual QA all pass.
+  - state: VISUAL_DELIVERABLE_CANDIDATE
+    order: 2
+    gate: DESIGN_READY plus complete editable HTML, Desktop, Mobile and full-length visual package.
+  - state: CONTENT_APPROVED
+    order: 3
+    gate: One whole-email Human Review approves product information, Japanese, brand fit, completeness and visual delivery quality.
+  - state: ESP_READY
+    order: 4
+    gate: Runtime unsubscribe/preferences tokens and target email-client compilation are verified.
+  - state: PRODUCTION_READY
+    order: 5
+    gate: CONTENT_APPROVED, ESP_READY, channel-scope checks and Final Delivery Approval all pass.
+independent_gates:
+  VISUAL_DELIVERABLE:
+    requires: [DESIGN_READY, HUMAN_FINAL_APPROVE]
+    not_blocked_by: [ESP_RUNTIME_TOKEN, UNSUBSCRIBE_RUNTIME_URL, EMAIL_CLIENT_COMPILATION, SEND_PLATFORM_INTEGRATION]
+  ESP_SEND:
+    requires: [CONTENT_APPROVED, ESP_READY, CHANNEL_SCOPE_APPROVED, FINAL_DELIVERY_APPROVED]
+transition_policy:
+  visual_and_send_gates_separated: true
+  auto_advance_after_registry_writeback: true
+  auto_rerender_when_design_inputs_change: true
+  rerender_command: ruby production_pipeline/run_one_shot.rb
+  rerender_note: Template, Module, Length and Hero remain automatic. ESP state never blocks visual rendering.

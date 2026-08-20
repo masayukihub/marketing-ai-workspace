@@ -1,0 +1,23 @@
+name: Data Update
+description: 更新价格、规格、评论、媒体或活动数据
+title: "[Data] "
+labels: ["data"]
+body:
+  - type: textarea
+    attributes: {label: Project}
+  - type: dropdown
+    attributes: {label: Priority, options: [P0, P1, P2]}
+  - type: input
+    attributes: {label: Owner}
+  - type: input
+    attributes: {label: Deadline}
+  - type: textarea
+    attributes: {label: Input and Current Snapshot Date}
+    validations: {required: true}
+  - type: textarea
+    attributes: {label: Expected Output}
+  - type: textarea
+    attributes: {label: Canonical Source}
+    validations: {required: true}
+  - type: textarea
+    attributes: {label: Acceptance Criteria}

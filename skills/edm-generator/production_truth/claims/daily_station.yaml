@@ -1,0 +1,8 @@
+schema_version: 1.0.0
+product_id: daily_station
+approved_external_claims: {value: [], status: MISSING, source: /Users/lai/.codex/skills/product-knowledge/outputs/product_index.json#daily_station}
+conditional_claims: []
+prohibited_claims:
+  - {value: Unverified AI, battery, display, sensor, capacity, range or compatibility claims, status: VERIFIED, source: /Users/lai/.codex/skills/product-knowledge/references/compliance.md#CMP-003}
+phase6_use_policy: Current official-page non-numeric information categories and exact product identity only; numeric or AI claims stay out of editable copy.
+

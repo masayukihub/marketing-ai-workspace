@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0",
+  "principle": "Gallery sequences are seven decision jobs, not seven feature slots. The first image remains the Amazon-compliant official main image.",
+  "sequences": [
+    {
+      "sequence_id": "GALLERY-FAMILIAR-TECH",
+      "best_for": ["familiar consumer electronics", "feature-comparison categories"],
+      "reference_asins": ["B0GK1QFGF6", "B0FWQY84L6"],
+      "roles": ["Official Main", "Value Hero", "Primary Mechanism", "Performance Proof", "Real Scenario", "Everyday Fit", "Comparison or Purchase Confidence"],
+      "logic": "Confirm the product, justify the value quickly, explain one decisive mechanism, prove it, then move into lived use and selection."
+    },
+    {
+      "sequence_id": "GALLERY-NEW-CATEGORY",
+      "best_for": ["AI hardware", "new workflows", "low category familiarity"],
+      "reference_asins": ["B0FQ5J7HFQ", "B08131HFSG"],
+      "roles": ["Official Main", "Problem or Audience Hero", "What It Does", "Input or Setup", "Transformation or Mechanism", "Tangible Outcome in Scenario", "Fit and Conditions"],
+      "logic": "Teach the job before listing capability. Keep the physical product visible between workflow and software outcomes."
+    },
+    {
+      "sequence_id": "GALLERY-MECHANISM-PERFORMANCE",
+      "best_for": ["robotics", "cleaning appliances", "performance-led systems"],
+      "reference_asins": ["B0F66LKTV6", "B0FX81HWQ3"],
+      "roles": ["Official Main", "Performance Hero", "Core Mechanism", "Failure-point Proof", "Environment Fit", "Ownership Effort", "Confidence or Comparison"],
+      "logic": "Move from result to mechanism, then test the mechanism against the shopper's likely failure points before addressing ownership."
+    },
+    {
+      "sequence_id": "GALLERY-AUDIENCE-PROBLEM",
+      "best_for": ["audience-specific home products", "wellness or family use"],
+      "reference_asins": ["B08131HFSG"],
+      "roles": ["Official Main", "Audience Problem", "Core Proof", "Relief Scenario", "Daily Safety or Fit", "Mechanism Detail", "Desired-life Closure"],
+      "logic": "Keep the target person or household visible. Proof reassures, while the last image returns to the life they want."
+    },
+    {
+      "sequence_id": "GALLERY-JAPAN-FIT-CONFIDENCE",
+      "best_for": ["large smart-home devices", "installation-sensitive products", "high-consideration appliances"],
+      "reference_asins": ["B0FX81HWQ3"],
+      "roles": ["Official Main", "Japan Fit Hero", "Core Value", "Mechanism Proof", "Real Home Scenario", "Installation or Ecosystem Fit", "Support and Purchase Confidence"],
+      "logic": "Resolve space, placement or household fit early, then prove value and close with conditions, support and compatibility."
+    }
+  ]
+}

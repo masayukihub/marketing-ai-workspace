@@ -1,0 +1,7 @@
+interface:
+  display_name: "Project Memory Manager"
+  short_description: "Maintain source-linked marketing project memory."
+  default_prompt: "Use $project-memory-manager to discover, refresh, or read a project memory."
+
+policy:
+  allow_implicit_invocation: true

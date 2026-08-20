@@ -1,0 +1,13 @@
+schema_version: 1.0.0
+allowed_statuses: [VERIFIED, APPROVED, UNVERIFIED, MISSING, NOT_REQUIRED]
+required_sections:
+  campaign: [name, theme, objective, start, end]
+  promotion: [msrp, deal_price, discount, coupon]
+  cta: [copy, url]
+  legal: [disclaimer]
+  verification: [campaign_truth_gate, external_campaign_ready]
+campaign_truth_gate:
+  promotion_campaign_requires: [channel, msrp_or_price_basis, deal_price, start, end, disclaimer]
+  evergreen_no_promotion_requires: [objective, cta_copy, cta_url]
+  failure_behavior: INTERNAL_DRAFT
+

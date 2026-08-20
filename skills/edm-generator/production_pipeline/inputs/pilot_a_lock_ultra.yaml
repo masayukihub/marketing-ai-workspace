@@ -1,0 +1,10 @@
+case_id: PILOT-A-LOCK-ULTRA
+raw_input: 帮我做一封 SwitchBot ロックUltra 玄关防犯 EDM，目的为官网商品页导流，无优惠，常规投放，CTA 为「製品を詳しく見る」。
+product: SwitchBot ロックUltra
+theme: 玄関防犯
+objective: official_store_product_discovery
+promotion: none
+period: evergreen
+cta_copy: 製品を詳しく見る
+cta_url: "https://www.switchbot.jp/products/switchbot-lock-ultra"
+

@@ -1,0 +1,97 @@
+# Product Knowledge Validation Report
+
+- Generated At: 2026-08-20T15:27:05+08:00
+- Overall Status: PASS
+- Skill Directory: /Users/lai/Documents/marketing/marketing-ai-workspace/skills/product-knowledge
+- Products: 18
+- Facts: 6
+- Sources: 19
+- Profiles: 18
+
+## Summary
+
+- Critical: 0
+- High: 56
+- Medium: 22
+- Low: 0
+
+## Findings
+
+- [High] `COMPATIBILITY_FIRMWARE_UNRECORDED` — No compatibility record contains a concrete firmware requirement.
+- [High] `COMPATIBILITY_STATUS_UNRESOLVED` — All compatibility records have unknown support status. (rows=3)
+- [High] `COMPETITOR_DATA_EMPTY` — Competitor schema exists but contains no dated competitor records.
+- [High] `JP_ALIAS_COVERAGE_MISSING` — Product has no current Japanese alias for exact entity resolution. (product_id=ai_art_canvas)
+- [High] `JP_ALIAS_COVERAGE_MISSING` — Product has no current Japanese alias for exact entity resolution. (product_id=battery_circulator_fan)
+- [High] `JP_ALIAS_COVERAGE_MISSING` — Product has no current Japanese alias for exact entity resolution. (product_id=circulator_fan_2_pro)
+- [High] `JP_ALIAS_COVERAGE_MISSING` — Product has no current Japanese alias for exact entity resolution. (product_id=curtain_3)
+- [High] `JP_ALIAS_COVERAGE_MISSING` — Product has no current Japanese alias for exact entity resolution. (product_id=daily_station)
+- [High] `JP_ALIAS_COVERAGE_MISSING` — Product has no current Japanese alias for exact entity resolution. (product_id=homerunpet_series)
+- [High] `JP_ALIAS_COVERAGE_MISSING` — Product has no current Japanese alias for exact entity resolution. (product_id=k10_pro_combo)
+- [High] `JP_ALIAS_COVERAGE_MISSING` — Product has no current Japanese alias for exact entity resolution. (product_id=k11_plus)
+- [High] `JP_ALIAS_COVERAGE_MISSING` — Product has no current Japanese alias for exact entity resolution. (product_id=keypad_vision_pro)
+- [High] `JP_ALIAS_COVERAGE_MISSING` — Product has no current Japanese alias for exact entity resolution. (product_id=lock_ultra)
+- [High] `JP_ALIAS_COVERAGE_MISSING` — Product has no current Japanese alias for exact entity resolution. (product_id=relay_switch_1)
+- [High] `JP_ALIAS_COVERAGE_MISSING` — Product has no current Japanese alias for exact entity resolution. (product_id=s10)
+- [High] `JP_ALIAS_COVERAGE_MISSING` — Product has no current Japanese alias for exact entity resolution. (product_id=s20)
+- [High] `JP_ALIAS_COVERAGE_MISSING` — Product has no current Japanese alias for exact entity resolution. (product_id=video_doorbell)
+- [High] `JP_ALIAS_COVERAGE_MISSING` — Product has no current Japanese alias for exact entity resolution. (product_id=weather_station)
+- [High] `JP_OFFICIAL_NAME_MISSING` — Japan-market product lacks a verified official Japanese name. (product_id=hub_3)
+- [High] `JP_OFFICIAL_NAME_MISSING` — Japan-market product lacks a verified official Japanese name. (product_id=lock_ultra)
+- [High] `JP_OFFICIAL_NAME_MISSING` — Japan-market product lacks a verified official Japanese name. (product_id=keypad_vision_pro)
+- [High] `JP_OFFICIAL_NAME_MISSING` — Japan-market product lacks a verified official Japanese name. (product_id=ai_mindclip)
+- [High] `JP_OFFICIAL_NAME_MISSING` — Japan-market product lacks a verified official Japanese name. (product_id=video_doorbell)
+- [High] `JP_OFFICIAL_NAME_MISSING` — Japan-market product lacks a verified official Japanese name. (product_id=battery_circulator_fan)
+- [High] `JP_OFFICIAL_NAME_MISSING` — Japan-market product lacks a verified official Japanese name. (product_id=circulator_fan_2_pro)
+- [High] `JP_OFFICIAL_NAME_MISSING` — Japan-market product lacks a verified official Japanese name. (product_id=curtain_3)
+- [High] `JP_OFFICIAL_NAME_MISSING` — Japan-market product lacks a verified official Japanese name. (product_id=k10_pro_combo)
+- [High] `JP_OFFICIAL_NAME_MISSING` — Japan-market product lacks a verified official Japanese name. (product_id=k11_plus)
+- [High] `JP_OFFICIAL_NAME_MISSING` — Japan-market product lacks a verified official Japanese name. (product_id=s10)
+- [High] `JP_OFFICIAL_NAME_MISSING` — Japan-market product lacks a verified official Japanese name. (product_id=s20)
+- [High] `JP_OFFICIAL_NAME_MISSING` — Japan-market product lacks a verified official Japanese name. (product_id=daily_station)
+- [High] `JP_OFFICIAL_NAME_MISSING` — Japan-market product lacks a verified official Japanese name. (product_id=weather_station)
+- [High] `JP_OFFICIAL_NAME_MISSING` — Japan-market product lacks a verified official Japanese name. (product_id=ai_art_canvas)
+- [High] `JP_OFFICIAL_NAME_MISSING` — Japan-market product lacks a verified official Japanese name. (product_id=relay_switch_1)
+- [High] `JP_OFFICIAL_NAME_MISSING` — Japan-market product lacks a verified official Japanese name. (product_id=kata_friends)
+- [High] `JP_OFFICIAL_NAME_MISSING` — Japan-market product lacks a verified official Japanese name. (product_id=homerunpet_series)
+- [High] `KNOWN_ISSUE_IMAGE_VERSION_GAP` — Known Issues does not record or explicitly clear official-image versus current-version mismatch risk.
+- [High] `PRICING_DATA_EMPTY` — Pricing schema exists but contains no channel- and date-qualified price records.
+- [High] `PRODUCT_LIFECYCLE_UNKNOWN` — Product lifecycle or release status is unknown. (product_id=hub_3)
+- [High] `PRODUCT_LIFECYCLE_UNKNOWN` — Product lifecycle or release status is unknown. (product_id=lock_ultra)
+- [High] `PRODUCT_LIFECYCLE_UNKNOWN` — Product lifecycle or release status is unknown. (product_id=keypad_vision_pro)
+- [High] `PRODUCT_LIFECYCLE_UNKNOWN` — Product lifecycle or release status is unknown. (product_id=ai_mindclip)
+- [High] `PRODUCT_LIFECYCLE_UNKNOWN` — Product lifecycle or release status is unknown. (product_id=video_doorbell)
+- [High] `PRODUCT_LIFECYCLE_UNKNOWN` — Product lifecycle or release status is unknown. (product_id=battery_circulator_fan)
+- [High] `PRODUCT_LIFECYCLE_UNKNOWN` — Product lifecycle or release status is unknown. (product_id=circulator_fan_2_pro)
+- [High] `PRODUCT_LIFECYCLE_UNKNOWN` — Product lifecycle or release status is unknown. (product_id=curtain_3)
+- [High] `PRODUCT_LIFECYCLE_UNKNOWN` — Product lifecycle or release status is unknown. (product_id=k10_pro_combo)
+- [High] `PRODUCT_LIFECYCLE_UNKNOWN` — Product lifecycle or release status is unknown. (product_id=k11_plus)
+- [High] `PRODUCT_LIFECYCLE_UNKNOWN` — Product lifecycle or release status is unknown. (product_id=s10)
+- [High] `PRODUCT_LIFECYCLE_UNKNOWN` — Product lifecycle or release status is unknown. (product_id=s20)
+- [High] `PRODUCT_LIFECYCLE_UNKNOWN` — Product lifecycle or release status is unknown. (product_id=daily_station)
+- [High] `PRODUCT_LIFECYCLE_UNKNOWN` — Product lifecycle or release status is unknown. (product_id=weather_station)
+- [High] `PRODUCT_LIFECYCLE_UNKNOWN` — Product lifecycle or release status is unknown. (product_id=ai_art_canvas)
+- [High] `PRODUCT_LIFECYCLE_UNKNOWN` — Product lifecycle or release status is unknown. (product_id=relay_switch_1)
+- [High] `PRODUCT_LIFECYCLE_UNKNOWN` — Product lifecycle or release status is unknown. (product_id=kata_friends)
+- [High] `PRODUCT_LIFECYCLE_UNKNOWN` — Product lifecycle or release status is unknown. (product_id=homerunpet_series)
+- [Medium] `ALIAS_TYPE_COVERAGE_MISSING` — Alias registry has no entries for a supported governance type. (alias_type=internal_name)
+- [Medium] `ALIAS_TYPE_COVERAGE_MISSING` — Alias registry has no entries for a supported governance type. (alias_type=typo)
+- [Medium] `CLAIM_STATUS_COVERAGE_MISSING` — Claim registry currently has no entries in this governance state. (status=Approved)
+- [Medium] `CLAIM_STATUS_COVERAGE_MISSING` — Claim registry currently has no entries in this governance state. (status=Conditional)
+- [Medium] `ZH_ALIAS_COVERAGE_MISSING` — Product has no current Chinese alias; Chinese task prompts may remain unresolved. (product_id=ai_art_canvas)
+- [Medium] `ZH_ALIAS_COVERAGE_MISSING` — Product has no current Chinese alias; Chinese task prompts may remain unresolved. (product_id=ai_mindclip)
+- [Medium] `ZH_ALIAS_COVERAGE_MISSING` — Product has no current Chinese alias; Chinese task prompts may remain unresolved. (product_id=battery_circulator_fan)
+- [Medium] `ZH_ALIAS_COVERAGE_MISSING` — Product has no current Chinese alias; Chinese task prompts may remain unresolved. (product_id=circulator_fan_2_pro)
+- [Medium] `ZH_ALIAS_COVERAGE_MISSING` — Product has no current Chinese alias; Chinese task prompts may remain unresolved. (product_id=curtain_3)
+- [Medium] `ZH_ALIAS_COVERAGE_MISSING` — Product has no current Chinese alias; Chinese task prompts may remain unresolved. (product_id=daily_station)
+- [Medium] `ZH_ALIAS_COVERAGE_MISSING` — Product has no current Chinese alias; Chinese task prompts may remain unresolved. (product_id=homerunpet_series)
+- [Medium] `ZH_ALIAS_COVERAGE_MISSING` — Product has no current Chinese alias; Chinese task prompts may remain unresolved. (product_id=hub_3)
+- [Medium] `ZH_ALIAS_COVERAGE_MISSING` — Product has no current Chinese alias; Chinese task prompts may remain unresolved. (product_id=k10_pro_combo)
+- [Medium] `ZH_ALIAS_COVERAGE_MISSING` — Product has no current Chinese alias; Chinese task prompts may remain unresolved. (product_id=k11_plus)
+- [Medium] `ZH_ALIAS_COVERAGE_MISSING` — Product has no current Chinese alias; Chinese task prompts may remain unresolved. (product_id=kata_friends)
+- [Medium] `ZH_ALIAS_COVERAGE_MISSING` — Product has no current Chinese alias; Chinese task prompts may remain unresolved. (product_id=keypad_vision_pro)
+- [Medium] `ZH_ALIAS_COVERAGE_MISSING` — Product has no current Chinese alias; Chinese task prompts may remain unresolved. (product_id=lock_ultra)
+- [Medium] `ZH_ALIAS_COVERAGE_MISSING` — Product has no current Chinese alias; Chinese task prompts may remain unresolved. (product_id=relay_switch_1)
+- [Medium] `ZH_ALIAS_COVERAGE_MISSING` — Product has no current Chinese alias; Chinese task prompts may remain unresolved. (product_id=s10)
+- [Medium] `ZH_ALIAS_COVERAGE_MISSING` — Product has no current Chinese alias; Chinese task prompts may remain unresolved. (product_id=s20)
+- [Medium] `ZH_ALIAS_COVERAGE_MISSING` — Product has no current Chinese alias; Chinese task prompts may remain unresolved. (product_id=video_doorbell)
+- [Medium] `ZH_ALIAS_COVERAGE_MISSING` — Product has no current Chinese alias; Chinese task prompts may remain unresolved. (product_id=weather_station)

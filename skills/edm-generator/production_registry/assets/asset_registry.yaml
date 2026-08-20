@@ -1,0 +1,130 @@
+schema_version: 2.0.0
+policy:
+  design_renderer_requires: DESIGN_PRODUCTION_APPROVED
+  final_send_requires: CHANNEL_APPROVED
+  ai_may_redraw_product: false
+  source_required: true
+  source_authenticity_is_not_channel_permission: true
+assets:
+  - asset_id: ASSET-LOCK-MAIN
+    product_id: lock_ultra
+    asset_type: official_png
+    source_path: renderer/assets/official/P02/lock_ultra_main.jpg
+    source_origin: https://www.switchbot.jp/cdn/shop/files/59_2x_070b4f90-1856-4257-8850-9535863d628d.webp?v=1745576039
+    production_status: DESIGN_PRODUCTION_APPROVED
+    source_authenticity: OFFICIAL_MARKETING_ASSET
+    usage_scope: DESIGN_PRODUCTION_APPROVED
+    channel_scope: HUMAN_REQUIRED_AT_SEND
+    source_evidence: Published as the current official-store variant image.
+    sha256: 9f4bcc91361cfee8128be3fce802af42ec15159a8f94e19c1ba95d655d30a98d
+    dimensions: {width: 2000, height: 2000}
+    allowed_usage: [hero_product, product_reset, product_identity]
+    market: Japan
+    channel: [EDM]
+    valid_from: null
+    valid_until: null
+    approved_by: null
+    last_verified: 2026-08-19
+  - asset_id: ASSET-LOCK-LIFESTYLE
+    product_id: lock_ultra
+    asset_type: lifestyle
+    source_path: renderer/assets/official/P02/lock_ultra_lifestyle.jpg
+    source_origin: https://cdn.shopify.com/s/files/1/0522/2458/9999/files/1-_2-Banner-JP_2x_1_beef1491-e31b-4898-9148-b7b5354dd0d7.webp?v=1745750440
+    production_status: DESIGN_PRODUCTION_APPROVED
+    source_authenticity: OFFICIAL_MARKETING_ASSET
+    usage_scope: DESIGN_PRODUCTION_APPROVED
+    channel_scope: HUMAN_REQUIRED_AT_SEND
+    source_evidence: Public SwitchBot Japan Shopify CDN marketing asset; no third-party element identified.
+    sha256: 5eba119831d5601d20a01d286e59f4d880d7e5f371b713784ca66fed6834ad68
+    dimensions: {width: 750, height: 1000}
+    allowed_usage: [lifestyle, color_context, product_reentry]
+    market: Japan
+    channel: [EDM]
+    valid_from: null
+    valid_until: null
+    approved_by: null
+    last_verified: 2026-08-19
+  - asset_id: ASSET-LOCK-DETAIL
+    product_id: lock_ultra
+    asset_type: detail
+    source_path: renderer/assets/official/P02/lock_ultra_detail.jpg
+    source_origin: https://cdn.shopify.com/s/files/1/0522/2458/9999/files/LOCK_ULtra_JP_Amazon_A__600x450_01_M_2x_fa98d0e1-582d-44b2-a164-097170cde208.webp?v=1750318758
+    production_status: DESIGN_PRODUCTION_APPROVED
+    source_authenticity: OFFICIAL_MARKETING_ASSET
+    usage_scope: DESIGN_PRODUCTION_APPROVED
+    channel_scope: HUMAN_REQUIRED_AT_SEND
+    source_evidence: Public SwitchBot Japan official PDP/A+ compatibility visual.
+    sha256: 8ee54758e69e7f2fdf993d0739cf75c78946a09937ad34b662bec5e7730d020b
+    dimensions: {width: 1200, height: 900}
+    allowed_usage: [compatibility, installation_detail, purchase_check]
+    market: Japan
+    channel: [EDM]
+    valid_from: null
+    valid_until: null
+    approved_by: null
+    last_verified: 2026-08-19
+  - asset_id: ASSET-DAILY-MAIN
+    product_id: daily_station
+    asset_type: official_png
+    source_path: renderer/assets/official/P04/daily_station_main.jpg
+    source_origin: https://www.switchbot.jp/cdn/shop/files/Weather_Station_JP_Amazon_Images_1600x1600_00_3x_4_1200x1200.webp?v=1781505008
+    production_status: DESIGN_PRODUCTION_APPROVED
+    source_authenticity: OFFICIAL_MARKETING_ASSET
+    usage_scope: DESIGN_PRODUCTION_APPROVED
+    channel_scope: HUMAN_REQUIRED_AT_SEND
+    source_evidence: Public SwitchBot Japan official-store product image.
+    sha256: 08cee99d96d13831d64e68ffc29ef74ba2a0dca5f64544aa39d4cccd69c92a89
+    dimensions: {width: 1200, height: 1200}
+    allowed_usage: [hero_product, product_reset, product_identity]
+    market: Japan
+    channel: [EDM]
+    valid_from: null
+    valid_until: null
+    approved_by: null
+    last_verified: 2026-08-19
+  - asset_id: ASSET-DAILY-UI
+    product_id: daily_station
+    asset_type: app_ui
+    source_path: renderer/assets/official/P04/daily_station_ui.jpg
+    source_origin: https://www.switchbot.jp/cdn/shop/files/Weather_Station_JP_Amazon_Images_1600x1600_01_2x_32a38aed-303c-4d47-b9e7-782ca0f62f2e_1200x1200.webp?v=1780979421
+    production_status: DESIGN_PRODUCTION_APPROVED
+    source_authenticity: OFFICIAL_MARKETING_ASSET
+    usage_scope: DESIGN_PRODUCTION_APPROVED
+    channel_scope: HUMAN_REQUIRED_AT_SEND
+    source_evidence: Public SwitchBot Japan official-store device UI marketing image.
+    sha256: bfdd7b9cef9f03008cb9a268cd4dcfe4902620fc8fd37490a70f7d4bce5569f9
+    dimensions: {width: 1200, height: 1200}
+    allowed_usage: [device_ui, mechanism, information_categories]
+    market: Japan
+    channel: [EDM]
+    valid_from: null
+    valid_until: null
+    approved_by: null
+    last_verified: 2026-08-19
+  - asset_id: ASSET-DAILY-DETAIL
+    product_id: daily_station
+    asset_type: detail
+    source_path: renderer/assets/official/P04/daily_station_detail.jpg
+    source_origin: https://www.switchbot.jp/cdn/shop/files/Weather_Station_JP_Amazon_Images_2000x2000_02_2x_420fc15a-45f5-4eb1-9e15-6e69b7ba3fef_1200x1200.webp?v=1776400034
+    production_status: DESIGN_PRODUCTION_APPROVED
+    source_authenticity: OFFICIAL_MARKETING_ASSET
+    usage_scope: DESIGN_PRODUCTION_APPROVED
+    channel_scope: HUMAN_REQUIRED_AT_SEND
+    source_evidence: Public SwitchBot Japan official-store feature marketing image.
+    sha256: b606cd14a31e9b82b6d16baa7788f5c674bdde97c484c1efadf04f69d7e30e08
+    dimensions: {width: 1200, height: 1200}
+    allowed_usage: [environment_detail, information_categories, product_reentry]
+    market: Japan
+    channel: [EDM]
+    valid_from: null
+    valid_until: null
+    approved_by: null
+    last_verified: 2026-08-19
+required_by_case:
+  PILOT-A-LOCK-ULTRA: [ASSET-LOCK-MAIN, ASSET-LOCK-LIFESTYLE, ASSET-LOCK-DETAIL]
+  PILOT-B-DAILY-STATION: [ASSET-DAILY-MAIN, ASSET-DAILY-UI, ASSET-DAILY-DETAIL]
+missing_optional:
+  - asset_id: ASSET-SHARED-BRAND-LOGO
+    production_status: UNKNOWN
+    fallback: Approved text wordmark component
+    blocks_current_pilot: false

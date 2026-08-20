@@ -1,0 +1,1707 @@
+---
+version: 1.0.0
+status: Frozen
+baseline:
+  markdown: standards/edm_design_standard_v1.0.md
+  machine_rules: standards/edm_design_rules_v1.0.yaml
+  traceability: standards/rule_traceability.csv
+  phase3_brief: phase3_design_system_brief.md
+taxonomy_policy:
+  family_count: 6
+  variant_count: 15
+  merge_threshold: if structural difference is less than about 20%, keep as a Variant
+    or merge
+  scope: Template and Module design only; no Renderer, formal Skill, or production
+    EDM
+  human_decision_result: All reviewed families and variants were kept. No merge or
+    removal was authorized.
+  overlap_control: Campaign Type plus Primary Objective must resolve to one variant
+    through template_selection_rules_v1.0.yaml.
+template_families:
+- family_id: TF-LAUNCH
+  family_name: Product Launch
+  campaign_type: product_launch
+  family_objective: 让收件人在首次接触时理解新品价值、产品身份与下一步行动。
+  variant_ids:
+  - TPL-LAUNCH-A
+  - TPL-LAUNCH-B
+  - TPL-LAUNCH-C
+  human_decision: Keep
+- family_id: TF-PROMOTION
+  family_name: Theme Promotion
+  campaign_type: theme_promotion
+  family_objective: 围绕一个真实活动主题组织商品、优惠与截止信息，并保持主命题单一。
+  variant_ids:
+  - TPL-PROMO-A
+  - TPL-PROMO-B
+  - TPL-PROMO-C
+  human_decision: Keep
+- family_id: TF-CONVERSION
+  family_name: Single Product Conversion
+  campaign_type: single_product_conversion
+  family_objective: 用最短的可信路径完成单品价值确认、购买阻碍消除与转化。
+  variant_ids:
+  - TPL-CONVERT-A
+  - TPL-CONVERT-B
+  human_decision: Keep
+- family_id: TF-EDUCATION
+  family_name: Product Education
+  campaign_type: product_education
+  family_objective: 帮助用户理解问题、产品机制、使用方法或选择逻辑。
+  variant_ids:
+  - TPL-EDU-A
+  - TPL-EDU-B
+  - TPL-EDU-C
+  human_decision: Keep
+- family_id: TF-CATEGORY
+  family_name: Category / Multi-product
+  campaign_type: category_multi_product
+  family_objective: 先建立品类或主题上下文，再帮助用户在多个产品中选择。
+  variant_ids:
+  - TPL-CATEGORY-A
+  - TPL-CATEGORY-B
+  human_decision: Keep
+- family_id: TF-BRAND
+  family_name: Brand / Ecosystem Story
+  campaign_type: brand_ecosystem_story
+  family_objective: 用编辑叙事或生态关系建立品牌理解，并在末段提供自然行动入口。
+  variant_ids:
+  - TPL-BRAND-A
+  - TPL-BRAND-B
+  human_decision: Keep
+templates:
+- template_id: TPL-LAUNCH-A
+  template_name: Launch A — Product Value First
+  template_family_id: TF-LAUNCH
+  campaign_type: product_launch
+  primary_objective: new_product_value_understanding
+  recommended_for:
+  - 新品本体与核心价值已经明确
+  - 有高质量官方产品主视觉
+  - 需要先建立价值再展开功能
+  not_recommended_for:
+  - 主要任务只是截止提醒
+  - 缺少可辨认产品素材
+  - 需要先解释陌生问题场景
+  product_count_range:
+    min: 1
+    max: 2
+  promotion_level:
+  - none
+  - low
+  - medium
+  recommended_module_sequence:
+  - MOD-HERO-PRODUCT
+  - MOD-STORY-PRIMARY-USP
+  - MOD-STORY-FEATURE-SPLIT
+  - MOD-STORY-PRODUCT-DETAIL
+  - MOD-STORY-LIFESTYLE
+  - MOD-TRUST-REVIEW
+  - MOD-CONV-CTA-BAND
+  - MOD-SYSTEM-BRAND-FOOTER
+  optional_modules:
+  - MOD-STORY-FEATURE-ICONS
+  - MOD-TRUST-AWARD
+  - MOD-COMMERCE-PRICE
+  required_modules:
+  - MOD-HERO-PRODUCT
+  - MOD-STORY-PRIMARY-USP
+  - MOD-CONV-CTA-BAND
+  - MOD-SYSTEM-BRAND-FOOTER
+  message_requirement:
+    primary_objective_count: 1
+    primary_message_count: 1
+    primary_usp_count: 1 default
+    secondary_usp_count: 2–3 default
+    cta_destination_count: 1–2 verified destinations
+    japanese_h1: 14–26 characters default; soft max 28; Brand Story may reach 38
+    opening_logic: product identity → primary value → proof
+  asset_requirement: &1
+    official_product_asset: required for sales and launch templates
+    asset_provenance: required for every product, UI, package, accessory and installation
+      visual
+    claim_sources: required before Final
+    ai_boundary: environment and atmosphere only; never redraw product or UI
+    missing_required_asset: template selection must return BLOCKED or choose a structure
+      that does not need the missing optional asset
+  desktop_behavior:
+    content_width: 600px baseline
+    layout: preserve one dominant reading path; split layouts require semantic order
+    hero: complete title + recognizable product/proof + primary CTA task without fixed
+      height ratio
+    hero_layout: product_center or asymmetric split
+  mobile_behavior: &2
+    qa_viewport: 390px experimental default; also verify 320/375/414/768 review surfaces
+    reflow: semantic single-column stacking; never infer order only from desktop position
+    cta: full-width permitted; 44px target is Experimental and cannot block Production
+    images: preserve aspect ratio; destructive crop forbidden
+  applicable_rules:
+  - R-BRAND-001
+  - R-WEIGHT-001
+  - R-ASSET-001
+  - R-ASSET-002
+  - R-CLAIM-001
+  - R-CTA-001
+  - R-CTA-004
+  - R-MODULE-001
+  - R-COPY-002
+  - R-EVIDENCE-001
+  - R-QA-001
+  - R-QA-002
+  - R-PRODUCT-001
+  - R-HERO-001
+  - R-HERO-002
+  - R-HERO-004
+  - R-MESSAGE-002
+  - R-MESSAGE-003
+  - R-MODULE-004
+  anchor_references:
+  - sample_id: SBG_007
+    usage: launch structure
+    limitation: dual-product/performance tone is not universal
+  - sample_id: SBG_019
+    usage: single-product launch support
+    limitation: neon treatment is product-specific
+  confidence:
+    level: High
+    basis: Tier A launch anchors plus frozen v1.0 launch sequence
+    limitations: []
+  variable_parts:
+  - Feature Split may become Image + Text
+  - Price may enter only after value/proof
+  - Review Proof may become Award / Media Proof when sourced
+  human_decision: Keep
+  selection_discriminator:
+    campaign_type: product_launch
+    primary_objective: new_product_value_understanding
+    decisive_condition: 产品身份与核心价值已明确，先产品后展开
+- template_id: TPL-LAUNCH-B
+  template_name: Launch B — Problem to Solution
+  template_family_id: TF-LAUNCH
+  campaign_type: product_launch
+  primary_objective: problem_recognition_then_product_solution
+  recommended_for:
+  - 新品解决的痛点需要先被识别
+  - 用户对新品类或能力尚不熟悉
+  - 有可验证的问题场景资产
+  not_recommended_for:
+  - 消费者已熟悉品类且只需价格
+  - 问题场景会让产品出场过晚
+  - Lifestyle 资产无法连接产品事实
+  product_count_range:
+    min: 1
+    max: 2
+  promotion_level:
+  - none
+  - low
+  recommended_module_sequence:
+  - MOD-HERO-LIFESTYLE
+  - MOD-STORY-PROBLEM
+  - MOD-STORY-PRIMARY-USP
+  - MOD-STORY-IMAGE-TEXT
+  - MOD-STORY-PRODUCT-DETAIL
+  - MOD-TRUST-REVIEW
+  - MOD-CONV-CTA-BAND
+  - MOD-SYSTEM-BRAND-FOOTER
+  optional_modules:
+  - MOD-STORY-FAQ
+  - MOD-STORY-FEATURE-SPLIT
+  - MOD-COMMERCE-PRICE
+  required_modules:
+  - MOD-HERO-LIFESTYLE
+  - MOD-STORY-PROBLEM
+  - MOD-STORY-PRIMARY-USP
+  - MOD-CONV-CTA-BAND
+  - MOD-SYSTEM-BRAND-FOOTER
+  message_requirement:
+    primary_objective_count: 1
+    primary_message_count: 1
+    primary_usp_count: 1 default
+    secondary_usp_count: 2–3 default
+    cta_destination_count: 1–2 verified destinations
+    japanese_h1: 14–26 characters default; soft max 28; Brand Story may reach 38
+    opening_logic: consumer problem → product answer → evidence
+  asset_requirement:
+    official_product_asset: required for sales and launch templates
+    asset_provenance: required for every product, UI, package, accessory and installation
+      visual
+    claim_sources: required before Final
+    ai_boundary: environment and atmosphere only; never redraw product or UI
+    missing_required_asset: template selection must return BLOCKED or choose a structure
+      that does not need the missing optional asset
+    lifestyle_asset: required and must connect visibly to the verified product
+  desktop_behavior:
+    content_width: 600px baseline
+    layout: preserve one dominant reading path; split layouts require semantic order
+    hero: complete title + recognizable product/proof + primary CTA task without fixed
+      height ratio
+    hero_layout: lifestyle full-width or split with recognizable product
+  mobile_behavior:
+    qa_viewport: 390px experimental default; also verify 320/375/414/768 review surfaces
+    reflow: semantic single-column stacking; never infer order only from desktop position
+    cta: full-width permitted; 44px target is Experimental and cannot block Production
+    images: preserve aspect ratio; destructive crop forbidden
+    stack_order: problem context → product solution; product cannot disappear below
+      a long intro
+  applicable_rules:
+  - R-BRAND-001
+  - R-WEIGHT-001
+  - R-ASSET-001
+  - R-ASSET-002
+  - R-CLAIM-001
+  - R-CTA-001
+  - R-CTA-004
+  - R-MODULE-001
+  - R-COPY-002
+  - R-EVIDENCE-001
+  - R-QA-001
+  - R-QA-002
+  - R-PRODUCT-001
+  - R-HERO-001
+  - R-HERO-002
+  - R-HERO-004
+  - R-MODULE-003
+  - R-MODULE-004
+  - R-COPY-005
+  anchor_references:
+  - sample_id: SBG_007
+    usage: value-to-proof launch pacing
+    limitation: problem framing must remain product-specific
+  - sample_id: SBG_016
+    usage: Japan home-context product integration
+    limitation: warm home styling is category-specific
+  confidence:
+    level: Medium
+    basis: Strong Tier A components; exact problem-first sequence still needs template
+      validation
+    limitations: []
+  variable_parts:
+  - Problem may be one scene or two short contrasts
+  - FAQ enters only for known objections
+  - Lifestyle Hero can switch to Product Focus if product recognition weakens
+  human_decision: Keep
+  selection_discriminator:
+    campaign_type: product_launch
+    primary_objective: problem_recognition_then_product_solution
+    decisive_condition: 新品需要先建立痛点认知，再导入产品
+  responsibility_boundary:
+    compared_with: TPL-EDU-A
+    choose_this_when: campaign_type=product_launch and novelty/problem recognition
+      serves a new-product introduction
+    choose_other_when: campaign_type=product_education and the learning task remains
+      useful without launch novelty
+- template_id: TPL-LAUNCH-C
+  template_name: Launch C — Lifestyle Story
+  template_family_id: TF-LAUNCH
+  campaign_type: product_launch
+  primary_objective: new_product_desirability_in_context
+  recommended_for:
+  - 产品价值依赖完成态或使用氛围
+  - 有强官方 Lifestyle 素材
+  - 产品仍能在场景中清楚辨认
+  not_recommended_for:
+  - 没有可追溯 Lifestyle 素材
+  - 功能理解比场景想象更重要
+  - 强促销或 Last Chance
+  product_count_range:
+    min: 1
+    max: 1
+  promotion_level:
+  - none
+  - low
+  recommended_module_sequence:
+  - MOD-HERO-LIFESTYLE
+  - MOD-STORY-PRODUCT-DETAIL
+  - MOD-STORY-LIFESTYLE
+  - MOD-STORY-FEATURE-ICONS
+  - MOD-STORY-IMAGE-TEXT
+  - MOD-CONV-CTA-BAND
+  - MOD-SYSTEM-BRAND-FOOTER
+  optional_modules:
+  - MOD-TRUST-REVIEW
+  - MOD-COMMERCE-PRICE
+  - MOD-STORY-APP-UI
+  required_modules:
+  - MOD-HERO-LIFESTYLE
+  - MOD-STORY-PRODUCT-DETAIL
+  - MOD-CONV-CTA-BAND
+  - MOD-SYSTEM-BRAND-FOOTER
+  message_requirement:
+    primary_objective_count: 1
+    primary_message_count: 1
+    primary_usp_count: 1 default
+    secondary_usp_count: 2–3 default
+    cta_destination_count: 1–2 verified destinations
+    japanese_h1: 14–26 characters default; soft max 28; Brand Story may reach 38
+    opening_logic: desired outcome → product identity → capability proof
+  asset_requirement:
+    official_product_asset: required for sales and launch templates
+    asset_provenance: required for every product, UI, package, accessory and installation
+      visual
+    claim_sources: required before Final
+    ai_boundary: environment and atmosphere only; never redraw product or UI
+    missing_required_asset: template selection must return BLOCKED or choose a structure
+      that does not need the missing optional asset
+    lifestyle_asset: required; cannot be the only product evidence
+  desktop_behavior:
+    content_width: 600px baseline
+    layout: preserve one dominant reading path; split layouts require semantic order
+    hero: complete title + recognizable product/proof + primary CTA task without fixed
+      height ratio
+    hero_layout: full-bleed scene with separate legible copy zone
+  mobile_behavior:
+    qa_viewport: 390px experimental default; also verify 320/375/414/768 review surfaces
+    reflow: semantic single-column stacking; never infer order only from desktop position
+    cta: full-width permitted; 44px target is Experimental and cannot block Production
+    images: preserve aspect ratio; destructive crop forbidden
+    hero_crop: use mobile-safe crop or separate asset; product remains recognizable
+  applicable_rules:
+  - R-BRAND-001
+  - R-WEIGHT-001
+  - R-ASSET-001
+  - R-ASSET-002
+  - R-CLAIM-001
+  - R-CTA-001
+  - R-CTA-004
+  - R-MODULE-001
+  - R-COPY-002
+  - R-EVIDENCE-001
+  - R-QA-001
+  - R-QA-002
+  - R-PRODUCT-001
+  - R-HERO-001
+  - R-HERO-004
+  - R-MODULE-003
+  - R-COPY-005
+  - R-HERO-003
+  anchor_references:
+  - sample_id: SBG_019
+    usage: lifestyle-led product launch
+    limitation: neon style is not reusable
+  - sample_id: SBG_016
+    usage: product plus Japan home context
+    limitation: wood tone is not reusable
+  confidence:
+    level: High
+    basis: Two strong Tier A lifestyle/product anchors
+    limitations:
+    - product visual ratio remains Experimental
+  variable_parts:
+  - Feature Icons may become Feature Split
+  - App / UI module only when verified UI is available
+  - Price remains optional and late
+  human_decision: Keep
+  selection_discriminator:
+    campaign_type: product_launch
+    primary_objective: new_product_desirability_in_context
+    decisive_condition: 强官方 Lifestyle 是新品欲望建立的主要证据
+- template_id: TPL-PROMO-A
+  template_name: Promotion A — Theme Value First
+  template_family_id: TF-PROMOTION
+  campaign_type: theme_promotion
+  primary_objective: theme_relevance_then_offer_conversion
+  recommended_for:
+  - 多个产品围绕一个生活主题或问题
+  - 活动价值需要先于价格成立
+  - 有主题场景与产品群素材
+  not_recommended_for:
+  - 单品简单降价通知
+  - 没有统一主题
+  - 截止时间是唯一信息
+  product_count_range:
+    min: 2
+    max: 8
+  promotion_level:
+  - medium
+  - high
+  recommended_module_sequence:
+  - MOD-HERO-PROMOTION
+  - MOD-STORY-PROBLEM
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-COMMERCE-OFFER-BAND
+  - MOD-TRUST-REVIEW
+  - MOD-COMMERCE-COUPON
+  - MOD-CONV-CTA-BAND
+  - MOD-SYSTEM-BRAND-FOOTER
+  optional_modules:
+  - MOD-TRUST-WARRANTY
+  - MOD-TRUST-USER-VOICE
+  - MOD-SYSTEM-DIVIDER
+  required_modules:
+  - MOD-HERO-PROMOTION
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-COMMERCE-OFFER-BAND
+  - MOD-CONV-CTA-BAND
+  - MOD-SYSTEM-BRAND-FOOTER
+  message_requirement:
+    primary_objective_count: 1
+    primary_message_count: 1
+    primary_usp_count: 1 default
+    secondary_usp_count: 2–3 default
+    cta_destination_count: 1–2 verified destinations
+    japanese_h1: 14–26 characters default; soft max 28; Brand Story may reach 38
+    opening_logic: theme benefit → product set → verified offer
+  asset_requirement: *1
+  desktop_behavior:
+    content_width: 600px baseline
+    layout: preserve one dominant reading path; split layouts require semantic order
+    hero: complete title + recognizable product/proof + primary CTA task without fixed
+      height ratio
+    grid: 3–4 columns only when product cards remain scannable inside 600px
+  mobile_behavior:
+    qa_viewport: 390px experimental default; also verify 320/375/414/768 review surfaces
+    reflow: semantic single-column stacking; never infer order only from desktop position
+    cta: full-width permitted; 44px target is Experimental and cannot block Production
+    images: preserve aspect ratio; destructive crop forbidden
+    grid: test one-column cards; Experimental until renderer validation
+  applicable_rules:
+  - R-BRAND-001
+  - R-WEIGHT-001
+  - R-ASSET-001
+  - R-ASSET-002
+  - R-CLAIM-001
+  - R-CTA-001
+  - R-CTA-004
+  - R-MODULE-001
+  - R-COPY-002
+  - R-EVIDENCE-001
+  - R-QA-001
+  - R-QA-002
+  - R-PRODUCT-001
+  - R-PROMO-001
+  - R-PROMO-002
+  - R-PROMO-003
+  - R-HERO-004
+  - R-MODULE-004
+  - R-MOBILE-002
+  anchor_references:
+  - sample_id: SBG_006
+    usage: theme campaign and promotion structure
+    limitation: not an evergreen density baseline
+  - sample_id: SBG_001
+    usage: ecosystem/product-set context
+    limitation: not for true single-product campaigns
+  confidence:
+    level: High
+    basis: Strong Tier A theme-promotion anchor
+    limitations: []
+  variable_parts:
+  - Problem can become Image + Text context
+  - Review can become Warranty / Service
+  - Coupon omitted when no verified coupon
+  human_decision: Keep
+  selection_discriminator:
+    campaign_type: theme_promotion
+    primary_objective: theme_relevance_then_offer_conversion
+    decisive_condition: 先说明主题相关性，再进入多产品优惠
+- template_id: TPL-PROMO-B
+  template_name: Promotion B — Offer Catalogue
+  template_family_id: TF-PROMOTION
+  campaign_type: theme_promotion
+  primary_objective: multi_product_offer_discovery
+  recommended_for:
+  - 用户已理解活动且需要快速浏览商品
+  - SKU 数量较多
+  - 每个 SKU 有统一价格与 CTA 数据
+  not_recommended_for:
+  - 新品首次认知
+  - 需要长篇教育
+  - SKU 数据不完整
+  product_count_range:
+    min: 4
+    max: 12
+  promotion_level:
+  - medium
+  - high
+  recommended_module_sequence:
+  - MOD-HERO-MULTI
+  - MOD-COMMERCE-OFFER-BAND
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-COMMERCE-PRICE
+  - MOD-TRUST-WARRANTY
+  - MOD-CONV-CTA-BAND
+  - MOD-SYSTEM-BRAND-FOOTER
+  optional_modules:
+  - MOD-COMMERCE-COUPON
+  - MOD-COMMERCE-COMPARISON
+  - MOD-STORY-FAQ
+  required_modules:
+  - MOD-HERO-MULTI
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-CONV-CTA-BAND
+  - MOD-SYSTEM-BRAND-FOOTER
+  message_requirement:
+    primary_objective_count: 1
+    primary_message_count: 1
+    primary_usp_count: 1 default
+    secondary_usp_count: 2–3 default
+    cta_destination_count: 1–2 verified destinations
+    japanese_h1: 14–26 characters default; soft max 28; Brand Story may reach 38
+    opening_logic: campaign context → browsable product set → conversion
+  asset_requirement:
+    official_product_asset: required for sales and launch templates
+    asset_provenance: required for every product, UI, package, accessory and installation
+      visual
+    claim_sources: required before Final
+    ai_boundary: environment and atmosphere only; never redraw product or UI
+    missing_required_asset: template selection must return BLOCKED or choose a structure
+      that does not need the missing optional asset
+    sku_data: every displayed SKU requires verified image, name, offer and destination
+  desktop_behavior:
+    content_width: 600px baseline
+    layout: preserve one dominant reading path; split layouts require semantic order
+    hero: complete title + recognizable product/proof + primary CTA task without fixed
+      height ratio
+    grid: uniform card grammar; no irregular Bento spans
+  mobile_behavior:
+    qa_viewport: 390px experimental default; also verify 320/375/414/768 review surfaces
+    reflow: semantic single-column stacking; never infer order only from desktop position
+    cta: full-width permitted; 44px target is Experimental and cannot block Production
+    images: preserve aspect ratio; destructive crop forbidden
+    grid: cards reflow semantically; compare only essential fields
+  applicable_rules:
+  - R-BRAND-001
+  - R-WEIGHT-001
+  - R-ASSET-001
+  - R-ASSET-002
+  - R-CLAIM-001
+  - R-CTA-001
+  - R-CTA-004
+  - R-MODULE-001
+  - R-COPY-002
+  - R-EVIDENCE-001
+  - R-QA-001
+  - R-QA-002
+  - R-PRODUCT-001
+  - R-PROMO-001
+  - R-PROMO-002
+  - R-PROMO-003
+  - R-CTA-002
+  - R-MOBILE-002
+  anchor_references:
+  - sample_id: SBG_006
+    usage: multi-product promotion grid
+    limitation: high CTA repetition is contextual
+  - sample_id: SBG_005
+    usage: scan-friendly offer cards
+    limitation: urgency only with real deadline
+  confidence:
+    level: Medium
+    basis: Tier A support is strong; 12-SKU ceiling is operational, not a frozen standard
+    limitations: []
+  variable_parts:
+  - Comparison only when products answer the same choice
+  - Price module may be integrated into Product Grid
+  - Coupon remains conditional
+  human_decision: Keep
+  selection_discriminator:
+    campaign_type: theme_promotion
+    primary_objective: multi_product_offer_discovery
+    decisive_condition: 用户已理解活动，4–12 个 SKU 以优惠浏览为主
+  responsibility_boundary:
+    compared_with:
+    - TPL-CONVERT-B
+    - TPL-CATEGORY-A
+    choose_this_when: campaign_type=theme_promotion, product_count>=4 and offer discovery
+      is primary
+    choose_other_when: choose CONVERT-B for exactly one familiar promoted SKU; choose
+      CATEGORY-A when category discovery is primary
+- template_id: TPL-PROMO-C
+  template_name: Promotion C — Verified Last Chance
+  template_family_id: TF-PROMOTION
+  campaign_type: countdown_last_chance
+  primary_objective: deadline_driven_conversion
+  recommended_for:
+  - 真实且可核对的截止时间
+  - 用户已接触活动价值
+  - 需要最后一次提醒
+  not_recommended_for:
+  - Evergreen 内容
+  - 无法验证截止、库存或优惠
+  - 新品首次说明
+  product_count_range:
+    min: 1
+    max: 8
+  promotion_level:
+  - high
+  recommended_module_sequence:
+  - MOD-HERO-PROMOTION
+  - MOD-COMMERCE-OFFER-BAND
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-COMMERCE-COUPON
+  - MOD-CONV-LAST-CHANCE
+  - MOD-SYSTEM-LEGAL-FOOTER
+  - MOD-SYSTEM-BRAND-FOOTER
+  optional_modules:
+  - MOD-TRUST-WARRANTY
+  - MOD-COMMERCE-PRICE
+  required_modules:
+  - MOD-HERO-PROMOTION
+  - MOD-COMMERCE-OFFER-BAND
+  - MOD-CONV-LAST-CHANCE
+  - MOD-SYSTEM-LEGAL-FOOTER
+  - MOD-SYSTEM-BRAND-FOOTER
+  message_requirement:
+    primary_objective_count: 1
+    primary_message_count: 1
+    primary_usp_count: 1 default
+    secondary_usp_count: 2–3 default
+    cta_destination_count: 1–2 verified destinations
+    japanese_h1: 14–26 characters default; soft max 28; Brand Story may reach 38
+    opening_logic: verified deadline → offer → product action
+    urgency: must be factual, never simulated
+  asset_requirement:
+    official_product_asset: required for sales and launch templates
+    asset_provenance: required for every product, UI, package, accessory and installation
+      visual
+    claim_sources: required before Final
+    ai_boundary: environment and atmosphere only; never redraw product or UI
+    missing_required_asset: template selection must return BLOCKED or choose a structure
+      that does not need the missing optional asset
+    promotion_fact_source: required and current
+  desktop_behavior:
+    content_width: 600px baseline
+    layout: preserve one dominant reading path; split layouts require semantic order
+    hero: complete title + recognizable product/proof + primary CTA task without fixed
+      height ratio
+    urgency: deadline is visible but does not compete with every offer token
+  mobile_behavior:
+    qa_viewport: 390px experimental default; also verify 320/375/414/768 review surfaces
+    reflow: semantic single-column stacking; never infer order only from desktop position
+    cta: full-width permitted; 44px target is Experimental and cannot block Production
+    images: preserve aspect ratio; destructive crop forbidden
+    urgency: deadline, product and CTA remain in a clear top-to-bottom order
+  applicable_rules:
+  - R-BRAND-001
+  - R-WEIGHT-001
+  - R-ASSET-001
+  - R-ASSET-002
+  - R-CLAIM-001
+  - R-CTA-001
+  - R-CTA-004
+  - R-MODULE-001
+  - R-COPY-002
+  - R-EVIDENCE-001
+  - R-QA-001
+  - R-QA-002
+  - R-PROMO-001
+  - R-PROMO-002
+  - R-PROMO-003
+  - R-HERO-001
+  - R-MODULE-004
+  anchor_references:
+  - sample_id: SBG_005
+    usage: conditional countdown / last chance anchor
+    limitation: promotion intensity is not a general baseline
+  confidence:
+    level: High
+    basis: Tier A conditional anchor plus hard verified-urgency rule
+    limitations:
+    - only valid when deadline evidence passes
+  variable_parts:
+  - Product Grid can collapse to one featured SKU
+  - Coupon omitted when absent
+  - Closing CTA may repeat deadline once without adding a new message
+  human_decision: Keep
+  selection_discriminator:
+    campaign_type: countdown_last_chance
+    primary_objective: deadline_driven_conversion
+    decisive_condition: 只用于已验证截止时间的最后提醒
+- template_id: TPL-CONVERT-A
+  template_name: Conversion A — Value and Proof
+  template_family_id: TF-CONVERSION
+  campaign_type: single_product_conversion
+  primary_objective: single_product_purchase_confidence
+  recommended_for:
+  - 一个主产品
+  - 需要功能与可信证明后转化
+  - 促销不是唯一购买理由
+  not_recommended_for:
+  - 多产品分类
+  - 只有优惠没有产品价值资料
+  - 品牌叙事优先
+  product_count_range:
+    min: 1
+    max: 1
+  promotion_level:
+  - none
+  - low
+  - medium
+  recommended_module_sequence:
+  - MOD-HERO-PRODUCT
+  - MOD-STORY-PRIMARY-USP
+  - MOD-STORY-PRODUCT-DETAIL
+  - MOD-STORY-FEATURE-SPLIT
+  - MOD-TRUST-REVIEW
+  - MOD-COMMERCE-PRICE
+  - MOD-CONV-CTA-BAND
+  - MOD-SYSTEM-BRAND-FOOTER
+  optional_modules:
+  - MOD-TRUST-WARRANTY
+  - MOD-STORY-FAQ
+  - MOD-COMMERCE-COUPON
+  - MOD-COMMERCE-PRODUCT-CARD
+  required_modules:
+  - MOD-HERO-PRODUCT
+  - MOD-STORY-PRIMARY-USP
+  - MOD-TRUST-REVIEW
+  - MOD-CONV-CTA-BAND
+  - MOD-SYSTEM-BRAND-FOOTER
+  message_requirement:
+    primary_objective_count: 1
+    primary_message_count: 1
+    primary_usp_count: 1 default
+    secondary_usp_count: 2–3 default
+    cta_destination_count: 1–2 verified destinations
+    japanese_h1: 14–26 characters default; soft max 28; Brand Story may reach 38
+    opening_logic: value → product truth → proof → price/action
+  asset_requirement: *1
+  desktop_behavior:
+    content_width: 600px baseline
+    layout: preserve one dominant reading path; split layouts require semantic order
+    hero: complete title + recognizable product/proof + primary CTA task without fixed
+      height ratio
+    product_focus: single hero subject; product remains largest factual visual
+  mobile_behavior: *2
+  applicable_rules:
+  - R-BRAND-001
+  - R-WEIGHT-001
+  - R-ASSET-001
+  - R-ASSET-002
+  - R-CLAIM-001
+  - R-CTA-001
+  - R-CTA-004
+  - R-MODULE-001
+  - R-COPY-002
+  - R-EVIDENCE-001
+  - R-QA-001
+  - R-QA-002
+  - R-PRODUCT-001
+  - R-HERO-001
+  - R-HERO-002
+  - R-MESSAGE-002
+  - R-MESSAGE-003
+  - R-PROMO-003
+  - R-MODULE-004
+  anchor_references:
+  - sample_id: SBG_016
+    usage: product-led Japan conversion structure
+    limitation: warm home style is category-specific
+  - sample_id: SBG_019
+    usage: single-product launch/conversion
+    limitation: neon style is product-specific
+  confidence:
+    level: High
+    basis: Two strong Tier A single-product anchors
+    limitations: []
+  variable_parts:
+  - Review may become Warranty / Service
+  - Feature Split may repeat once only with a different layout
+  - Coupon requires verified data
+  human_decision: Keep
+  selection_discriminator:
+    campaign_type: single_product_conversion
+    primary_objective: single_product_purchase_confidence
+    decisive_condition: 单品需要价值与证明后转化，优惠不是唯一理由
+- template_id: TPL-CONVERT-B
+  template_name: Conversion B — Offer Direct
+  template_family_id: TF-CONVERSION
+  campaign_type: single_product_conversion
+  primary_objective: single_product_offer_conversion
+  recommended_for:
+  - 用户已熟悉产品
+  - 有明确且真实的中高强度优惠
+  - 需要快速完成价格与购买判断
+  not_recommended_for:
+  - 新品类首次解释
+  - 没有有效优惠
+  - 产品本体素材不足
+  product_count_range:
+    min: 1
+    max: 1
+  promotion_level:
+  - medium
+  - high
+  recommended_module_sequence:
+  - MOD-HERO-PRODUCT
+  - MOD-COMMERCE-OFFER-BAND
+  - MOD-STORY-PRODUCT-DETAIL
+  - MOD-COMMERCE-PRICE
+  - MOD-TRUST-WARRANTY
+  - MOD-CONV-CTA-BAND
+  - MOD-SYSTEM-BRAND-FOOTER
+  optional_modules:
+  - MOD-COMMERCE-COUPON
+  - MOD-TRUST-REVIEW
+  - MOD-STORY-FAQ
+  required_modules:
+  - MOD-HERO-PRODUCT
+  - MOD-COMMERCE-OFFER-BAND
+  - MOD-COMMERCE-PRICE
+  - MOD-CONV-CTA-BAND
+  - MOD-SYSTEM-BRAND-FOOTER
+  message_requirement:
+    primary_objective_count: 1
+    primary_message_count: 1
+    primary_usp_count: 1 default
+    secondary_usp_count: 2–3 default
+    cta_destination_count: 1–2 verified destinations
+    japanese_h1: 14–26 characters default; soft max 28; Brand Story may reach 38
+    opening_logic: known product value → verified offer → objection handling → action
+  asset_requirement: *1
+  desktop_behavior:
+    content_width: 600px baseline
+    layout: preserve one dominant reading path; split layouts require semantic order
+    hero: complete title + recognizable product/proof + primary CTA task without fixed
+      height ratio
+    offer: offer is secondary to recognizable product in Hero
+  mobile_behavior: *2
+  applicable_rules:
+  - R-BRAND-001
+  - R-WEIGHT-001
+  - R-ASSET-001
+  - R-ASSET-002
+  - R-CLAIM-001
+  - R-CTA-001
+  - R-CTA-004
+  - R-MODULE-001
+  - R-COPY-002
+  - R-EVIDENCE-001
+  - R-QA-001
+  - R-QA-002
+  - R-PRODUCT-001
+  - R-PROMO-001
+  - R-PROMO-002
+  - R-PROMO-003
+  - R-HERO-001
+  - R-CTA-002
+  anchor_references:
+  - sample_id: SBG_016
+    usage: value-before-offer single-product structure
+    limitation: do not reuse visual mood universally
+  - sample_id: SBG_019
+    usage: single-product purchase path
+    limitation: dual destinations require explicit names
+  confidence:
+    level: Medium
+    basis: Supported by Tier A single-product cases; offer-direct emphasis remains
+      campaign-dependent
+    limitations: []
+  variable_parts:
+  - Offer Band may move below Product Detail if product familiarity is lower
+  - Warranty may become Review Proof
+  - Coupon omitted when absent
+  human_decision: Keep
+  selection_discriminator:
+    campaign_type: single_product_conversion
+    primary_objective: single_product_offer_conversion
+    decisive_condition: 熟悉单品的中高促销快速购买判断
+  responsibility_boundary:
+    compared_with: TPL-PROMO-B
+    choose_this_when: campaign_type=single_product_conversion and product_count=1
+    choose_other_when: campaign_type=theme_promotion and product_count>=4
+- template_id: TPL-EDU-A
+  template_name: Education A — Problem to Understanding
+  template_family_id: TF-EDUCATION
+  campaign_type: product_education
+  primary_objective: problem_and_solution_understanding
+  recommended_for:
+  - 需要先解释用户问题
+  - 产品机制可用场景与事实逐层说明
+  - 转化不是首屏唯一目标
+  not_recommended_for:
+  - 纯价格通知
+  - Last Chance
+  - 没有足够教育内容
+  product_count_range:
+    min: 1
+    max: 2
+  promotion_level:
+  - none
+  - low
+  recommended_module_sequence:
+  - MOD-HERO-EDITORIAL
+  - MOD-STORY-PROBLEM
+  - MOD-STORY-PRIMARY-USP
+  - MOD-STORY-IMAGE-TEXT
+  - MOD-STORY-PRODUCT-DETAIL
+  - MOD-STORY-FAQ
+  - MOD-CONV-CTA-BAND
+  - MOD-SYSTEM-BRAND-FOOTER
+  optional_modules:
+  - MOD-STORY-FEATURE-SPLIT
+  - MOD-TRUST-REVIEW
+  - MOD-STORY-APP-UI
+  - MOD-CONV-SECONDARY
+  required_modules:
+  - MOD-HERO-EDITORIAL
+  - MOD-STORY-PROBLEM
+  - MOD-STORY-PRIMARY-USP
+  - MOD-STORY-PRODUCT-DETAIL
+  - MOD-CONV-CTA-BAND
+  - MOD-SYSTEM-BRAND-FOOTER
+  message_requirement:
+    primary_objective_count: 1
+    primary_message_count: 1
+    primary_usp_count: 1 default
+    secondary_usp_count: 2–3 default
+    cta_destination_count: 1–2 verified destinations
+    japanese_h1: 14–26 characters default; soft max 28; Brand Story may reach 38
+    opening_logic: problem → explanation → verified product answer → next step
+  asset_requirement: *1
+  desktop_behavior:
+    content_width: 600px baseline
+    layout: preserve one dominant reading path; split layouts require semantic order
+    hero: complete title + recognizable product/proof + primary CTA task without fixed
+      height ratio
+    reading: chaptered, with one consumer question per module
+  mobile_behavior:
+    qa_viewport: 390px experimental default; also verify 320/375/414/768 review surfaces
+    reflow: semantic single-column stacking; never infer order only from desktop position
+    cta: full-width permitted; 44px target is Experimental and cannot block Production
+    images: preserve aspect ratio; destructive crop forbidden
+    reading: short sections; procedural detail moves into FAQ or dedicated module
+  applicable_rules:
+  - R-BRAND-001
+  - R-WEIGHT-001
+  - R-ASSET-001
+  - R-ASSET-002
+  - R-CLAIM-001
+  - R-CTA-001
+  - R-CTA-004
+  - R-MODULE-001
+  - R-COPY-002
+  - R-EVIDENCE-001
+  - R-QA-001
+  - R-QA-002
+  - R-PRODUCT-001
+  - R-MESSAGE-002
+  - R-MESSAGE-003
+  - R-MODULE-003
+  - R-MODULE-004
+  - R-COPY-003
+  - R-COPY-005
+  anchor_references:
+  - sample_id: SBG_020
+    usage: long-form understanding path
+    limitation: brand-story length cannot be copied mechanically
+  confidence:
+    level: Medium
+    basis: Strong long-form Tier A anchor; product-education-specific geometry needs
+      more validation
+    limitations: []
+  variable_parts:
+  - Editorial Hero can become Lifestyle Hero
+  - App / UI only with verified screenshots
+  - FAQ used only for real objections
+  human_decision: Keep
+  selection_discriminator:
+    campaign_type: product_education
+    primary_objective: problem_and_solution_understanding
+    decisive_condition: 教育任务本身是主目标，不承担新品发布任务
+  responsibility_boundary:
+    compared_with: TPL-LAUNCH-B
+    choose_this_when: campaign_type=product_education and understanding the problem/solution
+      is the primary job
+    choose_other_when: campaign_type=product_launch and the problem story introduces
+      a new product
+- template_id: TPL-EDU-B
+  template_name: Education B — How It Works
+  template_family_id: TF-EDUCATION
+  campaign_type: product_education
+  primary_objective: mechanism_or_setup_understanding
+  recommended_for:
+  - App、联动、安装或机制是主要理解障碍
+  - 有已确认 UI/细节素材
+  - 需要解释操作但避免文字墙
+  not_recommended_for:
+  - UI 或步骤未确认
+  - 简单单功能产品
+  - 强促销
+  product_count_range:
+    min: 1
+    max: 2
+  promotion_level:
+  - none
+  - low
+  recommended_module_sequence:
+  - MOD-HERO-PRODUCT
+  - MOD-STORY-APP-UI
+  - MOD-STORY-FEATURE-SPLIT
+  - MOD-STORY-PRODUCT-DETAIL
+  - MOD-STORY-FAQ
+  - MOD-CONV-CTA-BAND
+  - MOD-SYSTEM-BRAND-FOOTER
+  optional_modules:
+  - MOD-STORY-IMAGE-TEXT
+  - MOD-TRUST-WARRANTY
+  - MOD-COMMERCE-COMPARISON
+  required_modules:
+  - MOD-HERO-PRODUCT
+  - MOD-STORY-APP-UI
+  - MOD-STORY-PRODUCT-DETAIL
+  - MOD-CONV-CTA-BAND
+  - MOD-SYSTEM-BRAND-FOOTER
+  message_requirement:
+    primary_objective_count: 1
+    primary_message_count: 1
+    primary_usp_count: 1 default
+    secondary_usp_count: 2–3 default
+    cta_destination_count: 1–2 verified destinations
+    japanese_h1: 14–26 characters default; soft max 28; Brand Story may reach 38
+    opening_logic: what it does → how it works → proof / requirements → next step
+  asset_requirement:
+    official_product_asset: required for sales and launch templates
+    asset_provenance: required for every product, UI, package, accessory and installation
+      visual
+    claim_sources: required before Final
+    ai_boundary: environment and atmosphere only; never redraw product or UI
+    missing_required_asset: template selection must return BLOCKED or choose a structure
+      that does not need the missing optional asset
+    ui_asset: verified official UI required; no generated or reconstructed screen
+  desktop_behavior:
+    content_width: 600px baseline
+    layout: preserve one dominant reading path; split layouts require semantic order
+    hero: complete title + recognizable product/proof + primary CTA task without fixed
+      height ratio
+    mechanism: annotated UI/detail may use split layout once; subsequent modules change
+      rhythm
+  mobile_behavior:
+    qa_viewport: 390px experimental default; also verify 320/375/414/768 review surfaces
+    reflow: semantic single-column stacking; never infer order only from desktop position
+    cta: full-width permitted; 44px target is Experimental and cannot block Production
+    images: preserve aspect ratio; destructive crop forbidden
+    mechanism: visual first, explanation second; steps remain short and semantic
+  applicable_rules:
+  - R-BRAND-001
+  - R-WEIGHT-001
+  - R-ASSET-001
+  - R-ASSET-002
+  - R-CLAIM-001
+  - R-CTA-001
+  - R-CTA-004
+  - R-MODULE-001
+  - R-COPY-002
+  - R-EVIDENCE-001
+  - R-QA-001
+  - R-QA-002
+  - R-PRODUCT-001
+  - R-AI-001
+  - R-CLAIM-002
+  - R-MODULE-003
+  - R-COPY-003
+  - R-MOBILE-002
+  anchor_references:
+  - sample_id: SBG_001
+    usage: ecosystem and App relationship explanation
+    limitation: multi-product structure is not universal
+  - sample_id: SBG_020
+    usage: chaptered education
+    limitation: long story pacing must be shortened for setup content
+  confidence:
+    level: Medium
+    basis: Relevant Tier A modules; verified UI availability is a strict gate
+    limitations: []
+  variable_parts:
+  - App / UI may become Product Detail for hardware-only products
+  - Comparison only for actual choice questions
+  - Warranty enters for service-related objections
+  human_decision: Keep
+  selection_discriminator:
+    campaign_type: product_education
+    primary_objective: mechanism_or_setup_understanding
+    decisive_condition: App、安装、设置或机制是主要理解障碍
+- template_id: TPL-EDU-C
+  template_name: Education C — Guide and Compare
+  template_family_id: TF-EDUCATION
+  campaign_type: product_education
+  primary_objective: choice_framework_and_product_fit
+  recommended_for:
+  - 用户需要理解多个型号或方案差异
+  - 比较字段可验证
+  - 购买指南比单一功能说明更重要
+  not_recommended_for:
+  - 产品不可直接比较
+  - 只有一个 SKU
+  - 比较事实不完整
+  product_count_range:
+    min: 2
+    max: 6
+  promotion_level:
+  - none
+  - low
+  recommended_module_sequence:
+  - MOD-HERO-EDITORIAL
+  - MOD-COMMERCE-COMPARISON
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-STORY-FAQ
+  - MOD-TRUST-WARRANTY
+  - MOD-CONV-CTA-BAND
+  - MOD-SYSTEM-BRAND-FOOTER
+  optional_modules:
+  - MOD-STORY-IMAGE-TEXT
+  - MOD-STORY-PRODUCT-DETAIL
+  - MOD-TRUST-REVIEW
+  required_modules:
+  - MOD-HERO-EDITORIAL
+  - MOD-COMMERCE-COMPARISON
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-CONV-CTA-BAND
+  - MOD-SYSTEM-BRAND-FOOTER
+  message_requirement:
+    primary_objective_count: 1
+    primary_message_count: 1
+    primary_usp_count: 1 default
+    secondary_usp_count: 2–3 default
+    cta_destination_count: 1–2 verified destinations
+    japanese_h1: 14–26 characters default; soft max 28; Brand Story may reach 38
+    opening_logic: choice question → comparison framework → product options → action
+  asset_requirement:
+    official_product_asset: required for sales and launch templates
+    asset_provenance: required for every product, UI, package, accessory and installation
+      visual
+    claim_sources: required before Final
+    ai_boundary: environment and atmosphere only; never redraw product or UI
+    missing_required_asset: template selection must return BLOCKED or choose a structure
+      that does not need the missing optional asset
+    comparison_data: all compared facts require current sources and equivalent definitions
+  desktop_behavior:
+    content_width: 600px baseline
+    layout: preserve one dominant reading path; split layouts require semantic order
+    hero: complete title + recognizable product/proof + primary CTA task without fixed
+      height ratio
+    comparison: comparison precedes product cards; show only decision-relevant fields
+  mobile_behavior:
+    qa_viewport: 390px experimental default; also verify 320/375/414/768 review surfaces
+    reflow: semantic single-column stacking; never infer order only from desktop position
+    cta: full-width permitted; 44px target is Experimental and cannot block Production
+    images: preserve aspect ratio; destructive crop forbidden
+    comparison: collapse to labeled comparison cards; no horizontal 10-column table
+  applicable_rules:
+  - R-BRAND-001
+  - R-WEIGHT-001
+  - R-ASSET-001
+  - R-ASSET-002
+  - R-CLAIM-001
+  - R-CTA-001
+  - R-CTA-004
+  - R-MODULE-001
+  - R-COPY-002
+  - R-EVIDENCE-001
+  - R-QA-001
+  - R-QA-002
+  - R-CLAIM-002
+  - R-MODULE-003
+  - R-MODULE-004
+  - R-COPY-005
+  - R-MOBILE-002
+  anchor_references:
+  - sample_id: SBG_020
+    usage: comparison framework before product options
+    limitation: not for short promotion
+  confidence:
+    level: High
+    basis: Strong Tier A comparison/story anchor
+    limitations: []
+  variable_parts:
+  - Comparison may become a guided short list
+  - Review proof can follow product options
+  - Price stays optional unless conversion is secondary objective
+  human_decision: Keep
+  selection_discriminator:
+    campaign_type: product_education
+    primary_objective: choice_framework_and_product_fit
+    decisive_condition: 先教授选择框架，再说明型号适配
+  responsibility_boundary:
+    compared_with: TPL-CATEGORY-B
+    choose_this_when: campaign_type=product_education and teaching a reusable choice
+      framework is primary
+    choose_other_when: campaign_type=category_multi_product and choosing among current
+      SKUs is primary
+- template_id: TPL-CATEGORY-A
+  template_name: Category A — Context to Grid
+  template_family_id: TF-CATEGORY
+  campaign_type: category_multi_product
+  primary_objective: category_context_and_product_discovery
+  recommended_for:
+  - 4 个以上产品围绕一个品类或生活主题
+  - 需要先建立分类逻辑
+  - 产品卡数据完整
+  not_recommended_for:
+  - 真正单品
+  - 产品之间没有共同主题
+  - 缺少产品卡素材
+  product_count_range:
+    min: 4
+    max: 12
+  promotion_level:
+  - none
+  - low
+  - medium
+  - high
+  recommended_module_sequence:
+  - MOD-HERO-MULTI
+  - MOD-STORY-IMAGE-TEXT
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-COMMERCE-COMPARISON
+  - MOD-TRUST-WARRANTY
+  - MOD-CONV-CTA-BAND
+  - MOD-SYSTEM-BRAND-FOOTER
+  optional_modules:
+  - MOD-COMMERCE-OFFER-BAND
+  - MOD-TRUST-REVIEW
+  - MOD-STORY-FAQ
+  required_modules:
+  - MOD-HERO-MULTI
+  - MOD-STORY-IMAGE-TEXT
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-CONV-CTA-BAND
+  - MOD-SYSTEM-BRAND-FOOTER
+  message_requirement:
+    primary_objective_count: 1
+    primary_message_count: 1
+    primary_usp_count: 1 default
+    secondary_usp_count: 2–3 default
+    cta_destination_count: 1–2 verified destinations
+    japanese_h1: 14–26 characters default; soft max 28; Brand Story may reach 38
+    opening_logic: category/theme context → product set → choice support
+  asset_requirement:
+    official_product_asset: required for sales and launch templates
+    asset_provenance: required for every product, UI, package, accessory and installation
+      visual
+    claim_sources: required before Final
+    ai_boundary: environment and atmosphere only; never redraw product or UI
+    missing_required_asset: template selection must return BLOCKED or choose a structure
+      that does not need the missing optional asset
+    sku_data: verified image and destination for every visible SKU
+  desktop_behavior:
+    content_width: 600px baseline
+    layout: preserve one dominant reading path; split layouts require semantic order
+    hero: complete title + recognizable product/proof + primary CTA task without fixed
+      height ratio
+    grid: context must appear before the first product grid
+  mobile_behavior:
+    qa_viewport: 390px experimental default; also verify 320/375/414/768 review surfaces
+    reflow: semantic single-column stacking; never infer order only from desktop position
+    cta: full-width permitted; 44px target is Experimental and cannot block Production
+    images: preserve aspect ratio; destructive crop forbidden
+    grid: one-column default is Experimental; preserve category headings
+  applicable_rules:
+  - R-BRAND-001
+  - R-WEIGHT-001
+  - R-ASSET-001
+  - R-ASSET-002
+  - R-CLAIM-001
+  - R-CTA-001
+  - R-CTA-004
+  - R-MODULE-001
+  - R-COPY-002
+  - R-EVIDENCE-001
+  - R-QA-001
+  - R-QA-002
+  - R-PRODUCT-001
+  - R-MESSAGE-003
+  - R-MODULE-003
+  - R-MODULE-004
+  - R-CTA-002
+  - R-MOBILE-002
+  anchor_references:
+  - sample_id: SBG_001
+    usage: multi-product ecosystem introduction
+    limitation: not for true single-product
+  - sample_id: SBG_006
+    usage: theme context before product grid
+    limitation: promotion density is contextual
+  confidence:
+    level: High
+    basis: Two Tier A multi-product anchors
+    limitations: []
+  variable_parts:
+  - Comparison omitted when selection is self-evident
+  - Offer Band only for verified promotion
+  - Context can use Problem Scenario instead of Image + Text
+  human_decision: Keep
+  selection_discriminator:
+    campaign_type: category_multi_product
+    primary_objective: category_context_and_product_discovery
+    decisive_condition: 先建立品类入口，再发现 4–12 个产品
+  responsibility_boundary:
+    compared_with: TPL-PROMO-B
+    choose_this_when: campaign_type=category_multi_product and product discovery/category
+      navigation is primary
+    choose_other_when: campaign_type=theme_promotion and offer discovery is primary
+- template_id: TPL-CATEGORY-B
+  template_name: Category B — Compare and Choose
+  template_family_id: TF-CATEGORY
+  campaign_type: category_multi_product
+  primary_objective: multi_product_choice_decision
+  recommended_for:
+  - 产品差异与适用人群是核心问题
+  - 有一致的比较口径
+  - SKU 数量可控
+  not_recommended_for:
+  - 产品不能公平比较
+  - 需要情绪品牌叙事
+  - 高强度倒计时
+  product_count_range:
+    min: 2
+    max: 6
+  promotion_level:
+  - none
+  - low
+  - medium
+  recommended_module_sequence:
+  - MOD-HERO-EDITORIAL
+  - MOD-COMMERCE-COMPARISON
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-STORY-PRODUCT-DETAIL
+  - MOD-STORY-FAQ
+  - MOD-CONV-CTA-BAND
+  - MOD-SYSTEM-BRAND-FOOTER
+  optional_modules:
+  - MOD-TRUST-REVIEW
+  - MOD-COMMERCE-PRICE
+  - MOD-TRUST-WARRANTY
+  required_modules:
+  - MOD-HERO-EDITORIAL
+  - MOD-COMMERCE-COMPARISON
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-CONV-CTA-BAND
+  - MOD-SYSTEM-BRAND-FOOTER
+  message_requirement:
+    primary_objective_count: 1
+    primary_message_count: 1
+    primary_usp_count: 1 default
+    secondary_usp_count: 2–3 default
+    cta_destination_count: 1–2 verified destinations
+    japanese_h1: 14–26 characters default; soft max 28; Brand Story may reach 38
+    opening_logic: selection question → comparable differences → product action
+  asset_requirement:
+    official_product_asset: required for sales and launch templates
+    asset_provenance: required for every product, UI, package, accessory and installation
+      visual
+    claim_sources: required before Final
+    ai_boundary: environment and atmosphere only; never redraw product or UI
+    missing_required_asset: template selection must return BLOCKED or choose a structure
+      that does not need the missing optional asset
+    comparison_data: current, equivalent and source-linked
+  desktop_behavior:
+    content_width: 600px baseline
+    layout: preserve one dominant reading path; split layouts require semantic order
+    hero: complete title + recognizable product/proof + primary CTA task without fixed
+      height ratio
+    comparison: use a narrow decision table; product grid follows
+  mobile_behavior:
+    qa_viewport: 390px experimental default; also verify 320/375/414/768 review surfaces
+    reflow: semantic single-column stacking; never infer order only from desktop position
+    cta: full-width permitted; 44px target is Experimental and cannot block Production
+    images: preserve aspect ratio; destructive crop forbidden
+    comparison: convert rows to labeled choice cards
+  applicable_rules:
+  - R-BRAND-001
+  - R-WEIGHT-001
+  - R-ASSET-001
+  - R-ASSET-002
+  - R-CLAIM-001
+  - R-CTA-001
+  - R-CTA-004
+  - R-MODULE-001
+  - R-COPY-002
+  - R-EVIDENCE-001
+  - R-QA-001
+  - R-QA-002
+  - R-CLAIM-002
+  - R-MODULE-003
+  - R-CTA-002
+  - R-COPY-005
+  - R-MOBILE-002
+  anchor_references:
+  - sample_id: SBG_020
+    usage: comparison then product options
+    limitation: story length not universal
+  - sample_id: SBG_001
+    usage: product-set decomposition
+    limitation: ecosystem framing not universal
+  confidence:
+    level: High
+    basis: Tier A comparison and multi-product support
+    limitations: []
+  variable_parts:
+  - Product Detail may repeat per SKU inside the grid
+  - Price can be integrated in cards
+  - FAQ only for shared objections
+  human_decision: Keep
+  selection_discriminator:
+    campaign_type: category_multi_product
+    primary_objective: multi_product_choice_decision
+    decisive_condition: 用户已进入品类，需要在 2–6 个产品间做购买选择
+  responsibility_boundary:
+    compared_with: TPL-EDU-C
+    choose_this_when: campaign_type=category_multi_product and a current SKU decision
+      is primary
+    choose_other_when: campaign_type=product_education and the choice framework is
+      the learning outcome
+- template_id: TPL-BRAND-A
+  template_name: Brand A — Editorial Story
+  template_family_id: TF-BRAND
+  campaign_type: brand_ecosystem_story
+  primary_objective: brand_meaning_and_trust
+  recommended_for:
+  - 需要解释品牌观点、长期价值或品类故事
+  - 有真实故事与可信证明
+  - 转化可延后
+  not_recommended_for:
+  - 短促销
+  - 价格更新
+  - 没有可验证故事素材
+  product_count_range:
+    min: 0
+    max: 4
+  promotion_level:
+  - none
+  - low
+  recommended_module_sequence:
+  - MOD-HERO-EDITORIAL
+  - MOD-STORY-IMAGE-TEXT
+  - MOD-STORY-LIFESTYLE
+  - MOD-TRUST-USER-VOICE
+  - MOD-TRUST-AWARD
+  - MOD-CONV-CTA-BAND
+  - MOD-SYSTEM-BRAND-FOOTER
+  optional_modules:
+  - MOD-STORY-PRODUCT-DETAIL
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-STORY-FAQ
+  - MOD-SYSTEM-SPACER
+  required_modules:
+  - MOD-HERO-EDITORIAL
+  - MOD-STORY-IMAGE-TEXT
+  - MOD-CONV-CTA-BAND
+  - MOD-SYSTEM-BRAND-FOOTER
+  message_requirement:
+    primary_objective_count: 1
+    primary_message_count: 1
+    primary_usp_count: 1 default
+    secondary_usp_count: 2–3 default
+    cta_destination_count: 1–2 verified destinations
+    japanese_h1: 14–26 default; up to 38 for Editorial / Brand Story
+    opening_logic: editorial premise → lived evidence → brand/product relevance →
+      next step
+  asset_requirement:
+    official_product_asset: required for sales and launch templates
+    asset_provenance: required for every product, UI, package, accessory and installation
+      visual
+    claim_sources: required before Final
+    ai_boundary: environment and atmosphere only; never redraw product or UI
+    missing_required_asset: template selection must return BLOCKED or choose a structure
+      that does not need the missing optional asset
+    story_sources: real people, quotes, awards and media claims require source records
+  desktop_behavior:
+    content_width: 600px baseline
+    layout: preserve one dominant reading path; split layouts require semantic order
+    hero: complete title + recognizable product/proof + primary CTA task without fixed
+      height ratio
+    reading: longer chapters permitted; alternate visual-heavy and text-heavy sections
+  mobile_behavior:
+    qa_viewport: 390px experimental default; also verify 320/375/414/768 review surfaces
+    reflow: semantic single-column stacking; never infer order only from desktop position
+    cta: full-width permitted; 44px target is Experimental and cannot block Production
+    images: preserve aspect ratio; destructive crop forbidden
+    reading: paragraphs remain short and chaptered; CTA arrives after sufficient context
+  applicable_rules:
+  - R-BRAND-001
+  - R-WEIGHT-001
+  - R-ASSET-001
+  - R-ASSET-002
+  - R-CLAIM-001
+  - R-CTA-001
+  - R-CTA-004
+  - R-MODULE-001
+  - R-COPY-002
+  - R-EVIDENCE-001
+  - R-QA-001
+  - R-QA-002
+  - R-COPY-001
+  - R-MESSAGE-003
+  - R-MODULE-003
+  - R-COPY-003
+  - R-COPY-005
+  - R-DENSITY-001
+  anchor_references:
+  - sample_id: SBG_020
+    usage: brand story and long-form chaptering
+    limitation: not for promotion or short education
+  confidence:
+    level: High
+    basis: Strong Tier A Brand Story anchor
+    limitations: []
+  variable_parts:
+  - User Voice requires real source or is removed
+  - Award module requires current proof
+  - Product Grid only when products advance the story
+  human_decision: Keep
+  selection_discriminator:
+    campaign_type: brand_ecosystem_story
+    primary_objective: brand_meaning_and_trust
+    decisive_condition: 品牌观点、长期价值与可信故事优先
+- template_id: TPL-BRAND-B
+  template_name: Brand B — Ecosystem Connection
+  template_family_id: TF-BRAND
+  campaign_type: brand_ecosystem_story
+  primary_objective: ecosystem_relationship_understanding
+  recommended_for:
+  - 多个产品或 App 联动构成主要价值
+  - 有官方关系图、UI 或组合素材
+  - 用户需要理解生态如何工作
+  not_recommended_for:
+  - 真正单品
+  - 联动关系未确认
+  - 只有抽象品牌叙事
+  product_count_range:
+    min: 2
+    max: 8
+  promotion_level:
+  - none
+  - low
+  - medium
+  recommended_module_sequence:
+  - MOD-HERO-LIFESTYLE
+  - MOD-STORY-IMAGE-TEXT
+  - MOD-STORY-APP-UI
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-TRUST-WARRANTY
+  - MOD-CONV-CTA-BAND
+  - MOD-SYSTEM-BRAND-FOOTER
+  optional_modules:
+  - MOD-STORY-PRIMARY-USP
+  - MOD-TRUST-USER-VOICE
+  - MOD-COMMERCE-OFFER-BAND
+  required_modules:
+  - MOD-HERO-LIFESTYLE
+  - MOD-STORY-IMAGE-TEXT
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-CONV-CTA-BAND
+  - MOD-SYSTEM-BRAND-FOOTER
+  message_requirement:
+    primary_objective_count: 1
+    primary_message_count: 1
+    primary_usp_count: 1 default
+    secondary_usp_count: 2–3 default
+    cta_destination_count: 1–2 verified destinations
+    japanese_h1: 14–26 characters default; soft max 28; Brand Story may reach 38
+    opening_logic: ecosystem outcome → connection explanation → product roles → next
+      step
+  asset_requirement:
+    official_product_asset: required for sales and launch templates
+    asset_provenance: required for every product, UI, package, accessory and installation
+      visual
+    claim_sources: required before Final
+    ai_boundary: environment and atmosphere only; never redraw product or UI
+    missing_required_asset: template selection must return BLOCKED or choose a structure
+      that does not need the missing optional asset
+    relationship_asset: verified product relationship and official UI required where
+      shown
+  desktop_behavior:
+    content_width: 600px baseline
+    layout: preserve one dominant reading path; split layouts require semantic order
+    hero: complete title + recognizable product/proof + primary CTA task without fixed
+      height ratio
+    relationship: one ecosystem diagram or App explanation; avoid multiple equal diagrams
+  mobile_behavior:
+    qa_viewport: 390px experimental default; also verify 320/375/414/768 review surfaces
+    reflow: semantic single-column stacking; never infer order only from desktop position
+    cta: full-width permitted; 44px target is Experimental and cannot block Production
+    images: preserve aspect ratio; destructive crop forbidden
+    relationship: connections become ordered steps or stacked roles; no unreadable
+      wide diagram
+  applicable_rules:
+  - R-BRAND-001
+  - R-WEIGHT-001
+  - R-ASSET-001
+  - R-ASSET-002
+  - R-CLAIM-001
+  - R-CTA-001
+  - R-CTA-004
+  - R-MODULE-001
+  - R-COPY-002
+  - R-EVIDENCE-001
+  - R-QA-001
+  - R-QA-002
+  - R-PRODUCT-001
+  - R-AI-001
+  - R-CLAIM-002
+  - R-MODULE-003
+  - R-CTA-002
+  - R-MOBILE-002
+  anchor_references:
+  - sample_id: SBG_001
+    usage: ecosystem/product focus
+    limitation: multi-product structure not for true single product
+  - sample_id: SBG_020
+    usage: chaptered brand/category education
+    limitation: long-form depth is optional
+  confidence:
+    level: High
+    basis: Tier A ecosystem and story anchors
+    limitations: []
+  variable_parts:
+  - App / UI removed for hardware-only ecosystems
+  - User Voice enters only when it clarifies combined use
+  - Offer Band remains late and conditional
+  human_decision: Keep
+  selection_discriminator:
+    campaign_type: brand_ecosystem_story
+    primary_objective: ecosystem_relationship_understanding
+    decisive_condition: 多个产品、App 或关系图构成主要理解对象
+phase: Phase 3 Closed
+frozen_on: '2026-08-19'
+supersedes: design_system/templates.yaml
+human_decision_source: research/phase3_design_system_human_decisions.csv
+human_decision_summary:
+  Keep: 58
+rule_inheritance:
+  standard: standards/edm_design_rules_v1.0.yaml
+  hard_rules:
+  - R-BRAND-001
+  - R-WEIGHT-001
+  - R-PRODUCT-001
+  - R-ASSET-001
+  - R-ASSET-002
+  - R-AI-001
+  - R-AI-002
+  - R-CLAIM-001
+  - R-CLAIM-002
+  - R-CTA-001
+  - R-CTA-004
+  - R-MODULE-001
+  - R-PROMO-002
+  - R-COPY-002
+  - R-DESKTOP-001
+  - R-EVIDENCE-001
+  - R-QA-001
+  - R-QA-002
+  soft_rules:
+  - R-HERO-001
+  - R-HERO-002
+  - R-DENSITY-001
+  - R-PROMO-001
+  - R-CTA-002
+  - R-COPY-001
+  - R-MESSAGE-002
+  - R-MESSAGE-003
+  - R-HERO-004
+  - R-COPY-003
+  - R-COPY-004
+  - R-PROMO-003
+  - R-MODULE-003
+  - R-MODULE-004
+  - R-CTA-005
+  - R-COPY-005
+  experimental_rules:
+  - R-HERO-003
+  - R-MOBILE-001
+  - R-MOBILE-002
+  - R-MOBILE-003
+  - R-CTA-003
+  policy: Hard Rules block; Soft deviations require explanation; Experimental Rules
+    are advisory only.

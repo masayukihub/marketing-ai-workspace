@@ -1,0 +1,281 @@
+version: 1.0.0
+status: calibration_evidence
+scope: SwitchBot Japan Tier A Approved EDM only
+measurement:
+  viewport_width_px: 600
+  length_method: Browser-measured document scrollHeight from recovered Gmail HTML
+  section_count_definition: Semantic macro stages from Phase 2 screenshot-level analysis
+  module_count_definition: Top-level recovered mc:repeatable composition blocks; nested product cards and image tiles are not counted again
+  tracking_pixel_policy: Ignore the intentionally empty 1x1 tracking GIF when evaluating visual completeness
+  evidence_priority:
+    - Tier A Approved SwitchBot EDM
+    - Tier A Anchor References
+    - Tier B SwitchBot support only
+    - Tier C Japan localization supplement only
+    - Tier D layout and hero inspiration only
+samples:
+  - reference_id: SBG_001
+    campaign_type: Product Launch / Ecosystem
+    total_length: 7043px
+    section_count: 9
+    module_count: 22
+    module_sequence:
+      - Hero + launch offer
+      - Product family introduction
+      - Product grid group 1
+      - Product grid group 2
+      - Lifestyle use cases
+      - Feature and detail expansion
+      - App / ecosystem explanation
+      - Campaign reminder + CTA
+      - Deep footer
+    hero_structure: Product-centered family hero with launch message, visible offer and immediate campaign action
+    product_visual_frequency: High — product or product-family imagery appears in about 8 composition blocks
+    lifestyle_frequency: 3 visual beats
+    cta_frequency: 5
+    promotion_frequency: 3 campaign/commerce beats
+    proof_frequency: 2
+    footer_depth: Deep — campaign conditions, service/channel links and brand closure
+    information_density: Medium, with high product-family breadth
+    visual_rhythm: Product family → product cards → lifestyle relief → feature/detail → ecosystem → commerce reminder → footer
+    brand_specific_patterns:
+      - The product reappears after each lifestyle or ecosystem explanation
+      - Product breadth is grouped into themed rows instead of one generic grid
+      - CTA repetition is attached to different product or campaign destinations
+    evidence:
+      recovered_html: research/mobile_evidence/html/SBG_001.html
+      recovered_full_image: output/playwright/phase5_5/approved/SBG_001_recovered.png
+      original_gmail_screenshot: research/screenshots/SBG_001_smart_pet_launch_gmail_full.jpg
+
+  - reference_id: SBG_003
+    campaign_type: Product Education / User Voice Promotion Hybrid
+    total_length: 6599px
+    section_count: 10
+    module_count: 10
+    module_sequence:
+      - Promotion + user-voice hero
+      - User voice context
+      - Ranked product 1
+      - Ranked product 2
+      - Ranked product 3
+      - Coupon
+      - Product education
+      - Cross-sell
+      - CTA closure
+      - Deep footer
+    hero_structure: Dense hybrid hero pairing a campaign offer with real-user framing
+    product_visual_frequency: High — ranked products and cross-sell products appear in about 7 composition blocks
+    lifestyle_frequency: 2 visual beats
+    cta_frequency: 9
+    promotion_frequency: 3 campaign/commerce beats
+    proof_frequency: 5 user-voice statements
+    footer_depth: Deep — coupon conditions, channel actions and brand closure
+    information_density: High but structured
+    visual_rhythm: User voice → ranked product → proof → ranked product → proof → education → cross-sell → CTA
+    brand_specific_patterns:
+      - Proof is attached to the relevant product rather than isolated in a testimonial wall
+      - High CTA count remains interpretable because each action belongs to a ranked product or destination
+      - Dense content is broken by product imagery, not empty spacer modules
+    evidence:
+      recovered_html: research/mobile_evidence/html/SBG_003.html
+      recovered_full_image: output/playwright/phase5_5/approved/SBG_003_recovered.png
+      original_gmail_screenshot: research/screenshots/SBG_003_circulator_ugc_gmail_full.jpg
+
+  - reference_id: SBG_005
+    campaign_type: Countdown / Last Chance
+    total_length: 7101px
+    section_count: 9
+    module_count: 13
+    module_sequence:
+      - Urgency hero
+      - Featured product group
+      - Price and offer
+      - Product CTA
+      - Additional product group
+      - Coupon
+      - Deadline reminder
+      - Final CTA
+      - Deep footer
+    hero_structure: Promotion-first hero with explicit deadline and recognizable products
+    product_visual_frequency: Very high — product imagery appears in about 8 composition blocks
+    lifestyle_frequency: 0
+    cta_frequency: 8
+    promotion_frequency: 5 campaign/commerce beats
+    proof_frequency: 1
+    footer_depth: Deep — terms, multi-channel actions, brand and subscription closure
+    information_density: High
+    visual_rhythm: Urgency → featured offer → product rows → coupon → urgency reset → final CTA → footer
+    brand_specific_patterns:
+      - This is a commerce-led exception; it does not establish a universal lifestyle requirement
+      - Repeated product groups carry different SKUs, so length is driven by assortment rather than repeated copy
+      - Final urgency repeats the campaign condition, not a new message
+    evidence:
+      recovered_html: research/mobile_evidence/html/SBG_005.html
+      recovered_full_image: output/playwright/phase5_5/approved/SBG_005_recovered.png
+      original_gmail_screenshot: research/screenshots/SBG_005_prime_day_last_chance_gmail_full.jpg
+
+  - reference_id: SBG_006
+    campaign_type: Seasonal / Security Theme Promotion
+    total_length: 8913px
+    section_count: 10
+    module_count: 18
+    module_sequence:
+      - Security campaign hero
+      - Problem framing
+      - Product/use-case group 1
+      - Product/use-case group 2
+      - Product/use-case group 3
+      - Product/use-case group 4
+      - User proof
+      - Coupon and campaign terms
+      - Channel CTA closure
+      - Deep footer
+    hero_structure: Multi-product campaign hero establishing a home-security theme before individual offers
+    product_visual_frequency: Very high — products appear across about 9 composition blocks
+    lifestyle_frequency: 4 scenario beats
+    cta_frequency: 8
+    promotion_frequency: 4 campaign/commerce beats
+    proof_frequency: 3
+    footer_depth: Very deep — offer terms, channel choices, legal and brand closure
+    information_density: High but structured
+    visual_rhythm: Problem → scenario → product → CTA, repeated by distinct security need → proof → offer reminder → footer
+    brand_specific_patterns:
+      - Repetition is a four-scenario system, not four rewrites of one benefit
+      - Product imagery returns inside each security scenario
+      - Commerce appears after sufficient context and then returns at the close
+    evidence:
+      recovered_html: research/mobile_evidence/html/SBG_006.html
+      recovered_full_image: output/playwright/phase5_5/approved/SBG_006_recovered.png
+      original_gmail_screenshot: research/screenshots/SBG_006_prime_day_security_gmail_full.jpg
+
+  - reference_id: SBG_007
+    campaign_type: Product Launch / Dual-product Prime Day
+    total_length: 12863px
+    section_count: 8
+    module_count: 11
+    module_sequence:
+      - Lifestyle launch hero
+      - Product 1 primary value
+      - Product 1 detail
+      - Product 2 reveal
+      - Feature expansion
+      - Lifestyle/installation context
+      - Commerce and bonus
+      - Deep footer
+    hero_structure: Lifestyle-led dual-product launch with high product recognition and staged reveals
+    product_visual_frequency: High — product imagery appears in about 6 composition blocks
+    lifestyle_frequency: 3 visual beats
+    cta_frequency: 4
+    promotion_frequency: 1 commerce beat
+    proof_frequency: 2
+    footer_depth: Deep — offer conditions and complete brand closure
+    information_density: Medium; unusually tall imagery creates long visual dwell time
+    visual_rhythm: Lifestyle → product reveal → detail → second product reveal → use case → commerce → footer
+    brand_specific_patterns:
+      - Long length comes from large product and scene storytelling, not excessive copy
+      - Each major visual introduces a different product, detail or use case
+      - Product launch can defer dense commerce until product understanding is established
+    evidence:
+      recovered_html: research/mobile_evidence/html/SBG_007.html
+      recovered_full_image: output/playwright/phase5_5/approved/SBG_007_recovered.png
+      original_gmail_screenshot: research/screenshots/SBG_007_pro_product_launch_gmail_full.jpg
+
+  - reference_id: SBG_016
+    campaign_type: Product Launch / Air Purifier Promotion
+    total_length: 6448px
+    section_count: 9
+    module_count: 11
+    module_sequence:
+      - Product/lifestyle hero
+      - Lifestyle gallery
+      - Feature overview
+      - Product detail
+      - Comparison
+      - Coupon
+      - Product-family cards
+      - Closing CTA
+      - Deep footer
+    hero_structure: Product-led hero combining a lifestyle outcome, product identity and campaign action
+    product_visual_frequency: High — product imagery appears in about 7 composition blocks
+    lifestyle_frequency: 4 visual beats
+    cta_frequency: 5
+    promotion_frequency: 3 campaign/commerce beats
+    proof_frequency: 2
+    footer_depth: Deep — campaign conditions, brand proof and subscription closure
+    information_density: Medium
+    visual_rhythm: Product → lifestyle → feature grid → detail → comparison → commerce → related products → CTA
+    brand_specific_patterns:
+      - A lifestyle gallery separates hero identity from technical detail
+      - Comparison follows explanation rather than replacing it
+      - Related-product cards appear after the main product story is complete
+    evidence:
+      recovered_html: research/mobile_evidence/html/SBG_016.html
+      recovered_full_image: output/playwright/phase5_5/approved/SBG_016_recovered.png
+      original_gmail_screenshot: research/screenshots/SBG_016_wood_air_purifier_gmail_full.jpg
+
+  - reference_id: SBG_019
+    campaign_type: Product Launch
+    total_length: 4797px
+    section_count: 10
+    module_count: 11
+    module_sequence:
+      - Lifestyle hero
+      - Primary value
+      - Compatibility/context
+      - Feature/use case
+      - Product detail
+      - Proof/comparison
+      - Commerce
+      - Coupon
+      - CTA closure
+      - Deep footer
+    hero_structure: Lifestyle launch hero with immediate product recognition and a restrained action path
+    product_visual_frequency: High — product imagery appears in about 7 composition blocks
+    lifestyle_frequency: 3 visual beats
+    cta_frequency: 6
+    promotion_frequency: 2 commerce beats
+    proof_frequency: 2
+    footer_depth: Very deep — proof, social/channel paths and brand closure
+    information_density: Medium
+    visual_rhythm: Lifestyle → compatibility → feature → use case → installation/detail → commerce → product family → footer
+    brand_specific_patterns:
+      - The shortest measured Anchor is still a ten-stage message journey
+      - Product understanding and installation context precede the final commerce path
+      - Strong campaign art is product-specific and must not become a universal token
+    evidence:
+      recovered_html: research/mobile_evidence/html/SBG_019.html
+      recovered_full_image: output/playwright/phase5_5/approved/SBG_019_recovered.png
+      original_gmail_screenshot: research/screenshots/SBG_019_wire_neon_light_gmail_full.jpg
+
+  - reference_id: SBG_020
+    campaign_type: Brand Story / Category Guide
+    total_length: 8397px
+    section_count: 9
+    module_count: 22
+    module_sequence:
+      - Editorial hero
+      - Category context
+      - Product comparison
+      - Product card 1
+      - Product card 2
+      - Product card 3
+      - Product card 4
+      - Selection/commerce closure
+      - Deep footer
+    hero_structure: Editorial lifestyle hero; conversion is intentionally deferred until the category has been explained
+    product_visual_frequency: Very high — products appear across about 9 composition blocks
+    lifestyle_frequency: 4 visual beats
+    cta_frequency: 5
+    promotion_frequency: 1 commerce beat
+    proof_frequency: 4
+    footer_depth: Very deep — selection guidance, proof, channel actions and brand closure
+    information_density: High but structured
+    visual_rhythm: Editorial context → category proof → comparison → product-by-product choice → commerce → footer
+    brand_specific_patterns:
+      - Brand story still maintains repeated, recognizable product presence
+      - Product cards are editorial chapters with proof and choice logic, not a flat catalogue
+      - The CTA arrives after category understanding and repeats by product destination
+    evidence:
+      recovered_html: research/mobile_evidence/html/SBG_020.html
+      recovered_full_image: output/playwright/phase5_5/approved/SBG_020_recovered.png
+      original_gmail_screenshot: research/screenshots/SBG_020_robot_vacuum_brand_story_gmail_full.jpg

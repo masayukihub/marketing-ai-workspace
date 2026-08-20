@@ -1,0 +1,27 @@
+schema_version: 1.0.0
+component_id: FOOTER-SWITCHBOT-JP-PRODUCTION
+component_name: SwitchBot Japan Production Footer
+brand: {value: SwitchBot, status: VERIFIED, source: research/mobile_evidence/html/SBG_001.html#L409-L413}
+company: {value: SWITCHBOT株式会社, status: VERIFIED, source: research/mobile_evidence/html/SBG_001.html#L409-L413}
+address: {value: 〒150-0013 東京都渋谷区恵比寿1-21-17 Sreed Ebisu+C, status: VERIFIED, source: research/mobile_evidence/html/SBG_001.html#L409-L413}
+official_store: {value: "https://www.switchbot.jp/", status: VERIFIED, source: "https://www.switchbot.jp/pages/terms-of-service-1"}
+support_email: {value: support@switchbot.jp, status: VERIFIED, source: research/mobile_evidence/html/SBG_001.html#L409-L413}
+support_phone: {value: 0120-676-162, status: VERIFIED, source: research/mobile_evidence/html/SBG_001.html#L409-L413}
+copyright: {value: "Copyright © {{current_year}} SwitchBot, Inc. All rights reserved.", status: VERIFIED, source: research/mobile_evidence/html/SBG_001.html#L409-L413}
+preference_center:
+  label: {value: 好みを設定する, status: VERIFIED, source: research/mobile_evidence/html/SBG_001.html#L406-L408}
+  url: {value: "{{preference_center_url}}", status: MISSING, source: ESP runtime interface}
+unsubscribe:
+  label: {value: 登録を解除する, status: VERIFIED, source: research/mobile_evidence/html/SBG_001.html#L406-L408}
+  url: {value: "{{unsubscribe_url}}", status: MISSING, source: ESP runtime interface}
+required_legal:
+  - {label: プライバシーポリシー, url: "https://www.switchbot.jp/pages/privacy-policy", status: VERIFIED, source: "https://www.switchbot.jp/pages/privacy-policy"}
+  - {label: 利用規約, url: "https://www.switchbot.jp/pages/terms-of-service", status: VERIFIED, source: "https://www.switchbot.jp/pages/terms-of-service"}
+  - {label: 特定商取引法に基づく表記, url: "https://www.switchbot.jp/pages/terms-of-service-1", status: VERIFIED, source: "https://www.switchbot.jp/pages/terms-of-service-1"}
+campaign_disclaimer: {value: null, status: NOT_REQUIRED, source: Pilot campaigns contain no price, discount, coupon or deadline}
+approval:
+  content_verified: {value: true, status: VERIFIED, source: Tier A recovered official EDM and current official site}
+  legal_approved_for_new_production: {value: false, status: UNVERIFIED, source: Phase 6 Human/Legal approval gate}
+  runtime_links_resolved: {value: false, status: MISSING, source: ESP runtime interface}
+renderer_behavior: Render verified company information and legal links; render unresolved ESP actions as labelled non-clickable runtime tokens; force INTERNAL_DRAFT.
+

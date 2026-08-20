@@ -1,0 +1,229 @@
+schema_version: 2.0.0
+allowed_claim_types: [FEATURE, SPEC, PERFORMANCE, COMPATIBILITY, BATTERY, SPEED, SIZE, AWARD, NO1, SERVICE, PROMOTION]
+policy:
+  every_factual_copy_requires_claim_id: true
+  visual_candidate_statuses: [APPROVED, INHERITED_APPROVAL, VERIFIED_EXISTING_CLAIM]
+  final_send_statuses: [APPROVED, INHERITED_APPROVAL]
+  unmapped_factual_copy_result: BLOCK
+  primary_required_missing_result: BLOCK
+  secondary_optional_missing_result: DROP_OR_SUBSTITUTE
+  verified_existing_claim_is_not_final_send_approval: true
+claims:
+  - claim_id: CLM-LOCK-FEATURE-001
+    product_id: lock_ultra
+    claim_ja: ドアに溶け込む一体型デザイン
+    claim_type: FEATURE
+    status: VERIFIED_EXISTING_CLAIM
+    requirement_level: PRIMARY_REQUIRED
+    evidence_match: exact_official_heading
+    source: https://www.switchbot.jp/products/switchbot-lock-ultra
+    source_location: ドアに溶け込む一体型デザイン section
+    conditions: Non-numeric design description only.
+    required_disclaimer: null
+    valid_from: null
+    valid_until: null
+    approved_by: Phase 8 official-source resolver
+    last_verified: 2026-08-19
+    required_in_pilots: [PILOT-A-LOCK-ULTRA]
+  - claim_id: CLM-LOCK-FEATURE-002
+    product_id: lock_ultra
+    claim_ja: ブラックとシルバーの製品外観
+    claim_type: FEATURE
+    status: VERIFIED_EXISTING_CLAIM
+    requirement_level: SECONDARY_OPTIONAL
+    evidence_match: official_variant_and_visual_evidence
+    source: https://www.switchbot.jp/products/switchbot-lock-ultra
+    source_location: Official product images and color variants
+    conditions: Describe visible color variants only; do not infer SKU availability.
+    required_disclaimer: null
+    valid_from: null
+    valid_until: null
+    approved_by: Phase 8 official-source resolver
+    last_verified: 2026-08-19
+    required_in_pilots: [PILOT-A-LOCK-ULTRA]
+  - claim_id: CLM-LOCK-COMPAT-001
+    product_id: lock_ultra
+    claim_ja: ご購入前に、ドアとサムターンの形状および最新の取り付け条件をご確認ください。
+    claim_type: COMPATIBILITY
+    status: VERIFIED_EXISTING_CLAIM
+    requirement_level: PRIMARY_REQUIRED
+    evidence_match: semantic_equivalent_with_exact_official_purchase_check
+    source: https://www.switchbot.jp/products/switchbot-lock-ultra
+    source_location: Installation and compatibility guidance
+    conditions: Exact compatibility must be checked against the current official page.
+    required_disclaimer: 具体的な取り付け可否は、公式製品ページの最新情報でご確認ください。
+    valid_from: null
+    valid_until: null
+    approved_by: Phase 8 official-source resolver
+    last_verified: 2026-08-19
+    required_in_pilots: [PILOT-A-LOCK-ULTRA]
+  - claim_id: CLM-LOCK-FEATURE-003
+    product_id: lock_ultra
+    claim_ja: ドアの状態と開閉履歴をアプリから確認できます。
+    claim_type: FEATURE
+    status: VERIFIED_EXISTING_CLAIM
+    requirement_level: SECONDARY_OPTIONAL
+    evidence_match: semantic_equivalent_with_condition
+    source: https://www.switchbot.jp/products/switchbot-lock-ultra
+    source_location: ロック/ドアの状態を把握 section
+    conditions: 遠隔操作機能、通知機能にはSwitchBot ハブ製品が必要。
+    required_disclaimer: 遠隔操作機能、通知機能にはSwitchBot ハブ製品が必要です。
+    valid_from: null
+    valid_until: null
+    approved_by: Phase 8 official-source resolver
+    last_verified: 2026-08-20
+    required_in_pilots: [PILOT-A-LOCK-ULTRA]
+  - claim_id: CLM-LOCK-FEATURE-004
+    product_id: lock_ultra
+    claim_ja: マグネットセンサーでドアの開閉状態を検知し、自動で施錠します。
+    claim_type: FEATURE
+    status: VERIFIED_EXISTING_CLAIM
+    requirement_level: SECONDARY_OPTIONAL
+    evidence_match: semantic_equivalent_without_comparative_language
+    source: https://www.switchbot.jp/products/switchbot-lock-ultra
+    source_location: ドアが閉まれば、そっと施錠 section
+    conditions: タイマーロックとの安全比較表現は使用しない。
+    required_disclaimer: null
+    valid_from: null
+    valid_until: null
+    approved_by: Phase 8 official-source resolver
+    last_verified: 2026-08-20
+    required_in_pilots: [PILOT-A-LOCK-ULTRA]
+  - claim_id: CLM-LOCK-FEATURE-005
+    product_id: lock_ultra
+    claim_ja: 取り付け後、ロックUltraが解施錠の位置を自動で調節します。
+    claim_type: FEATURE
+    status: VERIFIED_EXISTING_CLAIM
+    requirement_level: SECONDARY_OPTIONAL
+    evidence_match: semantic_equivalent
+    source: https://www.switchbot.jp/products/switchbot-lock-ultra
+    source_location: 自動校正モード section
+    conditions: アプリの手順に沿って取り付けを完了した後。
+    required_disclaimer: アプリの手順に沿って取り付けを完了した後に利用できます。
+    valid_from: null
+    valid_until: null
+    approved_by: Phase 8 official-source resolver
+    last_verified: 2026-08-20
+    required_in_pilots: [PILOT-A-LOCK-ULTRA]
+  - claim_id: CLM-LOCK-BATTERY-001
+    product_id: lock_ultra
+    claim_ja: 電池切れの不安を抑える、3段階の電源バックアップ設計。
+    claim_type: BATTERY
+    status: UNVERIFIED
+    requirement_level: SECONDARY_OPTIONAL
+    source: /Users/lai/.codex/skills/product-knowledge/references/claim.md#CLM-001
+    source_location: CLM-001
+    conditions: Internal verification only; external wording and evidence pending.
+    required_disclaimer: null
+    valid_from: null
+    valid_until: null
+    approved_by: null
+    last_verified: 2026-07-30
+    required_in_pilots: []
+  - claim_id: CLM-LOCK-NO1-001
+    product_id: lock_ultra
+    claim_ja: 日本第一のスマートロック
+    claim_type: NO1
+    status: REJECTED
+    requirement_level: PROHIBITED
+    source: /Users/lai/.codex/skills/product-knowledge/references/claim.md#CLM-005
+    source_location: CLM-005 prohibited claim
+    conditions: No approved current No.1 evidence.
+    required_disclaimer: null
+    valid_from: null
+    valid_until: null
+    approved_by: Product Knowledge prohibition
+    last_verified: 2026-07-30
+    required_in_pilots: []
+  - claim_id: CLM-DAILY-FEATURE-001
+    product_id: daily_station
+    claim_ja: 暮らしの情報を、この1画面に。
+    claim_type: FEATURE
+    status: VERIFIED_EXISTING_CLAIM
+    requirement_level: PRIMARY_REQUIRED
+    evidence_match: semantic_equivalent
+    source: https://www.switchbot.jp/products/switchbot-weather-station
+    source_location: Main product narrative
+    conditions: General positioning only; each information category must remain separately traceable.
+    required_disclaimer: null
+    valid_from: null
+    valid_until: null
+    approved_by: Phase 8 official-source resolver
+    last_verified: 2026-08-19
+    required_in_pilots: [PILOT-B-DAILY-STATION]
+  - claim_id: CLM-DAILY-FEATURE-002
+    product_id: daily_station
+    claim_ja: 天気・室内環境・家族の予定を一つの画面で確認
+    claim_type: FEATURE
+    status: VERIFIED_EXISTING_CLAIM
+    requirement_level: PRIMARY_REQUIRED
+    evidence_match: semantic_equivalent
+    source: https://www.switchbot.jp/products/switchbot-weather-station
+    source_location: Official screen examples and main product narrative
+    conditions: Availability can depend on account, service, sensor and connection conditions.
+    required_disclaimer: 表示機能や連携条件は、公式製品ページの最新情報でご確認ください。
+    valid_from: null
+    valid_until: null
+    approved_by: Phase 8 official-source resolver
+    last_verified: 2026-08-19
+    required_in_pilots: [PILOT-B-DAILY-STATION]
+  - claim_id: CLM-DAILY-FEATURE-003
+    product_id: daily_station
+    claim_ja: 家族の予定を画面ひとつに
+    claim_type: FEATURE
+    status: VERIFIED_EXISTING_CLAIM
+    requirement_level: SECONDARY_OPTIONAL
+    evidence_match: exact_official_heading
+    source: https://www.switchbot.jp/products/switchbot-weather-station
+    source_location: 家族の予定を画面ひとつに section
+    conditions: Use only with official screen examples and verified service conditions.
+    required_disclaimer: 表示機能や連携条件は、公式製品ページの最新情報でご確認ください。
+    valid_from: null
+    valid_until: null
+    approved_by: Phase 8 official-source resolver
+    last_verified: 2026-08-19
+    required_in_pilots: [PILOT-B-DAILY-STATION]
+  - claim_id: CLM-DAILY-COMPAT-001
+    product_id: daily_station
+    claim_ja: カスタムボタン機能の利用には、SwitchBot ハブ製品およびアプリでのシーン設定が必要です。
+    claim_type: COMPATIBILITY
+    status: VERIFIED_EXISTING_CLAIM
+    requirement_level: SECONDARY_OPTIONAL
+    evidence_match: exact_published_condition
+    source: https://prtimes.jp/main/html/rd/p/000000164.000057002.html
+    source_location: Product features note ※1, published 2026-04-21
+    conditions: Use only when the Custom Button feature is described. Do not generalize to all Wi-Fi, accounts, sensors or linked devices.
+    required_disclaimer: null
+    valid_from: null
+    valid_until: null
+    approved_by: Phase 8 official-source resolver
+    last_verified: 2026-08-20
+    required_in_pilots: []
+    fallback:
+      strategy: DROP_MODULE_COPY
+      when: Claim is not relevant to the selected module or exact feature conditions are not present.
+copy_claim_map:
+  PILOT-A-LOCK-ULTRA:
+    hero_headline: CLM-LOCK-FEATURE-001
+    lifestyle_body: CLM-LOCK-FEATURE-002
+    product_identity: [CLM-LOCK-FEATURE-003, CLM-LOCK-FEATURE-004]
+    product_identity_body: [CLM-LOCK-FEATURE-003, CLM-LOCK-FEATURE-004]
+    problem_body: CLM-LOCK-FEATURE-004
+    compatibility_heading: CLM-LOCK-COMPAT-001
+    compatibility_disclaimer: [CLM-LOCK-COMPAT-001, CLM-LOCK-FEATURE-005]
+    check_item: CLM-LOCK-COMPAT-001
+  PILOT-B-DAILY-STATION:
+    hero_headline: CLM-DAILY-FEATURE-001
+    hero_body: CLM-DAILY-FEATURE-002
+    one_screen_heading: CLM-DAILY-FEATURE-001
+    device_ui_heading: CLM-DAILY-FEATURE-001
+    environment_heading: CLM-DAILY-FEATURE-002
+    schedule_heading: CLM-DAILY-FEATURE-003
+    use_condition: CLM-DAILY-FEATURE-002
+    one_screen_body: CLM-DAILY-FEATURE-001
+    device_ui_body: CLM-DAILY-FEATURE-002
+    environment_body: CLM-DAILY-FEATURE-002
+    schedule_body: [CLM-DAILY-FEATURE-002, CLM-DAILY-FEATURE-003]
+non_factual_copy_roles:
+  PILOT-A-LOCK-ULTRA: [product_name, hero_body, lifestyle_heading, pre_purchase_question, mid_cta, mid_cta_body, final_cta, final_cta_title, final_cta_body]
+  PILOT-B-DAILY-STATION: [product_name, condition_disclaimer, mid_cta, mid_cta_body, final_cta, final_cta_title, final_cta_body]

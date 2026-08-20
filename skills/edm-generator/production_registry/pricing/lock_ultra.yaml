@@ -1,0 +1,17 @@
+schema_version: 1.0.0
+product_id: lock_ultra
+campaign_id: PILOT-A-LOCK-ULTRA
+applicable: false
+reason: Evergreen no-promotion Pilot; no price or discount appears in copy.
+msrp: {value: null, status: MISSING, source: Product Knowledge has no approved current price}
+deal_price: {value: null, status: MISSING, source: No promotion}
+discount_percent: {value: null, status: MISSING, source: No promotion}
+discount_amount: {value: null, status: MISSING, source: No promotion}
+coupon: {value: null, status: MISSING, source: No promotion}
+start: {value: null, status: MISSING, source: No promotion}
+end: {value: null, status: MISSING, source: No promotion}
+source: production_registry/campaigns/PILOT-A-LOCK-ULTRA.yaml
+last_verified: 2026-08-19
+verification_time: 2026-08-19T00:00:00+09:00
+gate_result: PASS_NOT_APPLICABLE
+

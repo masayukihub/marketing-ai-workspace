@@ -1,0 +1,7 @@
+.env
+.env.*
+!.env.example
+snapshots/
+output/
+__pycache__/
+.pytest_cache/

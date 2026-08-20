@@ -1,0 +1,18 @@
+schema_version: 1.0.0
+service_id: switchbot_japan_shared
+support:
+  email: {value: support@switchbot.jp, status: VERIFIED, source: research/mobile_evidence/html/SBG_001.html#L409-L413, verified_on: 2026-08-19}
+  phone: {value: 0120-676-162, status: VERIFIED, source: "https://www.switchbot.jp/pages/contact", verified_on: 2026-08-19}
+  contact_url: {value: "https://www.switchbot.jp/pages/contact", status: VERIFIED, source: "https://www.switchbot.jp/pages/contact", verified_on: 2026-08-19}
+warranty:
+  policy_url: {value: "https://www.switchbot.jp/pages/refund-policy", status: VERIFIED, source: "https://www.switchbot.jp/pages/refund-policy", verified_on: 2026-08-19}
+  lock_ultra_term: {value: 1年, status: VERIFIED, source: "https://www.switchbot.jp/pages/refund-policy#保証期間", verified_on: 2026-08-19, approval_scope: footer_reference_only}
+  daily_station_term: {value: 1年, status: VERIFIED, source: "https://www.switchbot.jp/pages/refund-policy#保証期間", verified_on: 2026-08-19, approval_scope: footer_reference_only, notes: Official policy currently spells product as スマートディリーステーション; naming discrepancy retained.}
+shipping:
+  policy_url: {value: "https://www.switchbot.jp/pages/payments-shipping-policy", status: VERIFIED, source: "https://www.switchbot.jp/pages/payments-shipping-policy", verified_on: 2026-08-19}
+returns:
+  policy_url: {value: "https://www.switchbot.jp/pages/refund-policy", status: VERIFIED, source: "https://www.switchbot.jp/pages/refund-policy", verified_on: 2026-08-19}
+approval:
+  external_email_reuse: {value: false, status: UNVERIFIED, source: Phase 6 production approval review}
+renderer_behavior: Keep policy links in the internal footer trace; do not add marketing warranty modules until reuse approval is explicit.
+

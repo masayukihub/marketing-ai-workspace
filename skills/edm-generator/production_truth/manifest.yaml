@@ -1,0 +1,29 @@
+schema_version: 1.0.0
+generated_on: 2026-08-19
+source_of_truth:
+  primary: /Users/lai/.codex/skills/product-knowledge
+  adapter: production_truth
+  duplication_policy: Production files reference canonical Product Knowledge paths and only add Phase 6 source-status / campaign / rendering adapters.
+products:
+  lock_ultra: production_truth/products/lock_ultra.yaml
+  daily_station: production_truth/products/daily_station.yaml
+claims:
+  lock_ultra: production_truth/claims/lock_ultra.yaml
+  daily_station: production_truth/claims/daily_station.yaml
+pricing:
+  lock_ultra: production_truth/pricing/lock_ultra.yaml
+  daily_station: production_truth/pricing/daily_station.yaml
+campaigns:
+  PILOT-A-LOCK-ULTRA: production_truth/campaigns/PILOT-A-LOCK-ULTRA.yaml
+  PILOT-B-DAILY-STATION: production_truth/campaigns/PILOT-B-DAILY-STATION.yaml
+assets: production_truth/assets/asset_registry.yaml
+service: production_truth/service/switchbot_japan.yaml
+footer: production_truth/footer/switchbot_japan_production_footer.yaml
+legal: production_truth/legal/switchbot_japan.yaml
+status:
+  infrastructure: VERIFIED
+  product_external_claims: MISSING
+  production_asset_approval: MISSING
+  footer_runtime_links: MISSING
+  production_ready: false
+

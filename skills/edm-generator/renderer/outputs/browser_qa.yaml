@@ -1,0 +1,61 @@
+schema_version: 1.0.0
+tested_at: 2026-08-19
+runner: Playwright CLI / Chromium
+desktop:
+  viewport: 600x900
+  content_baseline: 600px
+mobile_viewports: [320, 375, 390, 414]
+results:
+  P01:
+    console_errors: 0
+    broken_images: 0
+    horizontal_overflow_viewports: []
+    cta_check: NOT_REQUIRED
+    full_page_screenshot: pilot/P01/full_edm.png
+    status: PASS_BLOCKED_WIREFRAME
+  P02:
+    console_errors: 0
+    broken_images: 0
+    horizontal_overflow_viewports: []
+    cta_visible_and_single_line_viewports: [320, 375, 390, 414]
+    full_page_screenshot: pilot/P02/full_edm.png
+    status: PASS_CONDITIONAL_RENDER
+  P03:
+    console_errors: 0
+    broken_images: 0
+    horizontal_overflow_viewports: []
+    cta_check: NOT_REQUIRED
+    full_page_screenshot: pilot/P03/full_edm.png
+    status: PASS_BLOCKED_HISTORICAL_EVIDENCE
+  P04:
+    console_errors: 0
+    broken_images: 0
+    horizontal_overflow_viewports: []
+    cta_visible_and_single_line_viewports: [320, 375, 390, 414]
+    full_page_screenshot: pilot/P04/full_edm.png
+    status: PASS_CONDITIONAL_RENDER
+
+design_review_pages:
+  cases: [P01, P02, P03, P04]
+  campaign_panels_per_case: 4
+  module_trace_rows: {P01: 1, P02: 5, P03: 1, P04: 5}
+  console_errors: 0
+  broken_iframe_images: 0
+  horizontal_overflow_viewports: []
+  tested_viewports: [320, 390, 768, 1200]
+  status: PASS
+
+human_review_page:
+  path: research/phase5_visual_review.html
+  image_count: 12
+  broken_images: 0
+  score_controls: 40
+  score_values_prefilled: 0
+  decision_values_prefilled: 0
+  reason_values_prefilled: 0
+  console_errors: 0
+  horizontal_overflow_viewports: []
+  tested_viewports: [320, 375, 390, 414, 768, 1440]
+  laptop_fold_1280x800: PASS
+  csv_download_name: phase5_visual_human_review.csv
+  status: PASS

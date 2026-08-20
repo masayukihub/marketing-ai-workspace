@@ -1,0 +1,9 @@
+schema_version: 1.0.0
+product_id: lock_ultra
+current_observation:
+  channel: {value: SwitchBot Japan official store, status: VERIFIED, source: "https://www.switchbot.jp/products/switchbot-lock-ultra"}
+  observed_price: {value: 22980, currency: JPY, tax_included: true, status: VERIFIED, source: "https://www.switchbot.jp/products/switchbot-lock-ultra", observed_on: 2026-08-19}
+  product_knowledge_approval: {value: false, status: UNVERIFIED, source: /Users/lai/.codex/skills/product-knowledge/references/pricing.xlsx}
+  use_in_phase6_copy: false
+notes: Current official-page observation is traceable but is not promoted into Product Knowledge and is not used in the no-promotion Pilot A.
+

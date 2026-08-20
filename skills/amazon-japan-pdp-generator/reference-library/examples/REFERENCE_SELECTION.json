@@ -1,0 +1,507 @@
+{
+  "schema_version": "1.0",
+  "artifact": "REFERENCE_SELECTION",
+  "generated_on": "2026-08-18",
+  "status": "complete",
+  "is_human_gate": false,
+  "principle": "Reference is a decision aid, not a source of competitor copy, imagery, trade dress or complete layouts.",
+  "brief_signals": {
+    "category": [
+      "smart home",
+      "consumer electronics"
+    ],
+    "product_complexity": [
+      "high"
+    ],
+    "primary_usp": [
+      "physical control plus visible information",
+      "ecosystem orchestration"
+    ],
+    "consumer_tension": [
+      "too many remotes and apps",
+      "family cannot share app-only control",
+      "compatibility uncertainty"
+    ],
+    "product_type": [
+      "smart home device",
+      "system product"
+    ],
+    "story_requirement": [
+      "Category-education",
+      "Technology-led",
+      "Scenario-led"
+    ],
+    "technical_complexity": [
+      "high"
+    ],
+    "target_audience": [
+      "Japanese household",
+      "smart-home first-time buyer"
+    ]
+  },
+  "available_signal_weight": 100,
+  "minimum_signal_weight": 40,
+  "missing_fields": [],
+  "top_references": [
+    {
+      "rank": 1,
+      "asin": "B0FX81HWQ3",
+      "brand": "Eufy",
+      "product": "Robot Vacuum Omni C28",
+      "score": 50.8,
+      "score_basis": "100/100 input weight available",
+      "field_scores": {
+        "category": {
+          "label": "Category",
+          "weight": 20,
+          "points": 10,
+          "similarity": 0.5,
+          "matched": [
+            {
+              "input": "smart home",
+              "candidate": "smart home",
+              "similarity": 1
+            },
+            {
+              "input": "smart home",
+              "candidate": "home appliance",
+              "similarity": 0.3333333333333333
+            }
+          ],
+          "status": "matched"
+        },
+        "product_complexity": {
+          "label": "Product Complexity",
+          "weight": 8,
+          "points": 8,
+          "similarity": 1,
+          "matched": [
+            {
+              "input": "high",
+              "candidate": "high",
+              "similarity": 1
+            },
+            {
+              "input": "high",
+              "candidate": "very_high",
+              "similarity": 1
+            }
+          ],
+          "status": "matched"
+        },
+        "primary_usp": {
+          "label": "Primary USP",
+          "weight": 18,
+          "points": 0,
+          "similarity": 0,
+          "matched": [],
+          "status": "no_match"
+        },
+        "consumer_tension": {
+          "label": "Consumer Tension",
+          "weight": 12,
+          "points": 0,
+          "similarity": 0,
+          "matched": [],
+          "status": "no_match"
+        },
+        "product_type": {
+          "label": "Product Type",
+          "weight": 18,
+          "points": 18,
+          "similarity": 1,
+          "matched": [
+            {
+              "input": "smart home device",
+              "candidate": "smart home device",
+              "similarity": 1
+            },
+            {
+              "input": "system product",
+              "candidate": "system product",
+              "similarity": 1
+            }
+          ],
+          "status": "matched"
+        },
+        "story_requirement": {
+          "label": "Story Requirement",
+          "weight": 10,
+          "points": 4.44,
+          "similarity": 0.4444444444444444,
+          "matched": [
+            {
+              "input": "Scenario-led",
+              "candidate": "Scenario-led",
+              "similarity": 1
+            },
+            {
+              "input": "Technology-led",
+              "candidate": "Performance-led",
+              "similarity": 0.3333333333333333
+            },
+            {
+              "input": "Scenario-led",
+              "candidate": "Performance-led",
+              "similarity": 0.3333333333333333
+            }
+          ],
+          "status": "matched"
+        },
+        "technical_complexity": {
+          "label": "Technical Complexity",
+          "weight": 6,
+          "points": 6,
+          "similarity": 1,
+          "matched": [
+            {
+              "input": "high",
+              "candidate": "high",
+              "similarity": 1
+            },
+            {
+              "input": "high",
+              "candidate": "very_high",
+              "similarity": 1
+            }
+          ],
+          "status": "matched"
+        },
+        "target_audience": {
+          "label": "Target Audience",
+          "weight": 8,
+          "points": 4.38,
+          "similarity": 0.5476190476190476,
+          "matched": [
+            {
+              "input": "Japanese household",
+              "candidate": "Japanese urban household",
+              "similarity": 0.6666666666666666
+            },
+            {
+              "input": "smart-home first-time buyer",
+              "candidate": "first-time robot vacuum buyer",
+              "similarity": 0.42857142857142855
+            },
+            {
+              "input": "smart-home first-time buyer",
+              "candidate": "design-conscious buyer",
+              "similarity": 0.14285714285714285
+            }
+          ],
+          "status": "matched"
+        }
+      },
+      "why_selected": [
+        "需要日本住宅适配和购买信心的智能家电",
+        "高复杂度但希望视觉保持清爽的产品"
+      ],
+      "borrow": [
+        "先解决日本住宅适配，再进入性能",
+        "将一个大USP拆为多个具体失效问题逐一证明",
+        "在后半段独立处理Support、Privacy、同梱与Ecosystem"
+      ],
+      "do_not_borrow": [
+        "复制Anker/Eufy卡片造型、字体、色彩或完整布局",
+        "把18张Gallery当作数量目标",
+        "将Anker/Eufy明灰Trade Dress转译为SwitchBot白、浅灰与薄荷品牌系统"
+      ],
+      "story_patterns": [
+        "Problem-solution",
+        "Performance-led",
+        "Scenario-led",
+        "Premium-brand-led"
+      ]
+    },
+    {
+      "rank": 2,
+      "asin": "B0FQ5J7HFQ",
+      "brand": "Plaud",
+      "product": "Plaud Note Pro AI Voice Recorder",
+      "score": 36.3,
+      "score_basis": "100/100 input weight available",
+      "field_scores": {
+        "category": {
+          "label": "Category",
+          "weight": 20,
+          "points": 10,
+          "similarity": 0.5,
+          "matched": [
+            {
+              "input": "consumer electronics",
+              "candidate": "consumer electronics",
+              "similarity": 1
+            }
+          ],
+          "status": "matched"
+        },
+        "product_complexity": {
+          "label": "Product Complexity",
+          "weight": 8,
+          "points": 8,
+          "similarity": 1,
+          "matched": [
+            {
+              "input": "high",
+              "candidate": "high",
+              "similarity": 1
+            },
+            {
+              "input": "high",
+              "candidate": "very_high",
+              "similarity": 1
+            }
+          ],
+          "status": "matched"
+        },
+        "primary_usp": {
+          "label": "Primary USP",
+          "weight": 18,
+          "points": 0,
+          "similarity": 0,
+          "matched": [],
+          "status": "no_match"
+        },
+        "consumer_tension": {
+          "label": "Consumer Tension",
+          "weight": 12,
+          "points": 0,
+          "similarity": 0,
+          "matched": [],
+          "status": "no_match"
+        },
+        "product_type": {
+          "label": "Product Type",
+          "weight": 18,
+          "points": 2.25,
+          "similarity": 0.125,
+          "matched": [
+            {
+              "input": "smart home device",
+              "candidate": "professional device",
+              "similarity": 0.25
+            }
+          ],
+          "status": "matched"
+        },
+        "story_requirement": {
+          "label": "Story Requirement",
+          "weight": 10,
+          "points": 10,
+          "similarity": 1,
+          "matched": [
+            {
+              "input": "Category-education",
+              "candidate": "Category-education",
+              "similarity": 1
+            },
+            {
+              "input": "Scenario-led",
+              "candidate": "Scenario-led",
+              "similarity": 1
+            },
+            {
+              "input": "Technology-led",
+              "candidate": "Technology-led",
+              "similarity": 1
+            }
+          ],
+          "status": "matched"
+        },
+        "technical_complexity": {
+          "label": "Technical Complexity",
+          "weight": 6,
+          "points": 6,
+          "similarity": 1,
+          "matched": [
+            {
+              "input": "high",
+              "candidate": "high",
+              "similarity": 1
+            },
+            {
+              "input": "high",
+              "candidate": "very_high",
+              "similarity": 1
+            }
+          ],
+          "status": "matched"
+        },
+        "target_audience": {
+          "label": "Target Audience",
+          "weight": 8,
+          "points": 0,
+          "similarity": 0,
+          "matched": [],
+          "status": "no_match"
+        }
+      },
+      "why_selected": [
+        "需要Category Education的新型AI硬件",
+        "价值来自硬件与软件连续工作流的产品"
+      ],
+      "borrow": [
+        "新类别先解释用户任务，再解释技术名词",
+        "以输入—处理—成果—场景作为AI产品骨架",
+        "用真实工作场景验证抽象的AI能力"
+      ],
+      "do_not_borrow": [
+        "直接复制Plaud文案、UI、卡片形状或米色视觉系统",
+        "在Gallery过早放入高密度会员表",
+        "所有UI必须来自官方素材并由Graphic Layer程序化排版"
+      ],
+      "story_patterns": [
+        "Category-education",
+        "Scenario-led",
+        "Technology-led",
+        "Premium-brand-led"
+      ]
+    },
+    {
+      "rank": 3,
+      "asin": "B0FWQY84L6",
+      "brand": "EarFun",
+      "product": "EarFun Air Pro 4+",
+      "score": 34.7,
+      "score_basis": "100/100 input weight available",
+      "field_scores": {
+        "category": {
+          "label": "Category",
+          "weight": 20,
+          "points": 10,
+          "similarity": 0.5,
+          "matched": [
+            {
+              "input": "consumer electronics",
+              "candidate": "consumer electronics",
+              "similarity": 1
+            }
+          ],
+          "status": "matched"
+        },
+        "product_complexity": {
+          "label": "Product Complexity",
+          "weight": 8,
+          "points": 8,
+          "similarity": 1,
+          "matched": [
+            {
+              "input": "high",
+              "candidate": "high",
+              "similarity": 1
+            }
+          ],
+          "status": "matched"
+        },
+        "primary_usp": {
+          "label": "Primary USP",
+          "weight": 18,
+          "points": 0,
+          "similarity": 0,
+          "matched": [],
+          "status": "no_match"
+        },
+        "consumer_tension": {
+          "label": "Consumer Tension",
+          "weight": 12,
+          "points": 4,
+          "similarity": 0.3333333333333333,
+          "matched": [
+            {
+              "input": "compatibility uncertainty",
+              "candidate": "compatibility",
+              "similarity": 1
+            }
+          ],
+          "status": "matched"
+        },
+        "product_type": {
+          "label": "Product Type",
+          "weight": 18,
+          "points": 0,
+          "similarity": 0,
+          "matched": [],
+          "status": "no_match"
+        },
+        "story_requirement": {
+          "label": "Story Requirement",
+          "weight": 10,
+          "points": 6.67,
+          "similarity": 0.6666666666666666,
+          "matched": [
+            {
+              "input": "Scenario-led",
+              "candidate": "Scenario-led",
+              "similarity": 1
+            },
+            {
+              "input": "Technology-led",
+              "candidate": "Technology-led",
+              "similarity": 1
+            },
+            {
+              "input": "Technology-led",
+              "candidate": "Feature-led",
+              "similarity": 0.3333333333333333
+            }
+          ],
+          "status": "matched"
+        },
+        "technical_complexity": {
+          "label": "Technical Complexity",
+          "weight": 6,
+          "points": 6,
+          "similarity": 1,
+          "matched": [
+            {
+              "input": "high",
+              "candidate": "high",
+              "similarity": 1
+            }
+          ],
+          "status": "matched"
+        },
+        "target_audience": {
+          "label": "Target Audience",
+          "weight": 8,
+          "points": 0,
+          "similarity": 0,
+          "matched": [],
+          "status": "no_match"
+        }
+      },
+      "why_selected": [
+        "技术与性价比并重的消费电子",
+        "需要在机制说明和生活场景之间切换的页面"
+      ],
+      "borrow": [
+        "技术证明之后用人物场景展示使用结果",
+        "将音质、降噪、连接等技术群分章",
+        "把电池等购买指标单独展示"
+      ],
+      "do_not_borrow": [
+        "复制EarFun黑色渐变、技术Logo墙或受赏墙",
+        "用一张Hero同时塞奖项、规格、功能和口号",
+        "SwitchBot页面减少受赏依赖，把信任建立在产品机制与官方证据上"
+      ],
+      "story_patterns": [
+        "Technology-led",
+        "Feature-led",
+        "Premium-brand-led",
+        "Scenario-led"
+      ]
+    }
+  ],
+  "reference_strategy": {
+    "structure": "Eufy / B0FX81HWQ3",
+    "technology_explanation": "Plaud / B0FQ5J7HFQ",
+    "visual_rhythm": "Eufy / B0FX81HWQ3",
+    "brand": "SwitchBot"
+  },
+  "final_combination_strategy": [
+    "Use Eufy only for the dominant story architecture.",
+    "Use Plaud only for technology-explanation discipline.",
+    "Use Eufy only for density, whitespace and scene/technical rhythm.",
+    "Use SwitchBot product truth, claims, official product assets, brand system and programmatic Japanese copy for every production output."
+  ]
+}

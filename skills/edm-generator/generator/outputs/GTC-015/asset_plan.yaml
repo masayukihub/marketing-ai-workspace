@@ -1,0 +1,222 @@
+contract_version: 1.0.0
+design_standard_version: '1.0'
+design_system_version: 1.0.0
+generated_at: '2026-08-19T14:37:04+08:00'
+scope: asset_plan
+source_manifest:
+- path: standards/edm_design_standard_v1.0.md
+  sha256: a140a5f4e9d464986deee8ec8567f43dd71f91a5bb0dbd9cdb24437c0545c89f
+  status: loaded
+- path: standards/edm_design_rules_v1.0.yaml
+  sha256: 8d793e3298f9bb7557382e0fa836bf048cf07dd634846fb83c0cbb72c1398aa7
+  status: loaded
+- path: design_system/templates_v1.0.yaml
+  sha256: 90300fa9358779b723612a59881e18c23239f1994d4ff4b1f4990f7c9b588835
+  status: loaded
+- path: design_system/modules_v1.0.yaml
+  sha256: 3b973109c449cb292cb096f87da6fa9acb8958aa922d75ce7bde2f2c1aa5dd4f
+  status: loaded
+- path: design_system/template_selection_rules_v1.0.yaml
+  sha256: 68f397c2c56673475e8ca4a2eb1a60534ec5ca4f5122c798f45338020b92b3ad
+  status: loaded
+- path: design_system/module_composition_rules_v1.0.yaml
+  sha256: 6eb19122ebe62894c4f06b34662b110df1900aebb39ece60c410ebfc6b5b620b
+  status: loaded
+- path: design_system/visual_rhythm_rules_v1.0.md
+  sha256: be2c626e867cedb0267f8445c2e529966f3a721706cacab348bdeb78826540cf
+  status: loaded
+- path: phase4_generator_contract.md
+  sha256: e8e17f05775640d6d698cbc857af0db5faac1992a190ecdad65a4aa1b804f759
+  status: loaded
+- path: generator/input_schema.yaml
+  sha256: 73fecf9b7b79d4dde0d76cab94131a24324135a85c11f24a22334c08d612a1f5
+  status: loaded
+- path: Product Knowledge/outputs/product_index.json
+  sha256: bb15e6eea4249fce09b23058f2d3f9c4e55364f69f04ee31eac4f5c7e4f417f0
+  status: loaded
+  last_verified: '2026-08-07'
+- path: Product Knowledge/references/claim.md
+  sha256: 2600c4cedc287c2901461e34dfa327a317bbbda68ee60ffd6b3d426cbe18034d
+  status: loaded
+  last_verified: '2026-08-07'
+- path: Product Knowledge/references/compliance.md
+  sha256: edd12cc3508bd0580cb8f0d8264aaaee8db77401d23dd98d8cad60e93131d874
+  status: loaded
+  last_verified: '2026-08-07'
+- path: Product Knowledge/references/known_issues.md
+  sha256: 71b6ae94c8f8d9da301dc220fb435222fbbdee73fa59e1b9059f244fd95ee786
+  status: loaded
+  last_verified: '2026-08-07'
+status: resolved_for_logic_test_only
+product_ids: &1
+- hub_3
+- curtain_3
+- lock_ultra
+asset_inventory_state: complete
+module_assets:
+- module_id: MOD-HERO-LIFESTYLE
+  required_asset_types:
+  - product
+  - lifestyle
+  resolved_assets:
+  - asset_type: product
+    asset_id: TEST-FIXTURE-PRODUCT
+    product_ids: *1
+    source_path: 
+    provenance: verified_test_fixture
+    usage_right: test_logic_only
+    production_approved: false
+  - asset_type: lifestyle
+    asset_id: TEST-FIXTURE-LIFESTYLE
+    product_ids: *1
+    source_path: 
+    provenance: verified_test_fixture
+    usage_right: test_logic_only
+    production_approved: false
+  missing_assets: []
+  production_provenance_status: Unverified
+  test_resolution_status: verified_test_fixture
+  ai_generation:
+    allowed: false
+    reason: Product/UI/packaging/accessory/installation/detail assets require official
+      or verified source.
+- module_id: MOD-STORY-IMAGE-TEXT
+  required_asset_types:
+  - content_support
+  resolved_assets:
+  - asset_type: content_support
+    asset_id: TEST-FIXTURE-CONTENT-SUPPORT
+    product_ids: *1
+    source_path: 
+    provenance: verified_test_fixture
+    usage_right: test_logic_only
+    production_approved: false
+  missing_assets: []
+  production_provenance_status: Unverified
+  test_resolution_status: verified_test_fixture
+  ai_generation:
+    allowed: true
+    scope: &2
+    - environment
+    - person
+    - prop
+    - lighting
+    - background
+    - atmosphere
+    condition: Cannot change product facts, geometry, color, proportion, installation
+      relationship, or UI.
+- module_id: MOD-STORY-APP-UI
+  required_asset_types:
+  - ui
+  resolved_assets:
+  - asset_type: ui
+    asset_id: TEST-FIXTURE-UI
+    product_ids: *1
+    source_path: 
+    provenance: verified_test_fixture
+    usage_right: test_logic_only
+    production_approved: false
+  missing_assets: []
+  production_provenance_status: Unverified
+  test_resolution_status: verified_test_fixture
+  ai_generation:
+    allowed: false
+    reason: Product/UI/packaging/accessory/installation/detail assets require official
+      or verified source.
+- module_id: MOD-COMMERCE-PRODUCT-GRID
+  required_asset_types:
+  - product
+  resolved_assets:
+  - asset_type: product
+    asset_id: TEST-FIXTURE-PRODUCT
+    product_ids: *1
+    source_path: 
+    provenance: verified_test_fixture
+    usage_right: test_logic_only
+    production_approved: false
+  missing_assets: []
+  production_provenance_status: Unverified
+  test_resolution_status: verified_test_fixture
+  ai_generation:
+    allowed: false
+    reason: Product/UI/packaging/accessory/installation/detail assets require official
+      or verified source.
+- module_id: MOD-TRUST-WARRANTY
+  required_asset_types:
+  - proof
+  resolved_assets:
+  - asset_type: proof
+    asset_id: TEST-FIXTURE-PROOF
+    product_ids: *1
+    source_path: 
+    provenance: verified_test_fixture
+    usage_right: test_logic_only
+    production_approved: false
+  missing_assets: []
+  production_provenance_status: Unverified
+  test_resolution_status: verified_test_fixture
+  ai_generation:
+    allowed: true
+    scope: *2
+    condition: Cannot change product facts, geometry, color, proportion, installation
+      relationship, or UI.
+- module_id: MOD-CONV-CTA-BAND
+  required_asset_types:
+  - content_support
+  resolved_assets:
+  - asset_type: content_support
+    asset_id: TEST-FIXTURE-CONTENT-SUPPORT
+    product_ids: *1
+    source_path: 
+    provenance: verified_test_fixture
+    usage_right: test_logic_only
+    production_approved: false
+  missing_assets: []
+  production_provenance_status: Unverified
+  test_resolution_status: verified_test_fixture
+  ai_generation:
+    allowed: true
+    scope: *2
+    condition: Cannot change product facts, geometry, color, proportion, installation
+      relationship, or UI.
+- module_id: MOD-SYSTEM-BRAND-FOOTER
+  required_asset_types:
+  - brand
+  resolved_assets:
+  - asset_type: brand
+    asset_id: TEST-FIXTURE-BRAND
+    product_ids: *1
+    source_path: 
+    provenance: verified_test_fixture
+    usage_right: test_logic_only
+    production_approved: false
+  missing_assets: []
+  production_provenance_status: Unverified
+  test_resolution_status: verified_test_fixture
+  ai_generation:
+    allowed: true
+    scope: *2
+    condition: Cannot change product facts, geometry, color, proportion, installation
+      relationship, or UI.
+missing_required_assets: []
+official_only_asset_types:
+- product
+- ui
+- packaging
+- accessory
+- installation
+- detail_closeup
+ai_allowed_asset_types: *2
+ai_forbidden:
+- product redraw
+- product reconstruction
+- UI reconstruction
+- packaging redraw
+- installation relationship invention
+asset_safety_checks:
+  product_redraw_requested: false
+  ui_redraw_requested: false
+  untraceable_final_asset_allowed: false
+  missing_official_product_correctly_blocked: false
+production_note: Test fixtures do not represent files, rights, approvals, or provenance.
+  Real official assets must be resolved before Renderer/Final.

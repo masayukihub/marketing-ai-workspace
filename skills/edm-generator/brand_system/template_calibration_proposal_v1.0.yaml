@@ -1,0 +1,70 @@
+version: 1.0.0
+status: Calibration proposal — Frozen templates are not modified
+evidence_baseline: 8 recovered Tier A Approved SwitchBot Anchors
+summary:
+  frozen_template_slots: 7–8 semantic modules
+  approved_macro_sections: 8–10
+  approved_composition_blocks: 10–22
+  primary_gap: Frozen templates are useful decision skeletons but compress repeated product, scenario, feature, proof, commerce and footer depth into single coarse slots.
+templates:
+  - template_id: TPL-LAUNCH-A
+    decision: BRAND_VARIANT_REQUIRED
+    gap: Product value path is valid, but HIGH-complexity launches need multiple feature/mechanism beats, compatibility, UI and deeper closure.
+    proposed_action: Route qualified SwitchBot cases to SB-LF-LAUNCH; preserve current variant for Compact/Standard.
+  - template_id: TPL-LAUNCH-B
+    decision: BRAND_VARIANT_REQUIRED
+    gap: Problem-to-solution is valid but one Image + Text and one Detail cannot reproduce multi-stage SwitchBot explanation.
+    proposed_action: Add scenario → mechanism → detail → compatibility cadence in SB-LF-LAUNCH.
+  - template_id: TPL-LAUNCH-C
+    decision: EXTEND
+    gap: Lifestyle rhythm is brand-compatible, but product re-entry and detail/proof depth are optional rather than governed.
+    proposed_action: Add product-presence checkpoints and optional 2–4 detail modules.
+  - template_id: TPL-PROMO-A
+    decision: BRAND_VARIANT_REQUIRED
+    gap: One Product Grid collapses the scenario/product-group rhythm visible in Tier A theme campaigns.
+    proposed_action: Use SB-LF-PROMOTION for three or more distinct groups.
+  - template_id: TPL-PROMO-B
+    decision: BRAND_VARIANT_REQUIRED
+    gap: Catalogue logic is too flat; Tier A groups products by theme/use case and repeats offer/CTA by product purpose.
+    proposed_action: Split grid into distinct product/scenario chapters and restore deep campaign closure.
+  - template_id: TPL-PROMO-C
+    decision: EXTEND
+    gap: Compact last-chance logic is valid, but multi-SKU campaigns require repeated product groups and stronger legal/footer depth.
+    proposed_action: Keep compact mode; allow SB-LF-PROMOTION when assortment creates real depth.
+  - template_id: TPL-CONVERT-A
+    decision: BRAND_VARIANT_REQUIRED
+    gap: A complex smart-hardware product cannot be reduced to one USP, one Detail and one Feature Split.
+    proposed_action: Route HIGH complexity to SB-LF-CONVERSION; require mechanism, use case and compatibility questions when verified.
+  - template_id: TPL-CONVERT-B
+    decision: EXTEND
+    gap: Offer-direct is valid for familiar products but loses SwitchBot product presence and detail for medium complexity.
+    proposed_action: Add a product re-entry and compatibility/detail branch before price.
+  - template_id: TPL-EDU-A
+    decision: BRAND_VARIANT_REQUIRED
+    gap: One Image + Text and one Detail do not support long-form problem/solution education.
+    proposed_action: Use SB-LF-EDUCATION with multiple mechanism, scenario and objection stages.
+  - template_id: TPL-EDU-B
+    decision: BRAND_VARIANT_REQUIRED
+    gap: One UI module plus one feature module is too compressed for a complex device or app flow.
+    proposed_action: Allow UI overview, UI task chapters, device detail, dependencies and FAQ as distinct modules.
+  - template_id: TPL-EDU-C
+    decision: EXTEND
+    gap: Guide/compare path is valid, but product-by-product choice chapters and proof are collapsed.
+    proposed_action: Repeat Product Card/Detail only for distinct choice paths; preserve one comparison baseline.
+  - template_id: TPL-CATEGORY-A
+    decision: BRAND_VARIANT_REQUIRED
+    gap: One Product Grid cannot represent the grouped product storytelling in SBG_001 or SBG_020.
+    proposed_action: Use SB-LF-CATEGORY and split product groups by need or ecosystem role.
+  - template_id: TPL-CATEGORY-B
+    decision: BRAND_VARIANT_REQUIRED
+    gap: Comparison-to-grid path lacks editorial category context, repeated product chapters and deep choice closure.
+    proposed_action: Use SB-LF-CATEGORY for four or more distinct SKUs/paths.
+  - template_id: TPL-BRAND-A
+    decision: BRAND_VARIANT_REQUIRED
+    gap: Brand Story has only one lifestyle and one user-voice stage; Tier A brand stories retain repeated product visibility.
+    proposed_action: Use SB-LF-BRAND with 2–4 product/use-case chapters.
+  - template_id: TPL-BRAND-B
+    decision: BRAND_VARIANT_REQUIRED
+    gap: One App/UI and one Product Grid flatten an ecosystem narrative into a generic DTC flow.
+    proposed_action: Use SB-LF-BRAND with ecosystem principle, multiple connected use cases and product re-entry.
+

@@ -1,0 +1,27 @@
+import assert from "node:assert/strict";
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { spawnSync } from "node:child_process";
+
+const specPath=process.argv[2];
+if(!specPath) throw new Error("Pass PRODUCT_PAGE_SPEC.json path");
+const temp=fs.mkdtempSync(path.join(os.tmpdir(),"amazon-jp-fidelity-"));
+const script=new URL("../scripts/amazon_jp_fidelity.mjs",import.meta.url).pathname;
+const run=spawnSync(process.execPath,[script,"--spec",path.resolve(specPath),"--output",temp,"--prefix","TEST","--mode","AMAZON_JP_FIDELITY"],{encoding:"utf8"});
+assert.equal(run.status,0,run.stderr||run.stdout);
+const desktop=fs.readFileSync(path.join(temp,"TEST_FIDELITY_PREVIEW_DESKTOP.html"),"utf8");
+const mobile=fs.readFileSync(path.join(temp,"TEST_FIDELITY_PREVIEW_MOBILE.html"),"utf8");
+const structural=JSON.parse(fs.readFileSync(path.join(temp,"qa","fidelity-structural.json"),"utf8"));
+assert.equal(structural.gallery_count,7);
+assert.equal(structural.aplus_module_count,7);
+assert.equal(structural.aplus_unit_count,16);
+assert.equal(structural.price_render,"FAIL_CLOSED_EMPTY");
+assert.equal(structural.rating_render,"FAIL_CLOSED_EMPTY");
+assert.match(desktop,/window\.__FIDELITY_QA__/);
+assert.match(desktop,/data-gallery-index="6"/);
+assert.match(desktop,/data-slide-index="6"/);
+assert.match(desktop,/価格・ポイント・クーポン情報はありません/);
+assert.doesNotMatch(desktop,/Claim ID|Source ID|Design Review|Art Direction Score|Internal Dashboard/i);
+assert.match(mobile,/class="force-mobile"/);
+console.log(JSON.stringify({status:"PASS",output:temp,gallery:structural.gallery_count,aplus_modules:structural.aplus_module_count,aplus_units:structural.aplus_unit_count,commerce_data:"FAIL_CLOSED"},null,2));

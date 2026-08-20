@@ -1,0 +1,77 @@
+{
+  "template_id": "P-PURCHASE-CONFIDENCE",
+  "family": "product_image",
+  "name": "Purchase Confidence",
+  "html": {
+    "component": "product-confidence",
+    "class": "tpl-p-purchase-confidence"
+  },
+  "css": {
+    "grid_template_columns": "5fr 7fr",
+    "card_style": "checklist"
+  },
+  "svg": {
+    "renderer": "renderProductPurchaseConfidence",
+    "view_box": "0 0 2000 2000"
+  },
+  "grid": {
+    "columns": 12,
+    "rows": 12,
+    "gutter_px": 36
+  },
+  "product_area": {
+    "columns": "1/6",
+    "rows": "4/12",
+    "fit": "contain"
+  },
+  "text_area": {
+    "columns": "6/13",
+    "rows": "2/11",
+    "align": "left"
+  },
+  "safe_area": {
+    "desktop_px": 110,
+    "mobile_percent": 8
+  },
+  "font_size": {
+    "headline_px": 74,
+    "subcopy_px": 33,
+    "check_px": 27
+  },
+  "headline_length": {
+    "preferred": 18,
+    "max": 28
+  },
+  "sub_copy_length": {
+    "preferred": 46,
+    "max": 72
+  },
+  "desktop_rules": [
+    "up to three purchase checks",
+    "separate included and required items",
+    "no unsupported assurance"
+  ],
+  "mobile_rules": [
+    "checks stack",
+    "conditions stay adjacent to label",
+    "no tiny footnotes"
+  ],
+  "historical_reference": [
+    "REF-AMZ-A-PLUS",
+    "REF-SB-K11"
+  ],
+  "library_version": "2026.08-v4",
+  "source_policy": {
+    "product_layer": "User-provided official product asset only for formal launch",
+    "scene_layer": "Official or licensed scene, then AI background without product, then placeholder",
+    "graphic_layer": "Programmatic HTML/CSS/SVG only",
+    "prohibited_ai": [
+      "SwitchBot product body",
+      "logo",
+      "Japanese text",
+      "comparison table",
+      "technical diagram text",
+      "UI"
+    ]
+  }
+}

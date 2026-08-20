@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0",
+  "asin": "B08131HFSG",
+  "source_url": "https://www.amazon.co.jp/dp/B08131HFSG",
+  "observed_on": "2026-08-18",
+  "observation": {
+    "desktop": "Live Amazon.co.jp page inspected in Chrome at 1440 x 1000; 8 gallery items and 8 major A+ containers recorded.",
+    "mobile": "The same live page inspected at a 390 x 844 browser viewport; Amazon retained a fixed desktop-width content region in this environment.",
+    "limitations": ["The browser automation layer did not expose mobile user-agent switching; mobile findings describe a real 390px viewport, not Amazon m-site.", "Reference images and competitor copy are observation evidence only and are not packaged into the reusable Skill."]
+  },
+  "brand": "Levoit",
+  "product": "Core P350 Pet Air Purifier",
+  "category": "ペット向け空気清浄機",
+  "page_type": ["Problem-solution", "Category-education", "Scenario-led"],
+  "complexity": "medium",
+  "gallery_patterns": [
+    {"position":1,"image_role":"Main image","consumer_question":"どんな空気清浄機か","main_message":"本体形状を白背景で明快に提示","feature":"Product form","benefit":"サイズ感と形をすぐ把握できる","layout_type":"Official product on white","product_scale":"dominant","text_density":"none","background":"pure white","content_type":["Product"],"why_effective":"優しい後続ストーリーの前に商品そのものを中立に見せる。"},
+    {"position":2,"image_role":"Proof hero","consumer_question":"ペット環境の粒子を本当に捕集できるか","main_message":"フィルター性能をラボ調で提示","feature":"Particle filtration","benefit":"毛や微粒子への期待を持てる","layout_type":"Product plus filter layers and proof numeral","product_scale":"large","text_density":"high","background":"mint-white technical","content_type":["Technical","Proof"],"why_effective":"ペット向けという情緒的ポジションを測定可能な性能で支える。"},
+    {"position":3,"image_role":"Category education","consumer_question":"ペットのいる家で何が問題になるか","main_message":"毛・におい・空気循環を一つの生活課題として説明","feature":"Pet-specific air care","benefit":"自分の悩みと製品の役割を結びつけられる","layout_type":"Friendly scenario diagram","product_scale":"medium","text_density":"medium","background":"cream and mint lifestyle illustration","content_type":["Category Education","Problem-solution"],"why_effective":"専門用語ではなくペット家庭の課題からカテゴリ価値を理解させる。"},
+    {"position":4,"image_role":"Night scenario","consumer_question":"寝室で音や光が気にならないか","main_message":"静音と睡眠場面を提示","feature":"Sleep mode","benefit":"夜間も使いやすいと判断できる","layout_type":"Full lifestyle bedroom with product","product_scale":"medium","text_density":"low","background":"soft dark bedroom","content_type":["Scenario","Benefit"],"why_effective":"ラボ調の証明から静かな生活場面へ自然に切り替える。"},
+    {"position":5,"image_role":"Daily confidence cluster","consumer_question":"子どもやペットがいる日常で扱いやすいか","main_message":"タイマー・ロック等の生活機能をまとめる","feature":"Daily control features","benefit":"つけっぱなしや誤操作への不安を下げる","layout_type":"Three-scene feature strip","product_scale":"medium","text_density":"medium","background":"light home scenes","content_type":["Scenario","Feature"],"why_effective":"対象家族の細かな不安を生活文脈で整理する。"},
+    {"position":6,"image_role":"Mechanism detail","consumer_question":"ペットの毛に対応するフィルター構造か","main_message":"吸気とフィルター層を説明","feature":"Pet hair filtration mechanism","benefit":"対象用途に特化している理由を理解できる","layout_type":"Exploded filter diagram","product_scale":"large","text_density":"high","background":"mint technical","content_type":["Technical","Detail"],"why_effective":"Lifestyleだけで終わらず、対象課題を解く内部構造へ戻る。"},
+    {"position":7,"image_role":"Problem education","consumer_question":"アレルギーやほこりの原因は何か","main_message":"目に見えにくい粒子の問題を説明","feature":"Airborne particle context","benefit":"空気清浄の必要性を理解できる","layout_type":"Problem diagram with household cues","product_scale":"small","text_density":"high","background":"cream educational","content_type":["Category Education","Problem-solution"],"why_effective":"商品説明ではなく問題認識を深め、購入理由を補強する。"},
+    {"position":8,"image_role":"Emotional closure","consumer_question":"自宅で邪魔にならずペットと暮らせるか","main_message":"ペットとの安心した暮らしと設置感を見せる","feature":"Compact daily placement","benefit":"生活に自然に置けると想像できる","layout_type":"Full lifestyle with size cue","product_scale":"medium","text_density":"low","background":"bright pet lifestyle","content_type":["Scenario","Closure"],"why_effective":"最後を仕様ではなく対象ユーザーの望む暮らしで閉じる。"}
+  ],
+  "aplus_patterns": [
+    {"position":1,"module_type":"Brand Story carousel","story_role":"Brand and lineup orientation","layout":"Long horizontal card carousel","message":"ブランド、製品群、生活価値","visual_density":"high","product_presence":"medium","scene_presence":"high","technical_information":"low","interaction_type":"carousel","rhythm_relation":"商品説明前に生活ブランドの文脈を作る。"},
+    {"position":2,"module_type":"Full-width lifestyle hero","story_role":"Audience identification","layout":"Pet lifestyle full bleed","message":"ペット家庭向けの中心価値","visual_density":"low","product_presence":"medium","scene_presence":"high","technical_information":"none","interaction_type":"static","rhythm_relation":"ブランド面から対象ユーザーの情緒へ焦点を絞る。"},
+    {"position":3,"module_type":"Full-width technical visual","story_role":"Purification mechanism","layout":"Filter flow full bleed","message":"空気を取り込み浄化する仕組み","visual_density":"medium","product_presence":"large","scene_presence":"low","technical_information":"high","interaction_type":"static","rhythm_relation":"情緒Hero直後に製品が機能する理由を示す。"},
+    {"position":4,"module_type":"Full-width problem visual","story_role":"Odor problem-solution","layout":"Home problem scene with simple explanation","message":"ペット臭の課題と対処","visual_density":"medium","product_presence":"medium","scene_presence":"high","technical_information":"medium","interaction_type":"static","rhythm_relation":"機構を生活上の具体的な困りごとへ戻す。"},
+    {"position":5,"module_type":"Carousel","story_role":"Allergy and particle education","layout":"Two educational cards","message":"粒子・アレルゲンの背景","visual_density":"medium","product_presence":"small","scene_presence":"medium","technical_information":"medium","interaction_type":"carousel","rhythm_relation":"問題を深掘りするが、二枚に限定して読みやすい。"},
+    {"position":6,"module_type":"Full-width night visual","story_role":"Quiet-use benefit","layout":"Dark bedroom full bleed","message":"睡眠時の静かな運転","visual_density":"low","product_presence":"medium","scene_presence":"high","technical_information":"low","interaction_type":"static","rhythm_relation":"教育情報の後に暗色の静かな休止面を作る。"},
+    {"position":7,"module_type":"Carousel","story_role":"Daily fit","layout":"Three lifestyle cards","message":"日常の置き方と操作","visual_density":"medium","product_presence":"medium","scene_presence":"high","technical_information":"low","interaction_type":"carousel","rhythm_relation":"購入前に複数の生活場面を確認させる。"},
+    {"position":8,"module_type":"Comparison table","story_role":"Selection closure","layout":"Light lineup comparison","message":"対象面積・機能・用途の違い","visual_density":"high","product_presence":"small","scene_presence":"none","technical_information":"high","interaction_type":"static table","rhythm_relation":"情緒的な生活ページを実用的な選択支援で閉じる。"}
+  ],
+  "story_patterns": ["Problem-solution", "Category-education", "Scenario-led"],
+  "visual_patterns": {
+    "visual_hierarchy": "Audience problem and benefit lead; technical proof is framed as reassurance rather than spectacle.",
+    "information_density": "Mostly medium, with concentrated high-density filter and particle units.",
+    "image_text_ratio": "About 70:30 in lifestyle and 50:50 in educational units.",
+    "whitespace": "Generous cream and mint breathing room.",
+    "full_bleed_usage": "Used for pet lifestyle, odor and night scenes to create emotional chapters.",
+    "card_usage": "Limited, primarily for education and daily-fit carousels.",
+    "product_scale": "Dominant in technical proof, medium in lifestyle, small in problem education.",
+    "typography_hierarchy": "Friendly rounded headline with short explanatory copy; fine print appears around proof claims.",
+    "dark_light_rhythm": "Predominantly light with one dark bedroom interval.",
+    "scene_technical_rhythm": "Lifestyle identification, mechanism proof, problem education, lifestyle relief, comparison."
+  },
+  "strengths": ["受众聚焦明确，页面持续围绕宠物家庭", "问题教育、技术证明和生活缓解交替自然", "浅色与留白降低技术信息压力", "最后以场景和比较分别完成情绪与理性闭环"],
+  "weaknesses": ["临床感数字与图示需要严格Claim来源", "部分插画容易显得儿童化", "品牌Story卡片过长", "390px viewport下固定宽A+仍有裁切风险"],
+  "use": ["用具体人群问题建立Category Education", "Proof之后立即给生活结果，避免只讲过滤结构", "通过单个暗色情境改变长页面节奏", "最后回到目标用户想要的生活状态"],
+  "adapt": ["按产品类别调整插画程度，SwitchBot保持Clean、Smart、Friendly", "临床或百分比信息必须有Claim ID和条件", "将宠物友好配色方法转译为SwitchBot薄荷色而非复制Levoit视觉"],
+  "avoid": ["复制Levoit薄荷宠物Trade Dress或卡通资产", "把未核验的健康、过敏或除菌表达写成事实", "使用无法在390px阅读的脚注", "将情绪场景当作性能证据"],
+  "good_for": ["需要先教育问题再解释产品的家居品类", "针对特定人群或家庭情境的产品", "技术复杂度中等但信任和生活适配重要的页面"],
+  "matcher_profile": {
+    "categories": ["air purifier", "pet care", "home appliance", "wellness"],
+    "complexities": ["medium", "high"],
+    "primary_usps": ["problem relief", "quiet", "air care", "audience fit"],
+    "consumer_tensions": ["pet odor", "allergy concern", "noise", "family safety", "unknown need"],
+    "product_types": ["home appliance", "audience-specific product"],
+    "story_requirements": ["Problem-solution", "Category-education", "Scenario-led"],
+    "technical_complexities": ["medium", "high"],
+    "target_audiences": ["pet owner", "family", "sensitive sleeper", "first-time buyer"]
+  }
+}

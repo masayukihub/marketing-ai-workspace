@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.0",
+  "observed_on": "2026-08-18",
+  "references": [
+    {
+      "asin": "B08131HFSG",
+      "brand": "Levoit",
+      "product": "Core P350 Pet Air Purifier",
+      "category": "ペット向け空気清浄機",
+      "page_type": [
+        "Problem-solution",
+        "Category-education",
+        "Scenario-led"
+      ],
+      "complexity": "medium",
+      "json": "references/B08131HFSG/reference.json",
+      "analysis": "references/B08131HFSG/analysis.md"
+    },
+    {
+      "asin": "B0F66LKTV6",
+      "brand": "ECOVACS",
+      "product": "DEEBOT T80 OMNI",
+      "category": "ロボット掃除機",
+      "page_type": [
+        "Performance-led",
+        "Technology-led",
+        "Problem-solution",
+        "Feature-led"
+      ],
+      "complexity": "very_high",
+      "json": "references/B0F66LKTV6/reference.json",
+      "analysis": "references/B0F66LKTV6/analysis.md"
+    },
+    {
+      "asin": "B0FQ5J7HFQ",
+      "brand": "Plaud",
+      "product": "Plaud Note Pro AI Voice Recorder",
+      "category": "AIボイスレコーダー",
+      "page_type": [
+        "Category-education",
+        "Scenario-led",
+        "Technology-led",
+        "Premium-brand-led"
+      ],
+      "complexity": "high",
+      "json": "references/B0FQ5J7HFQ/reference.json",
+      "analysis": "references/B0FQ5J7HFQ/analysis.md"
+    },
+    {
+      "asin": "B0FWQY84L6",
+      "brand": "EarFun",
+      "product": "EarFun Air Pro 4+",
+      "category": "完全ワイヤレスイヤホン",
+      "page_type": [
+        "Technology-led",
+        "Feature-led",
+        "Premium-brand-led",
+        "Scenario-led"
+      ],
+      "complexity": "high",
+      "json": "references/B0FWQY84L6/reference.json",
+      "analysis": "references/B0FWQY84L6/analysis.md"
+    },
+    {
+      "asin": "B0FX81HWQ3",
+      "brand": "Eufy",
+      "product": "Robot Vacuum Omni C28",
+      "category": "ロボット掃除機",
+      "page_type": [
+        "Problem-solution",
+        "Performance-led",
+        "Scenario-led",
+        "Premium-brand-led"
+      ],
+      "complexity": "high",
+      "json": "references/B0FX81HWQ3/reference.json",
+      "analysis": "references/B0FX81HWQ3/analysis.md"
+    },
+    {
+      "asin": "B0GK1QFGF6",
+      "brand": "Soundcore",
+      "product": "Soundcore Liberty 5 Pro",
+      "category": "完全ワイヤレスイヤホン",
+      "page_type": [
+        "Technology-led",
+        "Performance-led",
+        "Premium-brand-led",
+        "Feature-led"
+      ],
+      "complexity": "high",
+      "json": "references/B0GK1QFGF6/reference.json",
+      "analysis": "references/B0GK1QFGF6/analysis.md"
+    }
+  ],
+  "patterns": [
+    "patterns/story_pattern_library.json",
+    "patterns/gallery_sequence_library.json",
+    "patterns/aplus_sequence_library.json"
+  ],
+  "layout_mapping": "layout/layout_primitive_mapping.json",
+  "viewer": "viewer/reference_library.html"
+}

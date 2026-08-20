@@ -1,0 +1,16 @@
+project:
+  name:
+  market: Japan
+  currency: JPY
+  timezone: Asia/Tokyo
+sources:
+  - id:
+    name:
+    url:
+    source_type: auto
+    expected_content:
+    required: true
+    sheet_name:
+    table_name:
+    view_name:
+    notes:

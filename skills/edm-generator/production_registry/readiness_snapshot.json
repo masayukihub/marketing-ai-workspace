@@ -1,0 +1,640 @@
+{
+  "schema_version": "2.0.0",
+  "generated_at": "2026-08-20T02:48:36Z",
+  "metric_note": "Phase 8 separates official-source design evidence, whole-email Human Approval, and ESP send readiness. A visual candidate is not a sent-email approval.",
+  "registry_completeness": {
+    "claim_registry": {
+      "structural_percent": 100.0,
+      "records_complete": 12,
+      "records_total": 12,
+      "visual_evidence_resolved_percent": 100.0,
+      "required_claims_resolved": 9,
+      "required_claims_total": 9
+    },
+    "asset_registry": {
+      "structural_percent": 100.0,
+      "records_complete": 6,
+      "records_total": 6,
+      "files_present_percent": 100.0,
+      "design_scope_resolved_percent": 100.0,
+      "design_scope_resolved": 6,
+      "required_assets_total": 6
+    }
+  },
+  "cases": [
+    {
+      "case_id": "PILOT-A-LOCK-ULTRA",
+      "product_id": "lock_ultra",
+      "product_name": "SwitchBot ロックUltra",
+      "phase6_evidence_baseline_percent": 76.9,
+      "design_evidence_percent": 100.0,
+      "production_readiness_percent": 100.0,
+      "domains": {
+        "product": {
+          "percent": 100.0,
+          "passed": 6,
+          "total": 6,
+          "gate": "PASS",
+          "gate_name": "PRODUCT_DESIGN_TRUTH_GATE",
+          "details": [
+            {
+              "path": "official_name_ja",
+              "status": "VERIFIED_FROM_OFFICIAL_SOURCE",
+              "acceptance": [
+                "VERIFIED_FROM_OFFICIAL_SOURCE",
+                "VERIFIED",
+                "APPROVED",
+                "INHERITED_APPROVAL"
+              ],
+              "pass": true
+            },
+            {
+              "path": "positioning",
+              "status": "VERIFIED_FROM_OFFICIAL_SOURCE",
+              "acceptance": [
+                "VERIFIED_FROM_OFFICIAL_SOURCE",
+                "APPROVED",
+                "INHERITED_APPROVAL"
+              ],
+              "pass": true
+            },
+            {
+              "path": "primary_usp",
+              "status": "VERIFIED_FROM_OFFICIAL_SOURCE",
+              "acceptance": [
+                "VERIFIED_FROM_OFFICIAL_SOURCE",
+                "APPROVED",
+                "INHERITED_APPROVAL"
+              ],
+              "pass": true
+            },
+            {
+              "path": "secondary_usps",
+              "status": "VERIFIED_FROM_OFFICIAL_SOURCE",
+              "acceptance": [
+                "VERIFIED_FROM_OFFICIAL_SOURCE",
+                "APPROVED",
+                "INHERITED_APPROVAL"
+              ],
+              "pass": true
+            },
+            {
+              "path": "compatibility",
+              "status": "VERIFIED_FROM_OFFICIAL_SOURCE",
+              "acceptance": [
+                "VERIFIED_FROM_OFFICIAL_SOURCE",
+                "APPROVED",
+                "INHERITED_APPROVAL"
+              ],
+              "pass": true
+            },
+            {
+              "path": "source",
+              "status": "VERIFIED_FROM_OFFICIAL_SOURCE",
+              "acceptance": [
+                "VERIFIED_FROM_OFFICIAL_SOURCE",
+                "VERIFIED",
+                "APPROVED",
+                "INHERITED_APPROVAL"
+              ],
+              "pass": true
+            }
+          ]
+        },
+        "claim": {
+          "percent": 100.0,
+          "passed": 6,
+          "total": 6,
+          "gate": "PASS",
+          "gate_name": "CLAIM_VISUAL_EVIDENCE_GATE",
+          "details": [
+            {
+              "claim_id": "CLM-LOCK-FEATURE-001",
+              "status": "VERIFIED_EXISTING_CLAIM",
+              "requirement_level": "PRIMARY_REQUIRED",
+              "evidence_match": "exact_official_heading",
+              "pass": true,
+              "fallback": null
+            },
+            {
+              "claim_id": "CLM-LOCK-FEATURE-002",
+              "status": "VERIFIED_EXISTING_CLAIM",
+              "requirement_level": "SECONDARY_OPTIONAL",
+              "evidence_match": "official_variant_and_visual_evidence",
+              "pass": true,
+              "fallback": null
+            },
+            {
+              "claim_id": "CLM-LOCK-FEATURE-003",
+              "status": "VERIFIED_EXISTING_CLAIM",
+              "requirement_level": "SECONDARY_OPTIONAL",
+              "evidence_match": "semantic_equivalent_with_condition",
+              "pass": true,
+              "fallback": null
+            },
+            {
+              "claim_id": "CLM-LOCK-FEATURE-004",
+              "status": "VERIFIED_EXISTING_CLAIM",
+              "requirement_level": "SECONDARY_OPTIONAL",
+              "evidence_match": "semantic_equivalent_without_comparative_language",
+              "pass": true,
+              "fallback": null
+            },
+            {
+              "claim_id": "CLM-LOCK-COMPAT-001",
+              "status": "VERIFIED_EXISTING_CLAIM",
+              "requirement_level": "PRIMARY_REQUIRED",
+              "evidence_match": "semantic_equivalent_with_exact_official_purchase_check",
+              "pass": true,
+              "fallback": null
+            },
+            {
+              "claim_id": "CLM-LOCK-FEATURE-005",
+              "status": "VERIFIED_EXISTING_CLAIM",
+              "requirement_level": "SECONDARY_OPTIONAL",
+              "evidence_match": "semantic_equivalent",
+              "pass": true,
+              "fallback": null
+            }
+          ],
+          "mapping_complete": true,
+          "unknown_claim_ids": [
+
+          ],
+          "unresolved_primary_claim_ids": [
+
+          ],
+          "optional_fallback_claim_ids": [
+
+          ]
+        },
+        "asset": {
+          "percent": 100.0,
+          "passed": 3,
+          "total": 3,
+          "gate": "PASS",
+          "gate_name": "ASSET_DESIGN_SCOPE_GATE",
+          "details": [
+            {
+              "asset_id": "ASSET-LOCK-MAIN",
+              "source_authenticity": "OFFICIAL_MARKETING_ASSET",
+              "usage_scope": "DESIGN_PRODUCTION_APPROVED",
+              "channel_scope": "HUMAN_REQUIRED_AT_SEND",
+              "file_exists": true,
+              "pass": true
+            },
+            {
+              "asset_id": "ASSET-LOCK-LIFESTYLE",
+              "source_authenticity": "OFFICIAL_MARKETING_ASSET",
+              "usage_scope": "DESIGN_PRODUCTION_APPROVED",
+              "channel_scope": "HUMAN_REQUIRED_AT_SEND",
+              "file_exists": true,
+              "pass": true
+            },
+            {
+              "asset_id": "ASSET-LOCK-DETAIL",
+              "source_authenticity": "OFFICIAL_MARKETING_ASSET",
+              "usage_scope": "DESIGN_PRODUCTION_APPROVED",
+              "channel_scope": "HUMAN_REQUIRED_AT_SEND",
+              "file_exists": true,
+              "pass": true
+            }
+          ]
+        },
+        "campaign": {
+          "percent": 100.0,
+          "passed": 5,
+          "total": 5,
+          "gate": "PASS",
+          "gate_name": "CAMPAIGN_TRUTH_GATE",
+          "details": [
+            {
+              "item": "campaign_and_cta_truth",
+              "status": "VERIFIED_FROM_INPUT_AND_OFFICIAL_DESTINATION",
+              "pass": true
+            },
+            {
+              "item": "cta_verified",
+              "status": "VERIFIED",
+              "pass": true
+            },
+            {
+              "item": "period_truth",
+              "status": "VERIFIED",
+              "pass": true
+            },
+            {
+              "item": "pricing_promotion_truth",
+              "status": "PASS_NOT_APPLICABLE",
+              "pass": true
+            },
+            {
+              "item": "campaign_disclaimer",
+              "status": "VERIFIED",
+              "pass": true
+            }
+          ]
+        },
+        "legal": {
+          "percent": 100.0,
+          "passed": 2,
+          "total": 2,
+          "gate": "PASS",
+          "gate_name": "STATIC_LEGAL_VISUAL_GATE",
+          "details": [
+            {
+              "item": "static_legal_package",
+              "status": "INHERITED_APPROVAL",
+              "pass": true
+            },
+            {
+              "item": "static_footer",
+              "status": "INHERITED_APPROVAL",
+              "pass": true
+            }
+          ],
+          "esp_token_contract": "MISSING",
+          "esp_blocks_visual": false
+        },
+        "copy": {
+          "percent": 100.0,
+          "passed": 1,
+          "total": 1,
+          "gate": "PASS",
+          "gate_name": "COPY_PRODUCTION_CANDIDATE_GATE",
+          "details": [
+            {
+              "item": "japanese_copy_candidate",
+              "status": "COPY_PRODUCTION_CANDIDATE",
+              "auto_qa": "COPY_PRODUCTION_CANDIDATE",
+              "pass": true
+            }
+          ]
+        }
+      },
+      "technical": {
+        "gate": "PASS",
+        "browser_qa": "PASS",
+        "responsive_pass": true,
+        "browser_qa_fresh": true,
+        "latest_registry_in_render": true,
+        "package_complete": true,
+        "missing_files": [
+
+        ]
+      },
+      "overall_status": "VISUAL_DELIVERABLE_CANDIDATE",
+      "state_order": 2,
+      "state_gates": {
+        "DESIGN_INPUTS_READY": true,
+        "DESIGN_READY": true,
+        "VISUAL_DELIVERABLE_CANDIDATE": true,
+        "VISUAL_DELIVERABLE": false,
+        "CONTENT_APPROVED": false,
+        "ESP_READY": false,
+        "CHANNEL_SCOPE_APPROVED": false,
+        "PRODUCTION_READY": false
+      },
+      "visual_blockers": [
+
+      ],
+      "send_blockers": [
+        {
+          "blocker_id": "PILOT-A-LOCK-ULTRA-FINAL",
+          "gate": "CONTENT_APPROVED",
+          "missing": "Whole-email Human Review is pending.",
+          "source": "research/phase8_visual_delivery_review.html",
+          "approver": "Campaign owner",
+          "next_action": "Judge only product information, Japanese, brand fit, completeness and visual delivery quality."
+        },
+        {
+          "blocker_id": "SHARED-ESP",
+          "gate": "ESP_READY",
+          "missing": "ESP unsubscribe, preference and year token contract is unresolved.",
+          "source": "production_registry/footer/switchbot_jp_footer.yaml",
+          "approver": "CRM / ESP owner",
+          "next_action": "Confirm actual send-platform token syntax before send integration."
+        }
+      ],
+      "blockers": [
+        {
+          "blocker_id": "PILOT-A-LOCK-ULTRA-FINAL",
+          "gate": "CONTENT_APPROVED",
+          "missing": "Whole-email Human Review is pending.",
+          "source": "research/phase8_visual_delivery_review.html",
+          "approver": "Campaign owner",
+          "next_action": "Judge only product information, Japanese, brand fit, completeness and visual delivery quality."
+        },
+        {
+          "blocker_id": "SHARED-ESP",
+          "gate": "ESP_READY",
+          "missing": "ESP unsubscribe, preference and year token contract is unresolved.",
+          "source": "production_registry/footer/switchbot_jp_footer.yaml",
+          "approver": "CRM / ESP owner",
+          "next_action": "Confirm actual send-platform token syntax before send integration."
+        }
+      ],
+      "unique_remaining_blocker": {
+        "blocker_id": "PILOT-A-LOCK-ULTRA-FINAL",
+        "gate": "CONTENT_APPROVED",
+        "missing": "Whole-email Human Review is pending.",
+        "source": "research/phase8_visual_delivery_review.html",
+        "approver": "Campaign owner",
+        "next_action": "Judge only product information, Japanese, brand fit, completeness and visual delivery quality."
+      }
+    },
+    {
+      "case_id": "PILOT-B-DAILY-STATION",
+      "product_id": "daily_station",
+      "product_name": "SwitchBot スマートデイリーステーション",
+      "phase6_evidence_baseline_percent": 69.2,
+      "design_evidence_percent": 100.0,
+      "production_readiness_percent": 100.0,
+      "domains": {
+        "product": {
+          "percent": 100.0,
+          "passed": 5,
+          "total": 5,
+          "gate": "PASS",
+          "gate_name": "PRODUCT_DESIGN_TRUTH_GATE",
+          "details": [
+            {
+              "path": "official_name_ja",
+              "status": "VERIFIED_FROM_OFFICIAL_SOURCE",
+              "acceptance": [
+                "VERIFIED_FROM_OFFICIAL_SOURCE",
+                "VERIFIED",
+                "APPROVED",
+                "INHERITED_APPROVAL"
+              ],
+              "pass": true
+            },
+            {
+              "path": "positioning",
+              "status": "VERIFIED_FROM_OFFICIAL_SOURCE",
+              "acceptance": [
+                "VERIFIED_FROM_OFFICIAL_SOURCE",
+                "APPROVED",
+                "INHERITED_APPROVAL"
+              ],
+              "pass": true
+            },
+            {
+              "path": "primary_usp",
+              "status": "VERIFIED_FROM_OFFICIAL_SOURCE",
+              "acceptance": [
+                "VERIFIED_FROM_OFFICIAL_SOURCE",
+                "APPROVED",
+                "INHERITED_APPROVAL"
+              ],
+              "pass": true
+            },
+            {
+              "path": "secondary_usps",
+              "status": "VERIFIED_FROM_OFFICIAL_SOURCE",
+              "acceptance": [
+                "VERIFIED_FROM_OFFICIAL_SOURCE",
+                "APPROVED",
+                "INHERITED_APPROVAL"
+              ],
+              "pass": true
+            },
+            {
+              "path": "source",
+              "status": "VERIFIED_FROM_OFFICIAL_SOURCE",
+              "acceptance": [
+                "VERIFIED_FROM_OFFICIAL_SOURCE",
+                "VERIFIED",
+                "APPROVED",
+                "INHERITED_APPROVAL"
+              ],
+              "pass": true
+            }
+          ]
+        },
+        "claim": {
+          "percent": 100.0,
+          "passed": 3,
+          "total": 3,
+          "gate": "PASS",
+          "gate_name": "CLAIM_VISUAL_EVIDENCE_GATE",
+          "details": [
+            {
+              "claim_id": "CLM-DAILY-FEATURE-001",
+              "status": "VERIFIED_EXISTING_CLAIM",
+              "requirement_level": "PRIMARY_REQUIRED",
+              "evidence_match": "semantic_equivalent",
+              "pass": true,
+              "fallback": null
+            },
+            {
+              "claim_id": "CLM-DAILY-FEATURE-002",
+              "status": "VERIFIED_EXISTING_CLAIM",
+              "requirement_level": "PRIMARY_REQUIRED",
+              "evidence_match": "semantic_equivalent",
+              "pass": true,
+              "fallback": null
+            },
+            {
+              "claim_id": "CLM-DAILY-FEATURE-003",
+              "status": "VERIFIED_EXISTING_CLAIM",
+              "requirement_level": "SECONDARY_OPTIONAL",
+              "evidence_match": "exact_official_heading",
+              "pass": true,
+              "fallback": null
+            }
+          ],
+          "mapping_complete": true,
+          "unknown_claim_ids": [
+
+          ],
+          "unresolved_primary_claim_ids": [
+
+          ],
+          "optional_fallback_claim_ids": [
+
+          ]
+        },
+        "asset": {
+          "percent": 100.0,
+          "passed": 3,
+          "total": 3,
+          "gate": "PASS",
+          "gate_name": "ASSET_DESIGN_SCOPE_GATE",
+          "details": [
+            {
+              "asset_id": "ASSET-DAILY-MAIN",
+              "source_authenticity": "OFFICIAL_MARKETING_ASSET",
+              "usage_scope": "DESIGN_PRODUCTION_APPROVED",
+              "channel_scope": "HUMAN_REQUIRED_AT_SEND",
+              "file_exists": true,
+              "pass": true
+            },
+            {
+              "asset_id": "ASSET-DAILY-UI",
+              "source_authenticity": "OFFICIAL_MARKETING_ASSET",
+              "usage_scope": "DESIGN_PRODUCTION_APPROVED",
+              "channel_scope": "HUMAN_REQUIRED_AT_SEND",
+              "file_exists": true,
+              "pass": true
+            },
+            {
+              "asset_id": "ASSET-DAILY-DETAIL",
+              "source_authenticity": "OFFICIAL_MARKETING_ASSET",
+              "usage_scope": "DESIGN_PRODUCTION_APPROVED",
+              "channel_scope": "HUMAN_REQUIRED_AT_SEND",
+              "file_exists": true,
+              "pass": true
+            }
+          ]
+        },
+        "campaign": {
+          "percent": 100.0,
+          "passed": 5,
+          "total": 5,
+          "gate": "PASS",
+          "gate_name": "CAMPAIGN_TRUTH_GATE",
+          "details": [
+            {
+              "item": "campaign_and_cta_truth",
+              "status": "VERIFIED_FROM_INPUT_AND_OFFICIAL_DESTINATION",
+              "pass": true
+            },
+            {
+              "item": "cta_verified",
+              "status": "VERIFIED",
+              "pass": true
+            },
+            {
+              "item": "period_truth",
+              "status": "VERIFIED",
+              "pass": true
+            },
+            {
+              "item": "pricing_promotion_truth",
+              "status": "PASS_NOT_APPLICABLE",
+              "pass": true
+            },
+            {
+              "item": "campaign_disclaimer",
+              "status": "VERIFIED",
+              "pass": true
+            }
+          ]
+        },
+        "legal": {
+          "percent": 100.0,
+          "passed": 2,
+          "total": 2,
+          "gate": "PASS",
+          "gate_name": "STATIC_LEGAL_VISUAL_GATE",
+          "details": [
+            {
+              "item": "static_legal_package",
+              "status": "INHERITED_APPROVAL",
+              "pass": true
+            },
+            {
+              "item": "static_footer",
+              "status": "INHERITED_APPROVAL",
+              "pass": true
+            }
+          ],
+          "esp_token_contract": "MISSING",
+          "esp_blocks_visual": false
+        },
+        "copy": {
+          "percent": 100.0,
+          "passed": 1,
+          "total": 1,
+          "gate": "PASS",
+          "gate_name": "COPY_PRODUCTION_CANDIDATE_GATE",
+          "details": [
+            {
+              "item": "japanese_copy_candidate",
+              "status": "COPY_PRODUCTION_CANDIDATE",
+              "auto_qa": "PENDING_RENDER",
+              "pass": true
+            }
+          ]
+        }
+      },
+      "technical": {
+        "gate": "BLOCK",
+        "browser_qa": "MISSING",
+        "responsive_pass": false,
+        "browser_qa_fresh": true,
+        "latest_registry_in_render": true,
+        "package_complete": false,
+        "missing_files": [
+          "copy_auto_qa.yaml"
+        ]
+      },
+      "overall_status": "INTERNAL_DRAFT",
+      "state_order": 0,
+      "state_gates": {
+        "DESIGN_INPUTS_READY": true,
+        "DESIGN_READY": false,
+        "VISUAL_DELIVERABLE_CANDIDATE": false,
+        "VISUAL_DELIVERABLE": false,
+        "CONTENT_APPROVED": false,
+        "ESP_READY": false,
+        "CHANNEL_SCOPE_APPROVED": false,
+        "PRODUCTION_READY": false
+      },
+      "visual_blockers": [
+        {
+          "blocker_id": "PILOT-B-DAILY-STATION-RENDER-QA",
+          "gate": "VISUAL_DELIVERABLE_CANDIDATE",
+          "missing": "Current render/browser QA package is incomplete or stale.",
+          "source": "production_output/PILOT-B-DAILY-STATION/",
+          "approver": "Renderer QA",
+          "next_action": "Run the one-shot and responsive browser QA."
+        }
+      ],
+      "send_blockers": [
+        {
+          "blocker_id": "SHARED-ESP",
+          "gate": "ESP_READY",
+          "missing": "ESP unsubscribe, preference and year token contract is unresolved.",
+          "source": "production_registry/footer/switchbot_jp_footer.yaml",
+          "approver": "CRM / ESP owner",
+          "next_action": "Confirm actual send-platform token syntax before send integration."
+        }
+      ],
+      "blockers": [
+        {
+          "blocker_id": "PILOT-B-DAILY-STATION-RENDER-QA",
+          "gate": "VISUAL_DELIVERABLE_CANDIDATE",
+          "missing": "Current render/browser QA package is incomplete or stale.",
+          "source": "production_output/PILOT-B-DAILY-STATION/",
+          "approver": "Renderer QA",
+          "next_action": "Run the one-shot and responsive browser QA."
+        },
+        {
+          "blocker_id": "SHARED-ESP",
+          "gate": "ESP_READY",
+          "missing": "ESP unsubscribe, preference and year token contract is unresolved.",
+          "source": "production_registry/footer/switchbot_jp_footer.yaml",
+          "approver": "CRM / ESP owner",
+          "next_action": "Confirm actual send-platform token syntax before send integration."
+        }
+      ],
+      "unique_remaining_blocker": {
+        "blocker_id": "PILOT-B-DAILY-STATION-RENDER-QA",
+        "gate": "VISUAL_DELIVERABLE_CANDIDATE",
+        "missing": "Current render/browser QA package is incomplete or stale.",
+        "source": "production_output/PILOT-B-DAILY-STATION/",
+        "approver": "Renderer QA",
+        "next_action": "Run the one-shot and responsive browser QA."
+      }
+    }
+  ],
+  "summary": {
+    "design_ready_count": 1,
+    "visual_candidate_count": 1,
+    "visual_deliverable_count": 0,
+    "production_ready_count": 0,
+    "highest_state": "VISUAL_DELIVERABLE_CANDIDATE"
+  }
+}

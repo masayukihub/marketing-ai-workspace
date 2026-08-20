@@ -1,0 +1,102 @@
+version: 1.0.0
+status: Phase 4 runtime contract
+minimum_inputs:
+  product:
+    type: product_scope
+    accepted_forms:
+      - product_id
+      - product_id_list
+      - brand_scope
+    missing_policy: Must Verify
+    production_gate: PRODUCT_IDENTITY_UNRESOLVED
+  campaign_theme:
+    type: string
+    missing_policy: Can Infer
+    inference_source: approved_campaign_brief_only
+    unresolved_state: Unknown
+    production_gate: CAMPAIGN_THEME_UNRESOLVED
+  objective:
+    type: controlled_primary_objective
+    missing_policy: Must Verify
+    allowed_values_source: design_system/template_selection_rules_v1.0.yaml
+    production_gate: PRIMARY_OBJECTIVE_MISSING_OR_MULTIPLE
+  promotion:
+    type: object_or_null
+    fields:
+      level: [none, low, medium, high, Unknown]
+      state: [verified, verified_test_fixture, test_fixture, Unverified, Unknown, Not Applicable]
+      offer_facts: object_or_null
+    missing_policy: Must Verify
+    unresolved_state: Unknown
+    note: Missing promotion never defaults to none.
+    production_gate: PROMOTION_FACT_UNVERIFIED
+  period:
+    type: object_or_null
+    fields:
+      start: datetime_or_null
+      end: datetime_or_null
+      timezone: string_or_null
+      state: [verified, verified_test_fixture, Unverified, Unknown, Not Applicable]
+    missing_policy: Can Default
+    default_condition: Only a confirmed non-time-sensitive campaign may use Not Applicable.
+    production_gate: PROMOTION_FACT_UNVERIFIED
+  cta_destination:
+    type: object_or_null
+    fields:
+      destination_type: string_or_null
+      url_or_route: string_or_null
+      state: [verified, verified_test_fixture, Unverified, Unknown]
+    missing_policy: Must Verify
+    note: A draft CTA intent is allowed; a URL is never invented.
+    production_gate: CTA_DESTINATION_INVALID
+optional_inputs:
+  audience:
+    type: string
+    missing_policy: Can Infer
+    default: Japan market consumers
+  channel:
+    type: string
+    missing_policy: Can Default
+    default: EDM
+  product_count:
+    type: integer
+    missing_policy: Can Infer
+    inference_source: resolved product scope
+  product_familiarity:
+    type: enum
+    values: [low, medium, high, unknown]
+    missing_policy: Can Default
+    default: unknown
+  asset_inventory:
+    type: object_or_null
+    missing_policy: Must Verify
+  comparison_data:
+    type: object_or_null
+    missing_policy: Must Verify
+  approved_claims:
+    type: list
+    missing_policy: Must Verify
+  marketplace:
+    type: string_or_null
+    missing_policy: Must Verify
+  legal_requirement:
+    type: object_or_null
+    missing_policy: Must Verify
+  desired_send_time:
+    type: datetime_or_null
+    missing_policy: Must Verify
+states:
+  allowed:
+    - Resolved
+    - Partial
+    - Conflict
+    - Blocked
+    - Pending Verification
+    - Unverified
+    - Unknown
+    - Not Available
+    - Not Applicable
+fixture_policy:
+  verified_test_fixture: Valid only for deterministic Generator logic tests; never external-publication approval.
+  test_fixture: Valid only to express a negative, neutral, or mocked state; never an external fact.
+

@@ -1,0 +1,76 @@
+{
+  "template_id": "P-FEATURE-CENTER",
+  "family": "product_image",
+  "name": "Feature Center",
+  "html": {
+    "component": "product-center",
+    "class": "tpl-p-feature-center"
+  },
+  "css": {
+    "grid_template_rows": "auto 1fr auto",
+    "background": "#F4F8FA"
+  },
+  "svg": {
+    "renderer": "renderProductFeatureCenter",
+    "view_box": "0 0 2000 2000"
+  },
+  "grid": {
+    "columns": 12,
+    "rows": 12,
+    "gutter_px": 40
+  },
+  "product_area": {
+    "columns": "3/11",
+    "rows": "4/10",
+    "fit": "contain"
+  },
+  "text_area": {
+    "columns": "2/12",
+    "rows": "1/4",
+    "align": "center"
+  },
+  "safe_area": {
+    "desktop_px": 110,
+    "mobile_percent": 8
+  },
+  "font_size": {
+    "headline_px": 84,
+    "subcopy_px": 36,
+    "proof_px": 27
+  },
+  "headline_length": {
+    "preferred": 16,
+    "max": 28
+  },
+  "sub_copy_length": {
+    "preferred": 50,
+    "max": 78
+  },
+  "desktop_rules": [
+    "one mechanism",
+    "up to two side callouts",
+    "product remains visual center"
+  ],
+  "mobile_rules": [
+    "callouts stack under product",
+    "no callout below 26px equivalent"
+  ],
+  "historical_reference": [
+    "REF-AMZ-THERMOMETER-PLUS",
+    "REF-SB-K11"
+  ],
+  "library_version": "2026.08-v4",
+  "source_policy": {
+    "product_layer": "User-provided official product asset only for formal launch",
+    "scene_layer": "Official or licensed scene, then AI background without product, then placeholder",
+    "graphic_layer": "Programmatic HTML/CSS/SVG only",
+    "prohibited_ai": [
+      "SwitchBot product body",
+      "logo",
+      "Japanese text",
+      "comparison table",
+      "technical diagram text",
+      "UI"
+    ]
+  }
+}

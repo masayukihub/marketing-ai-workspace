@@ -1,0 +1,133 @@
+version: 1.0.0
+status: Calibration proposal
+scope: Additive SwitchBot Japan brand variants; Frozen v1.0 templates remain unchanged
+global_selection_gate:
+  required:
+    brand: SwitchBot
+    market: Japan
+    render_mode: switchbot_brand
+  selection_formula: Campaign objective + Product complexity + Verified information requirement + Asset coverage
+  module_range: Soft only; never a fixed output quota
+variants:
+  - variant_id: SB-LF-LAUNCH
+    family: TF-LAUNCH
+    extends: [TPL-LAUNCH-A, TPL-LAUNCH-B, TPL-LAUNCH-C]
+    recommended_when: HIGH complexity launch or multi-product launch with verified mechanism, scenario and commerce content
+    soft_module_range: [12, 16]
+    adaptable_sequence:
+      - Product or lifestyle hero
+      - Product positioning
+      - Primary USP
+      - Feature / mechanism 1
+      - Feature / mechanism 2
+      - Feature / mechanism 3 when distinct
+      - Product detail
+      - Lifestyle / use case
+      - App or device UI when verified
+      - Comparison or proof when verified
+      - Compatibility / FAQ
+      - Service / warranty when verified
+      - CTA
+      - Legal + brand footer
+    anchors: [SBG_007, SBG_016, SBG_019]
+
+  - variant_id: SB-LF-PROMOTION
+    family: TF-PROMOTION
+    extends: [TPL-PROMO-A, TPL-PROMO-B, TPL-PROMO-C]
+    recommended_when: Theme promotion with at least three distinct product groups or scenarios
+    soft_module_range: [12, 18]
+    adaptable_sequence:
+      - Campaign hero
+      - Campaign value
+      - Hero product
+      - Product/scenario group 1
+      - Product/scenario group 2
+      - Product/scenario group 3
+      - Theme or ecosystem bridge
+      - Proof when verified
+      - Offer reminder
+      - Coupon/price conditions
+      - Service/trust when verified
+      - Final CTA
+      - Legal + brand footer
+    anchors: [SBG_005, SBG_006]
+
+  - variant_id: SB-LF-CONVERSION
+    family: TF-CONVERSION
+    extends: [TPL-CONVERT-A, TPL-CONVERT-B]
+    recommended_when: HIGH complexity single hardware product with multiple purchase objections
+    soft_module_range: [10, 14]
+    adaptable_sequence:
+      - Product hero
+      - Product positioning
+      - Primary USP
+      - Mechanism/feature 1
+      - Mechanism/feature 2
+      - Product detail
+      - Lifestyle/use case
+      - Compatibility/installation
+      - Proof/comparison when verified
+      - Service/warranty when verified
+      - Mid or final CTA
+      - Legal + brand footer
+    anchors: [SBG_016, SBG_019]
+
+  - variant_id: SB-LF-EDUCATION
+    family: TF-EDUCATION
+    extends: [TPL-EDU-A, TPL-EDU-B, TPL-EDU-C]
+    recommended_when: Mechanism, setup, UI, compatibility or selection logic needs staged explanation
+    soft_module_range: [11, 16]
+    adaptable_sequence:
+      - Editorial or product hero
+      - Problem/context
+      - Product solution
+      - Core mechanism
+      - Feature/detail 1
+      - Feature/detail 2
+      - Scenario
+      - App/device UI when verified
+      - FAQ/objection
+      - Proof when verified
+      - CTA
+      - Legal + brand footer
+    anchors: [SBG_003, SBG_006]
+
+  - variant_id: SB-LF-CATEGORY
+    family: TF-CATEGORY
+    extends: [TPL-CATEGORY-A, TPL-CATEGORY-B]
+    recommended_when: Four or more distinct SKUs, selection paths or use-case groups require explanation
+    soft_module_range: [12, 18]
+    adaptable_sequence:
+      - Category/theme hero
+      - Category context
+      - Selection principle
+      - Comparison
+      - Product group 1
+      - Product group 2
+      - Product group 3
+      - Product group 4 when justified
+      - Ecosystem bridge
+      - Proof/service when verified
+      - CTA
+      - Legal + brand footer
+    anchors: [SBG_001, SBG_020]
+
+  - variant_id: SB-LF-BRAND
+    family: TF-BRAND
+    extends: [TPL-BRAND-A, TPL-BRAND-B]
+    recommended_when: Brand/category story must connect editorial context to several recognizable products
+    soft_module_range: [11, 16]
+    adaptable_sequence:
+      - Editorial/lifestyle hero
+      - Brand or category context
+      - Consumer problem or ambition
+      - Ecosystem principle
+      - Product/use-case chapter 1
+      - Product/use-case chapter 2
+      - Product/use-case chapter 3
+      - Comparison/guide
+      - User voice or award when verified
+      - Natural CTA
+      - Legal + brand footer
+    anchors: [SBG_001, SBG_020]
+

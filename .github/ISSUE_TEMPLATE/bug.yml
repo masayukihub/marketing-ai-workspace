@@ -1,0 +1,23 @@
+name: Bug
+description: 报告 Skill、自动化或应用错误
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: textarea
+    attributes: {label: Project}
+  - type: dropdown
+    attributes: {label: Priority, options: [P0, P1, P2]}
+  - type: input
+    attributes: {label: Owner}
+  - type: input
+    attributes: {label: Deadline}
+  - type: textarea
+    attributes: {label: Input and Reproduction}
+    validations: {required: true}
+  - type: textarea
+    attributes: {label: Expected Output}
+  - type: textarea
+    attributes: {label: Source or Evidence}
+  - type: textarea
+    attributes: {label: Acceptance Criteria}
+    validations: {required: true}

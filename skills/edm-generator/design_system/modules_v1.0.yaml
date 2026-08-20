@@ -1,0 +1,3125 @@
+---
+version: 1.0.0
+status: Frozen
+baseline: standards/edm_design_rules_v1.0.yaml
+library_policy:
+  module_count: 31
+  scope: semantic module definitions; no Renderer implementation or frozen pixel spacing
+  additional_module: MOD-STORY-FAQ is included because FAQ is present in the frozen
+    Phase 3 Brief candidate list and prevents Hero copy walls
+  human_decision_result: All 31 reviewed modules were kept. No merge or removal was
+    authorized.
+  isolation_policy: Every module must appear in at least one template recommended/required/optional
+    list.
+categories:
+  hero: 5
+  story_content: 9
+  commerce: 6
+  trust: 4
+  conversion: 3
+  system: 4
+modules:
+- required_inputs:
+  - primary_objective
+  - headline_japanese
+  - primary_cta
+  - verified_visual_asset
+  - official_product_asset
+  - product_name
+  - primary_benefit
+  optional_inputs:
+  - subheadline
+  - promotion_token
+  - campaign_period
+  - eyebrow
+  content_limits:
+    primary_message: 1
+    primary_cta: 1
+    promotion_tokens_high_emphasis: 0–2; prefer 1
+    headline: 14–26 JP chars default; soft max 28
+  layout_options:
+  - product_center
+  - asymmetric_split
+  - full_bleed_with_copy_zone
+  - product_left_copy_right
+  asset_requirements:
+  - official product / verified lifestyle / verified editorial asset as applicable
+  - source record required
+  - critical image must load
+  copy_requirements:
+  - one primary objective
+  - one dominant Japanese headline
+  - CTA names action or destination
+  desktop_behavior:
+  - 600px content baseline
+  - title + proof/product + primary CTA form one opening task
+  - no fixed hero height ratio
+  mobile_behavior:
+  - semantic stack
+  - product/proof remains recognizable
+  - 390px is an Experimental QA viewport, not content width
+  hard_rules: &1
+  - R-BRAND-001
+  - R-ASSET-001
+  - R-ASSET-002
+  - R-CTA-001
+  - R-CTA-004
+  - R-MODULE-001
+  - R-COPY-002
+  - R-QA-001
+  - R-PRODUCT-001
+  - R-AI-001
+  - R-AI-002
+  soft_rules: &2
+  - R-HERO-001
+  - R-HERO-002
+  - R-COPY-001
+  - R-HERO-004
+  experimental_rules: &3
+  - R-HERO-003
+  - R-MOBILE-001
+  - R-MOBILE-003
+  - R-CTA-003
+  anti_patterns:
+  - multiple equal headlines
+  - placeholder or redrawn product
+  - all offer tokens at maximum emphasis
+  - copy wall in Hero
+  - 产品太小或破坏性裁切
+  - 用 Lifestyle 替代产品本体
+  compatible_previous_modules:
+  - START
+  compatible_next_modules:
+  - MOD-STORY-PROBLEM
+  - MOD-STORY-PRIMARY-USP
+  - MOD-STORY-IMAGE-TEXT
+  - MOD-STORY-PRODUCT-DETAIL
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-COMMERCE-OFFER-BAND
+  module_id: MOD-HERO-PRODUCT
+  module_name: Product Focus Hero
+  module_category: hero
+  purpose: 以官方产品本体作为首屏主要事实证据，完成产品身份、核心价值与主 CTA。
+  when_to_use:
+  - Product Launch
+  - Single Product Conversion
+  - 产品辨识优先
+  when_not_to_use:
+  - 缺少官方产品本体
+  - 主要任务是品牌故事
+  wireframe_variant: hero_product
+  human_decision: Keep
+  used_by_templates:
+  - TPL-CONVERT-A
+  - TPL-CONVERT-B
+  - TPL-EDU-B
+  - TPL-LAUNCH-A
+  applicable_rules:
+    hard: *1
+    soft: *2
+    experimental: *3
+- required_inputs:
+  - primary_objective
+  - headline_japanese
+  - primary_cta
+  - verified_visual_asset
+  - verified_lifestyle_asset
+  - recognizable_product
+  - primary_benefit
+  optional_inputs:
+  - subheadline
+  - promotion_token
+  - campaign_period
+  - eyebrow
+  content_limits:
+    primary_message: 1
+    primary_cta: 1
+    promotion_tokens_high_emphasis: 0–2; prefer 1
+    headline: 14–26 JP chars default; soft max 28
+  layout_options:
+  - product_center
+  - asymmetric_split
+  - full_bleed_with_copy_zone
+  - full_bleed_copy_zone
+  - scene_split
+  asset_requirements:
+  - official product / verified lifestyle / verified editorial asset as applicable
+  - source record required
+  - critical image must load
+  copy_requirements:
+  - one primary objective
+  - one dominant Japanese headline
+  - CTA names action or destination
+  desktop_behavior:
+  - 600px content baseline
+  - title + proof/product + primary CTA form one opening task
+  - no fixed hero height ratio
+  mobile_behavior:
+  - semantic stack
+  - product/proof remains recognizable
+  - 390px is an Experimental QA viewport, not content width
+  hard_rules: &4
+  - R-BRAND-001
+  - R-ASSET-001
+  - R-ASSET-002
+  - R-CTA-001
+  - R-CTA-004
+  - R-MODULE-001
+  - R-COPY-002
+  - R-QA-001
+  - R-PRODUCT-001
+  - R-AI-002
+  soft_rules: &5
+  - R-HERO-001
+  - R-HERO-002
+  - R-COPY-001
+  - R-HERO-004
+  experimental_rules: &6
+  - R-HERO-003
+  - R-MOBILE-001
+  - R-MOBILE-003
+  - R-CTA-003
+  anti_patterns:
+  - multiple equal headlines
+  - placeholder or redrawn product
+  - all offer tokens at maximum emphasis
+  - copy wall in Hero
+  - 泛化生活方式图
+  - 氛围是唯一产品证据
+  compatible_previous_modules:
+  - START
+  compatible_next_modules:
+  - MOD-STORY-PROBLEM
+  - MOD-STORY-PRIMARY-USP
+  - MOD-STORY-IMAGE-TEXT
+  - MOD-STORY-PRODUCT-DETAIL
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-COMMERCE-OFFER-BAND
+  module_id: MOD-HERO-LIFESTYLE
+  module_name: Lifestyle Hero
+  module_category: hero
+  purpose: 用完成态或使用场景建立欲望，同时保留清楚的产品识别与主任务。
+  when_to_use:
+  - 场景本身能解释利益
+  - 有可追溯 Lifestyle 资产
+  when_not_to_use:
+  - 产品在场景中不可辨
+  - 场景与产品能力无事实连接
+  wireframe_variant: hero_lifestyle
+  human_decision: Keep
+  used_by_templates:
+  - TPL-BRAND-B
+  - TPL-LAUNCH-B
+  - TPL-LAUNCH-C
+  applicable_rules:
+    hard: *4
+    soft: *5
+    experimental: *6
+- required_inputs:
+  - primary_objective
+  - headline_japanese
+  - primary_cta
+  - verified_visual_asset
+  - verified_offer
+  - promotion_period
+  optional_inputs:
+  - subheadline
+  - promotion_token
+  - campaign_period
+  - eyebrow
+  - discount_rate
+  - coupon
+  content_limits:
+    primary_message: 1
+    primary_cta: 1
+    promotion_tokens_high_emphasis: 0–2; prefer 1
+    headline: 14–26 JP chars default; soft max 28
+    urgent_claims: verified only
+  layout_options:
+  - product_center
+  - asymmetric_split
+  - full_bleed_with_copy_zone
+  asset_requirements:
+  - official product / verified lifestyle / verified editorial asset as applicable
+  - source record required
+  - critical image must load
+  copy_requirements:
+  - one primary objective
+  - one dominant Japanese headline
+  - CTA names action or destination
+  desktop_behavior:
+  - 600px content baseline
+  - title + proof/product + primary CTA form one opening task
+  - no fixed hero height ratio
+  mobile_behavior:
+  - semantic stack
+  - product/proof remains recognizable
+  - 390px is an Experimental QA viewport, not content width
+  hard_rules: &7
+  - R-BRAND-001
+  - R-ASSET-001
+  - R-ASSET-002
+  - R-CTA-001
+  - R-CTA-004
+  - R-MODULE-001
+  - R-COPY-002
+  - R-QA-001
+  - R-PROMO-002
+  soft_rules: &8
+  - R-HERO-001
+  - R-HERO-002
+  - R-COPY-001
+  - R-HERO-004
+  - R-PROMO-001
+  - R-PROMO-003
+  experimental_rules: &9
+  - R-HERO-003
+  - R-MOBILE-001
+  - R-MOBILE-003
+  - R-CTA-003
+  anti_patterns:
+  - multiple equal headlines
+  - placeholder or redrawn product
+  - all offer tokens at maximum emphasis
+  - copy wall in Hero
+  - 虚假倒计时
+  - 价格、OFF、券、期间全部同级
+  compatible_previous_modules:
+  - START
+  compatible_next_modules:
+  - MOD-STORY-PROBLEM
+  - MOD-STORY-PRIMARY-USP
+  - MOD-STORY-IMAGE-TEXT
+  - MOD-STORY-PRODUCT-DETAIL
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-COMMERCE-OFFER-BAND
+  module_id: MOD-HERO-PROMOTION
+  module_name: Promotion Hero
+  module_category: hero
+  purpose: 在一个活动主命题下传达真实优惠或截止信息，并提供明确行动入口。
+  when_to_use:
+  - Theme Promotion
+  - Verified Last Chance
+  - 优惠是主要任务之一
+  when_not_to_use:
+  - 无有效优惠来源
+  - Evergreen 教育
+  wireframe_variant: hero_promotion
+  human_decision: Keep
+  used_by_templates:
+  - TPL-PROMO-A
+  - TPL-PROMO-C
+  applicable_rules:
+    hard: *7
+    soft: *8
+    experimental: *9
+- required_inputs:
+  - primary_objective
+  - headline_japanese
+  - primary_cta
+  - verified_visual_asset
+  - category_or_theme
+  - product_set
+  optional_inputs:
+  - subheadline
+  - promotion_token
+  - campaign_period
+  - eyebrow
+  content_limits:
+    primary_message: 1
+    primary_cta: 1
+    promotion_tokens_high_emphasis: 0–2; prefer 1
+    headline: 14–26 JP chars default; soft max 28
+    hero_products: 2–5 recognizable products; more products move to grid
+  layout_options:
+  - product_center
+  - asymmetric_split
+  - full_bleed_with_copy_zone
+  - product_cluster
+  - category_split
+  asset_requirements:
+  - official product / verified lifestyle / verified editorial asset as applicable
+  - source record required
+  - critical image must load
+  copy_requirements:
+  - one primary objective
+  - one dominant Japanese headline
+  - CTA names action or destination
+  desktop_behavior:
+  - 600px content baseline
+  - title + proof/product + primary CTA form one opening task
+  - no fixed hero height ratio
+  mobile_behavior:
+  - semantic stack
+  - product/proof remains recognizable
+  - 390px is an Experimental QA viewport, not content width
+  hard_rules: &10
+  - R-BRAND-001
+  - R-ASSET-001
+  - R-ASSET-002
+  - R-CTA-001
+  - R-CTA-004
+  - R-MODULE-001
+  - R-COPY-002
+  - R-QA-001
+  - R-PRODUCT-001
+  soft_rules: &11
+  - R-HERO-001
+  - R-HERO-002
+  - R-COPY-001
+  - R-HERO-004
+  experimental_rules: &12
+  - R-HERO-003
+  - R-MOBILE-001
+  - R-MOBILE-003
+  - R-CTA-003
+  anti_patterns:
+  - multiple equal headlines
+  - placeholder or redrawn product
+  - all offer tokens at maximum emphasis
+  - copy wall in Hero
+  - 无主题的产品拼盘
+  - 所有产品与文案同级竞争
+  compatible_previous_modules:
+  - START
+  compatible_next_modules:
+  - MOD-STORY-PROBLEM
+  - MOD-STORY-PRIMARY-USP
+  - MOD-STORY-IMAGE-TEXT
+  - MOD-STORY-PRODUCT-DETAIL
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-COMMERCE-OFFER-BAND
+  module_id: MOD-HERO-MULTI
+  module_name: Multi-product Hero
+  module_category: hero
+  purpose: 用一个主题连接多个产品，并为后续 Product Grid 建立分类上下文。
+  when_to_use:
+  - Category / Multi-product
+  - Theme Promotion
+  - Ecosystem
+  when_not_to_use:
+  - 真正单品
+  - 产品无共同主题
+  wireframe_variant: hero_multi
+  human_decision: Keep
+  used_by_templates:
+  - TPL-CATEGORY-A
+  - TPL-PROMO-B
+  applicable_rules:
+    hard: *10
+    soft: *11
+    experimental: *12
+- required_inputs:
+  - primary_objective
+  - headline_japanese
+  - primary_cta
+  - verified_visual_asset
+  - editorial_premise
+  optional_inputs:
+  - subheadline
+  - promotion_token
+  - campaign_period
+  - eyebrow
+  content_limits:
+    primary_message: 1
+    primary_cta: 1
+    promotion_tokens_high_emphasis: 0–2; prefer 1
+    headline: 14–26 default; Brand Story soft max 38
+  layout_options:
+  - product_center
+  - asymmetric_split
+  - full_bleed_with_copy_zone
+  - text_led
+  - annotated_visual
+  asset_requirements:
+  - official product / verified lifestyle / verified editorial asset as applicable
+  - source record required
+  - critical image must load
+  copy_requirements:
+  - one primary objective
+  - one dominant Japanese headline
+  - CTA names action or destination
+  desktop_behavior:
+  - 600px content baseline
+  - title + proof/product + primary CTA form one opening task
+  - no fixed hero height ratio
+  mobile_behavior:
+  - semantic stack
+  - product/proof remains recognizable
+  - 390px is an Experimental QA viewport, not content width
+  hard_rules: &13
+  - R-BRAND-001
+  - R-ASSET-001
+  - R-ASSET-002
+  - R-CTA-001
+  - R-CTA-004
+  - R-MODULE-001
+  - R-COPY-002
+  - R-QA-001
+  soft_rules: &14
+  - R-HERO-001
+  - R-HERO-002
+  - R-COPY-001
+  - R-HERO-004
+  experimental_rules: &15
+  - R-HERO-003
+  - R-MOBILE-001
+  - R-MOBILE-003
+  - R-CTA-003
+  anti_patterns:
+  - multiple equal headlines
+  - placeholder or redrawn product
+  - all offer tokens at maximum emphasis
+  - copy wall in Hero
+  - 空泛品牌口号
+  - 长导语没有下一步
+  compatible_previous_modules:
+  - START
+  compatible_next_modules:
+  - MOD-STORY-PROBLEM
+  - MOD-STORY-PRIMARY-USP
+  - MOD-STORY-IMAGE-TEXT
+  - MOD-STORY-PRODUCT-DETAIL
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-COMMERCE-OFFER-BAND
+  module_id: MOD-HERO-EDITORIAL
+  module_name: Editorial Hero
+  module_category: hero
+  purpose: 用编辑命题引导 Product Education、Guide 或 Brand Story，不在首屏堆积价格。
+  when_to_use:
+  - Product Education
+  - Brand Story
+  - Comparison Guide
+  when_not_to_use:
+  - Last Chance
+  - 仅价格通知
+  wireframe_variant: hero_editorial
+  human_decision: Keep
+  used_by_templates:
+  - TPL-BRAND-A
+  - TPL-CATEGORY-B
+  - TPL-EDU-A
+  - TPL-EDU-C
+  applicable_rules:
+    hard: *13
+    soft: *14
+    experimental: *15
+- required_inputs:
+  - module_question
+  - verified_content
+  - consumer_problem
+  - scenario
+  optional_inputs:
+  - headline
+  - body
+  - visual_asset
+  - caption
+  - secondary_cta
+  content_limits:
+    consumer_questions: 1
+    feature_title: 6–16 JP chars default
+    body: 24–90 JP chars per block; split longer content into chapters
+    primary_cta: 0–1
+    problem_count: 1
+  layout_options:
+  - full_width
+  - split_60_40
+  - split_40_60
+  - stacked
+  asset_requirements:
+  - visual required only when it proves or explains the module question
+  - product/UI assets require provenance
+  copy_requirements:
+  - one module answers one consumer question
+  - facts and claims remain source-bound
+  - procedural detail is chunked
+  - use concrete situation, not abstract anxiety
+  desktop_behavior:
+  - change layout after at most two similar split modules
+  - keep one dominant visual or text axis
+  mobile_behavior:
+  - stack by meaning
+  - visual and caption stay adjacent
+  - no text wall before product answer
+  hard_rules: &16
+  - R-ASSET-001
+  - R-ASSET-002
+  - R-CLAIM-001
+  - R-CLAIM-002
+  - R-COPY-002
+  - R-QA-001
+  soft_rules: &17
+  - R-MESSAGE-002
+  - R-MESSAGE-003
+  - R-MODULE-003
+  - R-COPY-003
+  - R-COPY-005
+  experimental_rules: &18
+  - R-MOBILE-001
+  - R-MOBILE-002
+  - R-MOBILE-003
+  anti_patterns:
+  - more than one consumer question
+  - unverified claim
+  - three consecutive identical 50/50 splits
+  - Lifestyle as the only product truth
+  - 问题段过长导致产品出场过晚
+  - 夸大风险
+  compatible_previous_modules:
+  - MOD-HERO-PRODUCT
+  - MOD-HERO-LIFESTYLE
+  - MOD-HERO-PROMOTION
+  - MOD-HERO-MULTI
+  - MOD-HERO-EDITORIAL
+  - MOD-STORY-PROBLEM
+  - MOD-STORY-PRIMARY-USP
+  - MOD-SYSTEM-DIVIDER
+  compatible_next_modules:
+  - MOD-STORY-IMAGE-TEXT
+  - MOD-STORY-FEATURE-SPLIT
+  - MOD-STORY-FEATURE-ICONS
+  - MOD-STORY-PRODUCT-DETAIL
+  - MOD-STORY-LIFESTYLE
+  - MOD-STORY-APP-UI
+  - MOD-STORY-FAQ
+  - MOD-COMMERCE-COMPARISON
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-TRUST-REVIEW
+  - MOD-CONV-CTA-BAND
+  module_id: MOD-STORY-PROBLEM
+  module_name: Problem Scenario
+  module_category: story_content
+  purpose: 让用户识别一个具体问题或使用阻碍，为产品答案建立必要语境。
+  when_to_use:
+  - 新品类
+  - 问题认知不足
+  - 教育型 EDM
+  when_not_to_use:
+  - 问题已知且邮件只需转化
+  - 恐惧制造
+  wireframe_variant: story_problem
+  human_decision: Keep
+  used_by_templates:
+  - TPL-EDU-A
+  - TPL-LAUNCH-B
+  - TPL-PROMO-A
+  applicable_rules:
+    hard: *16
+    soft: *17
+    experimental: *18
+- required_inputs:
+  - module_question
+  - verified_content
+  - primary_usp
+  - consumer_benefit
+  - reason_to_believe
+  optional_inputs:
+  - headline
+  - body
+  - visual_asset
+  - caption
+  - secondary_cta
+  content_limits:
+    consumer_questions: 1
+    feature_title: 6–16 JP chars default
+    body: 24–90 JP chars per block; split longer content into chapters
+    primary_cta: 0–1
+    primary_usp: 1
+    supporting_points: 1–3
+  layout_options:
+  - full_width
+  - split_60_40
+  - split_40_60
+  - stacked
+  asset_requirements:
+  - visual required only when it proves or explains the module question
+  - product/UI assets require provenance
+  copy_requirements:
+  - one module answers one consumer question
+  - facts and claims remain source-bound
+  - procedural detail is chunked
+  desktop_behavior:
+  - change layout after at most two similar split modules
+  - keep one dominant visual or text axis
+  mobile_behavior:
+  - stack by meaning
+  - visual and caption stay adjacent
+  - no text wall before product answer
+  hard_rules: &19
+  - R-ASSET-001
+  - R-ASSET-002
+  - R-CLAIM-001
+  - R-CLAIM-002
+  - R-COPY-002
+  - R-QA-001
+  soft_rules: &20
+  - R-MESSAGE-002
+  - R-MESSAGE-003
+  - R-MODULE-003
+  - R-COPY-003
+  - R-COPY-005
+  experimental_rules: &21
+  - R-MOBILE-001
+  - R-MOBILE-002
+  - R-MOBILE-003
+  anti_patterns:
+  - more than one consumer question
+  - unverified claim
+  - three consecutive identical 50/50 splits
+  - Lifestyle as the only product truth
+  - 功能清单冒充主 USP
+  compatible_previous_modules:
+  - MOD-HERO-PRODUCT
+  - MOD-HERO-LIFESTYLE
+  - MOD-HERO-PROMOTION
+  - MOD-HERO-MULTI
+  - MOD-HERO-EDITORIAL
+  - MOD-STORY-PROBLEM
+  - MOD-STORY-PRIMARY-USP
+  - MOD-SYSTEM-DIVIDER
+  compatible_next_modules:
+  - MOD-STORY-IMAGE-TEXT
+  - MOD-STORY-FEATURE-SPLIT
+  - MOD-STORY-FEATURE-ICONS
+  - MOD-STORY-PRODUCT-DETAIL
+  - MOD-STORY-LIFESTYLE
+  - MOD-STORY-APP-UI
+  - MOD-STORY-FAQ
+  - MOD-COMMERCE-COMPARISON
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-TRUST-REVIEW
+  - MOD-CONV-CTA-BAND
+  module_id: MOD-STORY-PRIMARY-USP
+  module_name: Primary USP Story
+  module_category: story_content
+  purpose: 展开一个主 USP：用户利益、已确认能力与可信证据。
+  when_to_use:
+  - Launch
+  - Conversion
+  - Education
+  when_not_to_use:
+  - 多个同级 USP
+  - 能力未确认
+  wireframe_variant: story_usp
+  human_decision: Keep
+  used_by_templates:
+  - TPL-BRAND-B
+  - TPL-CONVERT-A
+  - TPL-EDU-A
+  - TPL-LAUNCH-A
+  - TPL-LAUNCH-B
+  applicable_rules:
+    hard: *19
+    soft: *20
+    experimental: *21
+- required_inputs:
+  - module_question
+  - verified_content
+  - verified_visual
+  optional_inputs:
+  - headline
+  - body
+  - visual_asset
+  - caption
+  - secondary_cta
+  content_limits:
+    consumer_questions: 1
+    feature_title: 6–16 JP chars default
+    body: 24–90 JP chars per block; split longer content into chapters
+    primary_cta: 0–1
+  layout_options:
+  - full_width
+  - split_60_40
+  - split_40_60
+  - stacked
+  - image_left
+  - image_right
+  - full_width_caption
+  asset_requirements:
+  - visual required only when it proves or explains the module question
+  - product/UI assets require provenance
+  copy_requirements:
+  - one module answers one consumer question
+  - facts and claims remain source-bound
+  - procedural detail is chunked
+  desktop_behavior:
+  - change layout after at most two similar split modules
+  - keep one dominant visual or text axis
+  mobile_behavior:
+  - stack by meaning
+  - visual and caption stay adjacent
+  - no text wall before product answer
+  hard_rules: &22
+  - R-ASSET-001
+  - R-ASSET-002
+  - R-CLAIM-001
+  - R-CLAIM-002
+  - R-COPY-002
+  - R-QA-001
+  soft_rules: &23
+  - R-MESSAGE-002
+  - R-MESSAGE-003
+  - R-MODULE-003
+  - R-COPY-003
+  - R-COPY-005
+  experimental_rules: &24
+  - R-MOBILE-001
+  - R-MOBILE-002
+  - R-MOBILE-003
+  anti_patterns:
+  - more than one consumer question
+  - unverified claim
+  - three consecutive identical 50/50 splits
+  - Lifestyle as the only product truth
+  - 图文语义不对应
+  - 连续 50/50 Split
+  compatible_previous_modules:
+  - MOD-HERO-PRODUCT
+  - MOD-HERO-LIFESTYLE
+  - MOD-HERO-PROMOTION
+  - MOD-HERO-MULTI
+  - MOD-HERO-EDITORIAL
+  - MOD-STORY-PROBLEM
+  - MOD-STORY-PRIMARY-USP
+  - MOD-SYSTEM-DIVIDER
+  compatible_next_modules:
+  - MOD-STORY-IMAGE-TEXT
+  - MOD-STORY-FEATURE-SPLIT
+  - MOD-STORY-FEATURE-ICONS
+  - MOD-STORY-PRODUCT-DETAIL
+  - MOD-STORY-LIFESTYLE
+  - MOD-STORY-APP-UI
+  - MOD-STORY-FAQ
+  - MOD-COMMERCE-COMPARISON
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-TRUST-REVIEW
+  - MOD-CONV-CTA-BAND
+  module_id: MOD-STORY-IMAGE-TEXT
+  module_name: Image + Text
+  module_category: story_content
+  purpose: 用一张证明型图像与一个短解释回答单一问题。
+  when_to_use:
+  - 场景解释
+  - 产品细节
+  - 生态关系
+  when_not_to_use:
+  - 没有证明型图像
+  - 连续三个相同 Split
+  wireframe_variant: story_image_text
+  human_decision: Keep
+  used_by_templates:
+  - TPL-BRAND-A
+  - TPL-BRAND-B
+  - TPL-CATEGORY-A
+  - TPL-EDU-A
+  - TPL-EDU-B
+  - TPL-EDU-C
+  - TPL-LAUNCH-B
+  - TPL-LAUNCH-C
+  applicable_rules:
+    hard: *22
+    soft: *23
+    experimental: *24
+- required_inputs:
+  - module_question
+  - verified_content
+  - feature_title
+  - feature_benefit
+  - proof_visual
+  optional_inputs:
+  - headline
+  - body
+  - visual_asset
+  - caption
+  - secondary_cta
+  content_limits:
+    consumer_questions: 1
+    feature_title: 6–16 JP chars default
+    body: 24–90 JP chars per block; split longer content into chapters
+    primary_cta: 0–1
+    feature_per_module: 1
+  layout_options:
+  - full_width
+  - split_60_40
+  - split_40_60
+  - stacked
+  - '60_40'
+  - '40_60'
+  asset_requirements:
+  - visual required only when it proves or explains the module question
+  - product/UI assets require provenance
+  copy_requirements:
+  - one module answers one consumer question
+  - facts and claims remain source-bound
+  - procedural detail is chunked
+  desktop_behavior:
+  - change layout after at most two similar split modules
+  - keep one dominant visual or text axis
+  mobile_behavior:
+  - stack by meaning
+  - visual and caption stay adjacent
+  - no text wall before product answer
+  hard_rules: &25
+  - R-ASSET-001
+  - R-ASSET-002
+  - R-CLAIM-001
+  - R-CLAIM-002
+  - R-COPY-002
+  - R-QA-001
+  soft_rules: &26
+  - R-MESSAGE-002
+  - R-MESSAGE-003
+  - R-MODULE-003
+  - R-COPY-003
+  - R-COPY-005
+  experimental_rules: &27
+  - R-MOBILE-001
+  - R-MOBILE-002
+  - R-MOBILE-003
+  anti_patterns:
+  - more than one consumer question
+  - unverified claim
+  - three consecutive identical 50/50 splits
+  - Lifestyle as the only product truth
+  - 机械左右交替但内容层级相同
+  compatible_previous_modules:
+  - MOD-HERO-PRODUCT
+  - MOD-HERO-LIFESTYLE
+  - MOD-HERO-PROMOTION
+  - MOD-HERO-MULTI
+  - MOD-HERO-EDITORIAL
+  - MOD-STORY-PROBLEM
+  - MOD-STORY-PRIMARY-USP
+  - MOD-SYSTEM-DIVIDER
+  compatible_next_modules:
+  - MOD-STORY-IMAGE-TEXT
+  - MOD-STORY-FEATURE-SPLIT
+  - MOD-STORY-FEATURE-ICONS
+  - MOD-STORY-PRODUCT-DETAIL
+  - MOD-STORY-LIFESTYLE
+  - MOD-STORY-APP-UI
+  - MOD-STORY-FAQ
+  - MOD-COMMERCE-COMPARISON
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-TRUST-REVIEW
+  - MOD-CONV-CTA-BAND
+  module_id: MOD-STORY-FEATURE-SPLIT
+  module_name: Feature Split
+  module_category: story_content
+  purpose: 用图文分栏解释一个 Feature 与其用户利益。
+  when_to_use:
+  - Feature 需要视觉说明
+  - Launch 或 Education 中段
+  when_not_to_use:
+  - 只有功能名称没有利益
+  - 连续 3 个同构模块
+  wireframe_variant: story_feature_split
+  human_decision: Keep
+  used_by_templates:
+  - TPL-CONVERT-A
+  - TPL-EDU-A
+  - TPL-EDU-B
+  - TPL-LAUNCH-A
+  - TPL-LAUNCH-B
+  applicable_rules:
+    hard: *25
+    soft: *26
+    experimental: *27
+- required_inputs:
+  - module_question
+  - verified_content
+  - feature_list
+  - icon_set
+  optional_inputs:
+  - headline
+  - body
+  - visual_asset
+  - caption
+  - secondary_cta
+  content_limits:
+    consumer_questions: 1
+    feature_title: 6–16 JP chars default
+    body: 24–90 JP chars per block; split longer content into chapters
+    primary_cta: 0–1
+    features: 3–6
+    body_each: 24–60 JP chars
+  layout_options:
+  - full_width
+  - split_60_40
+  - split_40_60
+  - stacked
+  - inline_list
+  - two_column_list
+  asset_requirements:
+  - visual required only when it proves or explains the module question
+  - product/UI assets require provenance
+  copy_requirements:
+  - one module answers one consumer question
+  - facts and claims remain source-bound
+  - procedural detail is chunked
+  desktop_behavior:
+  - change layout after at most two similar split modules
+  - keep one dominant visual or text axis
+  mobile_behavior:
+  - stack by meaning
+  - visual and caption stay adjacent
+  - no text wall before product answer
+  hard_rules: &28
+  - R-ASSET-001
+  - R-ASSET-002
+  - R-CLAIM-001
+  - R-CLAIM-002
+  - R-COPY-002
+  - R-QA-001
+  soft_rules: &29
+  - R-MESSAGE-002
+  - R-MESSAGE-003
+  - R-MODULE-003
+  - R-COPY-003
+  - R-COPY-005
+  experimental_rules: &30
+  - R-MOBILE-001
+  - R-MOBILE-002
+  - R-MOBILE-003
+  anti_patterns:
+  - more than one consumer question
+  - unverified claim
+  - three consecutive identical 50/50 splits
+  - Lifestyle as the only product truth
+  - 三等分图标卡默认结构
+  - 混用图标体系
+  compatible_previous_modules:
+  - MOD-HERO-PRODUCT
+  - MOD-HERO-LIFESTYLE
+  - MOD-HERO-PROMOTION
+  - MOD-HERO-MULTI
+  - MOD-HERO-EDITORIAL
+  - MOD-STORY-PROBLEM
+  - MOD-STORY-PRIMARY-USP
+  - MOD-SYSTEM-DIVIDER
+  compatible_next_modules:
+  - MOD-STORY-IMAGE-TEXT
+  - MOD-STORY-FEATURE-SPLIT
+  - MOD-STORY-FEATURE-ICONS
+  - MOD-STORY-PRODUCT-DETAIL
+  - MOD-STORY-LIFESTYLE
+  - MOD-STORY-APP-UI
+  - MOD-STORY-FAQ
+  - MOD-COMMERCE-COMPARISON
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-TRUST-REVIEW
+  - MOD-CONV-CTA-BAND
+  module_id: MOD-STORY-FEATURE-ICONS
+  module_name: Feature Icons
+  module_category: story_content
+  purpose: 快速概览 3–6 个次级 Feature，不与 Primary USP 争夺层级。
+  when_to_use:
+  - 次级功能已可简短表达
+  - 需要快速扫描
+  when_not_to_use:
+  - 主 USP 尚未建立
+  - 图标来源或含义不明确
+  wireframe_variant: story_icons
+  human_decision: Keep
+  used_by_templates:
+  - TPL-LAUNCH-A
+  - TPL-LAUNCH-C
+  applicable_rules:
+    hard: *28
+    soft: *29
+    experimental: *30
+- required_inputs:
+  - module_question
+  - verified_content
+  - official_detail_asset
+  - detail_claim
+  optional_inputs:
+  - headline
+  - body
+  - visual_asset
+  - caption
+  - secondary_cta
+  content_limits:
+    consumer_questions: 1
+    feature_title: 6–16 JP chars default
+    body: 24–90 JP chars per block; split longer content into chapters
+    primary_cta: 0–1
+  layout_options:
+  - full_width
+  - split_60_40
+  - split_40_60
+  - stacked
+  - detail_closeup
+  - annotated_detail
+  asset_requirements:
+  - visual required only when it proves or explains the module question
+  - product/UI assets require provenance
+  copy_requirements:
+  - one module answers one consumer question
+  - facts and claims remain source-bound
+  - procedural detail is chunked
+  desktop_behavior:
+  - change layout after at most two similar split modules
+  - keep one dominant visual or text axis
+  mobile_behavior:
+  - stack by meaning
+  - visual and caption stay adjacent
+  - no text wall before product answer
+  hard_rules: &31
+  - R-ASSET-001
+  - R-ASSET-002
+  - R-CLAIM-001
+  - R-CLAIM-002
+  - R-COPY-002
+  - R-QA-001
+  - R-PRODUCT-001
+  - R-AI-001
+  - R-AI-002
+  soft_rules: &32
+  - R-MESSAGE-002
+  - R-MESSAGE-003
+  - R-MODULE-003
+  - R-COPY-003
+  - R-COPY-005
+  experimental_rules: &33
+  - R-MOBILE-001
+  - R-MOBILE-002
+  - R-MOBILE-003
+  anti_patterns:
+  - more than one consumer question
+  - unverified claim
+  - three consecutive identical 50/50 splits
+  - Lifestyle as the only product truth
+  - AI 补画接口或配件
+  - 把配件能力写成产品本体能力
+  compatible_previous_modules:
+  - MOD-HERO-PRODUCT
+  - MOD-HERO-LIFESTYLE
+  - MOD-HERO-PROMOTION
+  - MOD-HERO-MULTI
+  - MOD-HERO-EDITORIAL
+  - MOD-STORY-PROBLEM
+  - MOD-STORY-PRIMARY-USP
+  - MOD-SYSTEM-DIVIDER
+  compatible_next_modules:
+  - MOD-STORY-IMAGE-TEXT
+  - MOD-STORY-FEATURE-SPLIT
+  - MOD-STORY-FEATURE-ICONS
+  - MOD-STORY-PRODUCT-DETAIL
+  - MOD-STORY-LIFESTYLE
+  - MOD-STORY-APP-UI
+  - MOD-STORY-FAQ
+  - MOD-COMMERCE-COMPARISON
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-TRUST-REVIEW
+  - MOD-CONV-CTA-BAND
+  module_id: MOD-STORY-PRODUCT-DETAIL
+  module_name: Product Detail
+  module_category: story_content
+  purpose: 展示结构、接口、配件或安装细节，支持购买判断。
+  when_to_use:
+  - 细节影响理解或兼容性
+  - 需要官方近景证据
+  when_not_to_use:
+  - 无官方细节资产
+  - 装饰性放大
+  wireframe_variant: story_detail
+  human_decision: Keep
+  used_by_templates:
+  - TPL-BRAND-A
+  - TPL-CATEGORY-B
+  - TPL-CONVERT-A
+  - TPL-CONVERT-B
+  - TPL-EDU-A
+  - TPL-EDU-B
+  - TPL-EDU-C
+  - TPL-LAUNCH-A
+  - TPL-LAUNCH-B
+  - TPL-LAUNCH-C
+  applicable_rules:
+    hard: *31
+    soft: *32
+    experimental: *33
+- required_inputs:
+  - module_question
+  - verified_content
+  - verified_lifestyle_asset
+  - adjacent_product_truth
+  optional_inputs:
+  - headline
+  - body
+  - visual_asset
+  - caption
+  - secondary_cta
+  content_limits:
+    consumer_questions: 1
+    feature_title: 6–16 JP chars default
+    body: 24–90 JP chars per block; split longer content into chapters
+    primary_cta: 0–1
+  layout_options:
+  - full_width
+  - split_60_40
+  - split_40_60
+  - stacked
+  - full_bleed_scene
+  - scene_with_caption
+  asset_requirements:
+  - visual required only when it proves or explains the module question
+  - product/UI assets require provenance
+  copy_requirements:
+  - one module answers one consumer question
+  - facts and claims remain source-bound
+  - procedural detail is chunked
+  desktop_behavior:
+  - change layout after at most two similar split modules
+  - keep one dominant visual or text axis
+  mobile_behavior:
+  - stack by meaning
+  - visual and caption stay adjacent
+  - no text wall before product answer
+  hard_rules: &34
+  - R-ASSET-001
+  - R-ASSET-002
+  - R-CLAIM-001
+  - R-CLAIM-002
+  - R-COPY-002
+  - R-QA-001
+  soft_rules: &35
+  - R-MESSAGE-002
+  - R-MESSAGE-003
+  - R-MODULE-003
+  - R-COPY-003
+  - R-COPY-005
+  experimental_rules: &36
+  - R-MOBILE-001
+  - R-MOBILE-002
+  - R-MOBILE-003
+  anti_patterns:
+  - more than one consumer question
+  - unverified claim
+  - three consecutive identical 50/50 splits
+  - Lifestyle as the only product truth
+  - Lifestyle 成为唯一证据
+  compatible_previous_modules:
+  - MOD-HERO-PRODUCT
+  - MOD-HERO-LIFESTYLE
+  - MOD-HERO-PROMOTION
+  - MOD-HERO-MULTI
+  - MOD-HERO-EDITORIAL
+  - MOD-STORY-PROBLEM
+  - MOD-STORY-PRIMARY-USP
+  - MOD-SYSTEM-DIVIDER
+  compatible_next_modules:
+  - MOD-STORY-IMAGE-TEXT
+  - MOD-STORY-FEATURE-SPLIT
+  - MOD-STORY-FEATURE-ICONS
+  - MOD-STORY-PRODUCT-DETAIL
+  - MOD-STORY-LIFESTYLE
+  - MOD-STORY-APP-UI
+  - MOD-STORY-FAQ
+  - MOD-COMMERCE-COMPARISON
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-TRUST-REVIEW
+  - MOD-CONV-CTA-BAND
+  module_id: MOD-STORY-LIFESTYLE
+  module_name: Lifestyle Scene
+  module_category: story_content
+  purpose: 在正文中把已确认能力放回真实生活场景，缓冲高密度事实模块。
+  when_to_use:
+  - 产品能力需要场景化
+  - Product / Lifestyle 节奏转换
+  when_not_to_use:
+  - 没有相邻产品事实
+  - 泛化图库氛围
+  wireframe_variant: story_lifestyle
+  human_decision: Keep
+  used_by_templates:
+  - TPL-BRAND-A
+  - TPL-LAUNCH-A
+  - TPL-LAUNCH-C
+  applicable_rules:
+    hard: *34
+    soft: *35
+    experimental: *36
+- required_inputs:
+  - module_question
+  - verified_content
+  - official_ui_asset
+  - verified_ui_state
+  - capability_boundary
+  optional_inputs:
+  - headline
+  - body
+  - visual_asset
+  - caption
+  - secondary_cta
+  content_limits:
+    consumer_questions: 1
+    feature_title: 6–16 JP chars default
+    body: 24–90 JP chars per block; split longer content into chapters
+    primary_cta: 0–1
+  layout_options:
+  - full_width
+  - split_60_40
+  - split_40_60
+  - stacked
+  - ui_then_explanation
+  - ui_with_numbered_legend
+  asset_requirements:
+  - visual required only when it proves or explains the module question
+  - product/UI assets require provenance
+  copy_requirements:
+  - one module answers one consumer question
+  - facts and claims remain source-bound
+  - procedural detail is chunked
+  desktop_behavior:
+  - change layout after at most two similar split modules
+  - keep one dominant visual or text axis
+  mobile_behavior:
+  - stack by meaning
+  - visual and caption stay adjacent
+  - no text wall before product answer
+  hard_rules: &37
+  - R-ASSET-001
+  - R-ASSET-002
+  - R-CLAIM-001
+  - R-CLAIM-002
+  - R-COPY-002
+  - R-QA-001
+  - R-AI-001
+  soft_rules: &38
+  - R-MESSAGE-002
+  - R-MESSAGE-003
+  - R-MODULE-003
+  - R-COPY-003
+  - R-COPY-005
+  experimental_rules: &39
+  - R-MOBILE-001
+  - R-MOBILE-002
+  - R-MOBILE-003
+  anti_patterns:
+  - more than one consumer question
+  - unverified claim
+  - three consecutive identical 50/50 splits
+  - Lifestyle as the only product truth
+  - AI 生成 UI
+  - UI 状态与功能版本不一致
+  compatible_previous_modules:
+  - MOD-HERO-PRODUCT
+  - MOD-HERO-LIFESTYLE
+  - MOD-HERO-PROMOTION
+  - MOD-HERO-MULTI
+  - MOD-HERO-EDITORIAL
+  - MOD-STORY-PROBLEM
+  - MOD-STORY-PRIMARY-USP
+  - MOD-SYSTEM-DIVIDER
+  compatible_next_modules:
+  - MOD-STORY-IMAGE-TEXT
+  - MOD-STORY-FEATURE-SPLIT
+  - MOD-STORY-FEATURE-ICONS
+  - MOD-STORY-PRODUCT-DETAIL
+  - MOD-STORY-LIFESTYLE
+  - MOD-STORY-APP-UI
+  - MOD-STORY-FAQ
+  - MOD-COMMERCE-COMPARISON
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-TRUST-REVIEW
+  - MOD-CONV-CTA-BAND
+  module_id: MOD-STORY-APP-UI
+  module_name: App / UI Explanation
+  module_category: story_content
+  purpose: 解释已确认 App 界面、联动或控制流程，不重构 UI。
+  when_to_use:
+  - App 是主要理解环节
+  - 有官方且当前 UI
+  when_not_to_use:
+  - UI 未确认
+  - 仅为装饰
+  wireframe_variant: story_app
+  human_decision: Keep
+  used_by_templates:
+  - TPL-BRAND-B
+  - TPL-EDU-A
+  - TPL-EDU-B
+  - TPL-LAUNCH-C
+  applicable_rules:
+    hard: *37
+    soft: *38
+    experimental: *39
+- required_inputs:
+  - module_question
+  - verified_content
+  - question_answer_pairs
+  - answer_sources
+  optional_inputs:
+  - headline
+  - body
+  - visual_asset
+  - caption
+  - secondary_cta
+  content_limits:
+    consumer_questions: 1
+    feature_title: 6–16 JP chars default
+    body: 24–90 JP chars per block; split longer content into chapters
+    primary_cta: 0–1
+    questions: 3–6
+    answer: one concise paragraph; longer instructions link out
+  layout_options:
+  - full_width
+  - split_60_40
+  - split_40_60
+  - stacked
+  - accordion_static
+  - question_list
+  asset_requirements:
+  - visual required only when it proves or explains the module question
+  - product/UI assets require provenance
+  copy_requirements:
+  - one module answers one consumer question
+  - facts and claims remain source-bound
+  - procedural detail is chunked
+  desktop_behavior:
+  - change layout after at most two similar split modules
+  - keep one dominant visual or text axis
+  mobile_behavior:
+  - stack by meaning
+  - visual and caption stay adjacent
+  - no text wall before product answer
+  hard_rules: &40
+  - R-ASSET-001
+  - R-ASSET-002
+  - R-CLAIM-001
+  - R-CLAIM-002
+  - R-COPY-002
+  - R-QA-001
+  soft_rules: &41
+  - R-MESSAGE-002
+  - R-MESSAGE-003
+  - R-MODULE-003
+  - R-COPY-003
+  - R-COPY-005
+  experimental_rules: &42
+  - R-MOBILE-001
+  - R-MOBILE-002
+  - R-MOBILE-003
+  anti_patterns:
+  - more than one consumer question
+  - unverified claim
+  - three consecutive identical 50/50 splits
+  - Lifestyle as the only product truth
+  - 编造问题
+  - 答案包含未确认兼容性
+  compatible_previous_modules:
+  - MOD-HERO-PRODUCT
+  - MOD-HERO-LIFESTYLE
+  - MOD-HERO-PROMOTION
+  - MOD-HERO-MULTI
+  - MOD-HERO-EDITORIAL
+  - MOD-STORY-PROBLEM
+  - MOD-STORY-PRIMARY-USP
+  - MOD-SYSTEM-DIVIDER
+  compatible_next_modules:
+  - MOD-STORY-IMAGE-TEXT
+  - MOD-STORY-FEATURE-SPLIT
+  - MOD-STORY-FEATURE-ICONS
+  - MOD-STORY-PRODUCT-DETAIL
+  - MOD-STORY-LIFESTYLE
+  - MOD-STORY-APP-UI
+  - MOD-STORY-FAQ
+  - MOD-COMMERCE-COMPARISON
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-TRUST-REVIEW
+  - MOD-CONV-CTA-BAND
+  module_id: MOD-STORY-FAQ
+  module_name: FAQ / Objection Handling
+  module_category: story_content
+  purpose: 集中回答 3–6 个真实购买或使用阻碍，避免把长说明塞入 Hero。
+  when_to_use:
+  - Product Education
+  - Comparison Guide
+  - 存在真实重复疑问
+  when_not_to_use:
+  - 没有真实问题来源
+  - 用 FAQ 重复 Feature
+  wireframe_variant: story_faq
+  human_decision: Keep
+  used_by_templates:
+  - TPL-BRAND-A
+  - TPL-CATEGORY-A
+  - TPL-CATEGORY-B
+  - TPL-CONVERT-A
+  - TPL-CONVERT-B
+  - TPL-EDU-A
+  - TPL-EDU-B
+  - TPL-EDU-C
+  - TPL-LAUNCH-B
+  - TPL-PROMO-B
+  applicable_rules:
+    hard: *40
+    soft: *41
+    experimental: *42
+- required_inputs:
+  - verified_product_or_offer_data
+  - destination_url
+  - sku
+  - official_product_asset
+  - product_name
+  optional_inputs:
+  - price
+  - msrp
+  - discount
+  - coupon
+  - period
+  - condition
+  - badge
+  content_limits:
+    primary_cta_per_card_or_module: 1
+    destinations_total: 1–2 across email
+    offer_repetition: normally ≤2 per SKU; Last Chance ≤3
+    high_emphasis_offer_tokens: "≤2"
+    primary_benefit: 1
+    primary_cta: 1
+  layout_options:
+  - single_card
+  - uniform_grid
+  - compact_band
+  - comparison_rows
+  - vertical
+  - horizontal_compact
+  asset_requirements:
+  - verified official SKU image where product is shown
+  - current price / offer / period source
+  - working destination
+  copy_requirements:
+  - channel named in marketplace CTA
+  - conditions adjacent to offer
+  - value remains legible before or beside price
+  desktop_behavior:
+  - uniform card grammar
+  - no irregular spans for SKU grids
+  - comparison fields limited to decision-relevant facts
+  mobile_behavior:
+  - stack cards
+  - convert wide comparisons to labeled cards
+  - CTA remains single-line
+  hard_rules: &43
+  - R-ASSET-001
+  - R-ASSET-002
+  - R-CLAIM-001
+  - R-CTA-001
+  - R-CTA-004
+  - R-PROMO-002
+  - R-COPY-002
+  - R-QA-001
+  - R-PRODUCT-001
+  soft_rules: &44
+  - R-PROMO-001
+  - R-PROMO-003
+  - R-CTA-002
+  - R-CTA-005
+  - R-MODULE-003
+  experimental_rules: &45
+  - R-MOBILE-001
+  - R-MOBILE-002
+  - R-MOBILE-003
+  - R-CTA-003
+  anti_patterns:
+  - dummy URL
+  - all numbers at equal emphasis
+  - grid without category context
+  - unverified price or deadline
+  - 每张卡不同语法
+  - 两条同义 CTA
+  compatible_previous_modules:
+  - MOD-HERO-PROMOTION
+  - MOD-HERO-MULTI
+  - MOD-HERO-PRODUCT
+  - MOD-HERO-EDITORIAL
+  - MOD-STORY-IMAGE-TEXT
+  - MOD-STORY-PRIMARY-USP
+  - MOD-COMMERCE-OFFER-BAND
+  - MOD-SYSTEM-DIVIDER
+  compatible_next_modules:
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-COMMERCE-PRICE
+  - MOD-COMMERCE-COUPON
+  - MOD-COMMERCE-COMPARISON
+  - MOD-TRUST-REVIEW
+  - MOD-TRUST-WARRANTY
+  - MOD-CONV-CTA-BAND
+  - MOD-CONV-LAST-CHANCE
+  - MOD-SYSTEM-LEGAL-FOOTER
+  module_id: MOD-COMMERCE-PRODUCT-CARD
+  module_name: Product Card
+  module_category: commerce
+  purpose: 以统一语法呈现一个 SKU 的产品图、名称、核心差异、价格与 CTA。
+  when_to_use:
+  - Product Grid 子单元
+  - 单品购买卡
+  when_not_to_use:
+  - SKU 数据不完整
+  - 无统一目的地规则
+  wireframe_variant: commerce_card
+  human_decision: Keep
+  used_by_templates:
+  - TPL-CONVERT-A
+  applicable_rules:
+    hard: *43
+    soft: *44
+    experimental: *45
+- required_inputs:
+  - verified_product_or_offer_data
+  - destination_url
+  - product_cards
+  - category_context
+  optional_inputs:
+  - price
+  - msrp
+  - discount
+  - coupon
+  - period
+  - condition
+  - badge
+  content_limits:
+    primary_cta_per_card_or_module: 1
+    destinations_total: 1–2 across email
+    offer_repetition: normally ≤2 per SKU; Last Chance ≤3
+    high_emphasis_offer_tokens: "≤2"
+    products: 4–12 operational range; not a hard standard
+  layout_options:
+  - single_card
+  - uniform_grid
+  - compact_band
+  - comparison_rows
+  - two_column
+  - three_column
+  - four_column
+  asset_requirements:
+  - verified official SKU image where product is shown
+  - current price / offer / period source
+  - working destination
+  copy_requirements:
+  - channel named in marketplace CTA
+  - conditions adjacent to offer
+  - value remains legible before or beside price
+  desktop_behavior:
+  - uniform card grammar
+  - no irregular spans for SKU grids
+  - comparison fields limited to decision-relevant facts
+  mobile_behavior:
+  - stack cards
+  - convert wide comparisons to labeled cards
+  - CTA remains single-line
+  hard_rules: &46
+  - R-ASSET-001
+  - R-ASSET-002
+  - R-CLAIM-001
+  - R-CTA-001
+  - R-CTA-004
+  - R-PROMO-002
+  - R-COPY-002
+  - R-QA-001
+  soft_rules: &47
+  - R-PROMO-001
+  - R-PROMO-003
+  - R-CTA-002
+  - R-CTA-005
+  - R-MODULE-003
+  experimental_rules: &48
+  - R-MOBILE-001
+  - R-MOBILE-002
+  - R-MOBILE-003
+  - R-CTA-003
+  anti_patterns:
+  - dummy URL
+  - all numbers at equal emphasis
+  - grid without category context
+  - unverified price or deadline
+  - Grid 前没有主题/品类上下文
+  - Bento 式不规则 SKU 卡
+  compatible_previous_modules:
+  - MOD-HERO-PROMOTION
+  - MOD-HERO-MULTI
+  - MOD-HERO-PRODUCT
+  - MOD-HERO-EDITORIAL
+  - MOD-STORY-IMAGE-TEXT
+  - MOD-STORY-PRIMARY-USP
+  - MOD-COMMERCE-OFFER-BAND
+  - MOD-SYSTEM-DIVIDER
+  compatible_next_modules:
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-COMMERCE-PRICE
+  - MOD-COMMERCE-COUPON
+  - MOD-COMMERCE-COMPARISON
+  - MOD-TRUST-REVIEW
+  - MOD-TRUST-WARRANTY
+  - MOD-CONV-CTA-BAND
+  - MOD-CONV-LAST-CHANCE
+  - MOD-SYSTEM-LEGAL-FOOTER
+  module_id: MOD-COMMERCE-PRODUCT-GRID
+  module_name: Product Grid
+  module_category: commerce
+  purpose: 在已有 Category / Theme Context 后，用一致卡片帮助浏览多个 SKU。
+  when_to_use:
+  - product_count ≥ 4
+  - Category / Promotion
+  when_not_to_use:
+  - 没有前置上下文
+  - 真正单品
+  wireframe_variant: commerce_grid
+  human_decision: Keep
+  used_by_templates:
+  - TPL-BRAND-A
+  - TPL-BRAND-B
+  - TPL-CATEGORY-A
+  - TPL-CATEGORY-B
+  - TPL-EDU-C
+  - TPL-PROMO-A
+  - TPL-PROMO-B
+  - TPL-PROMO-C
+  applicable_rules:
+    hard: *46
+    soft: *47
+    experimental: *48
+- required_inputs:
+  - verified_product_or_offer_data
+  - destination_url
+  - current_price
+  - price_source
+  optional_inputs:
+  - price
+  - msrp
+  - discount
+  - coupon
+  - period
+  - condition
+  - badge
+  - savings
+  content_limits:
+    primary_cta_per_card_or_module: 1
+    destinations_total: 1–2 across email
+    offer_repetition: normally ≤2 per SKU; Last Chance ≤3
+    high_emphasis_offer_tokens: "≤2"
+    dominant_price: 1
+  layout_options:
+  - single_card
+  - uniform_grid
+  - compact_band
+  - comparison_rows
+  asset_requirements:
+  - verified official SKU image where product is shown
+  - current price / offer / period source
+  - working destination
+  copy_requirements:
+  - channel named in marketplace CTA
+  - conditions adjacent to offer
+  - value remains legible before or beside price
+  desktop_behavior:
+  - uniform card grammar
+  - no irregular spans for SKU grids
+  - comparison fields limited to decision-relevant facts
+  mobile_behavior:
+  - stack cards
+  - convert wide comparisons to labeled cards
+  - CTA remains single-line
+  hard_rules: &49
+  - R-ASSET-001
+  - R-ASSET-002
+  - R-CLAIM-001
+  - R-CTA-001
+  - R-CTA-004
+  - R-PROMO-002
+  - R-COPY-002
+  - R-QA-001
+  soft_rules: &50
+  - R-PROMO-001
+  - R-PROMO-003
+  - R-CTA-002
+  - R-CTA-005
+  - R-MODULE-003
+  experimental_rules: &51
+  - R-MOBILE-001
+  - R-MOBILE-002
+  - R-MOBILE-003
+  - R-CTA-003
+  anti_patterns:
+  - dummy URL
+  - all numbers at equal emphasis
+  - grid without category context
+  - unverified price or deadline
+  - Promotion Hero 后立即重复 Price Card，除非价格是 Primary Objective
+  compatible_previous_modules:
+  - MOD-HERO-PROMOTION
+  - MOD-HERO-MULTI
+  - MOD-HERO-PRODUCT
+  - MOD-HERO-EDITORIAL
+  - MOD-STORY-IMAGE-TEXT
+  - MOD-STORY-PRIMARY-USP
+  - MOD-COMMERCE-OFFER-BAND
+  - MOD-SYSTEM-DIVIDER
+  compatible_next_modules:
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-COMMERCE-PRICE
+  - MOD-COMMERCE-COUPON
+  - MOD-COMMERCE-COMPARISON
+  - MOD-TRUST-REVIEW
+  - MOD-TRUST-WARRANTY
+  - MOD-CONV-CTA-BAND
+  - MOD-CONV-LAST-CHANCE
+  - MOD-SYSTEM-LEGAL-FOOTER
+  module_id: MOD-COMMERCE-PRICE
+  module_name: Price Card
+  module_category: commerce
+  purpose: 清楚呈现一个 SKU 的已验证价格、参考价、优惠与条件。
+  when_to_use:
+  - 价格影响转化
+  - 数据完整
+  when_not_to_use:
+  - 价格未确认
+  - 价值尚未建立且价格不是主目标
+  wireframe_variant: commerce_price
+  human_decision: Keep
+  used_by_templates:
+  - TPL-CATEGORY-B
+  - TPL-CONVERT-A
+  - TPL-CONVERT-B
+  - TPL-LAUNCH-A
+  - TPL-LAUNCH-B
+  - TPL-LAUNCH-C
+  - TPL-PROMO-B
+  - TPL-PROMO-C
+  applicable_rules:
+    hard: *49
+    soft: *50
+    experimental: *51
+- required_inputs:
+  - verified_product_or_offer_data
+  - destination_url
+  - coupon_value
+  - coupon_method
+  - coupon_period
+  - coupon_conditions
+  - source
+  optional_inputs:
+  - price
+  - msrp
+  - discount
+  - coupon
+  - period
+  - condition
+  - badge
+  content_limits:
+    primary_cta_per_card_or_module: 1
+    destinations_total: 1–2 across email
+    offer_repetition: normally ≤2 per SKU; Last Chance ≤3
+    high_emphasis_offer_tokens: "≤2"
+  layout_options:
+  - single_card
+  - uniform_grid
+  - compact_band
+  - comparison_rows
+  asset_requirements:
+  - verified official SKU image where product is shown
+  - current price / offer / period source
+  - working destination
+  copy_requirements:
+  - channel named in marketplace CTA
+  - conditions adjacent to offer
+  - value remains legible before or beside price
+  desktop_behavior:
+  - uniform card grammar
+  - no irregular spans for SKU grids
+  - comparison fields limited to decision-relevant facts
+  mobile_behavior:
+  - stack cards
+  - convert wide comparisons to labeled cards
+  - CTA remains single-line
+  hard_rules: &52
+  - R-ASSET-001
+  - R-ASSET-002
+  - R-CLAIM-001
+  - R-CTA-001
+  - R-CTA-004
+  - R-PROMO-002
+  - R-COPY-002
+  - R-QA-001
+  soft_rules: &53
+  - R-PROMO-001
+  - R-PROMO-003
+  - R-CTA-002
+  - R-CTA-005
+  - R-MODULE-003
+  experimental_rules: &54
+  - R-MOBILE-001
+  - R-MOBILE-002
+  - R-MOBILE-003
+  - R-CTA-003
+  anti_patterns:
+  - dummy URL
+  - all numbers at equal emphasis
+  - grid without category context
+  - unverified price or deadline
+  - 只显示券额不显示条件
+  - 过期 Coupon
+  compatible_previous_modules:
+  - MOD-HERO-PROMOTION
+  - MOD-HERO-MULTI
+  - MOD-HERO-PRODUCT
+  - MOD-HERO-EDITORIAL
+  - MOD-STORY-IMAGE-TEXT
+  - MOD-STORY-PRIMARY-USP
+  - MOD-COMMERCE-OFFER-BAND
+  - MOD-SYSTEM-DIVIDER
+  compatible_next_modules:
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-COMMERCE-PRICE
+  - MOD-COMMERCE-COUPON
+  - MOD-COMMERCE-COMPARISON
+  - MOD-TRUST-REVIEW
+  - MOD-TRUST-WARRANTY
+  - MOD-CONV-CTA-BAND
+  - MOD-CONV-LAST-CHANCE
+  - MOD-SYSTEM-LEGAL-FOOTER
+  module_id: MOD-COMMERCE-COUPON
+  module_name: Coupon Card
+  module_category: commerce
+  purpose: 说明真实 Coupon 的金额、领取/使用方式、期限与条件。
+  when_to_use:
+  - 存在有效 Coupon
+  - Coupon 是购买步骤
+  when_not_to_use:
+  - 无有效 Coupon
+  - 条件过长无法相邻呈现
+  wireframe_variant: commerce_coupon
+  human_decision: Keep
+  used_by_templates:
+  - TPL-CONVERT-A
+  - TPL-CONVERT-B
+  - TPL-PROMO-A
+  - TPL-PROMO-B
+  - TPL-PROMO-C
+  applicable_rules:
+    hard: *52
+    soft: *53
+    experimental: *54
+- required_inputs:
+  - verified_product_or_offer_data
+  - destination_url
+  - comparison_items
+  - comparison_fields
+  - field_sources
+  optional_inputs:
+  - price
+  - msrp
+  - discount
+  - coupon
+  - period
+  - condition
+  - badge
+  content_limits:
+    primary_cta_per_card_or_module: 1
+    destinations_total: 1–2 across email
+    offer_repetition: normally ≤2 per SKU; Last Chance ≤3
+    high_emphasis_offer_tokens: "≤2"
+    desktop_fields: 3–6 decision-relevant fields
+    mobile: labeled cards; no wide table
+  layout_options:
+  - single_card
+  - uniform_grid
+  - compact_band
+  - comparison_rows
+  asset_requirements:
+  - verified official SKU image where product is shown
+  - current price / offer / period source
+  - working destination
+  copy_requirements:
+  - channel named in marketplace CTA
+  - conditions adjacent to offer
+  - value remains legible before or beside price
+  desktop_behavior:
+  - uniform card grammar
+  - no irregular spans for SKU grids
+  - comparison fields limited to decision-relevant facts
+  mobile_behavior:
+  - stack cards
+  - convert wide comparisons to labeled cards
+  - CTA remains single-line
+  hard_rules: &55
+  - R-ASSET-001
+  - R-ASSET-002
+  - R-CLAIM-001
+  - R-CTA-001
+  - R-CTA-004
+  - R-PROMO-002
+  - R-COPY-002
+  - R-QA-001
+  - R-CLAIM-002
+  soft_rules: &56
+  - R-PROMO-001
+  - R-PROMO-003
+  - R-CTA-002
+  - R-CTA-005
+  - R-MODULE-003
+  experimental_rules: &57
+  - R-MOBILE-001
+  - R-MOBILE-002
+  - R-MOBILE-003
+  - R-CTA-003
+  anti_patterns:
+  - dummy URL
+  - all numbers at equal emphasis
+  - grid without category context
+  - unverified price or deadline
+  - 10 列横向表
+  - 未确认值用确定语气
+  compatible_previous_modules:
+  - MOD-HERO-PROMOTION
+  - MOD-HERO-MULTI
+  - MOD-HERO-PRODUCT
+  - MOD-HERO-EDITORIAL
+  - MOD-STORY-IMAGE-TEXT
+  - MOD-STORY-PRIMARY-USP
+  - MOD-COMMERCE-OFFER-BAND
+  - MOD-SYSTEM-DIVIDER
+  compatible_next_modules:
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-COMMERCE-PRICE
+  - MOD-COMMERCE-COUPON
+  - MOD-COMMERCE-COMPARISON
+  - MOD-TRUST-REVIEW
+  - MOD-TRUST-WARRANTY
+  - MOD-CONV-CTA-BAND
+  - MOD-CONV-LAST-CHANCE
+  - MOD-SYSTEM-LEGAL-FOOTER
+  module_id: MOD-COMMERCE-COMPARISON
+  module_name: Comparison Table
+  module_category: commerce
+  purpose: 用同口径字段帮助用户选择产品或方案。
+  when_to_use:
+  - 多个可公平比较产品
+  - 差异影响选择
+  when_not_to_use:
+  - 字段定义不一致
+  - 单品
+  wireframe_variant: commerce_comparison
+  human_decision: Keep
+  used_by_templates:
+  - TPL-CATEGORY-A
+  - TPL-CATEGORY-B
+  - TPL-EDU-B
+  - TPL-EDU-C
+  - TPL-PROMO-B
+  applicable_rules:
+    hard: *55
+    soft: *56
+    experimental: *57
+- required_inputs:
+  - verified_product_or_offer_data
+  - destination_url
+  - offer_summary
+  - offer_source
+  - period_or_condition
+  optional_inputs:
+  - price
+  - msrp
+  - discount
+  - coupon
+  - period
+  - condition
+  - badge
+  content_limits:
+    primary_cta_per_card_or_module: 1
+    destinations_total: 1–2 across email
+    offer_repetition: normally ≤2 per SKU; Last Chance ≤3
+    high_emphasis_offer_tokens: "≤2"
+    high_emphasis_tokens: 1 preferred; max 2
+  layout_options:
+  - single_card
+  - uniform_grid
+  - compact_band
+  - comparison_rows
+  asset_requirements:
+  - verified official SKU image where product is shown
+  - current price / offer / period source
+  - working destination
+  copy_requirements:
+  - channel named in marketplace CTA
+  - conditions adjacent to offer
+  - value remains legible before or beside price
+  desktop_behavior:
+  - uniform card grammar
+  - no irregular spans for SKU grids
+  - comparison fields limited to decision-relevant facts
+  mobile_behavior:
+  - stack cards
+  - convert wide comparisons to labeled cards
+  - CTA remains single-line
+  hard_rules: &58
+  - R-ASSET-001
+  - R-ASSET-002
+  - R-CLAIM-001
+  - R-CTA-001
+  - R-CTA-004
+  - R-PROMO-002
+  - R-COPY-002
+  - R-QA-001
+  soft_rules: &59
+  - R-PROMO-001
+  - R-PROMO-003
+  - R-CTA-002
+  - R-CTA-005
+  - R-MODULE-003
+  experimental_rules: &60
+  - R-MOBILE-001
+  - R-MOBILE-002
+  - R-MOBILE-003
+  - R-CTA-003
+  anti_patterns:
+  - dummy URL
+  - all numbers at equal emphasis
+  - grid without category context
+  - unverified price or deadline
+  - Offer Band 与 Price Card 连续重复相同信息
+  compatible_previous_modules:
+  - MOD-HERO-PROMOTION
+  - MOD-HERO-MULTI
+  - MOD-HERO-PRODUCT
+  - MOD-HERO-EDITORIAL
+  - MOD-STORY-IMAGE-TEXT
+  - MOD-STORY-PRIMARY-USP
+  - MOD-COMMERCE-OFFER-BAND
+  - MOD-SYSTEM-DIVIDER
+  compatible_next_modules:
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-COMMERCE-PRICE
+  - MOD-COMMERCE-COUPON
+  - MOD-COMMERCE-COMPARISON
+  - MOD-TRUST-REVIEW
+  - MOD-TRUST-WARRANTY
+  - MOD-CONV-CTA-BAND
+  - MOD-CONV-LAST-CHANCE
+  - MOD-SYSTEM-LEGAL-FOOTER
+  module_id: MOD-COMMERCE-OFFER-BAND
+  module_name: Offer Band
+  module_category: commerce
+  purpose: 用一条紧凑区域概括 Campaign Benefit、Deal 与期间，不重复整张价格卡。
+  when_to_use:
+  - Promotion
+  - Conversion
+  - 活动上下文已经明确
+  when_not_to_use:
+  - 无优惠
+  - 与 Hero 重复且没有新增行动信息
+  wireframe_variant: commerce_offer
+  human_decision: Keep
+  used_by_templates:
+  - TPL-BRAND-B
+  - TPL-CATEGORY-A
+  - TPL-CONVERT-B
+  - TPL-PROMO-A
+  - TPL-PROMO-B
+  - TPL-PROMO-C
+  applicable_rules:
+    hard: *58
+    soft: *59
+    experimental: *60
+- required_inputs:
+  - proof_type
+  - proof_source
+  - proof_content
+  - review_quote
+  - reviewer_or_source
+  - source_url
+  optional_inputs:
+  - attribution
+  - date
+  - source_url
+  - visual_asset
+  content_limits:
+    proof_points: 1–3
+    primary_cta: 0–1
+    quote_length: one scannable statement; long testimony must be excerpted with source
+  layout_options:
+  - single_proof
+  - proof_strip
+  - quote_list
+  - service_band
+  asset_requirements:
+  - real source required
+  - logos/awards require authorized asset
+  - no fabricated people or ratings
+  copy_requirements:
+  - state what the proof proves
+  - keep attribution adjacent
+  - qualifiers remain visible
+  desktop_behavior:
+  - one proof type per module
+  - avoid equal-card repetition after a product grid
+  mobile_behavior:
+  - one proof per row
+  - source and qualifier remain with the claim
+  hard_rules: &61
+  - R-ASSET-001
+  - R-CLAIM-001
+  - R-COPY-002
+  - R-EVIDENCE-001
+  - R-QA-001
+  soft_rules: &62
+  - R-MESSAGE-003
+  - R-MODULE-003
+  - R-COPY-003
+  - R-COPY-005
+  experimental_rules: &63
+  - R-MOBILE-001
+  - R-MOBILE-003
+  anti_patterns:
+  - invented testimonial
+  - award without source
+  - logo wall with unclear relevance
+  - proof detached from claim
+  - 虚构评价
+  - 断章取义
+  compatible_previous_modules:
+  - MOD-STORY-PRIMARY-USP
+  - MOD-STORY-PRODUCT-DETAIL
+  - MOD-STORY-LIFESTYLE
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-COMMERCE-COMPARISON
+  - MOD-COMMERCE-PRICE
+  - MOD-SYSTEM-DIVIDER
+  compatible_next_modules:
+  - MOD-COMMERCE-PRICE
+  - MOD-COMMERCE-COUPON
+  - MOD-CONV-CTA-BAND
+  - MOD-CONV-LAST-CHANCE
+  - MOD-SYSTEM-BRAND-FOOTER
+  module_id: MOD-TRUST-REVIEW
+  module_name: Review Proof
+  module_category: trust
+  purpose: 用真实、可追溯评价支撑一个具体购买理由。
+  when_to_use:
+  - 有授权/可引用评价
+  - 评价能证明当前主张
+  when_not_to_use:
+  - 来源不明
+  - 只用星级没有语义
+  wireframe_variant: trust_review
+  human_decision: Keep
+  used_by_templates:
+  - TPL-CATEGORY-A
+  - TPL-CATEGORY-B
+  - TPL-CONVERT-A
+  - TPL-CONVERT-B
+  - TPL-EDU-A
+  - TPL-EDU-C
+  - TPL-LAUNCH-A
+  - TPL-LAUNCH-B
+  - TPL-LAUNCH-C
+  - TPL-PROMO-A
+  applicable_rules:
+    hard: *61
+    soft: *62
+    experimental: *63
+- required_inputs:
+  - proof_type
+  - proof_source
+  - proof_content
+  - user_voice
+  - source
+  - consent_or_usage_basis
+  optional_inputs:
+  - attribution
+  - date
+  - source_url
+  - visual_asset
+  content_limits:
+    proof_points: 1–3
+    primary_cta: 0–1
+    quote_length: one scannable statement; long testimony must be excerpted with source
+    voices: 1–3 per module
+  layout_options:
+  - single_proof
+  - proof_strip
+  - quote_list
+  - service_band
+  asset_requirements:
+  - real source required
+  - logos/awards require authorized asset
+  - no fabricated people or ratings
+  copy_requirements:
+  - state what the proof proves
+  - keep attribution adjacent
+  - qualifiers remain visible
+  desktop_behavior:
+  - one proof type per module
+  - avoid equal-card repetition after a product grid
+  mobile_behavior:
+  - one proof per row
+  - source and qualifier remain with the claim
+  hard_rules: &64
+  - R-ASSET-001
+  - R-CLAIM-001
+  - R-COPY-002
+  - R-EVIDENCE-001
+  - R-QA-001
+  soft_rules: &65
+  - R-MESSAGE-003
+  - R-MODULE-003
+  - R-COPY-003
+  - R-COPY-005
+  experimental_rules: &66
+  - R-MOBILE-001
+  - R-MOBILE-003
+  anti_patterns:
+  - invented testimonial
+  - award without source
+  - logo wall with unclear relevance
+  - proof detached from claim
+  - User Voice 必须有真实来源
+  - 匿名泛化赞美
+  compatible_previous_modules:
+  - MOD-STORY-PRIMARY-USP
+  - MOD-STORY-PRODUCT-DETAIL
+  - MOD-STORY-LIFESTYLE
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-COMMERCE-COMPARISON
+  - MOD-COMMERCE-PRICE
+  - MOD-SYSTEM-DIVIDER
+  compatible_next_modules:
+  - MOD-COMMERCE-PRICE
+  - MOD-COMMERCE-COUPON
+  - MOD-CONV-CTA-BAND
+  - MOD-CONV-LAST-CHANCE
+  - MOD-SYSTEM-BRAND-FOOTER
+  module_id: MOD-TRUST-USER-VOICE
+  module_name: User Voice
+  module_category: trust
+  purpose: 按使用场景或产品整理真实用户语言，帮助理解实际价值。
+  when_to_use:
+  - User Voice + Promotion
+  - Brand Story
+  - 真实使用方法
+  when_not_to_use:
+  - 无真实来源
+  - 把 UGC 当产品事实
+  wireframe_variant: trust_voice
+  human_decision: Keep
+  used_by_templates:
+  - TPL-BRAND-A
+  - TPL-BRAND-B
+  - TPL-PROMO-A
+  applicable_rules:
+    hard: *64
+    soft: *65
+    experimental: *66
+- required_inputs:
+  - proof_type
+  - proof_source
+  - proof_content
+  - award_or_media_name
+  - claim_scope
+  - source
+  - authorization
+  optional_inputs:
+  - attribution
+  - date
+  - source_url
+  - visual_asset
+  content_limits:
+    proof_points: 1–3
+    primary_cta: 0–1
+    quote_length: one scannable statement; long testimony must be excerpted with source
+  layout_options:
+  - single_proof
+  - proof_strip
+  - quote_list
+  - service_band
+  asset_requirements:
+  - real source required
+  - logos/awards require authorized asset
+  - no fabricated people or ratings
+  copy_requirements:
+  - state what the proof proves
+  - keep attribution adjacent
+  - qualifiers remain visible
+  desktop_behavior:
+  - one proof type per module
+  - avoid equal-card repetition after a product grid
+  mobile_behavior:
+  - one proof per row
+  - source and qualifier remain with the claim
+  hard_rules: &67
+  - R-ASSET-001
+  - R-CLAIM-001
+  - R-COPY-002
+  - R-EVIDENCE-001
+  - R-QA-001
+  soft_rules: &68
+  - R-MESSAGE-003
+  - R-MODULE-003
+  - R-COPY-003
+  - R-COPY-005
+  experimental_rules: &69
+  - R-MOBILE-001
+  - R-MOBILE-003
+  anti_patterns:
+  - invented testimonial
+  - award without source
+  - logo wall with unclear relevance
+  - proof detached from claim
+  - 无授权 Logo
+  - No.1 无范围与时间
+  compatible_previous_modules:
+  - MOD-STORY-PRIMARY-USP
+  - MOD-STORY-PRODUCT-DETAIL
+  - MOD-STORY-LIFESTYLE
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-COMMERCE-COMPARISON
+  - MOD-COMMERCE-PRICE
+  - MOD-SYSTEM-DIVIDER
+  compatible_next_modules:
+  - MOD-COMMERCE-PRICE
+  - MOD-COMMERCE-COUPON
+  - MOD-CONV-CTA-BAND
+  - MOD-CONV-LAST-CHANCE
+  - MOD-SYSTEM-BRAND-FOOTER
+  module_id: MOD-TRUST-AWARD
+  module_name: Award / Media Proof
+  module_category: trust
+  purpose: 用当前有效 Award 或媒体证据支撑信任，不替代产品事实。
+  when_to_use:
+  - 有授权标识与来源
+  - 证据与主张相关
+  when_not_to_use:
+  - Logo 使用权不明
+  - 过期或无关奖项
+  wireframe_variant: trust_award
+  human_decision: Keep
+  used_by_templates:
+  - TPL-BRAND-A
+  - TPL-LAUNCH-A
+  applicable_rules:
+    hard: *67
+    soft: *68
+    experimental: *69
+- required_inputs:
+  - proof_type
+  - proof_source
+  - proof_content
+  - service_type
+  - verified_terms
+  - source
+  optional_inputs:
+  - attribution
+  - date
+  - source_url
+  - visual_asset
+  content_limits:
+    proof_points: 1–3
+    primary_cta: 0–1
+    quote_length: one scannable statement; long testimony must be excerpted with source
+  layout_options:
+  - single_proof
+  - proof_strip
+  - quote_list
+  - service_band
+  asset_requirements:
+  - real source required
+  - logos/awards require authorized asset
+  - no fabricated people or ratings
+  copy_requirements:
+  - state what the proof proves
+  - keep attribution adjacent
+  - qualifiers remain visible
+  desktop_behavior:
+  - one proof type per module
+  - avoid equal-card repetition after a product grid
+  mobile_behavior:
+  - one proof per row
+  - source and qualifier remain with the claim
+  hard_rules: &70
+  - R-ASSET-001
+  - R-CLAIM-001
+  - R-COPY-002
+  - R-EVIDENCE-001
+  - R-QA-001
+  - R-CLAIM-002
+  soft_rules: &71
+  - R-MESSAGE-003
+  - R-MODULE-003
+  - R-COPY-003
+  - R-COPY-005
+  experimental_rules: &72
+  - R-MOBILE-001
+  - R-MOBILE-003
+  anti_patterns:
+  - invented testimonial
+  - award without source
+  - logo wall with unclear relevance
+  - proof detached from claim
+  - 把服务权益写成产品本体功能
+  compatible_previous_modules:
+  - MOD-STORY-PRIMARY-USP
+  - MOD-STORY-PRODUCT-DETAIL
+  - MOD-STORY-LIFESTYLE
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-COMMERCE-COMPARISON
+  - MOD-COMMERCE-PRICE
+  - MOD-SYSTEM-DIVIDER
+  compatible_next_modules:
+  - MOD-COMMERCE-PRICE
+  - MOD-COMMERCE-COUPON
+  - MOD-CONV-CTA-BAND
+  - MOD-CONV-LAST-CHANCE
+  - MOD-SYSTEM-BRAND-FOOTER
+  module_id: MOD-TRUST-WARRANTY
+  module_name: Warranty / Service
+  module_category: trust
+  purpose: 说明已确认的保修、配送、退换或服务边界，消除购买阻碍。
+  when_to_use:
+  - 服务政策影响转化
+  - 政策当前有效
+  when_not_to_use:
+  - 政策未确认
+  - 与产品功能混写
+  wireframe_variant: trust_service
+  human_decision: Keep
+  used_by_templates:
+  - TPL-BRAND-B
+  - TPL-CATEGORY-A
+  - TPL-CATEGORY-B
+  - TPL-CONVERT-A
+  - TPL-CONVERT-B
+  - TPL-EDU-B
+  - TPL-EDU-C
+  - TPL-PROMO-A
+  - TPL-PROMO-B
+  - TPL-PROMO-C
+  applicable_rules:
+    hard: *70
+    soft: *71
+    experimental: *72
+- required_inputs:
+  - cta_label
+  - destination_url
+  - destination_type
+  - primary_cta
+  optional_inputs:
+  - reassurance
+  - deadline
+  - product_name
+  - channel_name
+  content_limits:
+    primary_cta: 1
+    secondary_cta: 0–1 only with a distinct destination
+    label: 4–12 JP chars default
+  layout_options:
+  - full_width_band
+  - inline_action
+  - product_attached
+  - closing_action
+  asset_requirements:
+  - working verified destination
+  - product image optional unless the CTA introduces a product
+  copy_requirements:
+  - action + object/destination
+  - marketplace named
+  - no こちら-only CTA
+  desktop_behavior:
+  - one dominant action
+  - placement may repeat by module/SKU but destination count remains 1–2
+  mobile_behavior:
+  - single-line label
+  - full-width permitted
+  - 44px height is Experimental guidance
+  hard_rules: &73
+  - R-BRAND-001
+  - R-CTA-001
+  - R-CTA-004
+  - R-PROMO-002
+  - R-COPY-002
+  - R-QA-001
+  soft_rules: &74
+  - R-CTA-002
+  - R-CTA-005
+  - R-PROMO-003
+  experimental_rules: &75
+  - R-CTA-003
+  - R-MOBILE-001
+  - R-MOBILE-003
+  anti_patterns:
+  - two equivalent buttons
+  - unclear destination
+  - consecutive CTA bands
+  - false urgency
+  - CTA Band 连续出现
+  - 点击这里
+  compatible_previous_modules:
+  - MOD-STORY-PRIMARY-USP
+  - MOD-STORY-PRODUCT-DETAIL
+  - MOD-STORY-FAQ
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-COMMERCE-PRICE
+  - MOD-COMMERCE-COUPON
+  - MOD-TRUST-REVIEW
+  - MOD-TRUST-WARRANTY
+  compatible_next_modules:
+  - MOD-SYSTEM-LEGAL-FOOTER
+  - MOD-SYSTEM-BRAND-FOOTER
+  module_id: MOD-CONV-CTA-BAND
+  module_name: CTA Band
+  module_category: conversion
+  purpose: 在完成必要理解后提供一个明确主行动。
+  when_to_use:
+  - 模块或邮件末段需要主转化
+  - 目的地已验证
+  when_not_to_use:
+  - 紧接另一个 CTA Band
+  - 行动目的不明确
+  wireframe_variant: conv_cta
+  human_decision: Keep
+  used_by_templates:
+  - TPL-BRAND-A
+  - TPL-BRAND-B
+  - TPL-CATEGORY-A
+  - TPL-CATEGORY-B
+  - TPL-CONVERT-A
+  - TPL-CONVERT-B
+  - TPL-EDU-A
+  - TPL-EDU-B
+  - TPL-EDU-C
+  - TPL-LAUNCH-A
+  - TPL-LAUNCH-B
+  - TPL-LAUNCH-C
+  - TPL-PROMO-A
+  - TPL-PROMO-B
+  applicable_rules:
+    hard: *73
+    soft: *74
+    experimental: *75
+- required_inputs:
+  - cta_label
+  - destination_url
+  - destination_type
+  - secondary_cta
+  - distinct_destination
+  optional_inputs:
+  - reassurance
+  - deadline
+  - product_name
+  - channel_name
+  content_limits:
+    primary_cta: 1
+    secondary_cta: 1
+    label: 4–12 JP chars default
+  layout_options:
+  - full_width_band
+  - inline_action
+  - product_attached
+  - closing_action
+  asset_requirements:
+  - working verified destination
+  - product image optional unless the CTA introduces a product
+  copy_requirements:
+  - action + object/destination
+  - marketplace named
+  - no こちら-only CTA
+  desktop_behavior:
+  - one dominant action
+  - placement may repeat by module/SKU but destination count remains 1–2
+  mobile_behavior:
+  - single-line label
+  - full-width permitted
+  - 44px height is Experimental guidance
+  hard_rules: &76
+  - R-BRAND-001
+  - R-CTA-001
+  - R-CTA-004
+  - R-PROMO-002
+  - R-COPY-002
+  - R-QA-001
+  soft_rules: &77
+  - R-CTA-002
+  - R-CTA-005
+  - R-PROMO-003
+  - R-HERO-001
+  experimental_rules: &78
+  - R-CTA-003
+  - R-MOBILE-001
+  - R-MOBILE-003
+  anti_patterns:
+  - two equivalent buttons
+  - unclear destination
+  - consecutive CTA bands
+  - false urgency
+  - 两个同义 CTA
+  compatible_previous_modules:
+  - MOD-STORY-PRIMARY-USP
+  - MOD-STORY-PRODUCT-DETAIL
+  - MOD-STORY-FAQ
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-COMMERCE-PRICE
+  - MOD-COMMERCE-COUPON
+  - MOD-TRUST-REVIEW
+  - MOD-TRUST-WARRANTY
+  compatible_next_modules:
+  - MOD-SYSTEM-LEGAL-FOOTER
+  - MOD-SYSTEM-BRAND-FOOTER
+  module_id: MOD-CONV-SECONDARY
+  module_name: Secondary CTA
+  module_category: conversion
+  purpose: 提供与主 CTA 不同且必要的第二目的地，如详情与购买渠道。
+  when_to_use:
+  - 确有第二 Funnel 任务
+  - 目的地不同且不与主 CTA 同级
+  when_not_to_use:
+  - 同义按钮
+  - 全邮件已有两个目的地
+  wireframe_variant: conv_secondary
+  human_decision: Keep
+  used_by_templates:
+  - TPL-EDU-A
+  applicable_rules:
+    hard: *76
+    soft: *77
+    experimental: *78
+- required_inputs:
+  - cta_label
+  - destination_url
+  - destination_type
+  - verified_deadline
+  - primary_cta
+  optional_inputs:
+  - reassurance
+  - deadline
+  - product_name
+  - channel_name
+  content_limits:
+    primary_cta: 1
+    secondary_cta: 0–1 only with a distinct destination
+    label: 4–12 JP chars default
+  layout_options:
+  - full_width_band
+  - inline_action
+  - product_attached
+  - closing_action
+  asset_requirements:
+  - working verified destination
+  - product image optional unless the CTA introduces a product
+  copy_requirements:
+  - action + object/destination
+  - marketplace named
+  - no こちら-only CTA
+  desktop_behavior:
+  - one dominant action
+  - placement may repeat by module/SKU but destination count remains 1–2
+  mobile_behavior:
+  - single-line label
+  - full-width permitted
+  - 44px height is Experimental guidance
+  hard_rules: &79
+  - R-BRAND-001
+  - R-CTA-001
+  - R-CTA-004
+  - R-PROMO-002
+  - R-COPY-002
+  - R-QA-001
+  soft_rules: &80
+  - R-CTA-002
+  - R-CTA-005
+  - R-PROMO-003
+  experimental_rules: &81
+  - R-CTA-003
+  - R-MOBILE-001
+  - R-MOBILE-003
+  anti_patterns:
+  - two equivalent buttons
+  - unclear destination
+  - consecutive CTA bands
+  - false urgency
+  - 虚假紧迫感
+  - 新增第二活动信息
+  compatible_previous_modules:
+  - MOD-STORY-PRIMARY-USP
+  - MOD-STORY-PRODUCT-DETAIL
+  - MOD-STORY-FAQ
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-COMMERCE-PRICE
+  - MOD-COMMERCE-COUPON
+  - MOD-TRUST-REVIEW
+  - MOD-TRUST-WARRANTY
+  compatible_next_modules:
+  - MOD-SYSTEM-LEGAL-FOOTER
+  - MOD-SYSTEM-BRAND-FOOTER
+  module_id: MOD-CONV-LAST-CHANCE
+  module_name: Last Chance CTA
+  module_category: conversion
+  purpose: 在邮件末段重复一次真实截止信息与主 CTA，不新增主命题。
+  when_to_use:
+  - Verified Last Chance
+  - 截止事实有效
+  when_not_to_use:
+  - Evergreen
+  - 截止未确认
+  wireframe_variant: conv_last_chance
+  human_decision: Keep
+  used_by_templates:
+  - TPL-PROMO-C
+  applicable_rules:
+    hard: *79
+    soft: *80
+    experimental: *81
+- required_inputs:
+  - system_role
+  optional_inputs:
+  - legal_text
+  - brand_links
+  - source_notes
+  content_limits:
+    primary_cta: 0
+    message: system-only; must not introduce a new campaign objective
+    copy: none or one short label
+  layout_options:
+  - rule
+  - whitespace_band
+  - legal_block
+  - brand_close
+  asset_requirements:
+  - brand marks and legal copy must be current
+  - no decorative product reconstruction
+  copy_requirements:
+  - functional and source-bound
+  - no new sales claim
+  desktop_behavior:
+  - quiet closing or transition role
+  - spacing values are not frozen before Renderer
+  mobile_behavior:
+  - links stack without wrapping clickable labels
+  - legal text remains readable
+  hard_rules: &82
+  - R-ASSET-002
+  - R-COPY-002
+  - R-MODULE-001
+  - R-QA-001
+  soft_rules: &83
+  - R-MODULE-003
+  - R-COPY-003
+  - R-COPY-005
+  experimental_rules: &84
+  - R-MOBILE-001
+  - R-MOBILE-003
+  anti_patterns:
+  - footer missing
+  - new promotional message in footer
+  - fixed spacing presented as frozen rule
+  - Divider 变成空模块
+  compatible_previous_modules:
+  - ANY_NON_START_MODULE
+  compatible_next_modules:
+  - MOD-STORY-PROBLEM
+  - MOD-STORY-PRIMARY-USP
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-TRUST-REVIEW
+  - MOD-CONV-CTA-BAND
+  - MOD-SYSTEM-BRAND-FOOTER
+  - END
+  module_id: MOD-SYSTEM-DIVIDER
+  module_name: Divider
+  module_category: system
+  purpose: 在信息阶段变化时提供轻量语义分隔，不靠装饰制造模块。
+  when_to_use:
+  - 主题或密度阶段改变
+  when_not_to_use:
+  - 每个模块之间都加
+  - 没有语义变化
+  wireframe_variant: system_divider
+  human_decision: Keep
+  used_by_templates:
+  - TPL-PROMO-A
+  applicable_rules:
+    hard: *82
+    soft: *83
+    experimental: *84
+- required_inputs:
+  - system_role
+  - rhythm_intent
+  optional_inputs:
+  - legal_text
+  - brand_links
+  - source_notes
+  content_limits:
+    primary_cta: 0
+    message: system-only; must not introduce a new campaign objective
+    spacing: 'semantic size only: compact / normal / generous; pixel value deferred
+      to Renderer'
+  layout_options:
+  - rule
+  - whitespace_band
+  - legal_block
+  - brand_close
+  asset_requirements:
+  - brand marks and legal copy must be current
+  - no decorative product reconstruction
+  copy_requirements:
+  - functional and source-bound
+  - no new sales claim
+  desktop_behavior:
+  - quiet closing or transition role
+  - spacing values are not frozen before Renderer
+  mobile_behavior:
+  - links stack without wrapping clickable labels
+  - legal text remains readable
+  hard_rules: &85
+  - R-ASSET-002
+  - R-COPY-002
+  - R-MODULE-001
+  - R-QA-001
+  soft_rules: &86
+  - R-MODULE-003
+  - R-COPY-003
+  - R-COPY-005
+  experimental_rules: &87
+  - R-MOBILE-001
+  - R-MOBILE-003
+  anti_patterns:
+  - footer missing
+  - new promotional message in footer
+  - fixed spacing presented as frozen rule
+  - 提前冻结 Padding 或 Module Spacing
+  compatible_previous_modules:
+  - ANY_NON_START_MODULE
+  compatible_next_modules:
+  - MOD-STORY-PROBLEM
+  - MOD-STORY-PRIMARY-USP
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-TRUST-REVIEW
+  - MOD-CONV-CTA-BAND
+  - MOD-SYSTEM-BRAND-FOOTER
+  - END
+  module_id: MOD-SYSTEM-SPACER
+  module_name: Spacer
+  module_category: system
+  purpose: 为视觉节奏提供可变留白占位，但不冻结生产像素。
+  when_to_use:
+  - Renderer 需要语义留白 token
+  when_not_to_use:
+  - 把像素值写成 v1.0 Hard Rule
+  - 替代内容层级
+  wireframe_variant: system_spacer
+  human_decision: Keep
+  used_by_templates:
+  - TPL-BRAND-A
+  applicable_rules:
+    hard: *85
+    soft: *86
+    experimental: *87
+- required_inputs:
+  - system_role
+  - legal_copy
+  - source_owner
+  optional_inputs:
+  - legal_text
+  - brand_links
+  - source_notes
+  content_limits:
+    primary_cta: 0
+    message: system-only; must not introduce a new campaign objective
+    copy: minimum necessary; key conditions stay near offer
+  layout_options:
+  - rule
+  - whitespace_band
+  - legal_block
+  - brand_close
+  asset_requirements:
+  - brand marks and legal copy must be current
+  - no decorative product reconstruction
+  copy_requirements:
+  - functional and source-bound
+  - no new sales claim
+  desktop_behavior:
+  - quiet closing or transition role
+  - spacing values are not frozen before Renderer
+  mobile_behavior:
+  - links stack without wrapping clickable labels
+  - legal text remains readable
+  hard_rules: &88
+  - R-ASSET-002
+  - R-COPY-002
+  - R-MODULE-001
+  - R-QA-001
+  - R-PROMO-002
+  - R-CLAIM-001
+  soft_rules: &89
+  - R-MODULE-003
+  - R-COPY-003
+  - R-COPY-005
+  experimental_rules: &90
+  - R-MOBILE-001
+  - R-MOBILE-003
+  anti_patterns:
+  - footer missing
+  - new promotional message in footer
+  - fixed spacing presented as frozen rule
+  - 把关键条件只放 Footer
+  compatible_previous_modules:
+  - ANY_NON_START_MODULE
+  compatible_next_modules:
+  - MOD-STORY-PROBLEM
+  - MOD-STORY-PRIMARY-USP
+  - MOD-COMMERCE-PRODUCT-GRID
+  - MOD-TRUST-REVIEW
+  - MOD-CONV-CTA-BAND
+  - MOD-SYSTEM-BRAND-FOOTER
+  - END
+  module_id: MOD-SYSTEM-LEGAL-FOOTER
+  module_name: Legal Footer
+  module_category: system
+  purpose: 承载优惠条件、法务说明、来源限定与必要免责。
+  when_to_use:
+  - Promotion
+  - Claim 需要限定
+  - 渠道条件
+  when_not_to_use:
+  - 用于隐藏关键条件
+  - 无法阅读的小字
+  wireframe_variant: system_legal
+  human_decision: Keep
+  used_by_templates:
+  - TPL-PROMO-C
+  applicable_rules:
+    hard: *88
+    soft: *89
+    experimental: *90
+- required_inputs:
+  - system_role
+  - brand_identity
+  - required_links
+  - subscription_management
+  optional_inputs:
+  - legal_text
+  - brand_links
+  - source_notes
+  content_limits:
+    primary_cta: 0
+    message: system-only; must not introduce a new campaign objective
+  layout_options:
+  - rule
+  - whitespace_band
+  - legal_block
+  - brand_close
+  asset_requirements:
+  - brand marks and legal copy must be current
+  - no decorative product reconstruction
+  copy_requirements:
+  - functional and source-bound
+  - no new sales claim
+  desktop_behavior:
+  - quiet closing or transition role
+  - spacing values are not frozen before Renderer
+  mobile_behavior:
+  - links stack without wrapping clickable labels
+  - legal text remains readable
+  hard_rules: &91
+  - R-ASSET-002
+  - R-COPY-002
+  - R-MODULE-001
+  - R-QA-001
+  soft_rules: &92
+  - R-MODULE-003
+  - R-COPY-003
+  - R-COPY-005
+  experimental_rules: &93
+  - R-MOBILE-001
+  - R-MOBILE-003
+  anti_patterns:
+  - footer missing
+  - new promotional message in footer
+  - fixed spacing presented as frozen rule
+  - Footer 缺失
+  - Footer 出现新主 CTA
+  compatible_previous_modules:
+  - ANY_NON_START_MODULE
+  compatible_next_modules:
+  - END
+  module_id: MOD-SYSTEM-BRAND-FOOTER
+  module_name: Brand Footer
+  module_category: system
+  purpose: 以品牌、必要链接与退订/管理入口结束邮件，不引入新 Campaign Message。
+  when_to_use:
+  - 所有 Final EDM
+  when_not_to_use:
+  - 从 Final 省略
+  - 新增促销
+  wireframe_variant: system_brand_footer
+  human_decision: Keep
+  used_by_templates:
+  - TPL-BRAND-A
+  - TPL-BRAND-B
+  - TPL-CATEGORY-A
+  - TPL-CATEGORY-B
+  - TPL-CONVERT-A
+  - TPL-CONVERT-B
+  - TPL-EDU-A
+  - TPL-EDU-B
+  - TPL-EDU-C
+  - TPL-LAUNCH-A
+  - TPL-LAUNCH-B
+  - TPL-LAUNCH-C
+  - TPL-PROMO-A
+  - TPL-PROMO-B
+  - TPL-PROMO-C
+  applicable_rules:
+    hard: *91
+    soft: *92
+    experimental: *93
+phase: Phase 3 Closed
+frozen_on: '2026-08-19'
+supersedes: design_system/modules.yaml
+human_decision_source: research/phase3_design_system_human_decisions.csv
+human_decision_summary:
+  Keep: 58
+rule_inheritance:
+  standard: standards/edm_design_rules_v1.0.yaml
+  hard_rules:
+  - R-BRAND-001
+  - R-WEIGHT-001
+  - R-PRODUCT-001
+  - R-ASSET-001
+  - R-ASSET-002
+  - R-AI-001
+  - R-AI-002
+  - R-CLAIM-001
+  - R-CLAIM-002
+  - R-CTA-001
+  - R-CTA-004
+  - R-MODULE-001
+  - R-PROMO-002
+  - R-COPY-002
+  - R-DESKTOP-001
+  - R-EVIDENCE-001
+  - R-QA-001
+  - R-QA-002
+  soft_rules:
+  - R-HERO-001
+  - R-HERO-002
+  - R-DENSITY-001
+  - R-PROMO-001
+  - R-CTA-002
+  - R-COPY-001
+  - R-MESSAGE-002
+  - R-MESSAGE-003
+  - R-HERO-004
+  - R-COPY-003
+  - R-COPY-004
+  - R-PROMO-003
+  - R-MODULE-003
+  - R-MODULE-004
+  - R-CTA-005
+  - R-COPY-005
+  experimental_rules:
+  - R-HERO-003
+  - R-MOBILE-001
+  - R-MOBILE-002
+  - R-MOBILE-003
+  - R-CTA-003
+  experimental_enforcement: advisory_only

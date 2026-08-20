@@ -1,0 +1,484 @@
+version: 1.0.0
+generated_at: '2026-08-19T14:37:04+08:00'
+results:
+- test_case_id: GTC-001
+  name: Hub 3 新品价值先行
+  automated_case_status: PASS
+  production_status: BLOCKED
+  campaign_family: TF-LAUNCH
+  selected_template_id: TPL-LAUNCH-A
+  expected_template_id: TPL-LAUNCH-A
+  template_match: true
+  deterministic_repeat_match: true
+  unsafe_hard_rule_violations: []
+  blocking_conditions:
+  - PRODUCT_KNOWLEDGE_NOT_EXTERNAL_READY
+  - APPROVED_CLAIM_REQUIRED
+  - TEST_FIXTURE_NOT_PRODUCTION_ASSET
+  - CTA_FIXTURE_NOT_PRODUCTION_URL
+  soft_deviations: []
+  scores:
+    brief_completeness: 3
+    campaign_classification: 5
+    template_selection: 5
+    message_hierarchy: 4
+    module_composition: 5
+    copy_usability: 3
+    asset_safety: 5
+    rule_compliance: 5
+    overall: 4.38
+    scale: 1–5
+  structure_fingerprint: 0b6e161bbc38d1cf46e77cd37194ee0cc533108c6734be43139e44ca5e62d91d
+- test_case_id: GTC-002
+  name: Video Doorbell 痛点到新品解决方案
+  automated_case_status: PASS
+  production_status: BLOCKED
+  campaign_family: TF-LAUNCH
+  selected_template_id: TPL-LAUNCH-B
+  expected_template_id: TPL-LAUNCH-B
+  template_match: true
+  deterministic_repeat_match: true
+  unsafe_hard_rule_violations: []
+  blocking_conditions:
+  - PRODUCT_KNOWLEDGE_NOT_EXTERNAL_READY
+  - APPROVED_CLAIM_REQUIRED
+  - TEST_FIXTURE_NOT_PRODUCTION_ASSET
+  - CTA_FIXTURE_NOT_PRODUCTION_URL
+  soft_deviations: []
+  scores:
+    brief_completeness: 3
+    campaign_classification: 5
+    template_selection: 5
+    message_hierarchy: 4
+    module_composition: 5
+    copy_usability: 3
+    asset_safety: 5
+    rule_compliance: 5
+    overall: 4.38
+    scale: 1–5
+  structure_fingerprint: a60a6dbd41d664a1c62e0f06d133f8991870e62de426b28fe7f633a73fa33dcb
+- test_case_id: GTC-003
+  name: Battery Circulator Fan 场景型新品发布
+  automated_case_status: PASS
+  production_status: BLOCKED
+  campaign_family: TF-LAUNCH
+  selected_template_id: TPL-LAUNCH-C
+  expected_template_id: TPL-LAUNCH-C
+  template_match: true
+  deterministic_repeat_match: true
+  unsafe_hard_rule_violations: []
+  blocking_conditions:
+  - PRODUCT_KNOWLEDGE_NOT_EXTERNAL_READY
+  - APPROVED_CLAIM_REQUIRED
+  - TEST_FIXTURE_NOT_PRODUCTION_ASSET
+  - CTA_FIXTURE_NOT_PRODUCTION_URL
+  soft_deviations: []
+  scores:
+    brief_completeness: 3
+    campaign_classification: 5
+    template_selection: 5
+    message_hierarchy: 4
+    module_composition: 5
+    copy_usability: 3
+    asset_safety: 5
+    rule_compliance: 5
+    overall: 4.38
+    scale: 1–5
+  structure_fingerprint: 6ddab85157e56961d0fdce27eca242fda6d49768a01b677ce4dff57e2192105e
+- test_case_id: GTC-004
+  name: 夏季舒适家电主题促销
+  automated_case_status: PASS
+  production_status: BLOCKED
+  campaign_family: TF-PROMOTION
+  selected_template_id: TPL-PROMO-A
+  expected_template_id: TPL-PROMO-A
+  template_match: true
+  deterministic_repeat_match: true
+  unsafe_hard_rule_violations: []
+  blocking_conditions:
+  - PRODUCT_KNOWLEDGE_NOT_EXTERNAL_READY
+  - APPROVED_CLAIM_REQUIRED
+  - CURRENT_PRICE_REQUIRED
+  - TEST_FIXTURE_NOT_PRODUCTION_ASSET
+  - CTA_FIXTURE_NOT_PRODUCTION_URL
+  soft_deviations: []
+  scores:
+    brief_completeness: 3
+    campaign_classification: 5
+    template_selection: 5
+    message_hierarchy: 4
+    module_composition: 5
+    copy_usability: 3
+    asset_safety: 5
+    rule_compliance: 5
+    overall: 4.38
+    scale: 1–5
+  structure_fingerprint: 3aadfe698407d386fed527294dcfc53bfa6e91af27a9495542a801044347d5f3
+- test_case_id: GTC-005
+  name: Robot Vacuum 多 SKU 优惠浏览
+  automated_case_status: PASS
+  production_status: BLOCKED
+  campaign_family: TF-PROMOTION
+  selected_template_id: TPL-PROMO-B
+  expected_template_id: TPL-PROMO-B
+  template_match: true
+  deterministic_repeat_match: true
+  unsafe_hard_rule_violations: []
+  blocking_conditions:
+  - PRODUCT_KNOWLEDGE_NOT_EXTERNAL_READY
+  - APPROVED_CLAIM_REQUIRED
+  - CURRENT_PRICE_REQUIRED
+  - TEST_FIXTURE_NOT_PRODUCTION_ASSET
+  - CTA_FIXTURE_NOT_PRODUCTION_URL
+  soft_deviations: []
+  scores:
+    brief_completeness: 3
+    campaign_classification: 5
+    template_selection: 5
+    message_hierarchy: 4
+    module_composition: 5
+    copy_usability: 3
+    asset_safety: 5
+    rule_compliance: 5
+    overall: 4.38
+    scale: 1–5
+  structure_fingerprint: fad2e48494dbea625754967b548bb528a1b2893918f48b7c03044fc6f879a745
+- test_case_id: GTC-006
+  name: 已验证截止的 Last Chance
+  automated_case_status: PASS
+  production_status: BLOCKED
+  campaign_family: TF-PROMOTION
+  selected_template_id: TPL-PROMO-C
+  expected_template_id: TPL-PROMO-C
+  template_match: true
+  deterministic_repeat_match: true
+  unsafe_hard_rule_violations: []
+  blocking_conditions:
+  - PRODUCT_KNOWLEDGE_NOT_EXTERNAL_READY
+  - APPROVED_CLAIM_REQUIRED
+  - CURRENT_PRICE_REQUIRED
+  - TEST_FIXTURE_NOT_PRODUCTION_ASSET
+  - CTA_FIXTURE_NOT_PRODUCTION_URL
+  soft_deviations: []
+  scores:
+    brief_completeness: 3
+    campaign_classification: 5
+    template_selection: 5
+    message_hierarchy: 4
+    module_composition: 5
+    copy_usability: 3
+    asset_safety: 5
+    rule_compliance: 5
+    overall: 4.38
+    scale: 1–5
+  structure_fingerprint: 3a579f4c2ef0840bccbf2be43685cdd508fbbe4d31a23186cff55ab63a2768ea
+- test_case_id: GTC-007
+  name: Curtain 3 单品信任转化
+  automated_case_status: PASS
+  production_status: BLOCKED
+  campaign_family: TF-CONVERSION
+  selected_template_id: TPL-CONVERT-A
+  expected_template_id: TPL-CONVERT-A
+  template_match: true
+  deterministic_repeat_match: true
+  unsafe_hard_rule_violations: []
+  blocking_conditions:
+  - PRODUCT_KNOWLEDGE_NOT_EXTERNAL_READY
+  - APPROVED_CLAIM_REQUIRED
+  - TEST_FIXTURE_NOT_PRODUCTION_ASSET
+  - CTA_FIXTURE_NOT_PRODUCTION_URL
+  soft_deviations: []
+  scores:
+    brief_completeness: 3
+    campaign_classification: 5
+    template_selection: 5
+    message_hierarchy: 4
+    module_composition: 5
+    copy_usability: 3
+    asset_safety: 5
+    rule_compliance: 5
+    overall: 4.38
+    scale: 1–5
+  structure_fingerprint: a52ab5166e5cbc429ffa60f9a58bfb82ac219b1a6db81c933e7691af357fdee4
+- test_case_id: GTC-008
+  name: K10+ Pro Combo 单品优惠转化
+  automated_case_status: PASS
+  production_status: BLOCKED
+  campaign_family: TF-CONVERSION
+  selected_template_id: TPL-CONVERT-B
+  expected_template_id: TPL-CONVERT-B
+  template_match: true
+  deterministic_repeat_match: true
+  unsafe_hard_rule_violations: []
+  blocking_conditions:
+  - PRODUCT_KNOWLEDGE_NOT_EXTERNAL_READY
+  - APPROVED_CLAIM_REQUIRED
+  - CURRENT_PRICE_REQUIRED
+  - TEST_FIXTURE_NOT_PRODUCTION_ASSET
+  - CTA_FIXTURE_NOT_PRODUCTION_URL
+  soft_deviations: []
+  scores:
+    brief_completeness: 3
+    campaign_classification: 5
+    template_selection: 5
+    message_hierarchy: 4
+    module_composition: 5
+    copy_usability: 3
+    asset_safety: 5
+    rule_compliance: 5
+    overall: 4.38
+    scale: 1–5
+  structure_fingerprint: 56735fd9f2e7c0f98b15bcc09f2429f8a1fdafd2ad2ef9aca2eae0e79395cf79
+- test_case_id: GTC-009
+  name: Video Doorbell 问题与解决方案教育
+  automated_case_status: PASS
+  production_status: BLOCKED
+  campaign_family: TF-EDUCATION
+  selected_template_id: TPL-EDU-A
+  expected_template_id: TPL-EDU-A
+  template_match: true
+  deterministic_repeat_match: true
+  unsafe_hard_rule_violations: []
+  blocking_conditions:
+  - PRODUCT_KNOWLEDGE_NOT_EXTERNAL_READY
+  - APPROVED_CLAIM_REQUIRED
+  - TEST_FIXTURE_NOT_PRODUCTION_ASSET
+  - CTA_FIXTURE_NOT_PRODUCTION_URL
+  soft_deviations: []
+  scores:
+    brief_completeness: 3
+    campaign_classification: 5
+    template_selection: 5
+    message_hierarchy: 4
+    module_composition: 5
+    copy_usability: 3
+    asset_safety: 5
+    rule_compliance: 5
+    overall: 4.38
+    scale: 1–5
+  structure_fingerprint: ec486ded6b6d2c9eb4185d9aa8ff7a7f934587fd112273eb00ab09d7c6682825
+- test_case_id: GTC-010
+  name: Hub 3 机制与 UI 教育
+  automated_case_status: PASS
+  production_status: BLOCKED
+  campaign_family: TF-EDUCATION
+  selected_template_id: TPL-EDU-B
+  expected_template_id: TPL-EDU-B
+  template_match: true
+  deterministic_repeat_match: true
+  unsafe_hard_rule_violations: []
+  blocking_conditions:
+  - PRODUCT_KNOWLEDGE_NOT_EXTERNAL_READY
+  - APPROVED_CLAIM_REQUIRED
+  - TEST_FIXTURE_NOT_PRODUCTION_ASSET
+  - CTA_FIXTURE_NOT_PRODUCTION_URL
+  soft_deviations: []
+  scores:
+    brief_completeness: 3
+    campaign_classification: 5
+    template_selection: 5
+    message_hierarchy: 4
+    module_composition: 5
+    copy_usability: 3
+    asset_safety: 5
+    rule_compliance: 5
+    overall: 4.38
+    scale: 1–5
+  structure_fingerprint: d362edbf221eaed37f459a84195e1c6cc9d1fc9615986b11aa2b95eba3491568
+- test_case_id: GTC-011
+  name: Robot Vacuum 选择框架教育
+  automated_case_status: PASS
+  production_status: BLOCKED
+  campaign_family: TF-EDUCATION
+  selected_template_id: TPL-EDU-C
+  expected_template_id: TPL-EDU-C
+  template_match: true
+  deterministic_repeat_match: true
+  unsafe_hard_rule_violations: []
+  blocking_conditions:
+  - PRODUCT_KNOWLEDGE_NOT_EXTERNAL_READY
+  - APPROVED_CLAIM_REQUIRED
+  - TEST_FIXTURE_NOT_PRODUCTION_ASSET
+  - CTA_FIXTURE_NOT_PRODUCTION_URL
+  soft_deviations: []
+  scores:
+    brief_completeness: 3
+    campaign_classification: 5
+    template_selection: 5
+    message_hierarchy: 4
+    module_composition: 5
+    copy_usability: 3
+    asset_safety: 5
+    rule_compliance: 5
+    overall: 4.38
+    scale: 1–5
+  structure_fingerprint: d9d0ba4666e64dcf8b2690c4019075d64bfc283c550e64937c80ea3ed0e6d8f6
+- test_case_id: GTC-012
+  name: Security 产品分类发现
+  automated_case_status: PASS
+  production_status: BLOCKED
+  campaign_family: TF-CATEGORY
+  selected_template_id: TPL-CATEGORY-A
+  expected_template_id: TPL-CATEGORY-A
+  template_match: true
+  deterministic_repeat_match: true
+  unsafe_hard_rule_violations: []
+  blocking_conditions:
+  - PRODUCT_KNOWLEDGE_NOT_EXTERNAL_READY
+  - APPROVED_CLAIM_REQUIRED
+  - TEST_FIXTURE_NOT_PRODUCTION_ASSET
+  - CTA_FIXTURE_NOT_PRODUCTION_URL
+  soft_deviations: []
+  scores:
+    brief_completeness: 3
+    campaign_classification: 5
+    template_selection: 5
+    message_hierarchy: 4
+    module_composition: 5
+    copy_usability: 3
+    asset_safety: 5
+    rule_compliance: 5
+    overall: 4.38
+    scale: 1–5
+  structure_fingerprint: 2b8ea8304836a05e33a8d9094deead955c65ccf042e209ac747556696890dad5
+- test_case_id: GTC-013
+  name: Robot Vacuum 当前 SKU 选择
+  automated_case_status: PASS
+  production_status: BLOCKED
+  campaign_family: TF-CATEGORY
+  selected_template_id: TPL-CATEGORY-B
+  expected_template_id: TPL-CATEGORY-B
+  template_match: true
+  deterministic_repeat_match: true
+  unsafe_hard_rule_violations: []
+  blocking_conditions:
+  - PRODUCT_KNOWLEDGE_NOT_EXTERNAL_READY
+  - APPROVED_CLAIM_REQUIRED
+  - TEST_FIXTURE_NOT_PRODUCTION_ASSET
+  - CTA_FIXTURE_NOT_PRODUCTION_URL
+  soft_deviations: []
+  scores:
+    brief_completeness: 3
+    campaign_classification: 5
+    template_selection: 5
+    message_hierarchy: 4
+    module_composition: 5
+    copy_usability: 3
+    asset_safety: 5
+    rule_compliance: 5
+    overall: 4.38
+    scale: 1–5
+  structure_fingerprint: 2459cb62b7936ed941ca935da60f25d1749491294d1a25f23d8b091ce3974619
+- test_case_id: GTC-014
+  name: SwitchBot 品牌观点故事
+  automated_case_status: PASS
+  production_status: BLOCKED
+  campaign_family: TF-BRAND
+  selected_template_id: TPL-BRAND-A
+  expected_template_id: TPL-BRAND-A
+  template_match: true
+  deterministic_repeat_match: true
+  unsafe_hard_rule_violations: []
+  blocking_conditions:
+  - TEST_FIXTURE_NOT_PRODUCTION_ASSET
+  - CTA_FIXTURE_NOT_PRODUCTION_URL
+  soft_deviations: []
+  scores:
+    brief_completeness: 3
+    campaign_classification: 5
+    template_selection: 5
+    message_hierarchy: 4
+    module_composition: 5
+    copy_usability: 3
+    asset_safety: 5
+    rule_compliance: 5
+    overall: 4.38
+    scale: 1–5
+  structure_fingerprint: 52ad41cac3a9f3efd5c32ed50d9653beeb51018eb9b50d6d21bb5bea4dc520c5
+- test_case_id: GTC-015
+  name: SwitchBot 生态关系故事
+  automated_case_status: PASS
+  production_status: BLOCKED
+  campaign_family: TF-BRAND
+  selected_template_id: TPL-BRAND-B
+  expected_template_id: TPL-BRAND-B
+  template_match: true
+  deterministic_repeat_match: true
+  unsafe_hard_rule_violations: []
+  blocking_conditions:
+  - PRODUCT_KNOWLEDGE_NOT_EXTERNAL_READY
+  - APPROVED_CLAIM_REQUIRED
+  - TEST_FIXTURE_NOT_PRODUCTION_ASSET
+  - CTA_FIXTURE_NOT_PRODUCTION_URL
+  soft_deviations: []
+  scores:
+    brief_completeness: 3
+    campaign_classification: 5
+    template_selection: 5
+    message_hierarchy: 4
+    module_composition: 5
+    copy_usability: 3
+    asset_safety: 5
+    rule_compliance: 5
+    overall: 4.38
+    scale: 1–5
+  structure_fingerprint: '0101079101421fc58cb1085542713d5371dfa149313bd4646fc04d9697e86a85'
+- test_case_id: GTC-016
+  name: Hub 3 新品发布但缺少产品主素材
+  automated_case_status: PASS
+  production_status: BLOCKED
+  campaign_family: TF-LAUNCH
+  selected_template_id: 
+  expected_template_id: 
+  template_match: true
+  deterministic_repeat_match: true
+  unsafe_hard_rule_violations: []
+  blocking_conditions:
+  - PRODUCT_KNOWLEDGE_NOT_EXTERNAL_READY
+  - APPROVED_CLAIM_REQUIRED
+  - ASSET_PROVENANCE_MISSING
+  - REQUIRED_INPUT_UNRESOLVED
+  - CTA_FIXTURE_NOT_PRODUCTION_URL
+  soft_deviations: []
+  scores:
+    brief_completeness: 3
+    campaign_classification: 5
+    template_selection: 5
+    message_hierarchy: 4
+    module_composition: 5
+    copy_usability: 1
+    asset_safety: 5
+    rule_compliance: 5
+    overall: 4.13
+    scale: 1–5
+  structure_fingerprint: 4413f4e9aa0632ae181f72733042b5a8281fccc63d427d7c6b2f4987723014e1
+- test_case_id: GTC-017
+  name: 教育任务缺 Promotion、Period 与 CTA Destination
+  automated_case_status: PASS
+  production_status: BLOCKED
+  campaign_family: TF-EDUCATION
+  selected_template_id: TPL-EDU-A
+  expected_template_id: TPL-EDU-A
+  template_match: true
+  deterministic_repeat_match: true
+  unsafe_hard_rule_violations: []
+  blocking_conditions:
+  - REQUIRED_INPUT_UNRESOLVED
+  - PROMOTION_FACT_UNVERIFIED
+  - CTA_DESTINATION_INVALID
+  - PRODUCT_KNOWLEDGE_NOT_EXTERNAL_READY
+  - APPROVED_CLAIM_REQUIRED
+  - TEST_FIXTURE_NOT_PRODUCTION_ASSET
+  soft_deviations: []
+  scores:
+    brief_completeness: 1
+    campaign_classification: 5
+    template_selection: 5
+    message_hierarchy: 4
+    module_composition: 5
+    copy_usability: 2
+    asset_safety: 5
+    rule_compliance: 5
+    overall: 4.0
+    scale: 1–5
+  structure_fingerprint: 1e3210c584538c04445281c026303c1de9e150e9af4918d65810827873469cff

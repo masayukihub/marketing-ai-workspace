@@ -1,0 +1,76 @@
+{
+  "template_id": "P-LIFESTYLE-FULL",
+  "family": "product_image",
+  "name": "Lifestyle Full",
+  "html": {
+    "component": "product-lifestyle",
+    "class": "tpl-p-lifestyle-full"
+  },
+  "css": {
+    "layout": "full-bleed",
+    "overlay": "left-bottom-gradient"
+  },
+  "svg": {
+    "renderer": "renderProductLifestyleFull",
+    "view_box": "0 0 2000 2000"
+  },
+  "grid": {
+    "columns": 12,
+    "rows": 12,
+    "gutter_px": 40
+  },
+  "product_area": {
+    "columns": "7/13",
+    "rows": "4/12",
+    "fit": "contain",
+    "source": "official layer"
+  },
+  "text_area": {
+    "columns": "1/7",
+    "rows": "7/12",
+    "align": "left"
+  },
+  "safe_area": {
+    "desktop_px": 120,
+    "mobile_percent": 10
+  },
+  "font_size": {
+    "headline_px": 82,
+    "subcopy_px": 36
+  },
+  "headline_length": {
+    "preferred": 17,
+    "max": 28
+  },
+  "sub_copy_length": {
+    "preferred": 48,
+    "max": 78
+  },
+  "desktop_rules": [
+    "believable Japanese home",
+    "scene supports rather than hides product",
+    "one user moment"
+  ],
+  "mobile_rules": [
+    "keep subject and text in central 80 percent",
+    "dark overlay must preserve contrast"
+  ],
+  "historical_reference": [
+    "REF-SB-K11",
+    "REF-AMZ-PLUG-MINI"
+  ],
+  "library_version": "2026.08-v4",
+  "source_policy": {
+    "product_layer": "User-provided official product asset only for formal launch",
+    "scene_layer": "Official or licensed scene, then AI background without product, then placeholder",
+    "graphic_layer": "Programmatic HTML/CSS/SVG only",
+    "prohibited_ai": [
+      "SwitchBot product body",
+      "logo",
+      "Japanese text",
+      "comparison table",
+      "technical diagram text",
+      "UI"
+    ]
+  }
+}

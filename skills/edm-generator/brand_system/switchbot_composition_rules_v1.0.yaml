@@ -1,0 +1,180 @@
+version: 1.0.0
+status: Brand calibration layer
+scope:
+  brand: SwitchBot
+  market: Japan
+  render_mode: switchbot_brand
+  frozen_dependencies:
+    - standards/edm_design_rules_v1.0.yaml
+    - design_system/templates_v1.0.yaml
+    - design_system/modules_v1.0.yaml
+  mutation_policy: Additive only. This file does not overwrite Frozen Design Standard or Design System v1.0.
+
+evidence_priority:
+  order:
+    - Tier A Approved SwitchBot EDM
+    - Tier B Usable SwitchBot EDM
+    - Tier C Japan market reference
+    - Tier D English external reference
+  rule: Tier C or Tier D may supplement localization, layout, module or hero ideas but cannot override Tier A SwitchBot brand structure, rhythm or product treatment.
+
+length_governance:
+  formula: campaign_complexity × product_complexity × information_requirement
+  unit: core modules; header and internal validation notice are excluded; footer is included
+  ranges_are_soft: true
+  compact:
+    soft_range: [5, 7]
+    use_when:
+      - One familiar product or one verified deadline message
+      - Low information requirement
+      - No mechanism, compatibility or education burden
+  standard:
+    soft_range: [8, 11]
+    use_when:
+      - Single product with more than one purchase question
+      - Product education with verified UI or detail evidence
+      - Truth or asset gaps prevent a justified long form
+  long_form:
+    soft_range: [12, 18]
+    use_when:
+      - High product complexity
+      - Multi-product/theme campaigns with distinct product groups
+      - Product launch or education requiring mechanism, scenario, compatibility, proof or service
+    anti_padding_rule: Every added module must introduce a distinct decision question, verified fact, asset, scenario, proof item or commerce task.
+
+product_complexity:
+  levels:
+    LOW:
+      indicators:
+        - Familiar product category
+        - Few setup or compatibility questions
+        - One primary use case
+      default_length: compact
+    MEDIUM:
+      indicators:
+        - Multiple differentiators or use cases
+        - Moderate setup, comparison or purchase education
+      default_length: standard
+    HIGH:
+      indicators:
+        - Complex smart hardware
+        - Mechanism, installation, compatibility, app/device UI, ecosystem or service explanation required
+        - Multiple credible user scenarios or objections
+      default_length: long_form
+      required_content_questions:
+        - What is it and why does it matter?
+        - How does the core mechanism work?
+        - Where and by whom is it used?
+        - What must be confirmed before purchase?
+        - What proof or service is verified?
+  downgrade_condition: If verified truth or official assets do not support the target depth, cap the render at Standard and report missing inputs; never fill the gap with invented or repeated content.
+
+long_form_allowed:
+  enabled: true
+  decision_inputs:
+    - campaign_type
+    - campaign_objective
+    - product_complexity
+    - verified_information_requirement
+    - official_asset_coverage
+  forbidden_reasons:
+    - Length target alone
+    - Repeating one claim with different wording
+    - Adding empty spacers or duplicate CTA bands
+
+feature_depth:
+  low_complexity: 1 primary USP plus 1–2 supporting facts
+  medium_complexity: 1 primary USP plus 2–4 distinct feature/use-case modules
+  high_complexity: 1 primary USP plus 3–6 distinct mechanism, feature, scenario, detail or compatibility modules when verified
+  rule: Feature modules answer different consumer questions and may not restate the same benefit.
+
+product_visual_frequency:
+  standard_target: Product or official UI evidence in at least 3 distinct content stages
+  long_form_target: Product or official UI evidence in 4–8 distinct content stages, adjusted for campaign type
+  placement_roles:
+    - Hero identity
+    - Feature or mechanism evidence
+    - Lifestyle/use-case confirmation
+    - Product/detail re-entry before commerce
+  rule: Reappearance must serve a new role; duplicate asset use without a new decision purpose is not a valid module.
+
+lifestyle_frequency:
+  default: 1–3 distinct beats for product-led Standard; 2–5 for justified Long-form
+  exception: Promotion catalogue and last-chance campaigns may be product-only when Tier A structure supports it.
+  asset_gate: Use only official lifestyle assets or approved AI environment support with untouched official product pixels.
+
+detail_frequency:
+  medium_complexity: 1–2 verified detail/UI modules
+  high_complexity: 2–4 verified mechanism, installation, compatibility, UI or close-up modules
+  rule: Do not crop, reconstruct or redraw product/UI to manufacture missing detail evidence.
+
+proof_requirement:
+  default: At least one verified proof, comparison, review, award or factual product-detail block when available
+  unavailable_behavior: Omit and record MISSING; proof absence blocks production confidence but does not authorize invention.
+
+service_requirement:
+  default: Add service/warranty/delivery/returns only when current market-specific evidence is verified.
+  unavailable_behavior: Omit from marketing copy and mark the production gap. An internal non-deliverable footer may state that the package is missing.
+
+footer_requirement:
+  required: true
+  depth: Campaign conditions/legal when applicable → service/channel links when verified → company/subscription closure
+  production_gate: Approved current footer/legal package required for external delivery.
+  anti_pattern: A single dark rectangle with a wordmark is not sufficient brand closure.
+
+cta_repeat_strategy:
+  compact: One primary close; hero CTA optional
+  standard: Hero or mid-course CTA plus final CTA when they follow different information stages
+  long_form: 2–5 action instances only when tied to distinct products, stages or destinations
+  rules:
+    - One primary objective remains dominant
+    - Repeated labels must not imply different destinations when the destination is identical
+    - Never add CTA modules only to increase length
+
+module_rhythm:
+  preferred_patterns:
+    product_led:
+      - Product identity
+      - Lifestyle or use-case relief
+      - Feature/mechanism
+      - Detail/UI evidence
+      - Scenario or objection
+      - Proof when verified
+      - Commerce/action
+      - Deep footer
+    education_led:
+      - Editorial or product hero
+      - Problem/context
+      - Product solution
+      - Core mechanism
+      - Feature/detail/UI
+      - Scenario
+      - FAQ/compatibility
+      - Proof/service when verified
+      - CTA
+      - Deep footer
+    promotion_led:
+      - Campaign hero
+      - Campaign value
+      - Hero product
+      - Distinct product groups
+      - Theme/ecosystem
+      - Offer reminder
+      - Trust/service when verified
+      - Final CTA
+      - Deep footer
+  constraints:
+    - Avoid more than two consecutive text-only modules
+    - After a dense information block, restore visual product or lifestyle evidence
+    - Product must not disappear for the entire middle third of a product-led EDM
+    - Footer begins only after the final campaign action is resolved
+
+renderer_tokens:
+  content_width_px: 600
+  product_presence: high
+  section_edges: straight; avoid generic rounded-card stacking
+  image_treatment: preserve official aspect ratio; prefer full-width or clearly staged product evidence
+  brand_accent: SwitchBot warm red/orange for action and campaign signals; campaign-specific colors remain secondary
+  rhythm: alternate image-led, explanation and action stages; do not use uniform card cadence
+  footer: deep structured closure, not a generic DTC footer band
+

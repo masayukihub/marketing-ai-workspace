@@ -1,0 +1,531 @@
+version: "0.1"
+generated_at: "2026-08-18"
+phase: "Phase 2 — Pattern Mining"
+status: "draft_standard_ready_for_human_review"
+scope:
+  generator_skill_implemented: false
+  templates_implemented: false
+  modules_implemented: false
+  renderer_implemented: false
+
+evidence:
+  weights:
+    tier_a: 1
+    tier_b: 2
+    tier_c: 3
+    tier_d: 4
+  usage:
+    tier_a: "SwitchBot brand, hierarchy, product focus, CTA, visual baseline"
+    tier_b: "acceptable SwitchBot variants; cannot override Tier A"
+    tier_c: "Japan localization, Japanese promotion/price/CTA, visual supplement"
+    tier_d: "layout, module, hero ideas only; cannot override Tier A"
+    reject: "anti-pattern only"
+    special_case: "case-specific reference; excluded from common baseline"
+  sample_counts:
+    tier_a: 18
+    tier_b: 4
+    tier_c: 27
+    tier_d: 40
+    reject: 4
+    special_case: 1
+  review_method:
+    direct_screenshot_review: 29
+    metadata_assisted_inference: 65
+    blocked_visuals:
+      - EXT_005
+    partial_visuals:
+      - SBG_003
+  confidence_values:
+    - High Confidence
+    - Medium Confidence
+    - Experimental
+
+brand:
+  primary_objectives_per_email:
+    value: 1
+    confidence: High Confidence
+  product_recognition_required:
+    value: true
+    confidence: High Confidence
+  value_before_price_except:
+    value:
+      - Promotion / Sale
+      - Countdown / Last Chance
+    confidence: High Confidence
+  traceable_assets_and_claims_required:
+    value: true
+    confidence: High Confidence
+  tier_d_may_override_tier_a:
+    value: false
+    confidence: High Confidence
+
+message:
+  primary_message:
+    recommended: 1
+    max: 1
+    confidence: High Confidence
+  primary_usp:
+    recommended: 1
+    max: 1
+    confidence: High Confidence
+  secondary_usp:
+    recommended_min: 2
+    recommended_max: 3
+    max: 3
+    confidence: High Confidence
+  feature:
+    recommended_min: 3
+    recommended_max: 6
+    max: 6
+    brand_story_category_experimental_max: 8
+    confidence: Medium Confidence
+  proof:
+    recommended_min: 1
+    recommended_max: 3
+    max: 4
+    claim_sensitive_min: 1
+    confidence: High Confidence
+  primary_cta_destinations:
+    recommended: 1
+    max: 2
+    confidence: High Confidence
+  cta_placements:
+    recommended_min: 2
+    recommended_max: 6
+    max: 8
+    max_8_only_for:
+      - Multi-product Promotion
+      - Countdown / Last Chance
+    confidence: Medium Confidence
+
+hero:
+  required:
+    value: true
+    confidence: High Confidence
+  primary_message_max:
+    value: 1
+    confidence: High Confidence
+  headline:
+    japanese_chars_recommended_min: 12
+    japanese_chars_recommended_max: 24
+    japanese_chars_max: 28
+    brand_story_chars_max: 32
+    lines_max: 2
+    brand_story_lines_max: 3
+    confidence: Medium Confidence
+  height_ratio:
+    recommended_min: 0.30
+    recommended_max: 0.42
+    measurement_status: approximate_visual_estimate
+    confidence: Medium Confidence
+  product_visual_ratio:
+    product_launch_min: 0.40
+    product_launch_max: 0.55
+    lifestyle_min: 0.35
+    lifestyle_max: 0.50
+    measurement_status: approximate_visual_estimate
+    confidence: Medium Confidence
+  cta:
+    recommended_for:
+      - Product Launch
+      - Promotion / Sale
+      - Single Product
+      - Countdown / Last Chance
+    may_follow_first_explanation_for:
+      - Product Education
+      - Brand Story
+    buttons_max: 2
+    two_buttons_require_distinct_destinations: true
+    confidence: Medium Confidence
+  promotion_tokens_emphasized_max:
+    value: 2
+    preferred_primary_count: 1
+    confidence: High Confidence
+  background:
+    must_preserve_product_recognition: true
+    ai_may_modify_product_form: false
+    confidence: High Confidence
+  types_by_campaign:
+    product_launch:
+      preferred: [product_center, lifestyle]
+      confidence: High Confidence
+    promotion:
+      preferred: [promotion, multi_product]
+      confidence: High Confidence
+    single_product:
+      preferred: [product_center, lifestyle]
+      confidence: High Confidence
+    category:
+      preferred: [lifestyle, multi_product]
+      confidence: Medium Confidence
+    product_education:
+      preferred: [split, lifestyle]
+      confidence: Medium Confidence
+    brand_story:
+      preferred: [lifestyle, typography]
+      confidence: Medium Confidence
+    last_chance:
+      preferred: [promotion]
+      confidence: High Confidence
+
+modules:
+  hero:
+    purpose: "define the single primary task"
+    required: true
+    content_limit:
+      primary_message: 1
+      primary_usp: 1
+      primary_cta_group: 1
+    confidence: High Confidence
+  problem:
+    purpose: "establish one consumer problem or up to two scenarios"
+    when_to_use: [Product Education, New Feature, themed campaigns]
+    scenario_max: 2
+    confidence: Medium Confidence
+  primary_usp:
+    purpose: "answer why this matters"
+    usp_max: 1
+    body_japanese_chars_min: 40
+    body_japanese_chars_max: 90
+    confidence: Medium Confidence
+  feature:
+    purpose: "explain concrete capabilities"
+    item_min: 3
+    item_max: 6
+    confidence: Medium Confidence
+  feature_icons:
+    purpose: "support quick scan of short parallel evidence"
+    item_min: 3
+    item_max: 6
+    icons_may_replace_real_product_or_ui: false
+    confidence: Medium Confidence
+  lifestyle:
+    purpose: "show the use result or context"
+    recognizable_product_or_effect_required: true
+    confidence: High Confidence
+  product_detail:
+    purpose: "prove structure, material, installation, sensor, or interface"
+    detail_segments_max: 3
+    official_asset_required: true
+    confidence: High Confidence
+  comparison:
+    purpose: "help a real product or model choice"
+    columns_min: 2
+    columns_max: 4
+    comparison_dimensions_min: 3
+    comparison_dimensions_max: 6
+    confidence: Medium Confidence
+  product_grid:
+    purpose: "browse multiple products"
+    desktop_columns_min: 2
+    desktop_columns_max: 3
+    mobile_columns_default: 1
+    mobile_columns_experimental_max: 2
+    card_order: [product_image, product_name, price, cta]
+    confidence: Medium Confidence
+  price:
+    purpose: "explain purchase cost"
+    allowed_elements_max:
+      msrp: 1
+      deal_price: 1
+      primary_discount: 1
+    confidence: High Confidence
+  coupon:
+    purpose: "explain an additional verified discount"
+    required_fields: [coupon_or_code, acquisition_or_use, condition, period]
+    confidence: High Confidence
+  review:
+    purpose: "provide traceable social proof"
+    quote_min: 1
+    quote_max: 3
+    source_required: true
+    confidence: High Confidence
+  award:
+    purpose: "provide licensed authority proof"
+    item_min: 1
+    item_max: 3
+    current_permission_required: true
+    confidence: High Confidence
+  faq:
+    purpose: "remove key purchase barriers"
+    item_min: 3
+    item_max: 5
+    allowed_in_hero: false
+    confidence: Medium Confidence
+  cta:
+    purpose: "state the next action"
+    primary_per_module_max: 1
+    destination_url_required: true
+    confidence: High Confidence
+  footer:
+    purpose: "legal, unsubscribe, and brand information"
+    required: true
+    may_compete_with_campaign_cta: false
+    confidence: High Confidence
+
+density:
+  low:
+    trigger_if_missing_at_least: 2
+    critical_elements:
+      - recognizable_product
+      - primary_usp
+      - proof
+      - primary_cta
+    or_body_modules_less_than: 4
+    output_allowed: false
+    confidence: High Confidence
+  recommended:
+    body_modules_min: 6
+    body_modules_max: 10
+    primary_message: 1
+    primary_usp: 1
+    secondary_usp_min: 2
+    secondary_usp_max: 3
+    feature_min: 3
+    feature_max: 6
+    proof_min: 1
+    proof_max: 3
+    cta_placements_min: 2
+    cta_placements_max: 6
+    confidence: Medium Confidence
+  high:
+    body_modules_min: 9
+    body_modules_max: 13
+    allowed_for:
+      - Multi-product / Category
+      - Brand Story
+      - Promotion / Sale
+    section_headers_required: true
+    confidence: Medium Confidence
+  overload:
+    trigger_count: 2
+    triggers:
+      primary_messages_min: 2
+      hero_equal_weight_selling_points_min: 4
+      equal_weight_promotion_tokens_min: 4
+      cta_destinations_min: 4
+      uninterrupted_japanese_body_chars_min: 121
+      product_grid_cycles_min: 3
+    output_allowed: false
+    confidence: Medium Confidence
+
+japanese_copy:
+  h1:
+    chars_min: 12
+    chars_max: 24
+    hard_max: 28
+    confidence: Medium Confidence
+  subheadline:
+    chars_min: 18
+    chars_max: 40
+    hard_max: 46
+    confidence: Medium Confidence
+  body_paragraph:
+    chars_min: 40
+    chars_max: 90
+    hard_max: 120
+    confidence: Medium Confidence
+  feature_title:
+    chars_min: 6
+    chars_max: 16
+    hard_max: 20
+    confidence: Medium Confidence
+  feature_body:
+    chars_min: 24
+    chars_max: 60
+    hard_max: 80
+    confidence: Medium Confidence
+  cta:
+    chars_min: 4
+    chars_max: 12
+    hard_max: 16
+    recommended:
+      - 詳しく見る
+      - 製品を見る
+      - ラインナップを見る
+      - 購入する
+      - 今すぐチェック
+      - Amazonで見る
+    forbidden_vague_only:
+      - こちら
+      - CLICK HERE
+    confidence: High Confidence
+  promotion_copy:
+    chars_min: 8
+    chars_max: 24
+    hard_max: 32
+    confidence: Medium Confidence
+  line_break:
+    preserve_tokens:
+      - product_name
+      - amount
+      - off_percent
+      - date
+      - cta_verb
+    confidence: High Confidence
+  english_usage:
+    default_allowed_for:
+      - brand_name
+      - official_product_name
+      - verified_technical_term
+    heavy_usage_default: false
+    confidence: Medium Confidence
+
+promotion:
+  priority:
+    - campaign_benefit_or_deal_price
+    - off_percent_or_discount_amount
+    - coupon
+    - msrp
+    - period_and_conditions
+  off_percent_and_discount_amount_both_primary: false
+  coupon_as_independent_module: true
+  period_readable_required: true
+  urgency_requires_verified_condition: true
+  same_sku_promotion_repetition_max: 2
+  last_chance_same_sku_repetition_max: 3
+  hero_emphasized_tokens_max: 2
+  confidence: High Confidence
+
+product:
+  ai_redraw_allowed: false
+  ai_redraw_rule_text: "AI 不得重绘产品本体。"
+  official_asset_required: true
+  allowed_body_sources:
+    - official_transparent_png
+    - official_product_photo
+    - verified_packaging_or_accessory_image
+    - verified_app_ui
+  missing_asset_status: Blocked
+  ai_background_allowed_for_environment_only: true
+  ai_background_may_change_product:
+    shape: false
+    color: false
+    scale: false
+    button: false
+    sensor: false
+    port: false
+    accessory: false
+    installation_relationship: false
+  app_ui_must_match_market_and_current_version: true
+  accessory_must_be_distinguished_from_product_body: true
+  confidence: High Confidence
+
+cta:
+  primary_per_module_max: 1
+  hero_buttons_max: 2
+  two_hero_buttons_require_distinct_destinations: true
+  destinations_default_min: 1
+  destinations_default_max: 2
+  placements_by_campaign:
+    product_launch: { min: 2, max: 4 }
+    single_product: { min: 2, max: 4 }
+    product_education: { min: 2, max: 3 }
+    multi_product_promotion: { min: 4, max: 8 }
+  marketplace_destination_must_be_named: true
+  button:
+    desktop_width_px_min: 200
+    desktop_width_px_max: 320
+    height_px_min: 44
+    mobile_width: "100% of content width"
+    font_px_min: 16
+    adjacent_gap_px_min: 12
+  confidence: High Confidence
+
+responsive:
+  desktop_width_px: 600
+  mobile_preview_width_px: 390
+  two_column_mobile_strategy: stack_by_semantic_order
+  product_grid:
+    desktop_columns_min: 2
+    desktop_columns_max: 3
+    mobile_default_columns: 1
+    mobile_experimental_columns_max: 2
+  typography:
+    h1_desktop_px_min: 28
+    h1_desktop_px_max: 36
+    h1_mobile_px_min: 24
+    h1_mobile_px_max: 30
+    body_desktop_px_min: 16
+    body_desktop_px_max: 18
+    body_mobile_px_min: 16
+  cta_height_px_min: 44
+  mobile_may_shrink_body_below_16px: false
+  hero_must_preserve_product_and_title: true
+  product_body_may_be_destructively_cropped: false
+  paired_mobile_evidence_status: Experimental
+
+anti_patterns:
+  - id: AP-01
+    do_not: "output a production EDM without hero, primary message, primary CTA, or loaded critical images"
+    confidence: High Confidence
+  - id: AP-02
+    do_not: "place more than one equal-weight primary message in hero"
+    confidence: High Confidence
+  - id: AP-03
+    do_not: "place procedural steps, FAQ, compatibility wall, or long operational paragraphs in hero"
+    confidence: High Confidence
+  - id: AP-04
+    do_not: "use placeholder, AI-redrawn, or unverified product body or UI"
+    confidence: High Confidence
+  - id: AP-05
+    do_not: "use lifestyle imagery as the only product evidence"
+    confidence: High Confidence
+  - id: AP-06
+    do_not: "give four or more promotion numbers or badges equal top visual weight"
+    confidence: Medium Confidence
+  - id: AP-07
+    do_not: "use duplicate-meaning primary CTAs or an unnamed destination"
+    confidence: High Confidence
+  - id: AP-08
+    do_not: "treat unrendered blank space or gallery chrome as a valid EDM pattern"
+    confidence: High Confidence
+  - id: AP-09
+    do_not: "allow Tier D English copy, density, promotion, or CTA to override Tier A"
+    confidence: High Confidence
+  - id: AP-10
+    do_not: "generalize SBG_005 sale density or SBG_017 premium art direction into the common baseline"
+    confidence: High Confidence
+
+template_candidates:
+  implementation_status: proposed_only
+  items:
+    - id: T1_single_product_launch
+      anchors: [SBG_019, SBG_016]
+    - id: T2_theme_promotion
+      anchors: [SBG_006, SBG_005]
+      constraint: "SBG_005 only for verified Last Chance"
+    - id: T3_product_education
+      anchors: [SBG_003, SBG_016]
+      constraint: "SBG_003 must be recaptured before geometry use"
+    - id: T4_category_brand_story
+      anchors: [SBG_020]
+    - id: T5_ecosystem_multi_product
+      anchors: [SBG_001]
+
+module_candidates:
+  implementation_status: proposed_only
+  items:
+    - hero_product_focus
+    - hero_lifestyle
+    - hero_promotion
+    - problem_scenario
+    - primary_usp_story
+    - feature_split
+    - feature_icons
+    - product_detail
+    - comparison_table
+    - product_grid
+    - price_card
+    - coupon_card
+    - proof_review
+    - cta_band
+    - legal_footer
+
+open_decisions:
+  - "Resolve SBL_001 Approved vs all scores=1 and low-information reason."
+  - "Recapture SBG_003 before using geometry or module-frequency evidence."
+  - "Collect SwitchBot/Japan paired desktop-mobile screenshots before hardening responsive rules."
+  - "Run text-level annotation across 20+ Japanese samples before hardening copy-length ranges."
+  - "Replace approximate hero/product ratios with renderer or pixel measurement."
+  - "Recapture EXT_005 before Tier D visual use."

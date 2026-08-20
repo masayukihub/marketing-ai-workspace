@@ -1,0 +1,49 @@
+schema_version: 2.0.0
+case_id: PILOT-B-DAILY-STATION
+product_id: daily_station
+campaign_name: スマートデイリーステーション Product Education Pilot
+campaign_type: Product Education
+objective: Product mechanism understanding
+promotion_type: none
+period:
+  applicable: false
+  start: null
+  end: null
+  status: VERIFIED
+  source: production_pipeline/inputs/pilot_b_daily_station.yaml
+cta:
+  copy: 製品を詳しく見る
+  url: https://www.switchbot.jp/products/switchbot-weather-station
+  status: VERIFIED
+  source: production_pipeline/inputs/pilot_b_daily_station.yaml and SwitchBot Japan official store
+  last_verified: 2026-08-19
+  verification_time: 2026-08-19T00:00:00+09:00
+campaign_disclaimer:
+  applicable: false
+  value: null
+  status: VERIFIED
+  source: No promotion, price, coupon or deadline is used.
+approval:
+  campaign_and_cta:
+    status: VERIFIED_FROM_INPUT_AND_OFFICIAL_DESTINATION
+    resolution: AUTO_VERIFY
+    verified_by: Phase 8 campaign truth resolver
+    verified_at: 2026-08-20
+  final_copy:
+    status: COPY_PRODUCTION_CANDIDATE
+    source: production_output/PILOT-B-DAILY-STATION/final_copy.md
+    approved_by: null
+    approved_at: null
+    auto_qa_source: production_output/PILOT-B-DAILY-STATION/copy_auto_qa.yaml
+  final_human_delivery:
+    status: MISSING
+    approved_by: null
+    approved_at: null
+last_verified: 2026-08-19
+visual_delivery:
+  status: DEFERRED_NOT_REGENERATED_IN_PHASE8
+  final_human_review: NOT_REQUIRED_YET
+send_boundary:
+  content_approved: false
+  esp_ready: false
+  production_ready: false

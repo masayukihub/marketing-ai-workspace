@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0",
+  "principle": "A+ continues the decision story after Gallery; it should not replay the same seven images in a longer format.",
+  "sequences": [
+    {
+      "sequence_id": "APLUS-CATEGORY-WORKFLOW",
+      "best_for": ["AI hardware", "new category", "workflow product"],
+      "reference_asins": ["B0FQ5J7HFQ"],
+      "modules": ["Category Hero", "Problem and Job", "Input or Setup", "Transformation Mechanism", "Output or Benefit", "Two Real Scenarios", "Trust and Conditions", "Comparison or FAQ"],
+      "rhythm": "Light educational chapters alternate with product and real scenarios; only one high-density workflow module appears at a time."
+    },
+    {
+      "sequence_id": "APLUS-PERFORMANCE-SYSTEM",
+      "best_for": ["robotics", "cleaning appliance", "multi-part system"],
+      "reference_asins": ["B0F66LKTV6", "B0FX81HWQ3"],
+      "modules": ["System Hero", "Core Mechanism", "Performance Proof", "Environment Adaptation", "Maintenance Automation", "Control or Ecosystem", "Model Comparison", "FAQ or Conditions"],
+      "rhythm": "Mechanism and scenario alternate; avoid four consecutive dense navigation carousels."
+    },
+    {
+      "sequence_id": "APLUS-AUDIENCE-RELIEF",
+      "best_for": ["family", "pet", "wellness", "specific household problem"],
+      "reference_asins": ["B08131HFSG"],
+      "modules": ["Audience Hero", "Problem Education", "Mechanism Proof", "Relief Scenario", "Daily Fit", "Quiet or Safety Detail", "Desired-life Closure", "Comparison or FAQ"],
+      "rhythm": "Mostly light and warm, with one darker or quieter lifestyle interval to prevent monotony."
+    },
+    {
+      "sequence_id": "APLUS-TECHNOLOGY-PROOF",
+      "best_for": ["premium electronics", "invisible technology", "enthusiast comparison"],
+      "reference_asins": ["B0GK1QFGF6", "B0FWQY84L6"],
+      "modules": ["Value Hero", "Technology Concept", "Primary Mechanism", "Measured or Observable Proof", "Human-use Scene", "Everyday Utility", "Comparison", "FAQ"],
+      "rhythm": "Do not place more than two dense technical modules consecutively; use a human scene or light field as a reset."
+    },
+    {
+      "sequence_id": "APLUS-JAPAN-FIT-CONFIDENCE",
+      "best_for": ["installation-sensitive smart home", "high-consideration device"],
+      "reference_asins": ["B0FX81HWQ3", "B08131HFSG"],
+      "modules": ["Japan-use Hero", "Core Benefit", "Mechanism Proof", "Real Home Scenario", "Installation and Size", "Compatibility or Ecosystem", "Support and Privacy", "FAQ"],
+      "rhythm": "Start human and local, place technical proof in the middle, then end with explicit fit and ownership conditions."
+    }
+  ]
+}

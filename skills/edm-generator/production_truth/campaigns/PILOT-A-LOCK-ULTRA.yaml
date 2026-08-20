@@ -1,0 +1,23 @@
+schema_version: 1.0.0
+case_id: PILOT-A-LOCK-ULTRA
+campaign:
+  name: {value: ロックUltra 玄関防犯 Product Conversion Pilot, status: VERIFIED, source: Phase 6 task}
+  theme: {value: 玄関防犯, status: VERIFIED, source: one-shot input}
+  objective: {value: official_store_product_discovery, status: VERIFIED, source: one-shot input}
+  start: {value: null, status: NOT_REQUIRED, source: evergreen campaign}
+  end: {value: null, status: NOT_REQUIRED, source: evergreen campaign}
+promotion:
+  type: {value: none, status: NOT_REQUIRED, source: one-shot input}
+  msrp: {value: null, status: NOT_REQUIRED, source: no price in campaign}
+  deal_price: {value: null, status: NOT_REQUIRED, source: no price in campaign}
+  discount: {value: null, status: NOT_REQUIRED, source: no promotion}
+  coupon: {value: null, status: NOT_REQUIRED, source: no promotion}
+cta:
+  copy: {value: 製品を詳しく見る, status: VERIFIED, source: one-shot input, approval_scope: internal_renderer_pilot_only}
+  url: {value: "https://www.switchbot.jp/products/switchbot-lock-ultra", status: VERIFIED, source: SwitchBot Japan official store, verified_on: 2026-08-19}
+legal:
+  disclaimer: {value: null, status: NOT_REQUIRED, source: no price, discount, coupon or period}
+verification:
+  campaign_truth_gate: {value: PASS, status: VERIFIED, source: production_truth/campaign_truth_schema.yaml#evergreen_no_promotion_requires}
+  external_campaign_ready: {value: false, status: UNVERIFIED, source: No formal campaign owner / send approval}
+

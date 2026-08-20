@@ -1,0 +1,42 @@
+import assert from "node:assert/strict";
+import fs from "node:fs";
+import crypto from "node:crypto";
+import { buildArtDirectionSpec, validateArtDirectionSpec } from "../scripts/art_direction_system.mjs";
+
+const specPath=process.argv[2];
+if(!specPath) throw new Error("Pass PRODUCT_PAGE_SPEC.json path");
+const raw=fs.readFileSync(specPath,"utf8");
+const before=crypto.createHash("sha256").update(raw).digest("hex");
+const spec=JSON.parse(raw);const art=buildArtDirectionSpec(spec);const validation=validateArtDirectionSpec(art);
+assert.equal(validation.status,"PASS");
+assert.equal(validation.record_count,23);
+assert.equal(art.gallery.length,7);
+assert.equal(art.aplus_modules.length,7);
+assert.equal(art.aplus_modules.flatMap(module=>module.units).length,16);
+assert.equal(art.validation.new_primitive_count,0);
+assert.equal(art.validation.new_reference_count,0);
+assert.equal(art.validation.new_gate_count,0);
+assert.equal(art.product_context.product.name,spec.product.name);
+assert.equal(art.product_context.category_id,"smart-lock");
+assert.equal(art.semantic_contamination.status,"PASS");
+assert.equal(art.semantic_contamination.hit_count,0);
+assert.equal(art.quality.semantic_relevance.status,"PASS");
+assert.equal(art.quality.semantic_relevance.hard_gate,true);
+assert.equal(art.quality.score.semantic_relevance,100);
+assert.equal(art.frozen_invariants.story_sequence_fingerprint,spec.story_sequence_lock.fingerprint);
+assert.deepEqual(art.frozen_invariants.gallery_ids,spec.product_images.map(item=>item.id));
+assert.deepEqual(art.frozen_invariants.aplus_structure,spec.aplus_modules.map(module=>({id:module.id,units:module.units.map(unit=>unit.id)})));
+assert.ok(Object.keys(art.production_method_distribution).length>=5);
+assert.equal(art.camera_rhythm.warnings.length,0);
+assert.equal(art.product_scale_strategy.warnings.length,0);
+assert.ok(art.p0_asset_gaps.length>0);
+assert.ok(art.p1_asset_gaps.length>0);
+assert.ok(Array.isArray(art.p2_asset_gaps));
+assert.equal(crypto.createHash("sha256").update(fs.readFileSync(specPath,"utf8")).digest("hex"),before);
+for(const record of [...art.gallery,...art.aplus_modules.flatMap(module=>module.units)]){
+  assert.match(record.product_layer_rule,/Official/);
+  assert.ok(record.mobile_crop.length>10);
+  assert.equal(record.semantic_relevance.status,"PASS");
+  assert.equal(record.semantic_relevance.category_id,"smart-lock");
+}
+console.log(JSON.stringify({status:"PASS",records:validation.record_count,category:art.product_context.category_id,semantic_relevance:art.quality.semantic_relevance.status,methods:art.production_method_distribution,p0:art.p0_asset_gaps.length,p1:art.p1_asset_gaps.length,score:art.quality.score.overall},null,2));

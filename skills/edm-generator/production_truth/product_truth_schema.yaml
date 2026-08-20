@@ -1,0 +1,22 @@
+schema_version: 1.0.0
+allowed_statuses: [VERIFIED, APPROVED, UNVERIFIED, MISSING, NOT_REQUIRED]
+source_policy:
+  product_knowledge_is_primary: true
+  verified_is_not_approved: true
+  unknowns_must_not_be_inferred: true
+required_sections:
+  product: [product_id, official_name_ja, official_name_en, category, positioning, target_audience]
+  message: [primary_value, primary_usp, secondary_usp]
+  claims: [approved, conditional, prohibited, source]
+  specs: [verified, source]
+  compatibility: []
+  proof: []
+  service: []
+  assets: []
+  status: [external_publish_ready, completeness]
+field_contract:
+  value: scalar_or_collection
+  status: one_of_allowed_statuses
+  source: required_when_value_is_not_empty
+  approval_scope: optional_but_required_for_external_reuse
+

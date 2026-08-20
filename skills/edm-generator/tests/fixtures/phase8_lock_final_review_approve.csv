@@ -1,0 +1,2 @@
+case_id,current_status,product_information,japanese_usability,brand_fit,content_completeness,visual_delivery_quality,overall_decision,human_reason,reviewer,reviewed_at
+PILOT-A-LOCK-ULTRA,VISUAL_DELIVERABLE_CANDIDATE,PASS,PASS,PASS,PASS,PASS,APPROVE,Dry-run fixture only,Test Human Reviewer,2026-08-20T00:00:00Z

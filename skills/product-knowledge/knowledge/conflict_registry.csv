@@ -1,0 +1,6 @@
+severity,code,detail,status
+High,ALIAS_AMBIGUOUS,Alias is intentionally excluded from exact product resolution. (alias=Keypad Vision; product_id=keypad_vision_pro),Needs Review
+High,ALIAS_AMBIGUOUS,Alias is intentionally excluded from exact product resolution. (alias=AI Art Frame; product_id=ai_art_canvas),Needs Review
+High,PROFILE_REVIEW_CONFLICT,Profile remains conflict-marked and cannot support external claims. (product_id=ai_art_canvas),Needs Review
+High,PROFILE_REVIEW_CONFLICT,Profile remains conflict-marked and cannot support external claims. (product_id=keypad_vision_pro),Needs Review
+High,PROFILE_REVIEW_CONFLICT,Profile remains conflict-marked and cannot support external claims. (product_id=lock_ultra),Needs Review

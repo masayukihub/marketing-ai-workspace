@@ -1,0 +1,12 @@
+[
+  {"template_id":"P-FEATURE-SPLIT","viewport":"desktop","sha256":"58233c7ffb36028184b634307c5456b43f9f240f8c3101d2099abe063dd7b90b","fallback_used":true,"slots":["title","body","image","claim"]},
+  {"template_id":"P-FEATURE-SPLIT","viewport":"mobile","sha256":"1ea86d6a0fd8e956494bd0cdf33d79c15317da1f0e24f560362ebefd79b6a627","fallback_used":true,"slots":["title","body","image","claim"]},
+  {"template_id":"P-ECOSYSTEM","viewport":"desktop","sha256":"1058f1db7523c786c63776c01ced128c62ebdb4fc57919fcf10d57d68c23ac0e","fallback_used":true,"slots":["title","body","image","claim"]},
+  {"template_id":"P-ECOSYSTEM","viewport":"mobile","sha256":"ba7ff82129b828d17a6f150eaebcd5f70084f9d891e6eca0b6775e2486e3be16","fallback_used":true,"slots":["title","body","image","claim"]},
+  {"template_id":"A-50-50-FEATURE","viewport":"desktop","sha256":"b1c22de0b4247bb99ae4d8162f3c6d2dfe466bba708888a2816882db04b4a69a","fallback_used":true,"slots":["title","body","image","claim"]},
+  {"template_id":"A-50-50-FEATURE","viewport":"mobile","sha256":"bcf9f9df3b5d64be23b5655d2b2b1481757ad60cd6b77387076b354023cde804","fallback_used":true,"slots":["title","body","image","claim"]},
+  {"template_id":"A-INSTALLATION","viewport":"desktop","sha256":"a1979aba4b25ab1039442d8d67d943a2770f4319b330e976a5bbe7b49b3b1ee5","fallback_used":true,"slots":["title","body","image","claim"]},
+  {"template_id":"A-INSTALLATION","viewport":"mobile","sha256":"6d95dcfcf113c31c0845d306d3d1431c554aad96283df15442f322e94cb849ee","fallback_used":true,"slots":["title","body","image","claim"]},
+  {"template_id":"A-BRAND","viewport":"desktop","sha256":"0212066a678d20def77f549b67b53d0b0cd36969245aa67c87d4680eec90ce38","fallback_used":true,"slots":["title","body","image","claim"]},
+  {"template_id":"A-BRAND","viewport":"mobile","sha256":"ac78e058cbd44730142d00e1c06e4b6895d8a13f0625c79deb06e9c75d6bc213","fallback_used":true,"slots":["title","body","image","claim"]}
+]

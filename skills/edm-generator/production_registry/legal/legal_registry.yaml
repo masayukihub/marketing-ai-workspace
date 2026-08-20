@@ -1,0 +1,56 @@
+schema_version: 2.0.0
+market: Japan
+static_links:
+  - legal_id: LEGAL-JP-PRIVACY
+    label: プライバシーポリシー
+    url: https://www.switchbot.jp/pages/privacy-policy
+    status: VERIFIED
+    source: https://www.switchbot.jp/pages/privacy-policy
+    last_verified: 2026-08-19
+  - legal_id: LEGAL-JP-TERMS
+    label: 利用規約
+    url: https://www.switchbot.jp/pages/terms-of-service
+    status: VERIFIED
+    source: https://www.switchbot.jp/pages/terms-of-service
+    last_verified: 2026-08-19
+  - legal_id: LEGAL-JP-COMMERCE
+    label: 特定商取引法に基づく表記
+    url: https://www.switchbot.jp/pages/terms-of-service-1
+    status: VERIFIED
+    source: https://www.switchbot.jp/pages/terms-of-service-1
+    last_verified: 2026-08-19
+  - legal_id: LEGAL-JP-AFTER-SERVICE
+    label: 返品・返金ポリシー
+    url: https://www.switchbot.jp/pages/refund-policy
+    status: VERIFIED
+    source: https://www.switchbot.jp/pages/refund-policy
+    last_verified: 2026-08-19
+campaign_disclaimer_rules:
+  no_promotion_evergreen:
+    requirement: No price/period disclaimer is required when no price, discount, coupon or deadline is used.
+    status: VERIFIED
+    source: production_truth/campaign_truth_schema.yaml
+  promotion:
+    requirement: Channel, price basis, start, end and conditions are mandatory.
+    status: VERIFIED
+    source: production_truth/campaign_truth_schema.yaml
+service_and_warranty:
+  support_email: {value: support@switchbot.jp, status: VERIFIED, source: research/mobile_evidence/html/SBG_001.html#L409-L413, last_verified: 2026-08-19}
+  support_phone: {value: "0120-676-162", status: VERIFIED, source: "https://www.switchbot.jp/pages/contact", last_verified: 2026-08-19}
+  contact_url: {value: "https://www.switchbot.jp/pages/contact", status: VERIFIED, source: "https://www.switchbot.jp/pages/contact", last_verified: 2026-08-19}
+  warranty_policy_url: {value: "https://www.switchbot.jp/pages/refund-policy", status: VERIFIED, source: "https://www.switchbot.jp/pages/refund-policy", last_verified: 2026-08-19}
+  lock_ultra_warranty_term: {value: 1年, status: VERIFIED, source: "https://www.switchbot.jp/pages/refund-policy#保証期間", last_verified: 2026-08-19, used_in_current_pilot: false}
+  daily_station_warranty_term: {value: 1年, status: VERIFIED, source: "https://www.switchbot.jp/pages/refund-policy#保証期間", last_verified: 2026-08-19, used_in_current_pilot: false, notes: Official policy naming discrepancy retained; no warranty marketing copy is generated.}
+  shipping_policy_url: {value: "https://www.switchbot.jp/pages/payments-shipping-policy", status: VERIFIED, source: "https://www.switchbot.jp/pages/payments-shipping-policy", last_verified: 2026-08-19}
+  production_reuse_status: DRAFT
+approval:
+  static_legal_package:
+    status: INHERITED_APPROVAL
+    resolution: INHERIT
+    inherited_from: Existing official SwitchBot Japan footer and current official legal pages
+    verified_at: 2026-08-20
+  service_warranty_reuse:
+    status: NOT_REQUIRED
+    approved_by: null
+    approved_at: null
+    notes: Service/warranty marketing copy is not used in either Phase 8 Pilot.

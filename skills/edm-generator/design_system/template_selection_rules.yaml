@@ -1,0 +1,377 @@
+version: 1.0.0-phase3-review
+status: Human Review Required
+baseline: standards/edm_design_rules_v1.0.yaml
+output_contract:
+  selected_template_id: one template variant or BLOCKED
+  required_module_ids: ordered list
+  optional_module_ids: ordered candidates
+  selection_reasons: all matched rule_ids and score contributions
+  unresolved_inputs: must remain Blocked / Unverified / Conflict / Unknown
+input_schema:
+  campaign_type:
+  - product_launch
+  - theme_promotion
+  - countdown_last_chance
+  - single_product_conversion
+  - product_education
+  - category_multi_product
+  - brand_ecosystem_story
+  primary_objective:
+  - new_product_value_understanding
+  - problem_recognition
+  - product_understanding
+  - mechanism_understanding
+  - choice_support
+  - offer_conversion
+  - product_discovery
+  - brand_meaning
+  - ecosystem_understanding
+  - deadline_conversion
+  promotion_level:
+  - none
+  - low
+  - medium
+  - high
+  product_count: integer >= 0
+  message_hierarchy:
+  - resolved
+  - unresolved
+  - conflicting
+  asset_availability:
+  - complete
+  - partial
+  - missing_required
+  - unverified
+  product_familiarity:
+  - low
+  - medium
+  - high
+  - unknown
+  deadline_verified:
+  - true
+  - false
+  - unknown
+  comparison_data_available:
+  - true
+  - false
+  - partial
+  lifestyle_asset_available:
+  - true
+  - false
+  - unverified
+  ui_asset_available:
+  - true
+  - false
+  - unverified
+selection_algorithm:
+- step: 1
+  action: run_hard_rule_preflight
+  on_failure: BLOCKED
+- step: 2
+  action: filter_by_campaign_type_and_product_count
+- step: 3
+  action: apply_objective_and_asset_rules
+- step: 4
+  action: score_remaining_candidates
+- step: 5
+  action: apply_tie_breakers
+- step: 6
+  action: return_template_plus_required_optional_modules_and_reasons
+hard_preflight:
+- id: TSR-GATE-001
+  when:
+    field: message_hierarchy
+    op: not_equal
+    value: resolved
+  result: BLOCKED
+  failure_code: PRIMARY_OBJECTIVE_MISSING_OR_MULTIPLE
+  rule_id: R-BRAND-001
+- id: TSR-GATE-002
+  when:
+    field: asset_availability
+    op: in
+    value:
+    - missing_required
+    - unverified
+  result: BLOCKED
+  failure_code: REQUIRED_INPUT_UNRESOLVED
+  rule_id: R-QA-001
+- id: TSR-GATE-003
+  when:
+    all:
+    - field: campaign_type
+      op: equal
+      value: countdown_last_chance
+    - field: deadline_verified
+      op: not_equal
+      value: true
+  result: BLOCKED
+  failure_code: PROMOTION_FACT_UNVERIFIED
+  rule_id: R-PROMO-002
+candidate_rules:
+- id: TSR-001
+  priority: 100
+  when:
+    field: campaign_type
+    op: equal
+    value: product_launch
+  include_candidates:
+  - TPL-LAUNCH-A
+  - TPL-LAUNCH-B
+  - TPL-LAUNCH-C
+- id: TSR-002
+  priority: 100
+  when:
+    field: campaign_type
+    op: equal
+    value: theme_promotion
+  include_candidates:
+  - TPL-PROMO-A
+  - TPL-PROMO-B
+- id: TSR-003
+  priority: 110
+  when:
+    all:
+    - field: campaign_type
+      op: equal
+      value: countdown_last_chance
+    - field: deadline_verified
+      op: equal
+      value: true
+  include_candidates:
+  - TPL-PROMO-C
+- id: TSR-004
+  priority: 100
+  when:
+    field: campaign_type
+    op: equal
+    value: single_product_conversion
+  include_candidates:
+  - TPL-CONVERT-A
+  - TPL-CONVERT-B
+- id: TSR-005
+  priority: 100
+  when:
+    field: campaign_type
+    op: equal
+    value: product_education
+  include_candidates:
+  - TPL-EDU-A
+  - TPL-EDU-B
+  - TPL-EDU-C
+- id: TSR-006
+  priority: 100
+  when:
+    field: campaign_type
+    op: equal
+    value: category_multi_product
+  include_candidates:
+  - TPL-CATEGORY-A
+  - TPL-CATEGORY-B
+- id: TSR-007
+  priority: 100
+  when:
+    field: campaign_type
+    op: equal
+    value: brand_ecosystem_story
+  include_candidates:
+  - TPL-BRAND-A
+  - TPL-BRAND-B
+- id: TSR-008
+  priority: 90
+  when:
+    field: primary_objective
+    op: in
+    value:
+    - product_understanding
+    - mechanism_understanding
+  boost_candidates:
+    TPL-EDU-A: 35
+    TPL-EDU-B: 45
+  reason: product understanding maps to Product Education
+- id: TSR-009
+  priority: 90
+  when:
+    all:
+    - field: campaign_type
+      op: equal
+      value: product_launch
+    - field: primary_objective
+      op: equal
+      value: new_product_value_understanding
+  boost_candidates:
+    TPL-LAUNCH-A: 45
+    TPL-LAUNCH-B: 25
+- id: TSR-010
+  priority: 90
+  when:
+    all:
+    - field: campaign_type
+      op: equal
+      value: product_launch
+    - field: primary_objective
+      op: equal
+      value: problem_recognition
+  boost_candidates:
+    TPL-LAUNCH-B: 50
+- id: TSR-011
+  priority: 80
+  when:
+    field: lifestyle_asset_available
+    op: equal
+    value: true
+  boost_candidates:
+    TPL-LAUNCH-C: 30
+    TPL-BRAND-A: 15
+    TPL-BRAND-B: 20
+- id: TSR-012
+  priority: 95
+  when:
+    field: ui_asset_available
+    op: equal
+    value: true
+  boost_candidates:
+    TPL-EDU-B: 40
+    TPL-BRAND-B: 35
+- id: TSR-013
+  priority: 95
+  when:
+    field: ui_asset_available
+    op: in
+    value:
+    - false
+    - unverified
+  exclude_candidates:
+  - TPL-EDU-B
+  unless: App/UI module can be replaced by verified Product Detail
+- id: TSR-014
+  priority: 95
+  when:
+    field: comparison_data_available
+    op: equal
+    value: true
+  boost_candidates:
+    TPL-EDU-C: 45
+    TPL-CATEGORY-B: 45
+- id: TSR-015
+  priority: 95
+  when:
+    field: comparison_data_available
+    op: not_equal
+    value: true
+  exclude_candidates:
+  - TPL-EDU-C
+  - TPL-CATEGORY-B
+- id: TSR-016
+  priority: 100
+  when:
+    field: product_count
+    op: greater_than_or_equal
+    value: 4
+  boost_candidates:
+    TPL-PROMO-B: 40
+    TPL-CATEGORY-A: 45
+  required_modules:
+  - MOD-COMMERCE-PRODUCT-GRID
+  forbid_primary_hero:
+  - MOD-HERO-PRODUCT
+  reason: 4+ products require category/grid logic rather than a single-product main
+    structure
+- id: TSR-017
+  priority: 100
+  when:
+    field: product_count
+    op: equal
+    value: 1
+  exclude_candidates:
+  - TPL-PROMO-B
+  - TPL-CATEGORY-A
+  - TPL-CATEGORY-B
+  - TPL-BRAND-B
+- id: TSR-018
+  priority: 85
+  when:
+    field: promotion_level
+    op: equal
+    value: high
+  allow_modules:
+  - MOD-HERO-PROMOTION
+  - MOD-COMMERCE-OFFER-BAND
+  - MOD-COMMERCE-PRICE
+  - MOD-COMMERCE-COUPON
+  required_rule_ids:
+  - R-PROMO-001
+  - R-PROMO-002
+  - R-PROMO-003
+  note: high promotion permits Promotion Hero but does not waive proof or hierarchy
+- id: TSR-019
+  priority: 85
+  when:
+    all:
+    - field: promotion_level
+      op: in
+      value:
+      - medium
+      - high
+    - field: product_count
+      op: equal
+      value: 1
+  boost_candidates:
+    TPL-CONVERT-B: 35
+- id: TSR-020
+  priority: 70
+  when:
+    field: product_familiarity
+    op: equal
+    value: low
+  boost_candidates:
+    TPL-LAUNCH-B: 20
+    TPL-EDU-A: 25
+  penalize_candidates:
+    TPL-CONVERT-B: 25
+- id: TSR-021
+  priority: 70
+  when:
+    field: product_familiarity
+    op: equal
+    value: high
+  boost_candidates:
+    TPL-CONVERT-B: 20
+    TPL-PROMO-B: 15
+- id: TSR-022
+  priority: 60
+  when:
+    field: primary_objective
+    op: equal
+    value: brand_meaning
+  boost_candidates:
+    TPL-BRAND-A: 60
+- id: TSR-023
+  priority: 60
+  when:
+    field: primary_objective
+    op: equal
+    value: ecosystem_understanding
+  boost_candidates:
+    TPL-BRAND-B: 60
+score_model:
+  campaign_type_exact: 50
+  primary_objective_exact: 35
+  product_count_in_range: 20
+  promotion_level_supported: 15
+  required_assets_complete: 20
+  required_asset_missing: exclude
+  asset_substitution_explained: 5
+  high_confidence_template: 5
+tie_breakers:
+- prefer fewer required modules when both satisfy the same objective
+- prefer the higher-confidence variant
+- prefer the variant with complete current assets
+- prefer Tier A anchor fit over Tier C/D novelty
+- if still tied, return both candidates and require Human Decision
+evidence_boundary:
+  Tier_A: highest weight for SwitchBot structure and brand character
+  Tier_B: secondary SwitchBot support
+  Tier_C: Japan localization and visual supplementation
+  Tier_D: layout/module/hero ideas only; cannot determine Japanese copy, density,
+    promotion or CTA

@@ -1,0 +1,6 @@
+interface:
+  display_name: "SwitchBot日本市场活动复盘"
+  short_description: "接入飞书或本地数据，复盘 SwitchBot 日本市场 Campaign"
+  default_prompt: "使用 $switchbot-campaign-review 为所有已配置的飞书或本地活动数据建立时间戳快照，验证来源完整性，并生成可供管理层直接使用的复盘报告。"
+policy:
+  allow_implicit_invocation: true

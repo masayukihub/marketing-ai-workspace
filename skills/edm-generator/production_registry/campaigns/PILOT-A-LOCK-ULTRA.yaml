@@ -1,0 +1,51 @@
+---
+schema_version: 2.0.0
+case_id: PILOT-A-LOCK-ULTRA
+product_id: lock_ultra
+campaign_name: ロックUltra 玄関防犯 Product Conversion Pilot
+campaign_type: Single Product Conversion
+objective: Official store product discovery
+promotion_type: none
+period:
+  applicable: false
+  start: 
+  end: 
+  status: VERIFIED
+  source: production_pipeline/inputs/pilot_a_lock_ultra.yaml
+cta:
+  copy: 製品を詳しく見る
+  url: https://www.switchbot.jp/products/switchbot-lock-ultra
+  status: VERIFIED
+  source: production_pipeline/inputs/pilot_a_lock_ultra.yaml and SwitchBot Japan official
+    store
+  last_verified: 2026-08-19
+  verification_time: 2026-08-19 00:00:00.000000000 +09:00
+campaign_disclaimer:
+  applicable: false
+  value: 
+  status: VERIFIED
+  source: No promotion, price, coupon or deadline is used.
+approval:
+  campaign_and_cta:
+    status: VERIFIED_FROM_INPUT_AND_OFFICIAL_DESTINATION
+    resolution: AUTO_VERIFY
+    verified_by: Phase 8 campaign truth resolver
+    verified_at: 2026-08-20
+  final_copy:
+    status: COPY_PRODUCTION_CANDIDATE
+    source: production_output/PILOT-A-LOCK-ULTRA/final_copy.md
+    approved_by: 
+    approved_at: 
+    auto_qa_source: production_output/PILOT-A-LOCK-ULTRA/copy_auto_qa.yaml
+  final_human_delivery:
+    status: MISSING
+    approved_by: 
+    approved_at: 
+last_verified: 2026-08-19
+visual_delivery:
+  status: VISUAL_DELIVERABLE_CANDIDATE
+  final_human_review: HUMAN_REQUIRED
+send_boundary:
+  content_approved: false
+  esp_ready: false
+  production_ready: false

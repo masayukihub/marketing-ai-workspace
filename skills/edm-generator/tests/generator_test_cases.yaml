@@ -1,0 +1,789 @@
+---
+version: 1.0.0
+status: Defined / Not Executed
+contract: phase4_generator_contract.md
+design_system: design_system/templates_v1.0.yaml
+test_case_count: 17
+fixture_policy:
+  product_identity_source: Product Knowledge outputs/product_index.json generated
+    2026-08-07
+  product_identity_limit: English identity only; official JP names, lifecycle and
+    external publish readiness remain runtime gates.
+  claim_policy: No product claim, price, promotion amount or launch date is hardcoded
+    in these cases.
+  test_fixture_meaning: verified_test_fixture exercises Generator logic only and does
+    not approve a real external claim, price, asset or destination.
+  execution: Test cases are definitions only; no EDM generation or Renderer execution
+    is authorized.
+required_coverage:
+- product_launch
+- theme_promotion
+- single_product
+- product_education
+- multi_product
+- brand_story
+- high_promotion
+- no_promotion
+- single_sku
+- multiple_sku
+- asset_rich
+- asset_missing
+test_cases:
+- test_case_id: GTC-001
+  name: Hub 3 新品价值先行
+  execution_status: not_executed
+  coverage:
+  - product_launch
+  - no_promotion
+  - single_sku
+  - asset_rich
+  inputs:
+    product:
+      scope: single
+      product_ids:
+      - hub_3
+      display_names_en:
+      - SwitchBot Hub 3
+      official_name_ja: Pending Verification
+      identity_source: Product Knowledge outputs/product_index.json
+      fact_resolution: runtime_required
+    campaign_theme: 新品价值介绍
+    objective: new_product_value_understanding
+    promotion:
+      level: none
+      state: test_fixture
+    period:
+      state: not_applicable_or_runtime
+    cta_destination:
+      state: verified_test_fixture
+      fixture_id: CTA-DESTINATION-GTC-001
+  selection_context:
+    campaign_type: product_launch
+    product_count: 1
+    message_hierarchy: resolved
+    asset_availability: complete
+    deadline_verified: false
+    comparison_data_available: false
+    lifestyle_asset_available: false
+    ui_asset_available: false
+    product_familiarity: medium
+  expected:
+    selection_status: selected_after_test_fixture_resolution
+    selected_template_id: TPL-LAUNCH-A
+    production_status: gated_by_runtime_product_claim_price_asset_verification
+    must_not_generate_final_edm: true
+- test_case_id: GTC-002
+  name: Video Doorbell 痛点到新品解决方案
+  execution_status: not_executed
+  coverage:
+  - product_launch
+  - no_promotion
+  - single_sku
+  - problem_first
+  inputs:
+    product:
+      scope: single
+      product_ids:
+      - video_doorbell
+      display_names_en:
+      - SwitchBot Video Doorbell
+      official_name_ja: Pending Verification
+      identity_source: Product Knowledge outputs/product_index.json
+      fact_resolution: runtime_required
+    campaign_theme: 来客确认问题场景
+    objective: problem_recognition_then_product_solution
+    promotion:
+      level: none
+      state: test_fixture
+    period:
+      state: not_applicable_or_runtime
+    cta_destination:
+      state: verified_test_fixture
+      fixture_id: CTA-DESTINATION-GTC-002
+  selection_context:
+    campaign_type: product_launch
+    product_count: 1
+    message_hierarchy: resolved
+    asset_availability: complete
+    deadline_verified: false
+    comparison_data_available: false
+    lifestyle_asset_available: true
+    ui_asset_available: false
+    product_familiarity: low
+  expected:
+    selection_status: selected_after_test_fixture_resolution
+    selected_template_id: TPL-LAUNCH-B
+    production_status: gated_by_runtime_product_claim_price_asset_verification
+    must_not_generate_final_edm: true
+- test_case_id: GTC-003
+  name: Battery Circulator Fan 场景型新品发布
+  execution_status: not_executed
+  coverage:
+  - product_launch
+  - no_promotion
+  - single_sku
+  - asset_rich
+  - lifestyle
+  inputs:
+    product:
+      scope: single
+      product_ids:
+      - battery_circulator_fan
+      display_names_en:
+      - SwitchBot Battery Circulator Fan
+      official_name_ja: Pending Verification
+      identity_source: Product Knowledge outputs/product_index.json
+      fact_resolution: runtime_required
+    campaign_theme: 夏季生活场景
+    objective: new_product_desirability_in_context
+    promotion:
+      level: none
+      state: test_fixture
+    period:
+      state: not_applicable_or_runtime
+    cta_destination:
+      state: verified_test_fixture
+      fixture_id: CTA-DESTINATION-GTC-003
+  selection_context:
+    campaign_type: product_launch
+    product_count: 1
+    message_hierarchy: resolved
+    asset_availability: complete
+    deadline_verified: false
+    comparison_data_available: false
+    lifestyle_asset_available: true
+    ui_asset_available: false
+    product_familiarity: medium
+  expected:
+    selection_status: selected_after_test_fixture_resolution
+    selected_template_id: TPL-LAUNCH-C
+    production_status: gated_by_runtime_product_claim_price_asset_verification
+    must_not_generate_final_edm: true
+- test_case_id: GTC-004
+  name: 夏季舒适家电主题促销
+  execution_status: not_executed
+  coverage:
+  - theme_promotion
+  - high_promotion
+  - multiple_sku
+  - asset_rich
+  inputs:
+    product:
+      scope: multiple
+      product_ids:
+      - battery_circulator_fan
+      - circulator_fan_2_pro
+      - weather_station
+      display_names_en:
+      - SwitchBot Battery Circulator Fan
+      - SwitchBot Circulator Fan 2 Pro
+      - SwitchBot Weather Station
+      official_name_ja: Pending Verification
+      identity_source: Product Knowledge outputs/product_index.json
+      fact_resolution: runtime_required
+    campaign_theme: 夏季室内环境主题
+    objective: theme_relevance_then_offer_conversion
+    promotion:
+      level: high
+      state: verified_test_fixture
+    period:
+      state: verified_test_fixture
+    cta_destination:
+      state: verified_test_fixture
+      fixture_id: CTA-DESTINATION-GTC-004
+  selection_context:
+    campaign_type: theme_promotion
+    product_count: 3
+    message_hierarchy: resolved
+    asset_availability: complete
+    deadline_verified: false
+    comparison_data_available: false
+    lifestyle_asset_available: true
+    ui_asset_available: false
+    product_familiarity: medium
+  expected:
+    selection_status: selected_after_test_fixture_resolution
+    selected_template_id: TPL-PROMO-A
+    production_status: gated_by_runtime_product_claim_price_asset_verification
+    must_not_generate_final_edm: true
+- test_case_id: GTC-005
+  name: Robot Vacuum 多 SKU 优惠浏览
+  execution_status: not_executed
+  coverage:
+  - theme_promotion
+  - high_promotion
+  - multiple_sku
+  - product_grid
+  inputs:
+    product:
+      scope: multiple
+      product_ids:
+      - k10_pro_combo
+      - k11_plus
+      - s10
+      - s20
+      display_names_en:
+      - SwitchBot K10+ Pro Combo
+      - SwitchBot K11+
+      - SwitchBot S10
+      - SwitchBot S20
+      official_name_ja: Pending Verification
+      identity_source: Product Knowledge outputs/product_index.json
+      fact_resolution: runtime_required
+    campaign_theme: Robot Vacuum 主题优惠
+    objective: multi_product_offer_discovery
+    promotion:
+      level: high
+      state: verified_test_fixture
+    period:
+      state: verified_test_fixture
+    cta_destination:
+      state: verified_test_fixture
+      fixture_id: CTA-DESTINATION-GTC-005
+  selection_context:
+    campaign_type: theme_promotion
+    product_count: 4
+    message_hierarchy: resolved
+    asset_availability: complete
+    deadline_verified: false
+    comparison_data_available: false
+    lifestyle_asset_available: false
+    ui_asset_available: false
+    product_familiarity: high
+  expected:
+    selection_status: selected_after_test_fixture_resolution
+    selected_template_id: TPL-PROMO-B
+    production_status: gated_by_runtime_product_claim_price_asset_verification
+    must_not_generate_final_edm: true
+- test_case_id: GTC-006
+  name: 已验证截止的 Last Chance
+  execution_status: not_executed
+  coverage:
+  - theme_promotion
+  - high_promotion
+  - multiple_sku
+  - countdown_last_chance
+  inputs:
+    product:
+      scope: multiple
+      product_ids:
+      - k10_pro_combo
+      - s20
+      display_names_en:
+      - SwitchBot K10+ Pro Combo
+      - SwitchBot S20
+      official_name_ja: Pending Verification
+      identity_source: Product Knowledge outputs/product_index.json
+      fact_resolution: runtime_required
+    campaign_theme: 活动最终提醒
+    objective: deadline_driven_conversion
+    promotion:
+      level: high
+      state: verified_test_fixture
+      deadline: verified_test_fixture
+    period:
+      state: verified_test_fixture
+    cta_destination:
+      state: verified_test_fixture
+      fixture_id: CTA-DESTINATION-GTC-006
+  selection_context:
+    campaign_type: countdown_last_chance
+    product_count: 2
+    message_hierarchy: resolved
+    asset_availability: complete
+    deadline_verified: true
+    comparison_data_available: false
+    lifestyle_asset_available: false
+    ui_asset_available: false
+    product_familiarity: medium
+  expected:
+    selection_status: selected_after_test_fixture_resolution
+    selected_template_id: TPL-PROMO-C
+    production_status: gated_by_runtime_product_claim_price_asset_verification
+    must_not_generate_final_edm: true
+- test_case_id: GTC-007
+  name: Curtain 3 单品信任转化
+  execution_status: not_executed
+  coverage:
+  - single_product
+  - no_promotion
+  - single_sku
+  inputs:
+    product:
+      scope: single
+      product_ids:
+      - curtain_3
+      display_names_en:
+      - SwitchBot Curtain 3
+      official_name_ja: Pending Verification
+      identity_source: Product Knowledge outputs/product_index.json
+      fact_resolution: runtime_required
+    campaign_theme: 单品价值与购买信任
+    objective: single_product_purchase_confidence
+    promotion:
+      level: none
+      state: test_fixture
+    period:
+      state: not_applicable_or_runtime
+    cta_destination:
+      state: verified_test_fixture
+      fixture_id: CTA-DESTINATION-GTC-007
+  selection_context:
+    campaign_type: single_product_conversion
+    product_count: 1
+    message_hierarchy: resolved
+    asset_availability: complete
+    deadline_verified: false
+    comparison_data_available: false
+    lifestyle_asset_available: false
+    ui_asset_available: false
+    product_familiarity: medium
+  expected:
+    selection_status: selected_after_test_fixture_resolution
+    selected_template_id: TPL-CONVERT-A
+    production_status: gated_by_runtime_product_claim_price_asset_verification
+    must_not_generate_final_edm: true
+- test_case_id: GTC-008
+  name: K10+ Pro Combo 单品优惠转化
+  execution_status: not_executed
+  coverage:
+  - single_product
+  - high_promotion
+  - single_sku
+  inputs:
+    product:
+      scope: single
+      product_ids:
+      - k10_pro_combo
+      display_names_en:
+      - SwitchBot K10+ Pro Combo
+      official_name_ja: Pending Verification
+      identity_source: Product Knowledge outputs/product_index.json
+      fact_resolution: runtime_required
+    campaign_theme: 单品优惠购买判断
+    objective: single_product_offer_conversion
+    promotion:
+      level: high
+      state: verified_test_fixture
+    period:
+      state: verified_test_fixture
+    cta_destination:
+      state: verified_test_fixture
+      fixture_id: CTA-DESTINATION-GTC-008
+  selection_context:
+    campaign_type: single_product_conversion
+    product_count: 1
+    message_hierarchy: resolved
+    asset_availability: complete
+    deadline_verified: false
+    comparison_data_available: false
+    lifestyle_asset_available: false
+    ui_asset_available: false
+    product_familiarity: high
+  expected:
+    selection_status: selected_after_test_fixture_resolution
+    selected_template_id: TPL-CONVERT-B
+    production_status: gated_by_runtime_product_claim_price_asset_verification
+    must_not_generate_final_edm: true
+- test_case_id: GTC-009
+  name: Video Doorbell 问题与解决方案教育
+  execution_status: not_executed
+  coverage:
+  - product_education
+  - no_promotion
+  - single_sku
+  - problem_solution
+  inputs:
+    product:
+      scope: single
+      product_ids:
+      - video_doorbell
+      display_names_en:
+      - SwitchBot Video Doorbell
+      official_name_ja: Pending Verification
+      identity_source: Product Knowledge outputs/product_index.json
+      fact_resolution: runtime_required
+    campaign_theme: 问题理解与解决路径
+    objective: problem_and_solution_understanding
+    promotion:
+      level: none
+      state: test_fixture
+    period:
+      state: not_applicable_or_runtime
+    cta_destination:
+      state: verified_test_fixture
+      fixture_id: CTA-DESTINATION-GTC-009
+  selection_context:
+    campaign_type: product_education
+    product_count: 1
+    message_hierarchy: resolved
+    asset_availability: complete
+    deadline_verified: false
+    comparison_data_available: false
+    lifestyle_asset_available: false
+    ui_asset_available: false
+    product_familiarity: medium
+  expected:
+    selection_status: selected_after_test_fixture_resolution
+    selected_template_id: TPL-EDU-A
+    production_status: gated_by_runtime_product_claim_price_asset_verification
+    must_not_generate_final_edm: true
+- test_case_id: GTC-010
+  name: Hub 3 机制与 UI 教育
+  execution_status: not_executed
+  coverage:
+  - product_education
+  - no_promotion
+  - single_sku
+  - asset_rich
+  - ui_explanation
+  inputs:
+    product:
+      scope: single
+      product_ids:
+      - hub_3
+      display_names_en:
+      - SwitchBot Hub 3
+      official_name_ja: Pending Verification
+      identity_source: Product Knowledge outputs/product_index.json
+      fact_resolution: runtime_required
+    campaign_theme: 机制与操作理解
+    objective: mechanism_or_setup_understanding
+    promotion:
+      level: none
+      state: test_fixture
+    period:
+      state: not_applicable_or_runtime
+    cta_destination:
+      state: verified_test_fixture
+      fixture_id: CTA-DESTINATION-GTC-010
+  selection_context:
+    campaign_type: product_education
+    product_count: 1
+    message_hierarchy: resolved
+    asset_availability: complete
+    deadline_verified: false
+    comparison_data_available: false
+    lifestyle_asset_available: false
+    ui_asset_available: true
+    product_familiarity: medium
+  expected:
+    selection_status: selected_after_test_fixture_resolution
+    selected_template_id: TPL-EDU-B
+    production_status: gated_by_runtime_product_claim_price_asset_verification
+    must_not_generate_final_edm: true
+- test_case_id: GTC-011
+  name: Robot Vacuum 选择框架教育
+  execution_status: not_executed
+  coverage:
+  - product_education
+  - no_promotion
+  - multiple_sku
+  - comparison
+  inputs:
+    product:
+      scope: multiple
+      product_ids:
+      - k10_pro_combo
+      - s10
+      - s20
+      display_names_en:
+      - SwitchBot K10+ Pro Combo
+      - SwitchBot S10
+      - SwitchBot S20
+      official_name_ja: Pending Verification
+      identity_source: Product Knowledge outputs/product_index.json
+      fact_resolution: runtime_required
+    campaign_theme: 型号选择方法
+    objective: choice_framework_and_product_fit
+    promotion:
+      level: none
+      state: test_fixture
+    period:
+      state: not_applicable_or_runtime
+    cta_destination:
+      state: verified_test_fixture
+      fixture_id: CTA-DESTINATION-GTC-011
+  selection_context:
+    campaign_type: product_education
+    product_count: 3
+    message_hierarchy: resolved
+    asset_availability: complete
+    deadline_verified: false
+    comparison_data_available: true
+    lifestyle_asset_available: false
+    ui_asset_available: false
+    product_familiarity: medium
+  expected:
+    selection_status: selected_after_test_fixture_resolution
+    selected_template_id: TPL-EDU-C
+    production_status: gated_by_runtime_product_claim_price_asset_verification
+    must_not_generate_final_edm: true
+- test_case_id: GTC-012
+  name: Security 产品分类发现
+  execution_status: not_executed
+  coverage:
+  - multi_product
+  - no_promotion
+  - multiple_sku
+  - category_discovery
+  inputs:
+    product:
+      scope: multiple
+      product_ids:
+      - hub_3
+      - lock_ultra
+      - video_doorbell
+      - relay_switch_1
+      display_names_en:
+      - SwitchBot Hub 3
+      - SwitchBot Lock Ultra
+      - SwitchBot Video Doorbell
+      - SwitchBot Relay Switch 1
+      official_name_ja: Pending Verification
+      identity_source: Product Knowledge outputs/product_index.json
+      fact_resolution: runtime_required
+    campaign_theme: Security 产品入口
+    objective: category_context_and_product_discovery
+    promotion:
+      level: none
+      state: test_fixture
+    period:
+      state: not_applicable_or_runtime
+    cta_destination:
+      state: verified_test_fixture
+      fixture_id: CTA-DESTINATION-GTC-012
+  selection_context:
+    campaign_type: category_multi_product
+    product_count: 4
+    message_hierarchy: resolved
+    asset_availability: complete
+    deadline_verified: false
+    comparison_data_available: false
+    lifestyle_asset_available: false
+    ui_asset_available: false
+    product_familiarity: medium
+  expected:
+    selection_status: selected_after_test_fixture_resolution
+    selected_template_id: TPL-CATEGORY-A
+    production_status: gated_by_runtime_product_claim_price_asset_verification
+    must_not_generate_final_edm: true
+- test_case_id: GTC-013
+  name: Robot Vacuum 当前 SKU 选择
+  execution_status: not_executed
+  coverage:
+  - multi_product
+  - no_promotion
+  - multiple_sku
+  - comparison
+  inputs:
+    product:
+      scope: multiple
+      product_ids:
+      - k10_pro_combo
+      - s10
+      - s20
+      display_names_en:
+      - SwitchBot K10+ Pro Combo
+      - SwitchBot S10
+      - SwitchBot S20
+      official_name_ja: Pending Verification
+      identity_source: Product Knowledge outputs/product_index.json
+      fact_resolution: runtime_required
+    campaign_theme: 当前 SKU 购买选择
+    objective: multi_product_choice_decision
+    promotion:
+      level: none
+      state: test_fixture
+    period:
+      state: not_applicable_or_runtime
+    cta_destination:
+      state: verified_test_fixture
+      fixture_id: CTA-DESTINATION-GTC-013
+  selection_context:
+    campaign_type: category_multi_product
+    product_count: 3
+    message_hierarchy: resolved
+    asset_availability: complete
+    deadline_verified: false
+    comparison_data_available: true
+    lifestyle_asset_available: false
+    ui_asset_available: false
+    product_familiarity: medium
+  expected:
+    selection_status: selected_after_test_fixture_resolution
+    selected_template_id: TPL-CATEGORY-B
+    production_status: gated_by_runtime_product_claim_price_asset_verification
+    must_not_generate_final_edm: true
+- test_case_id: GTC-014
+  name: SwitchBot 品牌观点故事
+  execution_status: not_executed
+  coverage:
+  - brand_story
+  - no_promotion
+  - brand_scope
+  inputs:
+    product:
+      scope: brand
+      brand: SwitchBot
+      product_ids: []
+      identity_state: brand_scope
+    campaign_theme: 品牌长期价值与观点
+    objective: brand_meaning_and_trust
+    promotion:
+      level: none
+      state: test_fixture
+    period:
+      state: not_applicable_or_runtime
+    cta_destination:
+      state: verified_test_fixture
+      fixture_id: CTA-DESTINATION-GTC-014
+  selection_context:
+    campaign_type: brand_ecosystem_story
+    product_count: 0
+    message_hierarchy: resolved
+    asset_availability: complete
+    deadline_verified: false
+    comparison_data_available: false
+    lifestyle_asset_available: false
+    ui_asset_available: false
+    product_familiarity: medium
+  expected:
+    selection_status: selected_after_test_fixture_resolution
+    selected_template_id: TPL-BRAND-A
+    production_status: gated_by_runtime_product_claim_price_asset_verification
+    must_not_generate_final_edm: true
+- test_case_id: GTC-015
+  name: SwitchBot 生态关系故事
+  execution_status: not_executed
+  coverage:
+  - brand_story
+  - no_promotion
+  - multiple_sku
+  - ecosystem
+  inputs:
+    product:
+      scope: multiple
+      product_ids:
+      - hub_3
+      - curtain_3
+      - lock_ultra
+      display_names_en:
+      - SwitchBot Hub 3
+      - SwitchBot Curtain 3
+      - SwitchBot Lock Ultra
+      official_name_ja: Pending Verification
+      identity_source: Product Knowledge outputs/product_index.json
+      fact_resolution: runtime_required
+    campaign_theme: 多个产品的生态关系理解
+    objective: ecosystem_relationship_understanding
+    promotion:
+      level: none
+      state: test_fixture
+    period:
+      state: not_applicable_or_runtime
+    cta_destination:
+      state: verified_test_fixture
+      fixture_id: CTA-DESTINATION-GTC-015
+  selection_context:
+    campaign_type: brand_ecosystem_story
+    product_count: 3
+    message_hierarchy: resolved
+    asset_availability: complete
+    deadline_verified: false
+    comparison_data_available: false
+    lifestyle_asset_available: true
+    ui_asset_available: true
+    product_familiarity: medium
+  expected:
+    selection_status: selected_after_test_fixture_resolution
+    selected_template_id: TPL-BRAND-B
+    production_status: gated_by_runtime_product_claim_price_asset_verification
+    must_not_generate_final_edm: true
+- test_case_id: GTC-016
+  name: Hub 3 新品发布但缺少产品主素材
+  execution_status: not_executed
+  coverage:
+  - product_launch
+  - single_sku
+  - asset_missing
+  - hard_gate
+  inputs:
+    product:
+      scope: single
+      product_ids:
+      - hub_3
+      display_names_en:
+      - SwitchBot Hub 3
+      official_name_ja: Pending Verification
+      identity_source: Product Knowledge outputs/product_index.json
+      fact_resolution: runtime_required
+    campaign_theme: 新品价值介绍
+    objective: new_product_value_understanding
+    promotion:
+      level: none
+      state: test_fixture
+    period:
+      state: not_applicable_or_runtime
+    cta_destination:
+      state: verified_test_fixture
+      fixture_id: CTA-DESTINATION-GTC-016
+  selection_context:
+    campaign_type: product_launch
+    product_count: 1
+    message_hierarchy: resolved
+    asset_availability: missing_required
+    deadline_verified: false
+    comparison_data_available: false
+    lifestyle_asset_available: false
+    ui_asset_available: false
+    product_familiarity: medium
+  expected:
+    selection_status: BLOCKED
+    selected_template_id: 
+    production_status: gated_by_runtime_product_claim_price_asset_verification
+    must_not_generate_final_edm: true
+    expected_failure_codes:
+    - REQUIRED_INPUT_UNRESOLVED
+    - ASSET_PROVENANCE_MISSING
+- test_case_id: GTC-017
+  name: 教育任务缺 Promotion、Period 与 CTA Destination
+  execution_status: not_executed
+  coverage:
+  - missing_input_recovery
+  - product_education
+  - no_promotion
+  - single_sku
+  inputs:
+    product:
+      scope: single
+      product_ids:
+      - curtain_3
+      display_names_en:
+      - SwitchBot Curtain 3
+      official_name_ja: Pending Verification
+      identity_source: Product Knowledge outputs/product_index.json
+      fact_resolution: runtime_required
+    campaign_theme: 问题与解决方案教育
+    objective: problem_and_solution_understanding
+    promotion: 
+    period: 
+    cta_destination: 
+  selection_context:
+    campaign_type: product_education
+    product_count: 1
+    message_hierarchy: resolved
+    asset_availability: complete
+    deadline_verified: false
+    comparison_data_available: false
+    lifestyle_asset_available: false
+    ui_asset_available: false
+    product_familiarity: medium
+  expected:
+    selection_status: selected_for_draft_only
+    selected_template_id: TPL-EDU-A
+    production_status: BLOCKED
+    must_not_generate_final_edm: true
+    expected_failure_codes:
+    - CTA_DESTINATION_INVALID
+    - REQUIRED_INPUT_UNRESOLVED

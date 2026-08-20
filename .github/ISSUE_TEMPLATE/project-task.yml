@@ -1,0 +1,23 @@
+name: Project Task
+description: 营销项目的明确执行任务
+title: "[Project] "
+labels: ["project-task"]
+body:
+  - type: textarea
+    attributes: {label: Project}
+    validations: {required: true}
+  - type: dropdown
+    attributes: {label: Priority, options: [P0, P1, P2]}
+  - type: input
+    attributes: {label: Owner}
+  - type: input
+    attributes: {label: Deadline}
+  - type: textarea
+    attributes: {label: Input}
+  - type: textarea
+    attributes: {label: Expected Output}
+  - type: textarea
+    attributes: {label: Source}
+  - type: textarea
+    attributes: {label: Acceptance Criteria}
+    validations: {required: true}

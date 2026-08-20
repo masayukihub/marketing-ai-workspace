@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.0",
+  "asin": "B0FQ5J7HFQ",
+  "source_url": "https://www.amazon.co.jp/gp/product/B0FQ5J7HFQ",
+  "observed_on": "2026-08-18",
+  "observation": {
+    "desktop": "Live Amazon.co.jp page inspected in Chrome at 1440 x 1000; 15 gallery items and 8 major A+ containers recorded.",
+    "mobile": "The same live page inspected at a 390 x 844 browser viewport; Amazon retained a fixed desktop-width content region in this environment.",
+    "limitations": ["The browser automation layer did not expose mobile user-agent switching; mobile findings describe a real 390px viewport, not Amazon m-site.", "Reference images and competitor copy are observation evidence only and are not packaged into the reusable Skill."]
+  },
+  "brand": "Plaud",
+  "product": "Plaud Note Pro AI Voice Recorder",
+  "category": "AIボイスレコーダー",
+  "page_type": ["Category-education", "Scenario-led", "Technology-led", "Premium-brand-led"],
+  "complexity": "high",
+  "gallery_patterns": [
+    {"position":1,"image_role":"Main image","consumer_question":"どんな形の録音デバイスか","main_message":"薄型本体を単体で識別させる","feature":"Product form","benefit":"新しいカテゴリでも物理製品として理解できる","layout_type":"Official product on white","product_scale":"dominant","text_density":"none","background":"pure white","content_type":["Product"],"why_effective":"AIサービスではなく購入する物理デバイスの形を先に固定する。"},
+    {"position":2,"image_role":"Social proof hero","consumer_question":"新しいカテゴリを信頼してよいか","main_message":"利用規模と評価を入口に置く","feature":"Adoption and recognition","benefit":"未知カテゴリへの不安を下げる","layout_type":"Warm neutral hero with badges and product","product_scale":"large","text_density":"medium","background":"warm off-white","content_type":["Proof","Hero"],"why_effective":"カテゴリ説明前に採用の安心を作る。ただしNo.1等は厳格な出典が必要。"},
+    {"position":3,"image_role":"Category education","consumer_question":"何をどう記録できるのか","main_message":"複数の入力方法を四分割で見せる","feature":"Multi-mode capture","benefit":"自分の会話・通話・メモ場面に当てはめられる","layout_type":"Four-cell input map","product_scale":"medium","text_density":"medium","background":"warm neutral grid","content_type":["Category Education","Feature"],"why_effective":"新しい製品カテゴリを機能名ではなく利用入口で説明する。"},
+    {"position":4,"image_role":"Technical proof","consumer_question":"どの距離・状況で録音できるか","main_message":"対面と通話の録音条件を図示","feature":"Recording system and range","benefit":"会議で使えるか具体的に判断できる","layout_type":"Product diagram with two-mode proof","product_scale":"large","text_density":"high","background":"light technical","content_type":["Technical","Proof"],"why_effective":"抽象的な録音性能を距離と利用形式へ落とし込む。"},
+    {"position":5,"image_role":"Workflow step","consumer_question":"録音後に何が起きるか","main_message":"文字起こしへの変換を示す","feature":"Transcription workflow","benefit":"聞き直し時間を減らす価値を想像できる","layout_type":"Device-to-output flow","product_scale":"medium","text_density":"medium","background":"warm off-white","content_type":["Workflow","Benefit"],"why_effective":"ハードウェアの先にある成果物を早期に示す。"},
+    {"position":6,"image_role":"Output education","consumer_question":"要約は自分の仕事に合うか","main_message":"複数の要約形式を可視化","feature":"Structured summaries","benefit":"会議後の整理用途を理解できる","layout_type":"Output cards around interface sample","product_scale":"small","text_density":"high","background":"light editorial","content_type":["Category Education","Detail"],"why_effective":"AIという抽象語を具体的な成果物の種類へ変換する。"},
+    {"position":7,"image_role":"Product detail","consumer_question":"携帯性と操作性はどうか","main_message":"薄さ・ボタン・装着方法を確認","feature":"Industrial design","benefit":"日常携帯の負担を判断できる","layout_type":"Macro product details","product_scale":"large","text_density":"medium","background":"warm neutral","content_type":["Detail","Product"],"why_effective":"ソフトウェア価値の途中で物理品質を再提示し、製品感を保つ。"},
+    {"position":8,"image_role":"Plan comparison","consumer_question":"利用プランの違いは何か","main_message":"メンバーシップ差を表で示す","feature":"Service plans","benefit":"購入後の継続条件を判断できる","layout_type":"Multi-column plan table","product_scale":"none","text_density":"very_high","background":"light table","content_type":["Comparison","Purchase Confidence"],"why_effective":"重要条件を隠さないが、ギャラリーでは読みづらくなりやすい。"},
+    {"position":9,"image_role":"In-box confidence","consumer_question":"何が付属するか","main_message":"同梱物を一望させる","feature":"Package contents","benefit":"追加購入の必要性を確認できる","layout_type":"Flat lay with labels","product_scale":"large","text_density":"low","background":"warm off-white","content_type":["Detail","Closure"],"why_effective":"サービス条件の高密度説明後に具体的で読みやすい確認を入れる。"},
+    {"position":10,"image_role":"Recovery confidence","consumer_question":"紛失した場合に探せるか","main_message":"探索機能との関係を提示","feature":"Find function","benefit":"小型デバイス紛失への不安を下げる","layout_type":"Product plus simple map cue","product_scale":"large","text_density":"low","background":"warm neutral","content_type":["Feature","Confidence"],"why_effective":"小型製品固有の購入障壁を一枚で解消する。"},
+    {"position":11,"image_role":"Hybrid scenario","consumer_question":"対面・オンライン・セキュリティに対応するか","main_message":"複数の仕事環境と保護をまとめる","feature":"Cross-context capture and security","benefit":"仕事全体で使える期待を持てる","layout_type":"Three-scene editorial strip","product_scale":"small","text_density":"high","background":"warm lifestyle collage","content_type":["Scenario","Trust"],"why_effective":"用途の広さを示す一方、一枚に複数の判断を詰め込みすぎる。"},
+    {"position":12,"image_role":"Large meeting scenario","consumer_question":"大人数の会議でも使えるか","main_message":"会議室での利用を見せる","feature":"Meeting capture","benefit":"業務導入を具体的に想像できる","layout_type":"Full lifestyle with product inset","product_scale":"small","text_density":"low","background":"realistic business scene","content_type":["Scenario"],"why_effective":"技術説明を現実の会議室へ着地させる。"},
+    {"position":13,"image_role":"Phone scenario","consumer_question":"通話記録にも使えるか","main_message":"スマートフォンとの利用関係を示す","feature":"Call recording use case","benefit":"重要な通話の記録用途を想像できる","layout_type":"Lifestyle close-up","product_scale":"medium","text_density":"low","background":"realistic mobile work scene","content_type":["Scenario","Feature"],"why_effective":"代表的な高頻度場面を一つに絞り、理解を早める。"},
+    {"position":14,"image_role":"Team workflow scenario","consumer_question":"誰が話したかを整理できるか","main_message":"会議参加者を成果物へつなぐ","feature":"Speaker-oriented workflow","benefit":"チーム会議の整理をイメージできる","layout_type":"Meeting scene plus output overlay","product_scale":"small","text_density":"medium","background":"warm business scene","content_type":["Scenario","Workflow"],"why_effective":"人物シーンと成果物を同時に見せ、AI価値を仕事の結果へ接続する。"},
+    {"position":15,"image_role":"Lightweight lifestyle closure","consumer_question":"思いつきを日常的に残せるか","main_message":"装着して声メモを取る姿を提示","feature":"Wearable capture","benefit":"特別な会議以外でも使えると理解できる","layout_type":"Full lifestyle portrait","product_scale":"small","text_density":"low","background":"warm outdoor lifestyle","content_type":["Scenario","Closure"],"why_effective":"最後を感情的で軽い場面にし、複雑なカテゴリを日常へ戻す。"}
+  ],
+  "aplus_patterns": [
+    {"position":1,"module_type":"Brand Story carousel","story_role":"Category and brand context","layout":"Long horizontal card carousel","message":"ブランド思想、利用例、信頼要素","visual_density":"high","product_presence":"medium","scene_presence":"high","technical_information":"low","interaction_type":"carousel","rhythm_relation":"カテゴリの意味を商品説明前に広く見せるが、18カードで長い。"},
+    {"position":2,"module_type":"Hero video","story_role":"Experience demonstration","layout":"Full-width video hero","message":"記録からAI活用までの体験","visual_density":"medium","product_presence":"large","scene_presence":"high","technical_information":"medium","interaction_type":"video","rhythm_relation":"長いブランドストーリーの後に動きで体験を再統合する。"},
+    {"position":3,"module_type":"Navigation carousel","story_role":"Capture chapter","layout":"Warm neutral tabs with five cards","message":"録音ハードウェアと入力方法","visual_density":"medium","product_presence":"large","scene_presence":"medium","technical_information":"high","interaction_type":"tabbed carousel","rhythm_relation":"まず入力能力を体系化し、AI機能より前に製品の土台を置く。"},
+    {"position":4,"module_type":"Navigation carousel","story_role":"Transformation chapter","layout":"Warm neutral tabs with five output cards","message":"文字起こし・要約・整理","visual_density":"high","product_presence":"small","scene_presence":"low","technical_information":"high","interaction_type":"tabbed carousel","rhythm_relation":"入力から成果物へ自然に進み、カテゴリ教育の中心になる。"},
+    {"position":5,"module_type":"Navigation carousel","story_role":"Input and control details","layout":"Four-card chapter","message":"操作方法と入力の細部","visual_density":"medium","product_presence":"medium","scene_presence":"medium","technical_information":"medium","interaction_type":"tabbed carousel","rhythm_relation":"AI成果の後に日常操作へ戻し、利用の現実性を補う。"},
+    {"position":6,"module_type":"Insight carousel","story_role":"AI value expansion","layout":"Six-card analytical workflow","message":"質問・検索・洞察の発展用途","visual_density":"high","product_presence":"small","scene_presence":"low","technical_information":"high","interaction_type":"carousel","rhythm_relation":"基本ワークフローを理解した後だけ高度なAI価値を広げる。"},
+    {"position":7,"module_type":"Navigation carousel","story_role":"Fit and trust","layout":"Five-card mixed scenario and condition chapter","message":"利用場面・プラン・転送・安全・保存","visual_density":"high","product_presence":"small","scene_presence":"medium","technical_information":"medium","interaction_type":"tabbed carousel","rhythm_relation":"購入前の条件をまとめるが、一章の論点が広い。"},
+    {"position":8,"module_type":"Comparison table","story_role":"Selection closure","layout":"Light multi-column table","message":"製品・プランの選択基準","visual_density":"very_high","product_presence":"small","scene_presence":"none","technical_information":"high","interaction_type":"static table","rhythm_relation":"ストーリーを実務的な選択判断で閉じる。"}
+  ],
+  "story_patterns": ["Category-education", "Scenario-led", "Technology-led", "Premium-brand-led"],
+  "visual_patterns": {
+    "visual_hierarchy": "Sparse black headlines and calm product photography precede detailed workflow cards.",
+    "information_density": "Low to medium in gallery scenarios; high inside workflow and plan modules.",
+    "image_text_ratio": "About 70:30 in scenario units and 45:55 in software-output explanations.",
+    "whitespace": "Generous warm-neutral whitespace is a defining rhythm device.",
+    "full_bleed_usage": "Used selectively for video and lifestyle closure rather than every module.",
+    "card_usage": "Cards model inputs, outputs and workflow stages; they carry semantic sequence rather than decoration.",
+    "product_scale": "Dominant early and in physical-detail modules; deliberately small in outcome-led scenes.",
+    "typography_hierarchy": "Large restrained headline, short subcopy, small interface labels; calm and editorial.",
+    "dark_light_rhythm": "Mostly warm light with a dark video hero as the primary contrast break.",
+    "scene_technical_rhythm": "Category explanation alternates with realistic work scenes and output demonstrations."
+  },
+  "strengths": ["把新类别拆成输入—处理—成果—场景的清楚工作流", "留白和暖中性色让复杂AI产品易读", "大量真实工作场景帮助用户判断适配性", "物理产品与软件价值交替出现"],
+  "weaknesses": ["图库15张且A+轮播数量多，路径过长", "会员方案与AI功能说明密度高", "品牌与利用规模Claim需要强证据", "390px viewport下固定宽内容有裁切风险"],
+  "use": ["新类别先解释用户任务，再解释技术名词", "以输入—处理—成果—场景作为AI产品骨架", "用真实工作场景验证抽象的AI能力", "用暖色留白降低高复杂度信息的压迫感"],
+  "adapt": ["所有UI必须来自官方素材并由Graphic Layer程序化排版", "把轮播章节压缩为Amazon中可直接理解的静态信息单元", "保留SwitchBot品牌的薄荷色与友好感，不复制Plaud米色Trade Dress"],
+  "avoid": ["直接复制Plaud文案、UI、卡片形状或米色视觉系统", "在Gallery过早放入高密度会员表", "使用未审核的No.1、用户规模或安全Claim", "让AI功能列表代替消费者工作流"],
+  "good_for": ["需要Category Education的新型AI硬件", "价值来自硬件与软件连续工作流的产品", "专业人群与多场景适配判断重要的页面"],
+  "matcher_profile": {
+    "categories": ["AI productivity", "voice recorder", "knowledge tool", "consumer electronics"],
+    "complexities": ["high", "very_high"],
+    "primary_usps": ["workflow", "AI transformation", "capture", "productivity"],
+    "consumer_tensions": ["information loss", "manual notes", "meeting overload", "unknown category"],
+    "product_types": ["portable AI tool", "recorder", "professional device"],
+    "story_requirements": ["Category-education", "Scenario-led", "Technology-led"],
+    "technical_complexities": ["high", "very_high"],
+    "target_audiences": ["professional", "knowledge worker", "team lead", "creator"]
+  }
+}

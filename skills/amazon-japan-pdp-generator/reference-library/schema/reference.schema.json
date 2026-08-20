@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://switchbot.example/schemas/amazon-japan-pdp-reference.schema.json",
+  "title": "Amazon Japan PDP Reference",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "asin",
+    "brand",
+    "product",
+    "category",
+    "page_type",
+    "complexity",
+    "gallery_patterns",
+    "aplus_patterns",
+    "story_patterns",
+    "visual_patterns",
+    "strengths",
+    "weaknesses",
+    "use",
+    "adapt",
+    "avoid",
+    "good_for",
+    "matcher_profile"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "asin": { "type": "string", "pattern": "^[A-Z0-9]{10}$" },
+    "source_url": { "type": "string", "format": "uri" },
+    "observed_on": { "type": "string", "format": "date" },
+    "observation": {
+      "type": "object",
+      "required": ["desktop", "mobile", "limitations"],
+      "properties": {
+        "desktop": { "type": "string" },
+        "mobile": { "type": "string" },
+        "limitations": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "brand": { "type": "string" },
+    "product": { "type": "string" },
+    "category": { "type": "string" },
+    "page_type": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "complexity": { "enum": ["low", "medium", "high", "very_high"] },
+    "gallery_patterns": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["position", "image_role", "consumer_question", "main_message", "feature", "benefit", "layout_type", "product_scale", "text_density", "background", "content_type", "why_effective"],
+        "properties": {
+          "position": { "type": "integer", "minimum": 1 },
+          "image_role": { "type": "string" },
+          "consumer_question": { "type": "string" },
+          "main_message": { "type": "string" },
+          "feature": { "type": "string" },
+          "benefit": { "type": "string" },
+          "layout_type": { "type": "string" },
+          "product_scale": { "enum": ["none", "small", "medium", "large", "dominant"] },
+          "text_density": { "enum": ["none", "low", "medium", "high", "very_high"] },
+          "background": { "type": "string" },
+          "content_type": { "type": "array", "items": { "type": "string" } },
+          "why_effective": { "type": "string" }
+        }
+      }
+    },
+    "aplus_patterns": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["position", "module_type", "story_role", "layout", "message", "visual_density", "product_presence", "scene_presence", "technical_information", "interaction_type", "rhythm_relation"],
+        "properties": {
+          "position": { "type": "integer", "minimum": 1 },
+          "module_type": { "type": "string" },
+          "story_role": { "type": "string" },
+          "layout": { "type": "string" },
+          "message": { "type": "string" },
+          "visual_density": { "enum": ["low", "medium", "high", "very_high"] },
+          "product_presence": { "enum": ["none", "small", "medium", "large", "dominant"] },
+          "scene_presence": { "enum": ["none", "low", "medium", "high"] },
+          "technical_information": { "enum": ["none", "low", "medium", "high", "very_high"] },
+          "interaction_type": { "type": "string" },
+          "rhythm_relation": { "type": "string" }
+        }
+      }
+    },
+    "story_patterns": { "type": "array", "items": { "type": "string" } },
+    "visual_patterns": { "type": "object" },
+    "strengths": { "type": "array", "items": { "type": "string" } },
+    "weaknesses": { "type": "array", "items": { "type": "string" } },
+    "use": { "type": "array", "items": { "type": "string" } },
+    "adapt": { "type": "array", "items": { "type": "string" } },
+    "avoid": { "type": "array", "items": { "type": "string" } },
+    "good_for": { "type": "array", "items": { "type": "string" } },
+    "matcher_profile": {
+      "type": "object",
+      "required": ["categories", "complexities", "primary_usps", "consumer_tensions", "product_types", "story_requirements", "technical_complexities", "target_audiences"],
+      "additionalProperties": { "type": "array", "items": { "type": "string" } }
+    }
+  }
+}

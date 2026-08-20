@@ -1,0 +1,91 @@
+schema_version: 1.0.0
+resolver_priority:
+  official_png: 1
+  official_product_scene: 2
+  official_detail: 3
+  official_app_ui: 4
+  approved_campaign_asset: 5
+  approved_brand_asset: 6
+  ai_background: 7
+rules:
+  ai_may_replace_product_main: false
+  every_asset_requires_source: true
+  production_scope_required_for_production_ready: true
+assets:
+  - asset_id: ASSET-LOCK-MAIN
+    product_id: lock_ultra
+    asset_type: official_png
+    source_path: renderer/assets/official/P02/lock_ultra_main.jpg
+    source_url: "https://www.switchbot.jp/cdn/shop/files/59_2x_070b4f90-1856-4257-8850-9535863d628d.webp?v=1745576039"
+    approval_status: APPROVED
+    approval_scope: internal_renderer_pilot_only
+    visual_purposes: [hero_product, product_reset, product_identity]
+    fit_score: 100
+    usage: Untouched official product body; preserve full aspect ratio.
+    fallback: null
+    notes: File is JPEG although the semantic role is official_png; no AI alteration.
+  - asset_id: ASSET-LOCK-LIFESTYLE
+    product_id: lock_ultra
+    asset_type: official_product_scene
+    source_path: renderer/assets/official/P02/lock_ultra_lifestyle.jpg
+    source_url: "https://cdn.shopify.com/s/files/1/0522/2458/9999/files/1-_2-Banner-JP_2x_1_beef1491-e31b-4898-9148-b7b5354dd0d7.webp?v=1745750440"
+    approval_status: APPROVED
+    approval_scope: internal_renderer_pilot_only
+    visual_purposes: [lifestyle, color_context, product_reentry]
+    fit_score: 94
+    usage: Untouched official scene / product composition.
+    fallback: ASSET-LOCK-MAIN
+    notes: Contains official campaign styling; do not crop away product variants.
+  - asset_id: ASSET-LOCK-DETAIL
+    product_id: lock_ultra
+    asset_type: official_detail
+    source_path: renderer/assets/official/P02/lock_ultra_detail.jpg
+    source_url: "https://cdn.shopify.com/s/files/1/0522/2458/9999/files/LOCK_ULtra_JP_Amazon_A__600x450_01_M_2x_fa98d0e1-582d-44b2-a164-097170cde208.webp?v=1750318758"
+    approval_status: APPROVED
+    approval_scope: internal_renderer_pilot_only
+    visual_purposes: [compatibility, installation_detail, purchase_check]
+    fit_score: 98
+    usage: Untouched official compatibility example; embedded claims are not transcribed.
+    fallback: null
+    notes: Requires a disclaimer that exact compatibility is checked on the current product page.
+  - asset_id: ASSET-DAILY-MAIN
+    product_id: daily_station
+    asset_type: official_png
+    source_path: renderer/assets/official/P04/daily_station_main.jpg
+    source_url: "https://www.switchbot.jp/cdn/shop/files/Weather_Station_JP_Amazon_Images_1600x1600_00_3x_4_1200x1200.webp?v=1781505008"
+    approval_status: APPROVED
+    approval_scope: internal_renderer_pilot_only
+    visual_purposes: [hero_product, product_reset, product_identity]
+    fit_score: 100
+    usage: Untouched official product body and device screen.
+    fallback: null
+    notes: Do not reconstruct or edit device UI.
+  - asset_id: ASSET-DAILY-UI
+    product_id: daily_station
+    asset_type: official_app_ui
+    source_path: renderer/assets/official/P04/daily_station_ui.jpg
+    source_url: "https://www.switchbot.jp/cdn/shop/files/Weather_Station_JP_Amazon_Images_1600x1600_01_2x_32a38aed-303c-4d47-b9e7-782ca0f62f2e_1200x1200.webp?v=1780979421"
+    approval_status: APPROVED
+    approval_scope: internal_renderer_pilot_only
+    visual_purposes: [device_ui, mechanism, information_categories]
+    fit_score: 100
+    usage: Official device UI; semantic type kept for resolver compatibility.
+    fallback: null
+    notes: Baked Japanese copy and UI are not altered.
+  - asset_id: ASSET-DAILY-DETAIL
+    product_id: daily_station
+    asset_type: official_detail
+    source_path: renderer/assets/official/P04/daily_station_detail.jpg
+    source_url: "https://www.switchbot.jp/cdn/shop/files/Weather_Station_JP_Amazon_Images_2000x2000_02_2x_420fc15a-45f5-4eb1-9e15-6e69b7ba3fef_1200x1200.webp?v=1776400034"
+    approval_status: APPROVED
+    approval_scope: internal_renderer_pilot_only
+    visual_purposes: [environment_detail, information_categories, product_reentry]
+    fit_score: 96
+    usage: Official product-information visual.
+    fallback: ASSET-DAILY-UI
+    notes: Embedded numeric examples are illustrative screen content, not editable claims.
+missing_production_assets:
+  - {asset_id: ASSET-SHARED-BRAND-LOGO, product_id: shared, asset_type: approved_brand_asset, approval_status: MISSING, usage: Optional image wordmark; text wordmark is used, fallback: Text SwitchBot wordmark}
+  - {asset_id: ASSET-LOCK-PRODUCTION-MAIN, product_id: lock_ultra, asset_type: official_png, approval_status: MISSING, usage: Production-approved product body, fallback: null}
+  - {asset_id: ASSET-DAILY-PRODUCTION-MAIN, product_id: daily_station, asset_type: official_png, approval_status: MISSING, usage: Production-approved product body, fallback: null}
+

@@ -1,0 +1,123 @@
+---
+schema_version: 2.0.0
+product_id: daily_station
+official_name_ja:
+  value: SwitchBot スマートデイリーステーション
+  status: VERIFIED_FROM_OFFICIAL_SOURCE
+  source: https://www.switchbot.jp/products/switchbot-weather-station
+  source_location: Page title and product heading
+positioning:
+  value: 暮らしのすべてを、この1画面に
+  status: VERIFIED_FROM_OFFICIAL_SOURCE
+  source: https://www.switchbot.jp/products/switchbot-weather-station
+  source_location: Main product narrative
+primary_usp:
+  value: 室内外の温湿度、天気予報、時計、カレンダーなどを一つの画面で確認
+  status: VERIFIED_FROM_OFFICIAL_SOURCE
+  source: https://www.switchbot.jp/products/switchbot-weather-station
+  source_location: Main product narrative and official screen examples
+secondary_usps:
+  value:
+  - 家族の予定を画面ひとつに
+  - 天気と室内環境を同じ画面で確認
+  status: VERIFIED_FROM_OFFICIAL_SOURCE
+  source: https://www.switchbot.jp/products/switchbot-weather-station
+  source_location: 家族の予定を画面ひとつに and official screen examples
+specs:
+  value: []
+  status: MISSING
+  source: "/Users/lai/.codex/skills/product-knowledge/references/product_specs.xlsx#daily_station"
+  notes: No Daily Station spec rows are available in Product Knowledge; the Pilot
+    copy intentionally uses no numeric spec.
+compatibility:
+  value:
+  - カスタムボタン機能の利用には、SwitchBot ハブ製品およびアプリでのシーン設定が必要
+  - 自動化機能の利用には、SwitchBot ハブ製品が必要
+  status: VERIFIED_FROM_OFFICIAL_SOURCE
+  source: https://prtimes.jp/main/html/rd/p/000000164.000057002.html
+  source_location: Product features notes ※1 and ※2 (published 2026-04-21)
+faq:
+  value: []
+  status: MISSING
+  source: "/Users/lai/.codex/skills/product-knowledge/references/faq.md#daily_station"
+source:
+  value: SwitchBot Japan official product page plus Product Knowledge
+  status: VERIFIED_FROM_OFFICIAL_SOURCE
+  source: "/Users/lai/.codex/skills/product-knowledge/outputs/product_index.json#daily_station"
+last_verified: 2026-08-19
+approved_by: 
+approval:
+  publication_language:
+    status: VERIFIED_FROM_OFFICIAL_SOURCE
+    verification_method: AUTO_VERIFY
+    verified_by: Phase 8 official-source resolver
+    verified_at: 2026-08-20
+    source: https://www.switchbot.jp/products/switchbot-weather-station
+  product_publication_ready:
+    value: true
+    status: VERIFIED_FROM_OFFICIAL_SOURCE
+    evaluated_by: production_readiness/evaluate_readiness.rb
+    evaluated_at: '2026-08-20T02:39:25Z'
+publication_requirements:
+- path: official_name_ja
+  acceptance:
+  - VERIFIED_FROM_OFFICIAL_SOURCE
+  - VERIFIED
+  - APPROVED
+  - INHERITED_APPROVAL
+  required: true
+- path: positioning
+  acceptance:
+  - VERIFIED_FROM_OFFICIAL_SOURCE
+  - APPROVED
+  - INHERITED_APPROVAL
+  required: true
+- path: primary_usp
+  acceptance:
+  - VERIFIED_FROM_OFFICIAL_SOURCE
+  - APPROVED
+  - INHERITED_APPROVAL
+  required: true
+- path: secondary_usps
+  acceptance:
+  - VERIFIED_FROM_OFFICIAL_SOURCE
+  - APPROVED
+  - INHERITED_APPROVAL
+  required: true
+- path: specs
+  acceptance:
+  - APPROVED
+  required: false
+  reason: No numeric spec is used in this Pilot.
+- path: compatibility
+  acceptance:
+  - VERIFIED_FROM_OFFICIAL_SOURCE
+  - APPROVED
+  - INHERITED_APPROVAL
+  required: false
+  reason: Secondary optional; only feature-specific conditions may be used with exact
+    evidence.
+- path: faq
+  acceptance:
+  - APPROVED
+  required: false
+  reason: No FAQ claim is used in this Pilot.
+- path: source
+  acceptance:
+  - VERIFIED_FROM_OFFICIAL_SOURCE
+  - VERIFIED
+  - APPROVED
+  - INHERITED_APPROVAL
+  required: true
+verification_boundary:
+  design_truth: PASS_WITH_OPTIONAL_COMPATIBILITY_FALLBACK
+  external_send_truth: HUMAN_FINAL_REVIEW_REQUIRED
+  notes: Generic Wi-Fi/service/account wording was removed. Only exact published feature
+    conditions may be used; otherwise the secondary module is dropped.
+product_knowledge_snapshot:
+  status: pending_verification
+  completeness: Skeleton
+  external_publish_ready: false
+  approved_external_claim_count: 0
+  last_verified: 2026-07-30
+  source: "/Users/lai/.codex/skills/product-knowledge/outputs/product_index.json#daily_station"

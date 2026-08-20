@@ -1,0 +1,22 @@
+name: Feature
+description: 新增 Skill、自动化或工作空间能力
+title: "[Feature] "
+labels: ["feature"]
+body:
+  - type: textarea
+    attributes: {label: Project, description: 所属项目}
+  - type: dropdown
+    attributes: {label: Priority, options: [P0, P1, P2]}
+  - type: input
+    attributes: {label: Owner}
+  - type: input
+    attributes: {label: Deadline}
+  - type: textarea
+    attributes: {label: Input}
+  - type: textarea
+    attributes: {label: Expected Output}
+  - type: textarea
+    attributes: {label: Source}
+  - type: textarea
+    attributes: {label: Acceptance Criteria}
+    validations: {required: true}

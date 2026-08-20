@@ -1,0 +1,31 @@
+version: 1
+default_market: JP
+feishu:
+  primary_source_folders:
+    - folder_token: fldcnqu1zEMnHKiIO3ibO9Ad5Kb
+      label: SwitchBot Product Marketing Source Folder
+      role: primary_discovery
+      enabled: true
+search:
+  keyword_fields:
+    - official_name_en
+    - official_name_ja
+    - official_name_zh
+    - short_name
+    - current_alias
+    - model_number
+  topic_suffixes:
+    - 仕様
+    - spec
+    - PR
+    - FAQ
+    - KOL
+    - media
+    - launch
+    - 企画
+    - 比較
+    - competitor
+  max_queries_per_product: 12
+identity:
+  exact_resolution_only: true
+  identifier_order: [asin, sku, jan, model_number, alias]

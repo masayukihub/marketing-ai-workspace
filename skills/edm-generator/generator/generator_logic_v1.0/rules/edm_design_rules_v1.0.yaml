@@ -1,0 +1,460 @@
+version: '1.0'
+generated_at: '2026-08-19'
+status: frozen
+phase: phase_2_closed
+standard_path: standards/edm_design_standard_v1.0.md
+traceability_path: standards/rule_traceability.csv
+human_decision_source: /Users/lai/Downloads/standard_human_decisions.csv
+
+rule_counts:
+  hard: 18
+  soft: 16
+  experimental: 5
+  formal_total: 39
+  removed_decision_records: 2
+
+evidence:
+  tier_priority:
+    - Tier A
+    - Tier B
+    - Tier C
+    - Tier D
+  tier_usage:
+    tier_a: SwitchBot brand and design baseline
+    tier_b: SwitchBot supporting variants; cannot override Tier A
+    tier_c: Japan localization and visual supplement; cannot redefine SwitchBot brand
+    tier_d: Layout, module, and Hero inspiration only; cannot determine Japanese copy, density, promotion, CTA, or brand
+  sample_counts_after_human_decision:
+    tier_a: 17
+    tier_b: 4
+    tier_c: 27
+    tier_d: 40
+    reject: 5
+    special_case: 1
+
+message:
+  rule_ids:
+    - R-BRAND-001
+    - R-HERO-001
+    - R-MESSAGE-002
+    - R-MESSAGE-003
+    - R-DENSITY-001
+
+hero:
+  rule_ids:
+    - R-HERO-001
+    - R-HERO-002
+    - R-HERO-003
+    - R-HERO-004
+    - R-PRODUCT-001
+
+product_visual:
+  rule_ids:
+    - R-PRODUCT-001
+    - R-HERO-003
+    - R-ASSET-001
+    - R-AI-001
+    - R-AI-002
+
+copy:
+  rule_ids:
+    - R-COPY-001
+    - R-COPY-002
+    - R-COPY-003
+    - R-COPY-004
+    - R-COPY-005
+
+promotion:
+  rule_ids:
+    - R-PROMO-001
+    - R-PROMO-002
+    - R-PROMO-003
+    - R-CLAIM-001
+
+module:
+  rule_ids:
+    - R-MODULE-001
+    - R-MODULE-003
+    - R-MODULE-004
+    - R-DENSITY-001
+
+cta:
+  rule_ids:
+    - R-CTA-001
+    - R-CTA-002
+    - R-CTA-003
+    - R-CTA-004
+    - R-CTA-005
+
+desktop:
+  rule_ids:
+    - R-DESKTOP-001
+    - R-HERO-002
+    - R-CTA-003
+
+mobile:
+  rule_ids:
+    - R-MOBILE-001
+    - R-MOBILE-002
+    - R-MOBILE-003
+    - R-PRODUCT-001
+
+asset:
+  rule_ids:
+    - R-ASSET-001
+    - R-ASSET-002
+    - R-CLAIM-001
+    - R-CLAIM-002
+
+ai_generation:
+  rule_ids:
+    - R-AI-001
+    - R-AI-002
+
+qa:
+  hard_rule_violation: BLOCKED
+  soft_rule_deviation: EXPLAIN
+  experimental_rule_deviation: NO_BLOCK
+  rule_ids:
+    - R-QA-001
+    - R-QA-002
+    - R-EVIDENCE-001
+    - R-WEIGHT-001
+
+rules:
+  R-BRAND-001:
+    category: message
+    rule_type: hard
+    confidence: high
+    requirement: '每封 EDM 必须明确且只服务一个 Primary Objective。'
+    qa:
+      on_violation: BLOCKED
+      failure_code: PRIMARY_OBJECTIVE_MISSING_OR_MULTIPLE
+  R-WEIGHT-001:
+    category: qa
+    rule_type: hard
+    confidence: high
+    requirement: 'Tier D 不得覆盖 Tier A；Tier C 只补充 Japan Localization 与视觉参考，不得重写 SwitchBot 品牌基线。'
+    qa:
+      on_violation: BLOCKED
+      failure_code: EVIDENCE_TIER_OVERRIDE
+  R-PRODUCT-001:
+    category: product_visual
+    rule_type: hard
+    confidence: high
+    requirement: '销售或发布 EDM 的 Hero 或首个正文模块必须出现可辨认的官方产品本体；关键视口不得破坏性裁切或遮挡产品。'
+    qa:
+      on_violation: BLOCKED
+      failure_code: PRODUCT_NOT_RECOGNIZABLE
+  R-ASSET-001:
+    category: asset
+    rule_type: hard
+    confidence: high
+    requirement: '产品、App UI、包装、配件、安装关系与 Detail Close-up 必须来自可追溯的官方或已确认素材。'
+    qa:
+      on_violation: BLOCKED
+      failure_code: ASSET_PROVENANCE_MISSING
+  R-ASSET-002:
+    category: asset
+    rule_type: hard
+    confidence: high
+    requirement: 'Test Copy、Placeholder、Dummy URL、缺图占位和未确认产品视觉不得进入 Final。'
+    qa:
+      on_violation: BLOCKED
+      failure_code: PLACEHOLDER_OR_TEST_CONTENT
+  R-AI-001:
+    category: ai_generation
+    rule_type: hard
+    confidence: high
+    requirement: 'AI 不得重绘、重构或补画产品本体、App UI、接口、传感器、按钮、配件或包装。'
+    qa:
+      on_violation: BLOCKED
+      failure_code: AI_PRODUCT_REDRAW
+  R-AI-002:
+    category: ai_generation
+    rule_type: hard
+    confidence: high
+    requirement: 'AI 只可辅助环境、人物、道具、光线和背景探索；必须保持产品轮廓、颜色、比例、安装关系与功能事实不变。'
+    qa:
+      on_violation: BLOCKED
+      failure_code: AI_PRODUCT_INTEGRITY_CHANGED
+  R-CLAIM-001:
+    category: asset
+    rule_type: hard
+    confidence: high
+    requirement: '规格、价格、优惠、期间、库存、兼容性、Matter、No.1、Award、评价与媒体 Claim 必须有当前有效来源；缺失时标记 Blocked 或 Unverified。'
+    qa:
+      on_violation: BLOCKED
+      failure_code: UNVERIFIED_CLAIM
+  R-CLAIM-002:
+    category: asset
+    rule_type: hard
+    confidence: high
+    requirement: '产品本体能力与配件、服务或 App 能力必须分开表达，不得把外部能力写成产品本体能力。'
+    qa:
+      on_violation: BLOCKED
+      failure_code: CAPABILITY_BOUNDARY_VIOLATION
+  R-CTA-001:
+    category: cta
+    rule_type: hard
+    confidence: high
+    requirement: '每个模块最多 1 个 Primary CTA；全邮件只允许 1 至 2 个明确目的地，多产品卡可按 SKU 重复同一目的地。'
+    qa:
+      on_violation: BLOCKED
+      failure_code: CTA_HIERARCHY_OR_DESTINATION_OVERLOAD
+  R-CTA-004:
+    category: cta
+    rule_type: hard
+    confidence: high
+    requirement: 'CTA 文案必须说明动作或目的地，且链接必须真实可用；Marketplace 必须明确写明渠道。'
+    qa:
+      on_violation: BLOCKED
+      failure_code: CTA_DESTINATION_INVALID
+  R-MODULE-001:
+    category: module
+    rule_type: hard
+    confidence: high
+    requirement: 'Final EDM 必须具有 Hero、明确的 Primary Message、主要 CTA、必要产品或 Proof 视觉以及 Footer；关键图片必须加载成功。'
+    qa:
+      on_violation: BLOCKED
+      failure_code: REQUIRED_EDM_STRUCTURE_MISSING
+  R-PROMO-002:
+    category: promotion
+    rule_type: hard
+    confidence: high
+    requirement: 'Urgency、截止时间、Deal、OFF、Coupon 与适用条件必须真实且可核对；不得制造虚假紧迫感。'
+    qa:
+      on_violation: BLOCKED
+      failure_code: PROMOTION_FACT_UNVERIFIED
+  R-COPY-002:
+    category: copy
+    rule_type: hard
+    confidence: high
+    requirement: 'Final 文案不得包含测试文字、Placeholder、未经确认的事实或把 Unknown 改写成确定性表述。'
+    qa:
+      on_violation: BLOCKED
+      failure_code: COPY_FACT_OR_PLACEHOLDER_FAILURE
+  R-DESKTOP-001:
+    category: desktop
+    rule_type: hard
+    confidence: high
+    requirement: 'SwitchBot 正式 EDM 的 Desktop 内容宽度基线为 600px。'
+    qa:
+      on_violation: BLOCKED
+      failure_code: DESKTOP_BASELINE_WIDTH_VIOLATION
+  R-EVIDENCE-001:
+    category: qa
+    rule_type: hard
+    confidence: high
+    requirement: '未渲染空白、加载失败、Gallery Frame 或只有 Metadata 的样本不得支持尺寸、布局、Hero Geometry 或视觉频率规则。'
+    qa:
+      on_violation: BLOCKED
+      failure_code: INSUFFICIENT_VISUAL_EVIDENCE
+  R-QA-001:
+    category: qa
+    rule_type: hard
+    confidence: high
+    requirement: '任何必要事实、素材、URL、价格、期间或授权仍为 Blocked、Unverified 或 Conflict 时，Final Production 必须阻塞。'
+    qa:
+      on_violation: BLOCKED
+      failure_code: REQUIRED_INPUT_UNRESOLVED
+  R-QA-002:
+    category: qa
+    rule_type: hard
+    confidence: high
+    requirement: 'Hard Rule 违反必须 BLOCKED；Soft Rule 偏离必须解释；Experimental Rule 不得用于阻塞 Production。'
+    qa:
+      on_violation: BLOCKED
+      failure_code: RULE_CLASSIFICATION_MISAPPLIED
+
+  R-HERO-001:
+    category: hero
+    rule_type: soft
+    confidence: medium
+    default: 'Hero 保留 1 个主活动或主命题；Promotion Hybrid 可增加 1 个次级促销层，但两者不能同等级竞争。'
+    qa:
+      on_deviation: EXPLAIN
+  R-HERO-002:
+    category: hero
+    rule_type: soft
+    confidence: medium
+    default: '不使用固定 Hero 高度比例；标题、产品与主 CTA 应在首屏形成完整任务，整体高度尽量接近常规 Desktop 或 Mobile 的一屏。'
+    qa:
+      on_deviation: EXPLAIN
+  R-DENSITY-001:
+    category: message
+    rule_type: soft
+    confidence: medium
+    default: '模块数量只作诊断参考，不作阻塞阈值；优先检查 Primary Message、产品证据、主要 CTA 与必要 Proof 是否完整。'
+    qa:
+      on_deviation: EXPLAIN
+  R-PROMO-001:
+    category: promotion
+    rule_type: soft
+    confidence: medium
+    default: 'Hero 同时高强调的促销 Token 最多 2 个，优先只突出 Deal 或 OFF 中的 1 个；Last Chance 可强化真实紧迫感。'
+    qa:
+      on_deviation: EXPLAIN
+  R-CTA-002:
+    category: cta
+    rule_type: soft
+    confidence: medium
+    default: '不设全邮件 CTA placement 硬上限；按模块管理，每模块 1 个 Primary CTA，多产品卡可按 SKU 重复。'
+    qa:
+      on_deviation: EXPLAIN
+  R-COPY-001:
+    category: copy
+    rule_type: soft
+    confidence: medium
+    default: '日文 H1 默认 14 至 26 字，软上限 28 字；Editorial 或 Brand Story 可至 38 字，并按语义控制在 2 至 3 行。'
+    qa:
+      on_deviation: EXPLAIN
+  R-MESSAGE-002:
+    category: message
+    rule_type: soft
+    confidence: high
+    default: 'Primary USP 默认 1 个；Secondary USP 默认 2 至 3 个，超过时移入 Feature、Comparison 或后续模块。'
+    qa:
+      on_deviation: EXPLAIN
+  R-MESSAGE-003:
+    category: message
+    rule_type: soft
+    confidence: medium
+    default: 'Feature 默认 3 至 6 个，Proof 默认 1 至 3 个；更多内容必须分章，不得在 Hero 同级堆叠。'
+    qa:
+      on_deviation: EXPLAIN
+  R-HERO-004:
+    category: hero
+    rule_type: soft
+    confidence: medium
+    default: 'Launch 或 Single Product 优先 product_center 或 lifestyle；Promotion 或 Last Chance 优先 promotion 或 multi_product；Education 优先 split 或 lifestyle。'
+    qa:
+      on_deviation: EXPLAIN
+  R-COPY-003:
+    category: copy
+    rule_type: soft
+    confidence: medium
+    default: 'Subheadline 默认 18 至 40 字；正文每段 40 至 90 字；Feature Title 6 至 16 字；Feature Body 24 至 60 字；CTA 4 至 12 字。'
+    qa:
+      on_deviation: EXPLAIN
+  R-COPY-004:
+    category: copy
+    rule_type: soft
+    confidence: medium
+    default: '英文只用于 Brand、Product Name、已确认技术名或必要导航；理解风险高时紧邻自然日文解释。'
+    qa:
+      on_deviation: EXPLAIN
+  R-PROMO-003:
+    category: promotion
+    rule_type: soft
+    confidence: high
+    default: '视觉优先级默认 Campaign Benefit 或 Deal Price，其次 OFF 或减额、Coupon、MSRP、Period 或 Condition；同一 SKU 默认最多重复 2 次，Last Chance 可到 3 次。'
+    qa:
+      on_deviation: EXPLAIN
+  R-MODULE-003:
+    category: module
+    rule_type: soft
+    confidence: high
+    default: '每个模块只回答一个消费者问题；长内容必须用标题、留白、背景或重复语法分章。'
+    qa:
+      on_deviation: EXPLAIN
+  R-MODULE-004:
+    category: module
+    rule_type: soft
+    confidence: medium
+    default: '按 Campaign 使用 Launch、Promotion 或 Education 的推荐模块顺序；允许根据内容需求调整。'
+    qa:
+      on_deviation: EXPLAIN
+  R-CTA-005:
+    category: cta
+    rule_type: soft
+    confidence: high
+    default: 'CTA 使用动作加对象或目的地；避免只有 こちら 或含义相同的双按钮。'
+    qa:
+      on_deviation: EXPLAIN
+  R-COPY-005:
+    category: copy
+    rule_type: soft
+    confidence: medium
+    default: '日本文案优先使用具体场景、用户利益与已确认产品能力，避免中文直译和无事实的夸张形容词。'
+    qa:
+      on_deviation: EXPLAIN
+
+  R-HERO-003:
+    category: product_visual
+    rule_type: experimental
+    confidence: low
+    guidance: 'Product Launch 或 Single Product 可测试产品视觉面积 40% 至 55%，Lifestyle 可测试 35% 至 50%；这些值只是视觉估算。'
+    validation_required: renderer_pixel_segmentation
+    can_block: false
+  R-MOBILE-001:
+    category: mobile
+    rule_type: experimental
+    confidence: low
+    guidance: '使用 390px 作为默认 Mobile QA 视口，不把 390px 写成邮件内容宽度。'
+    validation_required: real_device_and_client_testing
+    can_block: false
+  R-MOBILE-002:
+    category: mobile
+    rule_type: experimental
+    confidence: low
+    guidance: 'Desktop 双栏默认按语义顺序在 Mobile 堆叠；3 至 4 列 Product Grid 默认测试为 1 列，可按实际内容优化。'
+    validation_required: eight_rendered_desktop_mobile_pairs
+    can_block: false
+  R-MOBILE-003:
+    category: mobile
+    rule_type: experimental
+    confidence: low
+    guidance: 'Mobile 正文目标不低于 16px、CTA 目标高不低于 44px、图片目标为内容宽 100% 且保持比例。'
+    validation_required: mobile_readability_testing
+    can_block: false
+  R-CTA-003:
+    category: cta
+    rule_type: experimental
+    confidence: low
+    guidance: 'CTA 尺寸根据实际排版、文案和可读性确定；Desktop 不冻结固定宽度，Mobile 参考 R-MOBILE-003。'
+    validation_required: 600_and_390_renderer_measurement
+    can_block: false
+
+removed:
+  HC-SBL-001:
+    human_decision: Remove
+    result: 'SBL_001 = Reject; no Tier; not an Anchor; anti-pattern only.'
+    note: '和当前的edm模版有点不适配。'
+  R-SPACING-001:
+    human_decision: Remove
+    result: 'No frozen Padding or Module Spacing pixel range in v1.0.'
+    note: '等正式 Renderer 以 600/390 双视口统一测量后再建立模块 spacing tokens。'
+
+anchors:
+  approved:
+    - id: SBG_006
+      role: Theme Campaign / Promotion
+    - id: SBG_007
+      role: Product Launch
+    - id: SBG_020
+      role: Brand Story / Category Education
+    - id: SBG_019
+      role: Single-product Launch
+    - id: SBG_016
+      role: Product-led Visual
+    - id: SBG_001
+      role: Hero / Product Focus / Ecosystem
+  conditional:
+    - id: SBG_005
+      role: Countdown / Last Chance
+      boundary: genuine deadline only
+    - id: SBG_003
+      role: User Voice + Promotion Hybrid
+      boundary: not a universal Mobile or Product Education geometry baseline
+  excluded:
+    - id: SBL_001
+      classification: Reject
+      contribution: anti_pattern_only
+
+phase_3:
+  authorized: false
+  template_library_created: false
+  module_library_created: false
+  renderer_created: false
+  generator_skill_created: false
