@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT="$(git rev-parse --show-toplevel)"
+cd "$ROOT"
+
+pushes_main=0
+skill_changed=0
+
+while read -r local_ref local_sha remote_ref remote_sha; do
+  if [[ "$remote_ref" == "refs/heads/main" ]]; then
+    pushes_main=1
+  fi
+  if [[ "$remote_sha" =~ ^0+$ ]]; then
+    changed="$(git ls-tree -r --name-only "$local_sha")"
+  else
+    changed="$(git diff --name-only "$remote_sha" "$local_sha")"
+  fi
+  if printf '%s\n' "$changed" | grep -q '^skills/'; then
+    skill_changed=1
+  fi
+done
+
+if [[ "$pushes_main" -eq 1 && "${ALLOW_MAIN_PUSH:-0}" != "1" ]]; then
+  echo "BLOCKED: do not push directly to main. Push a feature/fix branch and open a Pull Request."
+  exit 1
+fi
+
+python3 tests/validate_workspace.py --check all
+if [[ "$skill_changed" -eq 1 ]]; then
+  bash tests/run_skill_tests.sh
+fi
+
+echo "PASS: pre-push validation"

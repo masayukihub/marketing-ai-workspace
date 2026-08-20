@@ -86,3 +86,11 @@ git revert <commit-id>
 - `experiment/xxx`：实验，不应直接合并
 
 测试失败时不得合并或覆盖 `main`。
+
+首次 clone 后运行：
+
+```bash
+bash scripts/setup_local_git.sh
+```
+
+它会启用本地 `pre-push` 检查并阻止直接推送 `main`。当前 Private Repository 所属的 GitHub 方案不支持服务端 Branch Protection，因此 Pull Request 和通过 Actions 是必须遵守的团队规则。
