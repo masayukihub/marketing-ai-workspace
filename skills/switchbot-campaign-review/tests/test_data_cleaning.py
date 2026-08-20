@@ -77,6 +77,19 @@ def test_fullwidth_percent_and_currency_formats_are_parsed() -> None:
     assert parse_number("（￥2,500）") == -2500
 
 
+def test_arrow_string_null_does_not_break_percent_normalization() -> None:
+    issues: list[dict[str, object]] = []
+    rates = normalize_percent_series(
+        pd.Series(["2.5%", None], dtype="string[pyarrow]"),
+        "ctr",
+        "sample.csv",
+        "sample",
+        issues,
+    )
+    assert rates.iloc[0] == pytest.approx(0.025)
+    assert pd.isna(rates.iloc[1])
+
+
 def test_formula_error_is_detected_before_numeric_coercion() -> None:
     frame = pd.DataFrame(
         [

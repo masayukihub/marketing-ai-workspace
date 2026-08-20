@@ -294,9 +294,11 @@ def normalize_percent_series(
     source_table: str,
     issues: list[dict[str, Any]],
 ) -> pd.Series:
+    # Pandas may preserve Arrow nulls as float NaN during ``astype(str)`` on
+    # Linux runners. Convert each scalar explicitly so Unicode normalization
+    # receives a string on every supported dtype/backend.
     explicit_mask = (
-        series.astype(str)
-        .map(lambda value: unicodedata.normalize("NFKC", value))
+        series.map(lambda value: unicodedata.normalize("NFKC", str(value)))
         .str.strip()
         .str.endswith("%")
     )
