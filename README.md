@@ -1,6 +1,6 @@
 # Marketing AI Workspace
 
-这是 SWITCHBOT 日本市场营销工作的长期 GitHub 工作空间，用来管理可复用的 AI Skills、Project Memory、自动化脚本、数据结构和可视化应用。
+这是日本市场营销工作的长期 GitHub 工作空间，用来管理可复用的 AI Skills、Project Memory、自动化脚本、数据结构和可视化应用。
 
 它不是飞书或正式产品资料的替代品。飞书与官方资料仍是 Source of Record；本仓库保存经过筛选、可版本管理的执行能力和项目上下文。
 
