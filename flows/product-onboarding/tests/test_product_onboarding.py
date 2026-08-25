@@ -405,6 +405,7 @@ def run_synthetic(request_path: Path) -> dict[str, Any]:
         check=True,
         capture_output=True,
         text=True,
+        env=RUNNER.isolated_git_env(),
     ).stdout.strip()
     original = RUNNER.git_provenance
     RUNNER.git_provenance = lambda _repo_root: (commit, False)
@@ -448,8 +449,32 @@ def test_locked_external_schema_reference_matches_owner() -> None:
     assert json.loads(schema_path.read_text(encoding="utf-8"))["$id"] == reference["schema"]["$id"]
     commit = subprocess.run(
         ["git", "-C", str(owner), "rev-parse", "HEAD"], check=True,
-        capture_output=True, text=True,
+        capture_output=True, text=True, env=RUNNER.isolated_git_env(),
     ).stdout.strip()
+    assert commit == reference["ownership"]["locked_commit"]
+
+
+def test_external_owner_resolution_ignores_inherited_git_hook_context(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    current_git_dir = subprocess.run(
+        ["git", "-C", str(REPO_ROOT), "rev-parse", "--absolute-git-dir"],
+        check=True,
+        capture_output=True,
+        text=True,
+        env=RUNNER.isolated_git_env(),
+    ).stdout.strip()
+    monkeypatch.setenv("GIT_DIR", current_git_dir)
+    reference = json.loads(
+        (REPO_ROOT / "contracts/product-truth-schema-reference.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    resolved_owner, schema_path, commit = RUNNER.resolve_schema_owner(
+        REPO_ROOT, reference, None
+    )
+    assert resolved_owner == owner_root()
+    assert schema_path == resolved_owner / reference["schema"]["path"]
     assert commit == reference["ownership"]["locked_commit"]
 
 

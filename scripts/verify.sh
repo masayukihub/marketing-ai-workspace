@@ -4,6 +4,13 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 PYTHON_BIN="$ROOT/.venv/bin/python"
 
+# Git invokes hooks with repository-local GIT_* routing variables exported.
+# Clear them before the suite inspects locked external repositories with
+# `git -C`; otherwise Git can silently report this workspace's commit instead.
+while IFS= read -r git_local_var; do
+  unset "$git_local_var"
+done < <(git -C "$ROOT" rev-parse --local-env-vars)
+
 if [[ ! -x "$PYTHON_BIN" ]]; then
   echo "BLOCKED: project Python is missing at $PYTHON_BIN"
   echo "Create $ROOT/.venv and install requirements-dev.txt; system Python is not an accepted fallback."

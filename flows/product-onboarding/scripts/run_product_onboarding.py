@@ -190,19 +190,35 @@ def secure_runtime(runtime_dir: Path, request_path: Path, input_paths: Iterable[
         path.chmod(0o600)
 
 
+def isolated_git_env() -> dict[str, str]:
+    """Return an environment that lets ``git -C`` target another checkout.
+
+    Git hooks export repository-local variables such as ``GIT_DIR``.  If those
+    variables leak into a nested ``git -C <external-repo>`` call, Git silently
+    keeps using the hook's repository and returns the wrong owner commit.
+    Local provenance checks must therefore run without inherited ``GIT_*``
+    routing variables.
+    """
+
+    return {key: value for key, value in os.environ.items() if not key.startswith("GIT_")}
+
+
 def git_provenance(repo_root: Path) -> tuple[str, bool]:
+    git_env = isolated_git_env()
     try:
         commit = subprocess.run(
             ["git", "-C", str(repo_root), "rev-parse", "HEAD"],
             check=True,
             capture_output=True,
             text=True,
+            env=git_env,
         ).stdout.strip()
         status = subprocess.run(
             ["git", "-C", str(repo_root), "status", "--porcelain", "--untracked-files=normal"],
             check=True,
             capture_output=True,
             text=True,
+            env=git_env,
         ).stdout.strip()
     except (OSError, subprocess.CalledProcessError) as exc:
         raise FlowError(f"cannot capture workspace Git provenance: {exc}") from exc
@@ -320,6 +336,7 @@ def resolve_schema_owner(
                 check=True,
                 capture_output=True,
                 text=True,
+                env=isolated_git_env(),
             ).stdout.strip()
         except (OSError, subprocess.CalledProcessError) as exc:
             raise FlowError(f"cannot verify Product Truth owner repository: {exc}") from exc
