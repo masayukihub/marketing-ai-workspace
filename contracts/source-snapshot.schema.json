@@ -1,0 +1,1079 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/masayukihub/marketing-ai-workspace/contracts/source-snapshot.schema.json",
+  "title": "Product Onboarding Source Snapshot Contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "snapshot_id",
+    "run_id",
+    "project_id",
+    "product_id",
+    "captured_at",
+    "scope",
+    "acquisition",
+    "storage_policy",
+    "sources",
+    "status",
+    "errors"
+  ],
+  "properties": {
+    "contract_version": {
+      "const": "1.0"
+    },
+    "snapshot_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "project_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "product_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "captured_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "scope": {
+      "$ref": "#/$defs/scope"
+    },
+    "acquisition": {
+      "$ref": "#/$defs/acquisition"
+    },
+    "storage_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "runtime_outside_git_repository",
+        "raw_feishu_body_committed",
+        "prices_committed",
+        "approval_records_committed",
+        "unreleased_assets_committed"
+      ],
+      "properties": {
+        "runtime_outside_git_repository": {
+          "const": true
+        },
+        "raw_feishu_body_committed": {
+          "const": false
+        },
+        "prices_committed": {
+          "const": false
+        },
+        "approval_records_committed": {
+          "const": false
+        },
+        "unreleased_assets_committed": {
+          "const": false
+        }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/source"
+      },
+      "uniqueItems": true
+    },
+    "status": {
+      "enum": [
+        "COMPLETE",
+        "PARTIAL",
+        "BLOCKED"
+      ]
+    },
+    "errors": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/error"
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "acquisition": {
+            "properties": {
+              "fallback_used": {
+                "const": true
+              }
+            },
+            "required": [
+              "fallback_used"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "acquisition": {
+            "properties": {
+              "effective_adapter": {
+                "enum": [
+                  "LOCAL_FILE",
+                  "MANUAL_SNAPSHOT"
+                ]
+              },
+              "fallback_confirmation": {
+                "$ref": "#/$defs/fallback_confirmation"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "acquisition": {
+            "properties": {
+              "fallback_used": {
+                "const": false
+              }
+            },
+            "required": [
+              "fallback_used"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "acquisition": {
+            "properties": {
+              "fallback_confirmation": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "acquisition": {
+            "properties": {
+              "effective_adapter": {
+                "enum": [
+                  "LOCAL_FILE",
+                  "MANUAL_SNAPSHOT"
+                ]
+              }
+            },
+            "required": [
+              "effective_adapter"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "acquisition": {
+            "properties": {
+              "input_confirmation": {
+                "$ref": "#/$defs/fallback_confirmation"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "acquisition": {
+            "properties": {
+              "effective_adapter": {
+                "const": "FEISHU_MCP"
+              }
+            },
+            "required": [
+              "effective_adapter"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "acquisition": {
+            "properties": {
+              "input_confirmation": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "acquisition": {
+            "properties": {
+              "adapter_status": {
+                "const": "BLOCKED"
+              },
+              "fallback_used": {
+                "const": false
+              }
+            },
+            "required": [
+              "adapter_status",
+              "fallback_used"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "status": {
+            "const": "BLOCKED"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "acquisition": {
+            "properties": {
+              "adapter_status": {
+                "const": "BLOCKED"
+              },
+              "fallback_used": {
+                "const": true
+              }
+            },
+            "required": [
+              "adapter_status",
+              "fallback_used"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "status": {
+            "const": "PARTIAL"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "COMPLETE",
+              "PARTIAL"
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "sources": {
+            "minItems": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "acquisition": {
+            "properties": {
+              "adapter_status": {
+                "const": "BLOCKED"
+              }
+            },
+            "required": [
+              "adapter_status"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "acquisition": {
+            "properties": {
+              "adapter_attempted_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "blocked_reason": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "errors": {
+            "minItems": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "acquisition": {
+            "properties": {
+              "adapter_status": {
+                "enum": [
+                  "SUCCESS",
+                  "NOT_ATTEMPTED"
+                ]
+              }
+            },
+            "required": [
+              "adapter_status"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "acquisition": {
+            "properties": {
+              "blocked_reason": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "market",
+        "locale",
+        "channel",
+        "offer"
+      ],
+      "properties": {
+        "market": {
+          "type": "string",
+          "minLength": 1
+        },
+        "locale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "channel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "offer": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "acquisition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "requested_adapter",
+        "adapter_status",
+        "adapter_attempted_at",
+        "blocked_reason",
+        "effective_adapter",
+        "input_confirmation",
+        "fallback_used",
+        "fallback_confirmation"
+      ],
+      "properties": {
+        "requested_adapter": {
+          "enum": [
+            "FEISHU_MCP",
+            "LOCAL_FILE",
+            "MANUAL_SNAPSHOT"
+          ]
+        },
+        "adapter_status": {
+          "enum": [
+            "SUCCESS",
+            "PARTIAL",
+            "BLOCKED",
+            "NOT_ATTEMPTED"
+          ]
+        },
+        "adapter_attempted_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "blocked_reason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "effective_adapter": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "FEISHU_MCP",
+            "LOCAL_FILE",
+            "MANUAL_SNAPSHOT",
+            null
+          ]
+        },
+        "fallback_used": {
+          "type": "boolean"
+        },
+        "input_confirmation": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/fallback_confirmation"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "fallback_confirmation": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/fallback_confirmation"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "fallback_confirmation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "confirmed",
+        "confirmed_by",
+        "confirmed_at",
+        "reason"
+      ],
+      "properties": {
+        "confirmed": {
+          "const": true
+        },
+        "confirmed_by": {
+          "type": "string",
+          "minLength": 1
+        },
+        "confirmed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_id",
+        "title",
+        "authority",
+        "original_uri",
+        "source_revision",
+        "source_updated_at",
+        "captured_at",
+        "extraction_status",
+        "content_sha256",
+        "content_ref",
+        "allowed_use",
+        "derived_from",
+        "adapter_mapping"
+      ],
+      "properties": {
+        "source_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "authority": {
+          "enum": [
+            "CANONICAL_SOURCE",
+            "CONFIRMED_LOCAL_INPUT",
+            "CONFIRMED_FALLBACK",
+            "DERIVED_ARTIFACT",
+            "USER_PROVIDED"
+          ]
+        },
+        "original_uri": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_revision": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_updated_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "captured_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "extraction_status": {
+          "enum": [
+            "READ_SUCCESS",
+            "PARTIAL",
+            "NOT_EXTRACTED",
+            "BLOCKED"
+          ]
+        },
+        "content_sha256": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "content_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "allowed_use": {
+          "enum": [
+            "INTERNAL_FACT_PROPOSAL_ONLY",
+            "INTERNAL_REVIEW_ONLY",
+            "BLOCKED"
+          ]
+        },
+        "derived_from": {
+          "type": "array",
+        "items": {
+          "type": "string",
+          "pattern": "^SRC-[0-9]{3}$"
+        },
+          "uniqueItems": true
+        },
+        "adapter_mapping": {
+          "$ref": "#/$defs/adapter_mapping"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "extraction_status": {
+                "enum": [
+                  "READ_SUCCESS",
+                  "PARTIAL"
+                ]
+              }
+            },
+            "required": [
+              "extraction_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "content_sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "content_ref": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "authority": {
+                "const": "DERIVED_ARTIFACT"
+              }
+            },
+            "required": [
+              "authority"
+            ]
+          },
+          "then": {
+            "properties": {
+              "derived_from": {
+                "minItems": 1
+              },
+              "adapter_mapping": {
+                "properties": {
+                  "raw_resource_type": {
+                    "const": "derived_artifact"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "adapter_mapping": {
+                "properties": {
+                  "raw_resource_type": {
+                    "enum": [
+                      "docx",
+                      "sheets",
+                      "bitable",
+                      "source_pointer"
+                    ]
+                  }
+                },
+                "required": [
+                  "raw_resource_type"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "authority": {
+                "const": "CANONICAL_SOURCE"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "adapter_mapping": {
+                "properties": {
+                  "raw_resource_type": {
+                    "enum": [
+                      "feishu_sheet_export",
+                      "local_file"
+                    ]
+                  }
+                },
+                "required": [
+                  "raw_resource_type"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "authority": {
+                "enum": [
+                  "CONFIRMED_LOCAL_INPUT",
+                  "CONFIRMED_FALLBACK"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "adapter_mapping": {
+                "properties": {
+                  "raw_resource_type": {
+                    "const": "manual_snapshot"
+                  }
+                },
+                "required": [
+                  "raw_resource_type"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "authority": {
+                "const": "USER_PROVIDED"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "adapter_mapping": {
+                "properties": {
+                  "raw_resource_type": {
+                    "const": "derived_artifact"
+                  }
+                },
+                "required": [
+                  "raw_resource_type"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "authority": {
+                "const": "DERIVED_ARTIFACT"
+              },
+              "derived_from": {
+                "minItems": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "adapter_mapping": {
+                "properties": {
+                  "raw_resource_type": {
+                    "const": "source_pointer"
+                  }
+                },
+                "required": [
+                  "raw_resource_type"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "authority": {
+                "const": "CANONICAL_SOURCE"
+              },
+              "extraction_status": {
+                "const": "NOT_EXTRACTED"
+              },
+              "content_sha256": {
+                "type": "null"
+              },
+              "content_ref": {
+                "type": "null"
+              },
+              "derived_from": {
+                "maxItems": 0
+              }
+            }
+          }
+        }
+      ]
+    },
+    "adapter_mapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "raw_resource_type",
+        "normalized_source_type",
+        "mapping_rule",
+        "payload_shape",
+        "payload_ref"
+      ],
+      "properties": {
+        "raw_resource_type": {
+          "enum": [
+            "docx",
+            "sheets",
+            "bitable",
+            "feishu_sheet_export",
+            "local_file",
+            "derived_artifact",
+            "source_pointer",
+            "manual_snapshot"
+          ]
+        },
+        "normalized_source_type": {
+          "enum": [
+            "feishu_docx",
+            "feishu_sheet",
+            "feishu_bitable",
+            "feishu_drive",
+            "official_file",
+            "product_knowledge",
+            "human_decision"
+          ]
+        },
+        "mapping_rule": {
+          "enum": [
+            "docx_to_feishu_docx",
+            "sheets_collection_to_feishu_sheet",
+            "bitable_to_feishu_bitable",
+            "annotated_csv_export_to_feishu_sheet",
+            "local_file_to_official_file",
+            "derived_artifact_to_product_knowledge",
+            "pointer_only_no_content",
+            "manual_snapshot_to_human_decision"
+          ]
+        },
+        "payload_shape": {
+          "enum": [
+            "plain_text",
+            "content.sheets[].values",
+            "content.tables[].records",
+            "annotated_csv",
+            "file_bytes",
+            "no_payload",
+            "manual_fact_bundle"
+          ]
+        },
+        "payload_ref": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "raw_resource_type": {
+                "const": "docx"
+              }
+            },
+            "required": [
+              "raw_resource_type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "normalized_source_type": {
+                "const": "feishu_docx"
+              },
+              "mapping_rule": {
+                "const": "docx_to_feishu_docx"
+              },
+              "payload_shape": {
+                "const": "plain_text"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "raw_resource_type": {
+                "const": "feishu_sheet_export"
+              }
+            },
+            "required": [
+              "raw_resource_type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "normalized_source_type": {
+                "const": "feishu_sheet"
+              },
+              "mapping_rule": {
+                "const": "annotated_csv_export_to_feishu_sheet"
+              },
+              "payload_shape": {
+                "const": "annotated_csv"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "raw_resource_type": {
+                "const": "source_pointer"
+              }
+            },
+            "required": [
+              "raw_resource_type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "mapping_rule": {
+                "const": "pointer_only_no_content"
+              },
+              "payload_shape": {
+                "const": "no_payload"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "raw_resource_type": {
+                "const": "derived_artifact"
+              }
+            },
+            "required": [
+              "raw_resource_type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "normalized_source_type": {
+                "const": "product_knowledge"
+              },
+              "mapping_rule": {
+                "const": "derived_artifact_to_product_knowledge"
+              },
+              "payload_shape": {
+                "const": "file_bytes"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "raw_resource_type": {
+                "const": "sheets"
+              }
+            },
+            "required": [
+              "raw_resource_type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "normalized_source_type": {
+                "const": "feishu_sheet"
+              },
+              "mapping_rule": {
+                "const": "sheets_collection_to_feishu_sheet"
+              },
+              "payload_shape": {
+                "const": "content.sheets[].values"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "raw_resource_type": {
+                "const": "bitable"
+              }
+            },
+            "required": [
+              "raw_resource_type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "normalized_source_type": {
+                "const": "feishu_bitable"
+              },
+              "mapping_rule": {
+                "const": "bitable_to_feishu_bitable"
+              },
+              "payload_shape": {
+                "const": "content.tables[].records"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "raw_resource_type": {
+                "const": "local_file"
+              }
+            },
+            "required": [
+              "raw_resource_type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "normalized_source_type": {
+                "const": "official_file"
+              },
+              "mapping_rule": {
+                "const": "local_file_to_official_file"
+              },
+              "payload_shape": {
+                "const": "file_bytes"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "raw_resource_type": {
+                "const": "manual_snapshot"
+              }
+            },
+            "required": [
+              "raw_resource_type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "normalized_source_type": {
+                "const": "human_decision"
+              },
+              "mapping_rule": {
+                "const": "manual_snapshot_to_human_decision"
+              },
+              "payload_shape": {
+                "const": "manual_fact_bundle"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "error": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "message",
+        "source_id"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}

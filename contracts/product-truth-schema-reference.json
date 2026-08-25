@@ -1,0 +1,47 @@
+{
+  "reference_version": "1.0",
+  "contract_name": "switchbot-jp-product-truth-packet",
+  "ownership": {
+    "owner_repo": "masayukihub/jp-commerce-creative-flow",
+    "remote_url": "https://github.com/masayukihub/jp-commerce-creative-flow.git",
+    "base_version": "0.3.3",
+    "commits_after_base_version": 7,
+    "locked_commit": "d3e9a16509b54ba2f720d045c2e79443064e2981"
+  },
+  "schema": {
+    "path": "overlays/switchbot-jp/schemas/product-truth-packet.schema.json",
+    "$id": "https://github.com/laixiaohong/jp-commerce-creative-flow/overlays/switchbot-jp/schemas/product-truth-packet.schema.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "sha256": "881b594f9be3caf170e0b2365980e1c217b5d3b0d556849a7456916f87d70753"
+  },
+  "resolution": {
+    "network_fetch_allowed": false,
+    "resolution_order": [
+      {
+        "kind": "cli_argument",
+        "name": "--product-truth-schema"
+      },
+      {
+        "kind": "environment_repo_root",
+        "name": "JP_COMMERCE_CREATIVE_FLOW_DIR"
+      },
+      {
+        "kind": "marketing_workspace_sibling",
+        "relative_repo_path": "jp-commerce-creative-flow"
+      }
+    ],
+    "required_checks": [
+      "repository_commit_equals_locked_commit",
+      "schema_path_exists",
+      "schema_id_equals_locked_id",
+      "schema_sha256_equals_locked_sha256"
+    ]
+  },
+  "policy": {
+    "schema_copy_or_vendor_allowed": false,
+    "second_product_truth_schema_allowed": false,
+    "runtime_validation_required": true,
+    "channel_and_locale_belong_in_run_manifest": true,
+    "proposal_must_keep_approved_claims_empty_until_human_approval": true
+  }
+}

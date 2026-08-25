@@ -2,10 +2,28 @@ name: Skill Tests
 
 on:
   pull_request:
-    paths: ["skills/**", "tests/run_skill_tests.sh", ".github/workflows/skill-tests.yml"]
+    paths:
+      - "skills/**"
+      - "flows/**"
+      - "contracts/**"
+      - "scripts/**"
+      - "tests/**"
+      - "skills-lock.json"
+      - "flows.json"
+      - "requirements-dev.txt"
+      - ".github/workflows/skill-tests.yml"
   push:
     branches: [main]
-    paths: ["skills/**", "tests/run_skill_tests.sh", ".github/workflows/skill-tests.yml"]
+    paths:
+      - "skills/**"
+      - "flows/**"
+      - "contracts/**"
+      - "scripts/**"
+      - "tests/**"
+      - "skills-lock.json"
+      - "flows.json"
+      - "requirements-dev.txt"
+      - ".github/workflows/skill-tests.yml"
   workflow_dispatch:
 
 concurrency:
@@ -15,7 +33,7 @@ concurrency:
 jobs:
   test:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -24,11 +42,18 @@ jobs:
         with: {node-version: "22"}
       - uses: ruby/setup-ruby@v1
         with: {ruby-version: "3.3"}
-      - name: Install Python test dependencies
-        run: >-
-          python -m pip install "pytest>=8,<9" openpyxl "pandas>=2.2,<3" pyarrow PyYAML xlrd
-          matplotlib Jinja2 pdfplumber
+      - name: Resolve locked Product Truth owner repository
+        run: |
+          git clone --filter=blob:none https://github.com/masayukihub/jp-commerce-creative-flow.git "$RUNNER_TEMP/jp-commerce-creative-flow"
+          git -C "$RUNNER_TEMP/jp-commerce-creative-flow" checkout d3e9a16509b54ba2f720d045c2e79443064e2981
+      - name: Create project virtual environment
+        run: |
+          python -m venv .venv
+          .venv/bin/python -m pip install --upgrade pip
+          .venv/bin/python -m pip install -r requirements-dev.txt
       - name: Install Amazon PDP Node dependencies
         run: npm install --prefix skills/amazon-japan-pdp-generator --no-audit --no-fund
-      - name: Run Skill tests
-        run: bash tests/run_skill_tests.sh
+      - name: Unified verification
+        env:
+          JP_COMMERCE_CREATIVE_FLOW_DIR: ${{ runner.temp }}/jp-commerce-creative-flow
+        run: ./scripts/verify.sh

@@ -1,0 +1,26 @@
+{
+  "flow_id": "product-onboarding",
+  "flow_version": "0.1.0-p0.1",
+  "implementation_status": "PILOT",
+  "entrypoint": "scripts/run_product_onboarding.py",
+  "input_contract": {
+    "request_version": "1.0",
+    "accepted_adapters": [
+      "FEISHU_MCP",
+      "LOCAL_FILE",
+      "MANUAL_SNAPSHOT"
+    ],
+    "feishu_handoff": "A connector response must first be saved in the private runtime; the Python runner does not claim to invoke MCP itself.",
+    "fallback_requires_confirmation": true
+  },
+  "pilot_scope": {
+    "project_id": "s30-mini",
+    "market": "JP",
+    "locale": "ja-JP",
+    "channel": "Amazon.co.jp",
+    "offer": "水箱版のみ"
+  },
+  "terminal_gate": "PRODUCT_TRUTH_HUMAN_REVIEW_GATE",
+  "canonical_writes": false,
+  "external_publish": false
+}

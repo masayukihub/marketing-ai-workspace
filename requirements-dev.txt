@@ -1,0 +1,10 @@
+pytest>=8,<9
+jsonschema[format]>=4.22,<5
+openpyxl
+pandas>=2.2,<3
+pyarrow
+PyYAML
+xlrd
+matplotlib
+Jinja2
+pdfplumber
