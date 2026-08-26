@@ -1,7 +1,6 @@
 interface:
-  display_name: "Amazon Japan PDP Generator"
-  short_description: "REFERENCE、Spec与模板驱动的日本Amazon PDP生产系统"
-  brand_color: "#23A98F"
-  default_prompt: "Use $amazon-japan-pdp-generator to run KNOW, REFERENCE, PLAN, Story Approval, DESIGN, Layout Approval, and PRODUCE for a Spec-driven Amazon Japan PDP; use the Reference Library for principles only and only user-provided official product assets for the Product Layer."
+  display_name: "内部模块｜Amazon PDP渲染"
+  short_description: "模板、Spec、Amazon预览与移动端回归能力"
+  default_prompt: "Use $jp-commerce-content-flow for user-facing work; invoke $amazon-japan-pdp-generator only as its compatible Spec and template renderer."
 policy:
-  allow_implicit_invocation: true
+  allow_implicit_invocation: false
