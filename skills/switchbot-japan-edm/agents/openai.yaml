@@ -1,0 +1,13 @@
+interface:
+  display_name: 日本EDM制作
+  short_description: 统一完成日本EDM策略、日文文案、历史模板、HTML视觉和发送前QA
+  default_prompt: 使用 $switchbot-japan-edm，读取已确认的活动和产品资料，完成我需要的日本EDM策略、文案、HTML或视觉稿，并用中文说明待确认项和发布门禁。
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

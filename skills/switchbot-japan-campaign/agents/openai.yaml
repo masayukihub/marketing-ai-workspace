@@ -1,0 +1,13 @@
+interface:
+  display_name: 日本营销活动策划与复盘
+  short_description: 统一完成日本市场活动策划、上线准备、链接治理、目标管理与复盘
+  default_prompt: 使用 $switchbot-japan-campaign，读取现有项目资料，完成本次日本市场活动的策划、渠道素材需求、Tracking与目标复盘；未确认事实请标记待确认。
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true
