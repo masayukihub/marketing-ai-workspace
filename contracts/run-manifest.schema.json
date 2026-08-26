@@ -1,0 +1,906 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/masayukihub/marketing-ai-workspace/contracts/run-manifest.schema.json",
+  "title": "P0-1 Product Onboarding Run Manifest Contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "run_id",
+    "flow_id",
+    "flow_version",
+    "started_at",
+    "completed_at",
+    "execution",
+    "scope",
+    "source_access",
+    "locked_dependencies",
+    "product_truth_schema",
+    "outputs",
+    "quality_checks",
+    "governance",
+    "blockers",
+    "warnings",
+    "current_gate",
+    "human_review_required",
+    "final_state",
+    "manifest_path"
+  ],
+  "properties": {
+    "contract_version": {
+      "const": "1.0"
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "flow_id": {
+      "const": "product-onboarding"
+    },
+    "flow_version": {
+      "const": "0.1.0-p0.1"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "request_ref",
+        "request_sha256",
+        "runner_path",
+        "runner_sha256",
+        "workspace_repo",
+        "workspace_commit",
+        "workspace_dirty",
+        "inputs_sha256"
+      ],
+      "properties": {
+        "request_ref": {
+          "const": "request.json"
+        },
+        "request_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "runner_path": {
+          "const": "flows/product-onboarding/scripts/run_product_onboarding.py"
+        },
+        "runner_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "workspace_repo": {
+          "const": "masayukihub/marketing-ai-workspace"
+        },
+        "workspace_commit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "workspace_dirty": {
+          "type": "boolean"
+        },
+        "inputs_sha256": {
+          "type": "object",
+          "minProperties": 1,
+          "propertyNames": {
+            "pattern": "^inputs/.+"
+          },
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        }
+      }
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "project_id",
+        "product_id",
+        "market",
+        "locale",
+        "channel",
+        "offer"
+      ],
+      "properties": {
+        "project_id": {
+          "const": "s30-mini"
+        },
+        "product_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "market": {
+          "const": "JP"
+        },
+        "locale": {
+          "const": "ja-JP"
+        },
+        "channel": {
+          "const": "Amazon.co.jp"
+        },
+        "offer": {
+          "const": "水箱版のみ"
+        }
+      }
+    },
+    "source_access": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "requested_adapter",
+        "feishu_mcp_status",
+        "effective_adapter",
+        "confirmed_fallback_used",
+        "input_confirmation_present",
+        "source_snapshot_id",
+        "source_snapshot_ref"
+      ],
+      "properties": {
+        "requested_adapter": {
+          "enum": [
+            "FEISHU_MCP",
+            "LOCAL_FILE",
+            "MANUAL_SNAPSHOT"
+          ]
+        },
+        "feishu_mcp_status": {
+          "enum": [
+            "SUCCESS",
+            "PARTIAL",
+            "BLOCKED",
+            "NOT_REQUESTED"
+          ]
+        },
+        "effective_adapter": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "FEISHU_MCP",
+            "LOCAL_FILE",
+            "MANUAL_SNAPSHOT",
+            null
+          ]
+        },
+        "confirmed_fallback_used": {
+          "type": "boolean"
+        },
+        "input_confirmation_present": {
+          "type": "boolean"
+        },
+        "source_snapshot_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_snapshot_ref": {
+          "const": "source-snapshot.json"
+        }
+      }
+    },
+    "locked_dependencies": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+        "component",
+        "lock_ref",
+        "verification_status",
+        "verification_basis"
+        ],
+        "properties": {
+          "component": {
+            "type": "string",
+            "minLength": 1
+          },
+          "lock_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "verification_status": {
+            "enum": [
+              "PASS",
+              "FAIL",
+              "NOT_USED"
+            ]
+          },
+          "verification_basis": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "allOf": [
+        {
+          "contains": {
+            "properties": {
+              "component": {
+                "const": "jp-commerce-creative-flow"
+              }
+            },
+            "required": [
+              "component"
+            ]
+          }
+        },
+        {
+          "contains": {
+            "properties": {
+              "component": {
+                "const": "feishu-read-gateway-mcp"
+              }
+            },
+            "required": [
+              "component"
+            ]
+          }
+        },
+        {
+          "contains": {
+            "properties": {
+              "component": {
+                "const": "product-knowledge"
+              }
+            },
+            "required": [
+              "component"
+            ]
+          }
+        },
+        {
+          "contains": {
+            "properties": {
+              "component": {
+                "const": "project-memory-manager"
+              }
+            },
+            "required": [
+              "component"
+            ]
+          }
+        }
+      ]
+    },
+    "product_truth_schema": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reference_ref",
+        "resolved_path",
+        "owner_repo_commit",
+        "schema_id",
+        "sha256",
+        "validation_status"
+      ],
+      "properties": {
+        "reference_ref": {
+          "const": "contracts/product-truth-schema-reference.json"
+        },
+        "resolved_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "owner_repo_commit": {
+          "const": "d3e9a16509b54ba2f720d045c2e79443064e2981"
+        },
+        "schema_id": {
+          "const": "https://github.com/laixiaohong/jp-commerce-creative-flow/overlays/switchbot-jp/schemas/product-truth-packet.schema.json"
+        },
+        "sha256": {
+          "const": "881b594f9be3caf170e0b2365980e1c217b5d3b0d556849a7456916f87d70753"
+        },
+        "validation_status": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "BLOCKED"
+          ]
+        }
+      }
+    },
+    "outputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_snapshot",
+        "product_knowledge_change_proposal",
+        "product_truth_proposal",
+        "conflict_missing_report",
+        "claim_human_review_queue",
+        "product_truth_review_html"
+      ],
+      "properties": {
+        "source_snapshot": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/json_artifact"
+            },
+            {
+              "properties": {
+                "path": {
+                  "const": "source-snapshot.json"
+                }
+              }
+            }
+          ]
+        },
+        "product_knowledge_change_proposal": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/json_artifact"
+            },
+            {
+              "properties": {
+                "path": {
+                  "const": "product-knowledge-change-proposal.json"
+                }
+              }
+            }
+          ]
+        },
+        "product_truth_proposal": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/json_artifact"
+            },
+            {
+              "properties": {
+                "path": {
+                  "const": "product-truth-proposal.json"
+                }
+              }
+            }
+          ]
+        },
+        "conflict_missing_report": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/json_artifact"
+            },
+            {
+              "properties": {
+                "path": {
+                  "const": "conflict-missing-report.json"
+                }
+              }
+            }
+          ]
+        },
+        "claim_human_review_queue": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/json_artifact"
+            },
+            {
+              "properties": {
+                "path": {
+                  "const": "claim-human-review-queue.json"
+                }
+              }
+            }
+          ]
+        },
+        "product_truth_review_html": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/html_artifact"
+            },
+            {
+              "properties": {
+                "path": {
+                  "const": "product-truth-review.html"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "quality_checks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "check_id",
+          "status",
+          "validator",
+          "evidence",
+          "checked_subject_sha256",
+          "checked_at"
+        ],
+        "properties": {
+          "check_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "enum": [
+              "PASS",
+              "FAIL",
+              "BLOCKED"
+            ]
+          },
+          "validator": {
+            "type": "string",
+            "minLength": 1
+          },
+          "evidence": {
+            "type": "string",
+            "minLength": 1
+          },
+          "checked_subject_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "checked_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    },
+    "governance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "proposal_only",
+        "canonical_product_knowledge_written",
+        "project_memory_written",
+        "amazon_content_generated",
+        "production_environment_modified",
+        "external_publish_attempted",
+        "raw_sensitive_sources_committed"
+      ],
+      "properties": {
+        "proposal_only": {
+          "const": true
+        },
+        "canonical_product_knowledge_written": {
+          "const": false
+        },
+        "project_memory_written": {
+          "const": false
+        },
+        "amazon_content_generated": {
+          "const": false
+        },
+        "production_environment_modified": {
+          "const": false
+        },
+        "external_publish_attempted": {
+          "const": false
+        },
+        "raw_sensitive_sources_committed": {
+          "const": false
+        }
+      }
+    },
+    "blockers": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "current_gate": {
+      "const": "PRODUCT_TRUTH_HUMAN_REVIEW_GATE"
+    },
+    "human_review_required": {
+      "const": true
+    },
+    "final_state": {
+      "enum": [
+        "P0_1_READY_FOR_REVIEW",
+        "P0_1_PARTIAL",
+        "P0_1_BLOCKED"
+      ]
+    },
+    "manifest_path": {
+      "const": "run-manifest.json"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "source_access": {
+            "properties": {
+              "feishu_mcp_status": {
+                "const": "BLOCKED"
+              },
+              "confirmed_fallback_used": {
+                "const": false
+              }
+            },
+            "required": [
+              "feishu_mcp_status",
+              "confirmed_fallback_used"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "final_state": {
+            "const": "P0_1_BLOCKED"
+          },
+          "blockers": {
+            "minItems": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "source_access": {
+            "properties": {
+              "effective_adapter": {
+                "enum": [
+                  "LOCAL_FILE",
+                  "MANUAL_SNAPSHOT"
+                ]
+              }
+            },
+            "required": [
+              "effective_adapter"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "source_access": {
+            "properties": {
+              "input_confirmation_present": {
+                "const": true
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "source_access": {
+            "properties": {
+              "effective_adapter": {
+                "const": "FEISHU_MCP"
+              }
+            },
+            "required": [
+              "effective_adapter"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "source_access": {
+            "properties": {
+              "input_confirmation_present": {
+                "const": false
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "source_access": {
+            "properties": {
+              "requested_adapter": {
+                "enum": [
+                  "LOCAL_FILE",
+                  "MANUAL_SNAPSHOT"
+                ]
+              }
+            },
+            "required": [
+              "requested_adapter"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "source_access": {
+            "properties": {
+              "feishu_mcp_status": {
+                "const": "NOT_REQUESTED"
+              },
+              "confirmed_fallback_used": {
+                "const": false
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "source_access": {
+            "properties": {
+              "confirmed_fallback_used": {
+                "const": true
+              }
+            },
+            "required": [
+              "confirmed_fallback_used"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "source_access": {
+            "properties": {
+              "effective_adapter": {
+                "enum": [
+                  "LOCAL_FILE",
+                  "MANUAL_SNAPSHOT"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "final_state": {
+            "const": "P0_1_READY_FOR_REVIEW"
+          }
+        },
+        "required": [
+          "final_state"
+        ]
+      },
+      "then": {
+        "properties": {
+          "execution": {
+            "properties": {
+              "workspace_dirty": {
+                "const": false
+              }
+            }
+          },
+          "product_truth_schema": {
+            "properties": {
+              "validation_status": {
+                "const": "PASS"
+              }
+            }
+          },
+          "outputs": {
+            "properties": {
+              "source_snapshot": {
+                "$ref": "#/$defs/generated_artifact"
+              },
+              "product_knowledge_change_proposal": {
+                "$ref": "#/$defs/generated_artifact"
+              },
+              "product_truth_proposal": {
+                "$ref": "#/$defs/generated_artifact"
+              },
+              "conflict_missing_report": {
+                "$ref": "#/$defs/generated_artifact"
+              },
+              "claim_human_review_queue": {
+                "$ref": "#/$defs/generated_artifact"
+              },
+              "product_truth_review_html": {
+                "$ref": "#/$defs/generated_artifact"
+              }
+            }
+          },
+          "quality_checks": {
+            "not": {
+              "contains": {
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "FAIL",
+                      "BLOCKED"
+                    ]
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "source_access": {
+            "properties": {
+              "feishu_mcp_status": {
+                "enum": [
+                  "BLOCKED",
+                  "NOT_REQUESTED"
+                ]
+              }
+            },
+            "required": [
+              "feishu_mcp_status"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "locked_dependencies": {
+            "contains": {
+              "properties": {
+                "component": {
+                  "const": "feishu-read-gateway-mcp"
+                },
+                "verification_status": {
+                  "const": "NOT_USED"
+                }
+              },
+              "required": [
+                "component",
+                "verification_status"
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "final_state": {
+            "const": "P0_1_BLOCKED"
+          }
+        },
+        "required": [
+          "final_state"
+        ]
+      },
+      "then": {
+        "properties": {
+          "blockers": {
+            "minItems": 1
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "artifact_base": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256",
+        "status",
+        "validation_status",
+        "media_type",
+        "contains_raw_source_body",
+        "storage"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "status": {
+          "enum": [
+            "GENERATED",
+            "BLOCKED",
+            "SKIPPED"
+          ]
+        },
+        "validation_status": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "NOT_APPLICABLE"
+          ]
+        },
+        "media_type": {
+          "enum": [
+            "application/json",
+            "text/html"
+          ]
+        },
+        "contains_raw_source_body": {
+          "const": false
+        },
+        "storage": {
+          "const": "PRIVATE_RUNTIME_OUTSIDE_GIT"
+        }
+      }
+    },
+    "json_artifact": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/artifact_base"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "media_type": {
+              "const": "application/json"
+            }
+          }
+        }
+      ]
+    },
+    "html_artifact": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/artifact_base"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "media_type": {
+              "const": "text/html"
+            }
+          }
+        }
+      ]
+    },
+    "generated_artifact": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "const": "GENERATED"
+        },
+        "validation_status": {
+          "const": "PASS"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "status",
+        "validation_status",
+        "sha256"
+      ]
+    }
+  }
+}

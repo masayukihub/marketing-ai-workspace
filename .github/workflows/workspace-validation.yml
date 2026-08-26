@@ -13,18 +13,27 @@ concurrency:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
-        with: {python-version: "3.12"}
-      - name: Structure and local links
+        with: {python-version: "3.12", cache: pip}
+      - uses: actions/setup-node@v4
+        with: {node-version: "22"}
+      - uses: ruby/setup-ruby@v1
+        with: {ruby-version: "3.3"}
+      - name: Resolve locked Product Truth owner repository
         run: |
-          python3 tests/validate_workspace.py --check structure
-          python3 tests/validate_workspace.py --check links
-      - name: Secret scan
-        run: python3 tests/validate_workspace.py --check secrets
-      - name: Project Memory validation
-        run: python3 tests/validate_workspace.py --check memory
-      - name: Large file guard
-        run: python3 tests/validate_workspace.py --check large-files
+          git clone --filter=blob:none https://github.com/masayukihub/jp-commerce-creative-flow.git "$RUNNER_TEMP/jp-commerce-creative-flow"
+          git -C "$RUNNER_TEMP/jp-commerce-creative-flow" checkout d3e9a16509b54ba2f720d045c2e79443064e2981
+      - name: Create project virtual environment
+        run: |
+          python -m venv .venv
+          .venv/bin/python -m pip install --upgrade pip
+          .venv/bin/python -m pip install -r requirements-dev.txt
+      - name: Install Amazon PDP Node dependencies
+        run: npm install --prefix skills/amazon-japan-pdp-generator --no-audit --no-fund
+      - name: Unified verification
+        env:
+          JP_COMMERCE_CREATIVE_FLOW_DIR: ${{ runner.temp }}/jp-commerce-creative-flow
+        run: ./scripts/verify.sh

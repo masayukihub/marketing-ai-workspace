@@ -1,0 +1,90 @@
+{
+  "catalog_version": "1.0",
+  "updated_at": "2026-08-25T12:22:49+08:00",
+  "active_scope": "P0-1_PRODUCT_ONBOARDING_ONLY",
+  "verification_entrypoint": "./scripts/verify.sh",
+  "flows": [
+    {
+      "flow_id": "product-onboarding",
+      "version": "0.1.0-p0.1",
+      "status": "PILOT",
+      "entrypoint": "flows/product-onboarding/scripts/run_product_onboarding.py",
+      "description": "Create traceable Product Knowledge and Product Truth proposals from one reviewed source snapshot, then stop for human review.",
+      "pilot_scope": {
+        "project_id": "s30-mini",
+        "market": "JP",
+        "locale": "ja-JP",
+        "channel": "Amazon.co.jp",
+        "offer": "水箱版のみ"
+      },
+      "accepted_inputs": [
+        "FEISHU_MCP",
+        "LOCAL_FILE",
+        "MANUAL_SNAPSHOT"
+      ],
+      "input_policy": {
+        "feishu_tool": "get_feishu_resource",
+        "feishu_unavailable_without_fallback": "P0_1_BLOCKED",
+        "fallback_requires_explicit_confirmation": true,
+        "non_mcp_input_requires_explicit_confirmation": true,
+        "fallback_types": [
+          "LOCAL_FILE",
+          "MANUAL_SNAPSHOT"
+        ],
+        "false_feishu_read_claims_prohibited": true
+      },
+      "contracts": {
+        "source_snapshot": "contracts/source-snapshot.schema.json",
+        "review_decision": "contracts/review-decision.schema.json",
+        "run_manifest": "contracts/run-manifest.schema.json",
+        "product_truth_schema_reference": "contracts/product-truth-schema-reference.json"
+      },
+      "validation_policy": {
+        "pass_status_must_name_validator": true,
+        "pass_status_must_hash_checked_subject": true,
+        "pass_status_must_record_checked_at": true,
+        "dependency_not_invoked_must_be_not_used": true
+      },
+      "artifacts": [
+        "source-snapshot.json",
+        "product-knowledge-change-proposal.json",
+        "product-truth-proposal.json",
+        "conflict-missing-report.json",
+        "claim-human-review-queue.json",
+        "run-manifest.json",
+        "product-truth-review.html"
+      ],
+      "writes": {
+        "private_runtime_only": true,
+        "canonical_product_knowledge": false,
+        "project_memory": false,
+        "production": false,
+        "external_publish": false
+      },
+      "terminal_gate": "PRODUCT_TRUTH_HUMAN_REVIEW_GATE",
+      "allowed_final_states": [
+        "P0_1_READY_FOR_REVIEW",
+        "P0_1_PARTIAL",
+        "P0_1_BLOCKED"
+      ],
+      "explicitly_out_of_scope": [
+        "AMAZON_STORYLINE",
+        "AMAZON_GALLERY",
+        "IMAGE_GENERATION",
+        "FINAL_PDP_HTML",
+        "GTM_MANAGEMENT",
+        "EDM_PRODUCTION",
+        "DASHBOARD",
+        "MONITORING",
+        "PUBLISHING"
+      ]
+    }
+  ],
+  "deferred_flows": [
+    "market-research",
+    "gtm-management",
+    "amazon-jp-content-production",
+    "edm-production",
+    "campaign-review"
+  ]
+}

@@ -1,0 +1,103 @@
+{
+  "lock_version": "1.0",
+  "generated_at": "2026-08-25T12:22:49+08:00",
+  "workspace": "masayukihub/marketing-ai-workspace",
+  "scope": "P0-1_PRODUCT_ONBOARDING_ONLY",
+  "policy": {
+    "source_of_record_is_external": true,
+    "dependency_code_vendoring_allowed": false,
+    "dependency_source_modification_allowed": false,
+    "installed_skills_are_build_artifacts": true,
+    "canonical_product_knowledge_write_allowed": false
+  },
+  "components": {
+    "jp-commerce-creative-flow": {
+      "kind": "owner_repository",
+      "owner_repo": "masayukihub/jp-commerce-creative-flow",
+      "remote_url": "https://github.com/masayukihub/jp-commerce-creative-flow.git",
+      "base_version": "0.3.3",
+      "commits_after_base_version": 7,
+      "locked_commit": "d3e9a16509b54ba2f720d045c2e79443064e2981",
+      "required_contracts": [
+        {
+          "path": "overlays/switchbot-jp/schemas/product-truth-packet.schema.json",
+          "schema_id": "https://github.com/laixiaohong/jp-commerce-creative-flow/overlays/switchbot-jp/schemas/product-truth-packet.schema.json",
+          "sha256": "881b594f9be3caf170e0b2365980e1c217b5d3b0d556849a7456916f87d70753"
+        }
+      ],
+      "integration_mode": "contract_reference_only",
+      "source_modification_allowed": false
+    },
+    "feishu-read-gateway-mcp": {
+      "kind": "owner_repository",
+      "owner_repo": "masayukihub/feishu-read-gateway-mcp",
+      "remote_url": "https://github.com/masayukihub/feishu-read-gateway-mcp.git",
+      "version": "0.1.0",
+      "locked_commit": "5cbaf8858ec0b1b010f136f6c174470fe27887c1",
+      "required_tool": "get_feishu_resource",
+      "contract_files": [
+        {
+          "path": "src/mcp/server.ts",
+          "sha256": "6aa64b675eea967a1811ff2690739d223f518966d142a84fa992c003b8699a80"
+        },
+        {
+          "path": "src/feishu/types.ts",
+          "sha256": "cb12e228b4bea71e9a02ba2bf52a9c29819db09ed07871f4b8f023761d542aed"
+        },
+        {
+          "path": "src/feishu/gateway.ts",
+          "sha256": "d12fbafa591b55e21604739a7b5a299eae5a70237be15a52f23ce9b2ce8e0442"
+        }
+      ],
+      "adapter_contract": {
+        "gateway_sheet_resource_type": "sheets",
+        "gateway_sheet_payload_shape": "content.sheets[].values",
+        "product_truth_source_type": "feishu_sheet",
+        "direct_compatibility": false,
+        "required_mapping": "sheets_collection_to_feishu_sheet"
+      },
+      "lock_scope": "SOURCE_CONTRACT_ONLY",
+      "runtime_availability_asserted": false,
+      "integration_mode": "read_only_mcp",
+      "source_modification_allowed": false
+    },
+    "product-knowledge": {
+      "kind": "installed_skill",
+      "installation_path_hint": "${CODEX_HOME}/skills/product-knowledge",
+      "version": "2.0.0",
+      "entrypoint": {
+        "path": "SKILL.md",
+        "sha256": "6982ae49afcac04858d1cc60b1ad42499bd3c392211a56c5a068b15f04ad86f2"
+      },
+      "required_contract": {
+        "path": "docs/feishu_sync_contract.md",
+        "sha256": "8d65e6d0c40730cb8c784f56d8767c9837564f2737f0c3a61664d6795f2982da"
+      },
+      "integration_mode": "proposal_only",
+      "canonical_write_allowed": false,
+      "installation_source_modification_allowed": false
+    },
+    "project-memory-manager": {
+      "kind": "installed_skill",
+      "installation_path_hint": "${CODEX_HOME}/skills/project-memory-manager",
+      "version": "UNVERSIONED_SHA256_LOCK",
+      "entrypoint": {
+        "path": "SKILL.md",
+        "sha256": "c0b440d242850cdfba8a831737ccaf3b3215115e415e53a86cdc269c7a9281cc"
+      },
+      "required_contracts": [
+        {
+          "path": "references/governance.md",
+          "sha256": "4023412282ac5778cf621a19045ebe77eb3cef25bd173846b27e8cd13d3b4c91"
+        },
+        {
+          "path": "references/integration.md",
+          "sha256": "8fff6445f089c25a7d451e9b9a063638dea855c9196d660c3aa30d5ac18ec218"
+        }
+      ],
+      "integration_mode": "read_context_and_propose_writeback",
+      "product_fact_authority": false,
+      "installation_source_modification_allowed": false
+    }
+  }
+}

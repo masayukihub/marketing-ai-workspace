@@ -18,6 +18,20 @@
 | `tests/` | 工作空间级验证脚本 |
 | `.github/` | Actions、Issue 和 PR 模板 |
 
+## P0-1 Product Onboarding Pilot
+
+当前仅实现 `Product Onboarding` 纵向闭环，并以 S30 mini 日本市场水箱版作为 Pilot。它把一组可追溯来源生成以下七个私有审阅产物，然后停止在 `PRODUCT_TRUTH_HUMAN_REVIEW_GATE`：Source Snapshot、Product Knowledge Change Proposal、Product Truth Proposal、Conflict / Missing Report、Claim Human Review Queue、Run Manifest 和 Review HTML。
+
+Product Truth 的唯一 Schema 归属 `jp-commerce-creative-flow`；本仓库只在 `skills-lock.json` 与 `contracts/product-truth-schema-reference.json` 中记录基准版本、精确 commit、路径和哈希，不复制 Schema，也不写入正式 Product Knowledge。真实飞书正文、价格、审批和未发布素材必须冻结在 Git 仓库外私有 Runtime 的 `inputs/` 中。依赖锁只证明契约版本；Gateway 是否实际可用、是否参与本次运行，以该次 `run-manifest.json` 为准。
+
+统一验证入口：
+
+```bash
+./scripts/verify.sh
+```
+
+该入口固定使用项目 `.venv/bin/python`，不会回退到系统 Python。Pilot 的运行说明见 [`flows/product-onboarding/README.md`](flows/product-onboarding/README.md)。
+
 ## 如何让 Codex 工作
 
 直接说明项目、目标、来源、期望输出和允许的修改范围。例如：
@@ -42,7 +56,7 @@ Codex 必须先读取根目录 `AGENTS.md`，再读取项目的 Project Memory�
 1. 创建 `feature/xxx` 或 `fix/xxx` 分支。
 2. 修改 `skills/<skill>/`。
 3. 更新 Skill 自带的测试与版本记录。
-4. 运行 `python3 tests/validate_workspace.py` 和对应 Skill 测试。
+4. 运行 `./scripts/verify.sh`。
 5. 测试通过后提交 Pull Request。
 
 ## 提交修改

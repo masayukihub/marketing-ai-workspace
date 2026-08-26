@@ -12,6 +12,7 @@ __pycache__/
 *.py[cod]
 .pytest_cache/
 .venv/
+.external/
 venv/
 node_modules
 node_modules/
@@ -29,5 +30,6 @@ tmp/
 secrets/
 private/
 raw-private/
+private-runtime/
 cookies*.json
 session*.json
