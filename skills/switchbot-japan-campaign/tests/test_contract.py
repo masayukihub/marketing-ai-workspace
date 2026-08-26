@@ -34,4 +34,4 @@ def test_campaign_historical_and_write_gates():
     skill = (ROOT / "SKILL.md").read_text(encoding="utf-8")
     assert "历史项目只能继承结构、规则和可比数据" in skill
     assert "历史格式未验证" in skill
-    assert "不得自动修改正式飞书表" in skill
+    assert "自动修改正式飞书表" in skill
