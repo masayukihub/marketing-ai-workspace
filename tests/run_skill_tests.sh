@@ -5,6 +5,7 @@ python3 -m unittest discover -s visual-system/tests -p 'test_*.py' -v
 
 python3 -m pytest -q skills/product-knowledge/tests
 python3 -m pytest -q skills/project-context-resolver/tests
+python3 -m pytest -q skills/project-memory-manager/tests
 python3 -m pytest -q skills/switchbot-campaign-review/tests
 python3 -m pytest -q skills/customer-review-intelligence/tests
 python3 -m pytest -q skills/switchbot-japan-campaign/tests

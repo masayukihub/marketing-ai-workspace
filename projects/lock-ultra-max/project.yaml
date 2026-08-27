@@ -5,6 +5,13 @@ aliases:
   - Lock Ultra Max
   - SwitchBot Lock Ultra Max
   - lock-ultra-max-jp
+manifest_updated_at: "2026-08-27T15:47:05+08:00"
+state_as_of: "2026-08-20"
+freshness_status: current
+freshness_sources:
+  - ../../memory/project-memory/lock-ultra-max-jp/STATUS.md
+  - ../../memory/project-memory/lock-ultra-max-jp/TODO.md
+  - ../../memory/project-memory/lock-ultra-max-jp/DECISIONS.md
 market: Japan
 status: active
 lifecycle_stage: discovery
@@ -45,17 +52,20 @@ next_actions:
     - action_id: LUM-P0-NAMING-AUDIT
       action: Review canonical sources for the Japan official name and Product Definition.
       status: not_started
+      execution_class: read_only_audit
       requires_human_approval: false
       source: ../../memory/project-memory/lock-ultra-max-jp/TODO.md
     - action_id: LUM-P0-CONFLICT-REVIEW
       action: Resolve Product Knowledge conflicts through the human review process.
       status: not_started
+      execution_class: human_review_preparation
       requires_human_approval: true
       source: ../../memory/project-memory/lock-ultra-max-jp/TODO.md
   p1:
     - action_id: LUM-P1-GTM-GATE
       action: Confirm the current GTM and Amazon production gate.
       status: not_started
+      execution_class: human_review_preparation
       requires_human_approval: true
       source: ../../memory/project-memory/lock-ultra-max-jp/TODO.md
   p2: []
@@ -71,4 +81,4 @@ skills:
     - amazon-listing-creative
     - switchbot-campaign-review
     - influencer-marketing
-last_updated: 2026-08-27
+last_updated: "2026-08-27"

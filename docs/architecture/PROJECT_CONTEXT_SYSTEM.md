@@ -24,6 +24,16 @@ Writeback proposal / Human Review
 - `project-context-resolver` decides what the current task needs to read; it does not scan Feishu or replace either memory system.
 - Execution Skills own task artifacts and their internal gate files.
 
+## Repository Skill runtime
+
+The checked-in `skills/` tree is the formal runtime. Commands must call repository scripts, for example:
+
+```bash
+python3 skills/project-memory-manager/scripts/project_memory.py --workspace . --mode check
+```
+
+`$HOME/.codex/skills/` is only an installation mirror. Before any explicit mirror diagnostic, compare the runtime bundle with `verify_global_mirror.py`. `GLOBAL_SKILL_DRIFT` blocks global execution; it never causes an automatic fallback.
+
 ## Project Manifest contract
 
 Machine schema: [`schemas/project-manifest.schema.yaml`](../../schemas/project-manifest.schema.yaml).
@@ -32,14 +42,18 @@ The Manifest is intentionally lightweight. It may contain source paths and a sho
 
 `projects/<project-id>/project.yaml` is the version-controlled formal status for resolver conflicts. Project Memory remains the descriptive source behind it.
 
+`manifest_updated_at` records when navigation metadata changed. `state_as_of` records when the project status sources were actually verified. `freshness_status` and `freshness_sources` make that distinction auditable; the active-project threshold is configured in `skills/project-context-resolver/config/freshness.yaml`.
+
 ## Context Package contract
 
 Machine schema: [`schemas/project-context-package.schema.yaml`](../../schemas/project-context-package.schema.yaml).
 
 ```yaml
+resolution_status:
 project:
 task_type:
 current_stage:
+freshness:
 current_truth:
 approved_decisions:
 blocking_items:
@@ -49,7 +63,15 @@ next_valid_actions:
 warnings:
 ```
 
-The package contains paths and status, not copied source bodies. The consuming Skill reads only `required_sources` marked `available` for the selected task type.
+The package contains paths and status, not copied source bodies. The consuming Skill reads only `required_sources` marked `available` for the selected task type. Unknown projects return the separate `PROJECT_BOOTSTRAP_REQUIRED` structure with `auto_create: false`; they do not enter an execution Skill.
+
+## Freshness contract
+
+- `manifest_updated_at` never substitutes for `state_as_of`.
+- Active state older than `active_project_max_age_days` becomes `stale` and emits `PROJECT_STATE_STALE`.
+- Missing, invalid, future-dated, or explicitly unknown state becomes `unknown`.
+- With `stale` or `unknown` state, only `read_only_audit`, `source_refresh`, and `human_review_preparation` are eligible.
+- `state_dependent_execution` returns `blocked_by_freshness` until state is refreshed or reviewed.
 
 ## Task-scoped source selection
 
@@ -102,12 +124,13 @@ For a named project task:
 
 1. resolve the project by Manifest ID/name/alias;
 2. validate the Manifest;
-3. infer or accept the task type;
-4. emit a minimal Context Package;
-5. validate the relevant project gate;
-6. let the execution Skill read only the returned sources.
+3. evaluate Freshness independently from the Manifest edit date;
+4. infer or accept the task type using token-aware matching;
+5. emit a minimal Context Package;
+6. validate Freshness and the relevant project gate;
+7. let the execution Skill read only the returned sources.
 
-If no exact project can be resolved, stop with `PROJECT_NOT_FOUND` or `PROJECT_AMBIGUOUS`. Do not fuzzy-create a project.
+If no exact project can be resolved, return `PROJECT_BOOTSTRAP_REQUIRED` and route only to Project Memory discovery review. Do not create a directory, modify Product Knowledge, or invoke an execution Skill. Ambiguous aliases still stop with `PROJECT_AMBIGUOUS`.
 
 ## Next Action resolver
 
@@ -115,8 +138,9 @@ For `继续`, `下一步`, `接着做`, or `继续这个项目`:
 
 1. select the first incomplete P0, then P1, then P2 action;
 2. preserve blocker dependencies;
-3. if the action requires Human Approval, return `human_review_required` and generate a blank Human Review Package when an output directory is requested;
-4. never execute or approve the action inside the resolver.
+3. validate the action's `execution_class` against Freshness;
+4. if the action requires Human Approval, return `human_review_required` or preparation-only status and generate a blank Human Review Package when requested;
+5. never execute or approve the action inside the resolver.
 
 ## Writeback contract
 
@@ -127,7 +151,7 @@ For `继续`, `下一步`, `接着做`, or `继续这个项目`:
 | Human Decision | project `DECISIONS.md` or cross-project Decision Log | only accepted/final evidence; preserve superseded history |
 | Project stage change | `project.yaml` | update only with authoritative evidence; record source |
 | New blocker | `project.yaml.blocking_items` | add source and mapped gate state |
-| New next action | `project.yaml.next_actions` | add priority, status, source, approval requirement |
+| New next action | `project.yaml.next_actions` | add priority, status, execution class, source, approval requirement |
 
 An execution Skill must not update Product Knowledge, Project Memory, Decision Log, and Manifest in one uncontrolled operation. It should write its artifact first, then produce one scoped writeback proposal for the responsible owner.
 

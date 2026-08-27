@@ -8,6 +8,7 @@ import json
 import re
 import sys
 import unicodedata
+from datetime import date, datetime
 from pathlib import Path
 from typing import Any
 
@@ -15,6 +16,7 @@ import yaml
 
 
 DEFAULT_WORKSPACE = Path(__file__).resolve().parents[3]
+DEFAULT_FRESHNESS_THRESHOLD_DAYS = 7
 LIFECYCLE_STAGES = {
     "discovery", "planning", "validation", "production",
     "launch", "live", "review", "archived",
@@ -24,6 +26,14 @@ GATE_STATUSES = {
     "approved", "rejected", "superseded",
 }
 PROJECT_STATUSES = {"active", "paused", "completed", "archived", "unknown"}
+FRESHNESS_STATUSES = {"current", "stale", "unknown"}
+ACTION_EXECUTION_CLASSES = {
+    "read_only_audit", "source_refresh", "human_review_preparation",
+    "state_dependent_execution",
+}
+STALE_SAFE_ACTION_CLASSES = {
+    "read_only_audit", "source_refresh", "human_review_preparation",
+}
 SOURCE_KEYS = (
     "product_truth", "project_memory", "decisions", "approved_claims",
     "visual_context", "visual_profile", "visual_freeze", "assets",
@@ -105,6 +115,18 @@ def normalize(value: Any) -> str:
     return re.sub(r"[\s_]+", "-", text)
 
 
+def task_pattern_matches(request: str, pattern: str) -> bool:
+    request_text = unicodedata.normalize("NFKC", str(request or "")).casefold()
+    pattern_text = unicodedata.normalize("NFKC", str(pattern or "")).casefold().strip()
+    if not pattern_text:
+        return False
+    if re.search(r"[a-z0-9]", pattern_text):
+        parts = [re.escape(item) for item in re.split(r"[\s_-]+", pattern_text) if item]
+        expression = r"[\s_-]+".join(parts)
+        return re.search(rf"(?<![a-z0-9]){expression}(?![a-z0-9])", request_text) is not None
+    return pattern_text in request_text
+
+
 def load_yaml(path: Path) -> dict[str, Any]:
     value = yaml.safe_load(path.read_text(encoding="utf-8"))
     if not isinstance(value, dict):
@@ -136,14 +158,15 @@ def validate_manifest(path: Path, workspace: Path) -> list[str]:
     errors: list[str] = []
     try:
         data = load_yaml(path)
-    except (OSError, yaml.YAMLError, ResolverError) as exc:
+    except (OSError, ValueError, yaml.YAMLError, ResolverError) as exc:
         return [f"MANIFEST_READ_ERROR:{path}:{exc}"]
 
     required = (
         "manifest_version", "project_id", "project_name", "aliases", "market",
         "status", "lifecycle_stage", "sources", "current_phase", "gate_status",
         "approved", "blocking_items", "latest_decision", "next_actions", "skills",
-        "last_updated",
+        "last_updated", "manifest_updated_at", "state_as_of", "freshness_status",
+        "freshness_sources",
     )
     for key in required:
         if key not in data:
@@ -160,6 +183,17 @@ def validate_manifest(path: Path, workspace: Path) -> list[str]:
         errors.append(f"INVALID_PROJECT_STATUS:{data.get('status')}")
     if not isinstance(data.get("aliases"), list):
         errors.append("ALIASES_MUST_BE_LIST")
+    alias_notes = data.get("alias_notes")
+    if alias_notes is not None:
+        if not isinstance(alias_notes, dict):
+            errors.append("ALIAS_NOTES_MUST_BE_MAPPING")
+        else:
+            normalized_aliases = {normalize(item) for item in data.get("aliases") or []}
+            for alias, note in alias_notes.items():
+                if normalize(alias) not in normalized_aliases:
+                    errors.append(f"ALIAS_NOTE_WITHOUT_ALIAS:{alias}")
+                if not isinstance(note, str) or not note.strip():
+                    errors.append(f"ALIAS_NOTE_MUST_BE_NONEMPTY:{alias}")
 
     gate_status = data.get("gate_status")
     if not isinstance(gate_status, dict) or not gate_status:
@@ -221,10 +255,40 @@ def validate_manifest(path: Path, workspace: Path) -> list[str]:
                     errors.append(f"INVALID_ACTION_STATUS:{action.get('action_id')}")
                 if not isinstance(action.get("requires_human_approval"), bool):
                     errors.append(f"ACTION_APPROVAL_FLAG_MUST_BE_BOOLEAN:{action.get('action_id')}")
+                if action.get("execution_class") not in ACTION_EXECUTION_CLASSES:
+                    errors.append(f"INVALID_ACTION_EXECUTION_CLASS:{action.get('action_id')}")
                 validate_record_source(f"next_actions.{priority}.{action.get('action_id')}", action)
 
     if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(data.get("last_updated") or "")):
         errors.append("LAST_UPDATED_MUST_BE_DATE")
+    try:
+        manifest_updated_at = str(data.get("manifest_updated_at") or "")
+        datetime.fromisoformat(manifest_updated_at)
+        if "T" not in manifest_updated_at:
+            raise ValueError
+    except ValueError:
+        errors.append("MANIFEST_UPDATED_AT_MUST_BE_ISO_DATETIME")
+    state_as_of = data.get("state_as_of")
+    if state_as_of is not None:
+        try:
+            date.fromisoformat(str(state_as_of))
+        except ValueError:
+            errors.append("STATE_AS_OF_MUST_BE_DATE_OR_NULL")
+    if data.get("freshness_status") not in FRESHNESS_STATUSES:
+        errors.append(f"INVALID_FRESHNESS_STATUS:{data.get('freshness_status')}")
+    if data.get("freshness_status") == "current" and state_as_of is None:
+        errors.append("CURRENT_FRESHNESS_REQUIRES_STATE_AS_OF")
+    freshness_sources = data.get("freshness_sources")
+    if not isinstance(freshness_sources, list) or not freshness_sources:
+        errors.append("FRESHNESS_SOURCES_MUST_BE_NONEMPTY_LIST")
+    else:
+        for pointer in freshness_sources:
+            if not isinstance(pointer, str) or not pointer.strip():
+                errors.append("FRESHNESS_SOURCE_MUST_BE_NONEMPTY_STRING")
+                continue
+            _, exists = resolve_pointer(path, pointer, workspace)
+            if not exists:
+                errors.append(f"FRESHNESS_SOURCE_PATH_MISSING:{pointer}")
     return sorted(set(errors))
 
 
@@ -270,6 +334,19 @@ def identify_project(
     return next(iter(unique.values()))
 
 
+def routing_alias_context(manifest: dict[str, Any], request: str) -> tuple[str | None, str | None]:
+    candidates: list[tuple[int, str, str]] = []
+    normalized_request = normalize(request)
+    for alias, note in (manifest.get("alias_notes") or {}).items():
+        normalized_alias = normalize(alias)
+        if normalized_alias and normalized_alias in normalized_request:
+            candidates.append((len(normalized_alias), str(alias), str(note)))
+    if not candidates:
+        return None, None
+    _, alias, note = max(candidates, key=lambda item: item[0])
+    return alias, note
+
+
 def infer_task_type(request: str, explicit_task_type: str | None = None) -> tuple[str, list[str]]:
     if explicit_task_type:
         lookup = {normalize(item): item for item in TASK_TYPES}
@@ -277,9 +354,8 @@ def infer_task_type(request: str, explicit_task_type: str | None = None) -> tupl
         if not resolved:
             raise ResolverError(f"UNSUPPORTED_TASK_TYPE:{explicit_task_type}")
         return resolved, []
-    normalized_request = normalize(request)
     for task_type, patterns in TASK_PATTERNS:
-        if any(normalize(pattern) in normalized_request for pattern in patterns):
+        if any(task_pattern_matches(request, pattern) for pattern in patterns):
             return task_type, []
     return "GTM", ["TASK_TYPE_DEFAULTED_TO_GTM_FOR_PROJECT_CONTINUATION"]
 
@@ -335,26 +411,110 @@ def decision_conflict_warning(manifest_path: Path, manifest: dict[str, Any], wor
     return []
 
 
-def select_next_action(manifest: dict[str, Any]) -> list[dict[str, Any]]:
+def load_freshness_threshold(workspace: Path) -> int:
+    config_path = workspace / "skills/project-context-resolver/config/freshness.yaml"
+    if not config_path.is_file():
+        return DEFAULT_FRESHNESS_THRESHOLD_DAYS
+    config = load_yaml(config_path)
+    value = config.get("active_project_max_age_days", DEFAULT_FRESHNESS_THRESHOLD_DAYS)
+    if not isinstance(value, int) or value < 1:
+        raise ResolverError("INVALID_FRESHNESS_THRESHOLD")
+    return value
+
+
+def evaluate_freshness(
+    manifest_path: Path,
+    manifest: dict[str, Any],
+    workspace: Path,
+    as_of: date | None = None,
+) -> tuple[dict[str, Any], list[str]]:
+    threshold_days = load_freshness_threshold(workspace)
+    as_of = as_of or date.today()
+    declared_status = manifest.get("freshness_status", "unknown")
+    state_value = manifest.get("state_as_of")
+    warnings: list[str] = []
+    state_date: date | None = None
+    age_days: int | None = None
+
+    if state_value is not None:
+        try:
+            state_date = date.fromisoformat(str(state_value))
+            age_days = (as_of - state_date).days
+        except ValueError:
+            state_date = None
+    if state_date is None or age_days is None or age_days < 0:
+        effective_status = "unknown"
+        warnings.append("PROJECT_STATE_UNKNOWN:state_as_of is missing, invalid, or in the future")
+    elif manifest.get("status") == "active" and age_days > threshold_days:
+        effective_status = "stale"
+        warnings.append(
+            "PROJECT_STATE_STALE:"
+            f"state_as_of={state_date.isoformat()};age_days={age_days};threshold_days={threshold_days}"
+        )
+    elif declared_status == "stale":
+        effective_status = "stale"
+        warnings.append(
+            "PROJECT_STATE_STALE:"
+            f"declared_status=stale;state_as_of={state_date.isoformat()};threshold_days={threshold_days}"
+        )
+    elif declared_status == "unknown":
+        effective_status = "unknown"
+        warnings.append("PROJECT_STATE_UNKNOWN:manifest freshness_status is unknown")
+    else:
+        effective_status = "current"
+
+    resolved_sources: list[str] = []
+    for pointer in manifest.get("freshness_sources") or []:
+        display, exists = resolve_pointer(manifest_path, pointer, workspace)
+        if exists:
+            resolved_sources.append(display)
+
+    return {
+        "manifest_updated_at": str(manifest.get("manifest_updated_at")),
+        "state_as_of": None if state_date is None else state_date.isoformat(),
+        "declared_status": declared_status,
+        "effective_status": effective_status,
+        "evaluated_at": as_of.isoformat(),
+        "threshold_days": threshold_days,
+        "age_days": age_days,
+        "sources": resolved_sources,
+    }, warnings
+
+
+def select_next_action(manifest: dict[str, Any], freshness_status: str = "current") -> list[dict[str, Any]]:
     blocking_states = {"blocked", "in_progress", "ready_for_review"}
     blockers = {
         str(item.get("blocker_id"))
         for item in manifest.get("blocking_items") or []
         if item.get("status") in blocking_states
     }
+    freshness_blocked_candidate: dict[str, Any] | None = None
     for priority in ("p0", "p1", "p2"):
         for action in (manifest.get("next_actions") or {}).get(priority, []):
             if action.get("status") in COMPLETED_ACTION_STATES:
                 continue
             blocked_by = [item for item in action.get("blocked_by", []) if item in blockers]
+            execution_class = action.get("execution_class", "state_dependent_execution")
             if action.get("status") == "blocked" or blocked_by:
                 execution = "blocked_by_manifest"
+            elif freshness_status in {"stale", "unknown"} and execution_class not in STALE_SAFE_ACTION_CLASSES:
+                if freshness_blocked_candidate is None:
+                    freshness_blocked_candidate = {
+                        **action,
+                        "priority": priority,
+                        "execution": "blocked_by_freshness",
+                    }
+                continue
+            elif freshness_status in {"stale", "unknown"} and execution_class == "human_review_preparation":
+                execution = "human_review_preparation_allowed"
+            elif freshness_status in {"stale", "unknown"}:
+                execution = "read_only_allowed_with_unverified_state"
             elif action.get("requires_human_approval"):
                 execution = "human_review_required"
             else:
                 execution = "executable"
             return [{**action, "priority": priority, "execution": execution}]
-    return []
+    return [] if freshness_blocked_candidate is None else [freshness_blocked_candidate]
 
 
 def relevant_skills(manifest: dict[str, Any], task_type: str, workspace: Path) -> tuple[dict[str, list[str]], list[str]]:
@@ -376,20 +536,39 @@ def relevant_skills(manifest: dict[str, Any], task_type: str, workspace: Path) -
     return {"primary": primary, "optional": optional}, warnings
 
 
+def project_bootstrap_result(request: str) -> dict[str, Any]:
+    return {
+        "resolution_status": "PROJECT_BOOTSTRAP_REQUIRED",
+        "request": request,
+        "recommended_skill": "project-memory-manager",
+        "auto_create": False,
+        "allowed_action": "prepare_project_discovery_review",
+        "warnings": ["PROJECT_NOT_FOUND:NO_MANIFEST_MATCH"],
+    }
+
+
 def build_context(
     workspace: Path,
     request: str,
     explicit_project: str | None = None,
     explicit_task_type: str | None = None,
+    as_of: date | None = None,
 ) -> dict[str, Any]:
     manifests = discover_manifests(workspace)
-    manifest_path, manifest = identify_project(manifests, request, explicit_project)
+    try:
+        manifest_path, manifest = identify_project(manifests, request, explicit_project)
+    except ResolverError as exc:
+        if str(exc).startswith("PROJECT_NOT_FOUND:"):
+            return project_bootstrap_result(explicit_project or request)
+        raise
     errors = validate_manifest(manifest_path, workspace)
     if errors:
         raise ResolverError("MANIFEST_INVALID:" + "|".join(errors))
     task_type, warnings = infer_task_type(request, explicit_task_type)
+    freshness, freshness_warnings = evaluate_freshness(manifest_path, manifest, workspace, as_of)
     source_rows, source_warnings = required_source_rows(manifest_path, manifest, workspace, task_type)
     skill_rows, skill_warnings = relevant_skills(manifest, task_type, workspace)
+    warnings.extend(freshness_warnings)
     warnings.extend(source_warnings)
     warnings.extend(skill_warnings)
     warnings.extend(decision_conflict_warning(manifest_path, manifest, workspace))
@@ -404,11 +583,17 @@ def build_context(
         "status": (manifest.get("gate_status") or {}).get("product_truth", "not_started"),
         "source": None if product_truth_row is None else product_truth_row["paths"],
     }
+    matched_alias, alias_note = routing_alias_context(manifest, explicit_project or request)
+    if matched_alias and alias_note:
+        warnings.append(f"PROJECT_ROUTING_ALIAS_ONLY:{matched_alias}:{alias_note}")
     return {
+        "resolution_status": "RESOLVED",
         "project": {
             "project_id": manifest["project_id"],
             "project_name": manifest["project_name"],
             "manifest_path": manifest_path.relative_to(workspace).as_posix(),
+            "routing_alias": matched_alias,
+            "routing_alias_note": alias_note,
         },
         "task_type": task_type,
         "current_stage": {
@@ -416,12 +601,13 @@ def build_context(
             "current_phase": manifest["current_phase"],
             "gate_status": manifest["gate_status"],
         },
+        "freshness": freshness,
         "current_truth": current_truth,
         "approved_decisions": approved_decisions,
         "blocking_items": manifest.get("blocking_items") or [],
         "required_sources": source_rows,
         "relevant_skills": skill_rows,
-        "next_valid_actions": select_next_action(manifest),
+        "next_valid_actions": select_next_action(manifest, freshness["effective_status"]),
         "warnings": sorted(set(warnings)),
     }
 
@@ -434,7 +620,9 @@ def dump_context(context: dict[str, Any], output_format: str) -> str:
 
 def write_human_review(context: dict[str, Any], output_dir: Path) -> Path | None:
     actions = context.get("next_valid_actions") or []
-    if not actions or actions[0].get("execution") != "human_review_required":
+    if not actions or actions[0].get("execution") not in {
+        "human_review_required", "human_review_preparation_allowed",
+    }:
         return None
     output_dir.mkdir(parents=True, exist_ok=True)
     target = output_dir / "HUMAN_REVIEW_REQUIRED.md"
@@ -479,6 +667,7 @@ def main() -> int:
     parser.add_argument("--format", choices=("yaml", "json"), default="yaml")
     parser.add_argument("--output")
     parser.add_argument("--human-review-dir")
+    parser.add_argument("--as-of", help="Evaluate freshness on YYYY-MM-DD; defaults to today")
     parser.add_argument("--validate-all", action="store_true")
     args = parser.parse_args()
     workspace = Path(args.workspace).expanduser().resolve()
@@ -495,6 +684,7 @@ def main() -> int:
             request=args.request or args.project,
             explicit_project=args.project,
             explicit_task_type=args.task_type,
+            as_of=None if not args.as_of else date.fromisoformat(args.as_of),
         )
         payload = dump_context(context, args.format)
         if args.output:
@@ -506,7 +696,7 @@ def main() -> int:
         if args.human_review_dir:
             write_human_review(context, Path(args.human_review_dir).expanduser().resolve())
         return 0
-    except (OSError, yaml.YAMLError, ResolverError) as exc:
+    except (OSError, ValueError, yaml.YAMLError, ResolverError) as exc:
         print(json.dumps({"status": "ERROR", "error": str(exc)}, ensure_ascii=False), file=sys.stderr)
         return 2
 

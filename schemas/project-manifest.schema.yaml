@@ -1,5 +1,5 @@
 $schema: https://json-schema.org/draft/2020-12/schema
-$id: https://github.com/laixiaohong/marketing-ai-workspace/schemas/project-manifest.schema.yaml
+$id: https://github.com/masayukihub/marketing-ai-workspace/schemas/project-manifest.schema.yaml
 title: Marketing AI Workspace Project Manifest
 description: Lightweight navigation and current-state contract. It points to truth sources and must not duplicate them.
 type: object
@@ -9,6 +9,10 @@ required:
   - project_id
   - project_name
   - aliases
+  - manifest_updated_at
+  - state_as_of
+  - freshness_status
+  - freshness_sources
   - market
   - status
   - lifecycle_stage
@@ -32,6 +36,22 @@ properties:
     minLength: 1
   aliases:
     type: array
+    uniqueItems: true
+    items: {type: string, minLength: 1}
+  alias_notes:
+    type: object
+    additionalProperties: {type: string, minLength: 1}
+  manifest_updated_at:
+    type: string
+    format: date-time
+  state_as_of:
+    type: [string, "null"]
+    format: date
+  freshness_status:
+    enum: [current, stale, unknown]
+  freshness_sources:
+    type: array
+    minItems: 1
     uniqueItems: true
     items: {type: string, minLength: 1}
   market:
@@ -137,11 +157,13 @@ $defs:
     items:
       type: object
       additionalProperties: false
-      required: [action_id, action, status, requires_human_approval, source]
+      required: [action_id, action, status, execution_class, requires_human_approval, source]
       properties:
         action_id: {type: string, pattern: "^[A-Z0-9]+(?:-[A-Z0-9]+)*$"}
         action: {type: string, minLength: 1}
         status: {$ref: "#/$defs/gate_status"}
+        execution_class:
+          enum: [read_only_audit, source_refresh, human_review_preparation, state_dependent_execution]
         requires_human_approval: {type: boolean}
         blocked_by:
           type: array

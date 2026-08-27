@@ -2,10 +2,10 @@ name: Skill Tests
 
 on:
   pull_request:
-    paths: ["skills/**", "visual-system/**", "projects/*/project-context.yaml", "projects/*/visual-profile.yaml", "projects/*/visual-freeze.yaml", "tests/run_skill_tests.sh", ".github/workflows/skill-tests.yml"]
+    paths: ["skills/**", "schemas/project-*.yaml", "visual-system/**", "projects/*/project.yaml", "projects/*/project-context.yaml", "projects/*/visual-profile.yaml", "projects/*/visual-freeze.yaml", "tests/run_skill_tests.sh", ".github/workflows/skill-tests.yml"]
   push:
     branches: [main]
-    paths: ["skills/**", "visual-system/**", "projects/*/project-context.yaml", "projects/*/visual-profile.yaml", "projects/*/visual-freeze.yaml", "tests/run_skill_tests.sh", ".github/workflows/skill-tests.yml"]
+    paths: ["skills/**", "schemas/project-*.yaml", "visual-system/**", "projects/*/project.yaml", "projects/*/project-context.yaml", "projects/*/visual-profile.yaml", "projects/*/visual-freeze.yaml", "tests/run_skill_tests.sh", ".github/workflows/skill-tests.yml"]
   workflow_dispatch:
 
 concurrency:

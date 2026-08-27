@@ -2,10 +2,11 @@
 
 ## Before a project task
 
-1. For an existing `marketing-ai-workspace` project, resolve `projects/<project-id>/project.yaml` through `project-context-resolver`.
-2. Follow only the returned `project_memory` and `decisions` pointers. Use a generated `PROJECT_INDEX.md` only when operating on a separate bootstrap repository that actually contains it.
-3. Read the smallest matching context and relevant decision record.
-4. For product facts, invoke Product Knowledge and verify canonical sources as required.
+1. Use the checked-in `skills/project-memory-manager/` runtime as the formal execution source. A global installation is only a mirror; validate it with `scripts/verify_global_mirror.py` and stop on `GLOBAL_SKILL_DRIFT`.
+2. For an existing `marketing-ai-workspace` project, resolve `projects/<project-id>/project.yaml` through `project-context-resolver`.
+3. Follow only the returned `project_memory` and `decisions` pointers. Use a generated `PROJECT_INDEX.md` only when operating on a separate bootstrap repository that actually contains it.
+4. Read the smallest matching context and relevant decision record.
+5. For product facts, invoke Product Knowledge and verify canonical sources as required.
 
 ## During a project task
 

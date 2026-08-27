@@ -1,5 +1,7 @@
 # Project Context Resolver E2E Test Results
 
+> The original four-case E2E baseline remains valid. Merge-readiness amendments and expanded runtime tests are documented in [`PROJECT_CONTEXT_MERGE_READINESS_AMENDMENT.md`](../../PROJECT_CONTEXT_MERGE_READINESS_AMENDMENT.md).
+
 Date: 2026-08-27
 Branch: `feature/project-context-resolver`
 

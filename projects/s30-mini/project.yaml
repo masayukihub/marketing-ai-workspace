@@ -5,6 +5,20 @@ aliases:
   - S30 mini
   - SwitchBot S30 mini
   - s30-mini-jp
+  - S20 mini
+  - SwitchBot S20 mini
+  - s20-mini
+alias_notes:
+  S20 mini: Project routing alias only; does not approve an external product name.
+  SwitchBot S20 mini: Project routing alias only; does not approve an external product name.
+  s20-mini: Project routing alias only; does not approve an external product name.
+manifest_updated_at: "2026-08-27T15:47:05+08:00"
+state_as_of: "2026-08-20"
+freshness_status: current
+freshness_sources:
+  - ../../memory/project-memory/s30-mini/STATUS.md
+  - ../../memory/project-memory/s30-mini/TODO.md
+  - ../../memory/project-memory/s30-mini/DECISIONS.md
 market: Japan
 status: active
 lifecycle_stage: validation
@@ -45,17 +59,20 @@ next_actions:
     - action_id: S30-P0-SOURCE-AUDIT
       action: Locate and review the current authoritative Product Truth and Claim approval sources.
       status: not_started
+      execution_class: read_only_audit
       requires_human_approval: false
       source: ../../memory/project-memory/s30-mini/TODO.md
     - action_id: S30-P0-COMMERCIAL-REVIEW
       action: Confirm the Japan official product name, SKU, price, and launch build from authoritative sources.
       status: not_started
+      execution_class: human_review_preparation
       requires_human_approval: true
       source: ../../memory/project-memory/s30-mini/TODO.md
   p1:
     - action_id: S30-P1-MIGRATION-SCOPE
       action: Select project documents that can be migrated without copying production assets.
       status: not_started
+      execution_class: read_only_audit
       requires_human_approval: false
       source: ../../memory/project-memory/s30-mini/TODO.md
   p2: []
@@ -71,4 +88,4 @@ skills:
     - amazon-listing-creative
     - switchbot-campaign-review
     - customer-review-intelligence
-last_updated: 2026-08-27
+last_updated: "2026-08-27"
