@@ -79,7 +79,7 @@ Result: **PASS**
 python3 skills/project-context-resolver/scripts/resolve_project_context.py --workspace . --validate-all
 PASS: 4/4 project manifests
 
-python3 /Users/lai/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/project-context-resolver
+python3 "$HOME/.codex/skills/.system/skill-creator/scripts/quick_validate.py" skills/project-context-resolver
 Skill is valid!
 
 ./.venv/bin/python -m pytest -q skills/project-context-resolver/tests
