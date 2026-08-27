@@ -1,0 +1,15 @@
+schema_version: "1.0"
+candidate_id: CANDIDATE-SWITCHBOT-EDM-PRODUCT-LAUNCH-PROOF
+lifecycle: {status: CANDIDATE, auto_promotion_allowed: false}
+normalized_outputs:
+  recipe: RECIPE-EDM-PRODUCT-LAUNCH-PROOF
+  sections:
+    - SEC-EDM-PRODUCT-FIRST-HERO
+    - SEC-EDM-CONSUMER-PROBLEM
+    - SEC-EDM-BENEFIT-SUMMARY
+    - SEC-EDM-MECHANISM-PROOF
+    - SEC-EDM-APP-AUTOMATION
+    - SEC-EDM-CHANNEL-CTA
+source_provenance: visual-system/references/ingested/switchbot-edm-master-v1/source-metadata.yaml
+originality_check: visual-system/references/ingested/switchbot-edm-master-v1/originality-check.yaml
+required_next_gate: HUMAN_PATTERN_REVIEW

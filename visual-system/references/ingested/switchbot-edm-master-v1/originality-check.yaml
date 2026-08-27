@@ -1,0 +1,15 @@
+schema_version: "1.0"
+reference_id: REF-SWITCHBOT-EDM-MASTER-V1
+status: PASS
+stored_layers: [information_architecture, visual_rhythm, section_structure, conversion_pattern, responsive_principle, design_principle]
+rejected_layers:
+  mailchimp_mc_implementation: NOT_STORED
+  logo: NOT_STORED
+  original_copy: NOT_STORED
+  product_image: NOT_STORED
+  price: NOT_STORED
+  coupon: NOT_STORED
+  claim: NOT_STORED
+  complete_layout: NOT_STORED
+  trade_dress: NOT_STORED
+review_required: true

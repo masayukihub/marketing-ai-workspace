@@ -1,0 +1,4 @@
+schema_version: "1.0"
+pattern_id: SEC-EDM-PRODUCT-FIRST-HERO
+status: CANDIDATE
+checks: {structure_extracted: PASS, existing_module_mapped: PASS, mobile_qa: NOT_RUN, human_review: REQUIRED}

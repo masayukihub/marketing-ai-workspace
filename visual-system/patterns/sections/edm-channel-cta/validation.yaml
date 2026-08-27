@@ -1,0 +1,4 @@
+schema_version: "1.0"
+pattern_id: SEC-EDM-CHANNEL-CTA
+status: CANDIDATE
+checks: {structure_extracted: PASS, existing_module_mapped: PASS, verified_destination_gate: REQUIRED, esp_gate: REQUIRED, human_review: REQUIRED}

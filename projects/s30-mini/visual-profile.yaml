@@ -1,8 +1,447 @@
-schema_version: '1.0'
+schema_version: '1.1'
 contract: visual-profile
 project_id: s30-mini
-generated_at: '2026-08-27T06:11:31+00:00'
+generated_at: '2026-08-27T07:39:44+00:00'
 generated_by: visual-system/routing/visual_router.py
+project_visual_dna:
+  status: ROUTER_GENERATED_CANDIDATE
+  tone:
+  - clean
+  - japan_consumer_friendly
+  proof_strategy: proof_before_persuasion
+  visual_rhythm: product_first_to_mechanism_to_proof
+  image_strategy: official_product_and_approved_evidence_only
+  information_strategy:
+    source_complexity: high
+    hierarchy_principle: structured_progressive_disclosure
+  conversion_style: single_verified_action_after_proof
+  mobile_priority: high
+  content_boundary:
+  - No Product Truth, Claim, price, performance number, specification, or asset is approved by Visual DNA.
+  - Cross-channel inheritance excludes complete layout and channel-native module geometry.
+pattern_match:
+  score: 97.8
+  status: HIGH
+  dimensions:
+    channel_fit: 100.0
+    category_fit: 100.0
+    consumer_goal_fit: 100.0
+    brand_fit: 92.0
+    information_complexity: 100.0
+    mobile_fit: 88.0
+  note: Pattern Match excludes execution assets and is not a production decision.
+execution_readiness:
+  score: 43.5
+  status: BLOCKED_BY_ASSET
+  components:
+    product_truth:
+      status: PARTIAL
+      score: 50.0
+    claim_gate:
+      status: UNAPPROVED_OR_UNVERIFIED
+      score: 0.0
+    required_assets:
+      status: INCOMPLETE
+      score: 60.0
+    pattern_lifecycle:
+      status: VALIDATED
+      score: 100.0
+    human_review:
+      status: REQUIRED
+      score: 0.0
+  note: Execution Readiness is evaluated independently from Pattern Match.
+evidence_confidence:
+  score: 47.5
+  status: LOW
+  note: Confidence reflects governed evidence availability, not predicted conversion performance.
+channel_assignments:
+  amazon_jp:
+    primary_pattern:
+      pattern_id: VP-AMZ-MECHANISM-PROOF
+      status: VALIDATED
+      legacy_ranking_score: 89.7
+    supporting_patterns:
+    - VP-AMZ-JAPAN-FIT-TRUST
+    routing_status: EXISTING_RUNTIME
+    channel_intent:
+      status: PROJECT_CONTEXT_DEFAULT
+      resolved: true
+      campaign_type: null
+      primary_objective: null
+      consumer_goals:
+      - understand_mechanism
+      - verify_performance
+      - compare_options
+      - reduce_purchase_risk
+    channel_information_density: high_structured
+    recipe:
+      recipe_id: AMAZON_EXISTING_FLOW
+      status: EXISTING_RUNTIME
+      selection_status: EXISTING_RUNTIME
+      source: null
+      section_patterns: []
+      sections: []
+      template_selection_request: null
+      template_compatibility: null
+    pattern_match:
+      score: 97.8
+      status: HIGH
+      dimensions:
+        channel_fit: 100.0
+        category_fit: 100.0
+        consumer_goal_fit: 100.0
+        brand_fit: 92.0
+        information_complexity: 100.0
+        mobile_fit: 88.0
+      note: Pattern Match excludes execution assets and is not a production decision.
+    execution_readiness:
+      score: 43.5
+      status: BLOCKED_BY_ASSET
+      components:
+        product_truth:
+          status: PARTIAL
+          score: 50.0
+        claim_gate:
+          status: UNAPPROVED_OR_UNVERIFIED
+          score: 0.0
+        required_assets:
+          status: INCOMPLETE
+          score: 60.0
+        pattern_lifecycle:
+          status: VALIDATED
+          score: 100.0
+        human_review:
+          status: REQUIRED
+          score: 0.0
+      note: Execution Readiness is evaluated independently from Pattern Match.
+    evidence_confidence:
+      score: 47.5
+      status: LOW
+      note: Confidence reflects governed evidence availability, not predicted conversion performance.
+    reason_codes:
+    - PRODUCT_TRUTH_NOT_APPROVED
+    - CLAIM_GATE_NOT_APPROVED
+    - ASSET_READINESS_BELOW_REQUIRED
+    - CANDIDATE_FREEZE_NOT_APPLIED
+    - HUMAN_REVIEW_REQUIRED
+    - PATTERN_MATCH_HIGH
+    blocking_reasons:
+    - Product Truth is PARTIAL
+    - Claim Gate is UNAPPROVED_OR_UNVERIFIED
+    - Required assets are missing, partial, or review-only
+    - Candidate Freeze is not an active APPROVED Freeze
+    auto_apply:
+      eligible: false
+      scope: VISUAL_STRUCTURE_ONLY
+      status: BLOCKED
+    freeze:
+      applied: false
+      status: CANDIDATE
+      applicability: APPLICABLE_TO_CHANNEL
+      channel_scope:
+      - amazon_jp
+      reason_codes:
+      - CANDIDATE_FREEZE_NOT_APPLIED
+      notes:
+      - Freeze is not active APPROVED
+      - Freeze lacks named human approval metadata
+      - Required assets no longer satisfy Freeze
+    inheritance:
+      project_visual_dna: true
+      information_strategy: true
+      channel_information_density: false
+      layout_from_other_channel: false
+      rule: Cross-channel routing inherits Visual DNA, never a complete channel layout.
+    adapter:
+      adapter_id: ADAPTER-AMAZON-JP
+      layout_contract: AMAZON_GALLERY_APLUS
+      existing_skill: skills/jp-commerce-content-flow
+      existing_template: null
+      required_gates:
+      - Product Truth
+      - Claim Gate
+      - Human Review
+      - Product Layer
+      - Hardening
+      - Mobile QA
+      source_runtime: skills/amazon-japan-pdp-generator
+  edm:
+    primary_pattern:
+      pattern_id: VP-EDM-COMPLEX-LAUNCH
+      status: CANDIDATE
+      legacy_ranking_score: 69.6
+    supporting_patterns: []
+    routing_status: CANDIDATE_ROUTE_SELECTED
+    channel_intent:
+      status: CANDIDATE_ROUTING_INPUT
+      resolved: true
+      campaign_type: product_launch
+      primary_objective: new_product_value_understanding
+      consumer_goals:
+      - understand_launch
+      - discover_primary_benefit
+      - understand_mechanism
+      - reach_single_cta
+    channel_information_density: medium_selective
+    recipe:
+      recipe_id: RECIPE-EDM-PRODUCT-LAUNCH-PROOF
+      status: CANDIDATE
+      selection_status: ROUTER_CANDIDATE_MATCH
+      source: visual-system/patterns/recipes/edm-product-launch-proof/recipe.yaml
+      section_patterns:
+      - SEC-EDM-PRODUCT-FIRST-HERO
+      - SEC-EDM-CONSUMER-PROBLEM
+      - SEC-EDM-BENEFIT-SUMMARY
+      - SEC-EDM-MECHANISM-PROOF
+      - SEC-EDM-APP-AUTOMATION
+      - SEC-EDM-CHANNEL-CTA
+      sections:
+      - position: 1
+        role: product_first_hero
+        pattern_id: SEC-EDM-PRODUCT-FIRST-HERO
+        existing_module: MOD-HERO-PRODUCT
+        requirement: REQUIRED
+      - position: 2
+        role: consumer_problem
+        pattern_id: SEC-EDM-CONSUMER-PROBLEM
+        existing_module: MOD-STORY-PROBLEM
+        requirement: CONDITIONAL
+        condition: Consumer problem recognition is insufficient for the selected audience.
+      - position: 3
+        role: benefit_summary
+        pattern_id: SEC-EDM-BENEFIT-SUMMARY
+        existing_module: MOD-STORY-PRIMARY-USP
+        requirement: REQUIRED
+      - position: 4
+        role: mechanism_proof
+        pattern_id: SEC-EDM-MECHANISM-PROOF
+        existing_module: MOD-STORY-PRODUCT-DETAIL
+        requirement: CONDITIONAL
+        condition: Mechanism proof is material to value understanding and approved evidence exists.
+      - position: 5
+        role: product_or_lifestyle_context
+        existing_module: MOD-STORY-LIFESTYLE
+        new_pattern_created: false
+        requirement: OPTIONAL
+      - position: 6
+        role: app_or_automation
+        pattern_id: SEC-EDM-APP-AUTOMATION
+        existing_module: MOD-STORY-APP-UI
+        requirement: CONDITIONAL
+        condition: App or automation is material and current approved UI evidence exists.
+      - position: 7
+        role: purchase_cta
+        pattern_id: SEC-EDM-CHANNEL-CTA
+        existing_module: MOD-CONV-CTA-BAND
+        requirement: REQUIRED
+      - position: 8
+        role: brand_footer
+        existing_module: MOD-SYSTEM-BRAND-FOOTER
+        new_pattern_created: false
+        requirement: REQUIRED
+      - position: 9
+        role: legal_note
+        existing_module: MOD-SYSTEM-LEGAL-FOOTER
+        new_pattern_created: false
+        requirement: CONDITIONAL
+        condition: Current Claim, offer, channel or legal requirement needs a readable disclosure.
+      template_selection_request:
+        campaign_type: product_launch
+        primary_objective: new_product_value_understanding
+        opening_logic: product_identity_to_primary_value_to_proof
+        required_roles:
+        - role_id: product_first_hero
+          module_id: MOD-HERO-PRODUCT
+        - role_id: benefit_summary
+          module_id: MOD-STORY-PRIMARY-USP
+        - role_id: purchase_cta
+          module_id: MOD-CONV-CTA-BAND
+        - role_id: brand_footer
+          module_id: MOD-SYSTEM-BRAND-FOOTER
+        optional_roles:
+        - role_id: consumer_problem
+          module_id: MOD-STORY-PROBLEM
+          requirement: CONDITIONAL
+        - role_id: mechanism_proof
+          module_id: MOD-STORY-PRODUCT-DETAIL
+          requirement: CONDITIONAL
+        - role_id: product_or_lifestyle_context
+          module_id: MOD-STORY-LIFESTYLE
+          requirement: OPTIONAL
+        - role_id: app_or_automation
+          module_id: MOD-STORY-APP-UI
+          requirement: CONDITIONAL
+        - role_id: legal_note
+          module_id: MOD-SYSTEM-LEGAL-FOOTER
+          requirement: CONDITIONAL
+      template_compatibility:
+        recommended_template: TPL-LAUNCH-A
+        mapping_status: CANDIDATE_CONDITIONAL_MATCH
+        stable_selector_override_allowed: false
+        selector_owner: skills/edm-generator/generator/template_selector/selector.rb
+        recommended_template_registered: true
+        required_roles_resolved: true
+        required_modules_satisfied: true
+        additional_modules_are_optional_or_conditional: true
+        missing_registered_modules: []
+        missing_template_required_modules: []
+        unclassified_additional_modules: []
+        registry_sources:
+        - skills/edm-generator/design_system/templates_v1.0.yaml
+        - skills/edm-generator/design_system/modules_v1.0.yaml
+    pattern_match:
+      score: 78.2
+      status: HIGH
+      dimensions:
+        channel_fit: 100.0
+        category_fit: 25.0
+        consumer_goal_fit: 75.0
+        brand_fit: 90.0
+        information_complexity: 100.0
+        mobile_fit: 82.0
+      note: Pattern Match excludes execution assets and is not a production decision.
+    execution_readiness:
+      score: 28.0
+      status: BLOCKED_BY_ASSET
+      components:
+        product_truth:
+          status: PARTIAL
+          score: 50.0
+        claim_gate:
+          status: UNAPPROVED_OR_UNVERIFIED
+          score: 0.0
+        required_assets:
+          status: INCOMPLETE
+          score: 30.0
+        pattern_lifecycle:
+          status: CANDIDATE
+          score: 50.0
+        human_review:
+          status: REQUIRED
+          score: 0.0
+      note: Execution Readiness is evaluated independently from Pattern Match.
+    evidence_confidence:
+      score: 32.5
+      status: LOW
+      note: Confidence reflects governed evidence availability, not predicted conversion performance.
+    reason_codes:
+    - PRODUCT_TRUTH_NOT_APPROVED
+    - CLAIM_GATE_NOT_APPROVED
+    - ASSET_READINESS_BELOW_REQUIRED
+    - PATTERN_CANDIDATE_REQUIRES_REVIEW
+    - RECIPE_CANDIDATE_REQUIRES_REVIEW
+    - HUMAN_REVIEW_REQUIRED
+    - PATTERN_MATCH_HIGH
+    - FREEZE_CHANNEL_SCOPE_EXCLUDES_CHANNEL
+    - FREEZE_PATTERN_CHANNEL_INCOMPATIBLE
+    - CROSS_CHANNEL_VISUAL_DNA_ONLY
+    blocking_reasons:
+    - Product Truth is PARTIAL
+    - Claim Gate is UNAPPROVED_OR_UNVERIFIED
+    - Required assets are missing, partial, or review-only
+    - Primary Pattern is CANDIDATE
+    - Page Recipe is CANDIDATE
+    auto_apply:
+      eligible: false
+      scope: VISUAL_STRUCTURE_ONLY
+      status: BLOCKED
+    freeze:
+      applied: false
+      status: CANDIDATE
+      applicability: NOT_APPLICABLE_TO_CHANNEL
+      channel_scope:
+      - amazon_jp
+      reason_codes:
+      - FREEZE_CHANNEL_SCOPE_EXCLUDES_CHANNEL
+      - FREEZE_PATTERN_CHANNEL_INCOMPATIBLE
+      notes:
+      - Current channel is not supported by Freeze Pattern
+      - Current channel conflicts with Freeze scope
+    inheritance:
+      project_visual_dna: true
+      information_strategy: true
+      channel_information_density: false
+      layout_from_other_channel: false
+      rule: Cross-channel routing inherits Visual DNA, never a complete channel layout.
+    adapter:
+      adapter_id: ADAPTER-EDM-JP
+      layout_contract: EDM_600PX_RESPONSIVE
+      existing_skill: skills/switchbot-japan-edm
+      existing_template:
+        selection_mode: STABLE_TEMPLATE_SELECTOR
+        registry: skills/edm-generator/design_system/templates_v1.0.yaml
+        selector: skills/edm-generator/generator/template_selector/selector.rb
+        runtime_owner: skills/edm-generator
+        override_allowed: false
+      required_gates:
+      - Product Truth
+      - Campaign Truth
+      - Pricing Truth
+      - Claim Gate
+      - Product Layer
+      - Asset Gate
+      - Human Review
+      - Hardening
+      - Desktop QA
+      - Mobile QA
+      - ESP Gate
+      source_runtime: skills/edm-generator
+reason_codes:
+- PRODUCT_TRUTH_NOT_APPROVED
+- CLAIM_GATE_NOT_APPROVED
+- ASSET_READINESS_BELOW_REQUIRED
+- CANDIDATE_FREEZE_NOT_APPLIED
+- HUMAN_REVIEW_REQUIRED
+- PATTERN_MATCH_HIGH
+- PATTERN_CANDIDATE_REQUIRES_REVIEW
+- RECIPE_CANDIDATE_REQUIRES_REVIEW
+- FREEZE_CHANNEL_SCOPE_EXCLUDES_CHANNEL
+- FREEZE_PATTERN_CHANNEL_INCOMPATIBLE
+- CROSS_CHANNEL_VISUAL_DNA_ONLY
+auto_apply:
+  eligible: false
+  scope: VISUAL_STRUCTURE_ONLY
+  status: BLOCKED
+blocking_reasons:
+- Product Truth is PARTIAL
+- Claim Gate is UNAPPROVED_OR_UNVERIFIED
+- Required assets are missing, partial, or review-only
+- Candidate Freeze is not an active APPROVED Freeze
+- Primary Pattern is CANDIDATE
+- Page Recipe is CANDIDATE
+source_provenance:
+  status: MIXED_REVIEW_ONLY
+  sources:
+  - projects/s30-mini/project-context.yaml
+  - visual-system/registry/pattern-registry.yaml
+  - visual-system/routing/weights.yaml
+  - visual-system/routing/channel-adapters.yaml
+  - visual-system/patterns/amazon-mechanism-proof.yaml
+  - skills/amazon-japan-pdp-generator/reference-library/patterns/story_pattern_library.json
+  - skills/amazon-japan-pdp-generator/reference-library/patterns/gallery_sequence_library.json
+  - skills/amazon-japan-pdp-generator/reference-library/patterns/aplus_sequence_library.json
+  - skills/amazon-japan-pdp-generator/reference-library/layout/layout_primitive_mapping.json
+  - visual-system/registry/page-recipe-registry.yaml
+  - visual-system/patterns/recipes/edm-product-launch-proof/recipe.yaml
+  - skills/edm-generator/design_system/templates_v1.0.yaml
+  - skills/edm-generator/design_system/modules_v1.0.yaml
+  - projects/s30-mini/visual-freeze.yaml
+  - memory/project-memory/s30-mini/PROJECT.md
+  - memory/project-memory/s30-mini/STATUS.md
+  - memory/project-memory/s30-mini/SOURCES.md
+  - source_id: REF-S30-LISTING-DEMO-PROJECT-STATE
+    source_type: external_local_project_artifact
+    locator_status: REDACTED_LOCAL_PATH
+    availability: LOCAL_ONLY
+    registry_ref: visual-system/registry/reference-registry.yaml#REF-S30-LISTING-DEMO-PROJECT-STATE
+  - source_id: REF-S30-WHOLE-SET-APPROVAL
+    source_type: external_local_human_approval_record
+    locator_status: REDACTED_LOCAL_PATH
+    availability: LOCAL_ONLY
+    registry_ref: visual-system/registry/reference-registry.yaml#REF-S30-WHOLE-SET-APPROVAL
+  evidence_limits:
+  - Visual routing does not approve Product Truth, Claim, price, performance, specification, or asset.
+  - Cross-channel inheritance is limited to Project Visual DNA and excludes complete layout.
 decision:
   mode: HUMAN_REVIEW_REQUIRED
   selected_pattern: VP-AMZ-MECHANISM-PROOF
@@ -17,6 +456,10 @@ decision:
   review_reasons:
   - Required assets are missing, partial, or not approved
   - Candidate Freeze exists but is not active APPROVED
+  - 'Execution readiness: Product Truth is PARTIAL'
+  - 'Execution readiness: Claim Gate is UNAPPROVED_OR_UNVERIFIED'
+  - 'Execution readiness: Required assets are missing, partial, or review-only'
+  - 'Execution readiness: Candidate Freeze is not an active APPROVED Freeze'
 freeze:
   file_present: true
   status: CANDIDATE
@@ -41,6 +484,11 @@ channel_adapter:
   - amazon_template_primitives
   - aplus_module_order
   source_runtime: skills/amazon-japan-pdp-generator
+  layout_contract: AMAZON_GALLERY_APLUS
+  recipe:
+    recipe_id: AMAZON_EXISTING_FLOW
+    status: EXISTING_RUNTIME
+  existing_skill: skills/jp-commerce-content-flow
 ranking:
 - excluded: false
   pattern_id: VP-AMZ-MECHANISM-PROOF
@@ -56,6 +504,14 @@ ranking:
     asset_availability: 60.0
     mobile_fit: 88.0
     historical_performance: 50.0
+  asset_requirements:
+    required:
+    - official_product
+    - mechanism_proof
+    optional:
+    - lifestyle_scene
+    - comparison_data
+    - ui_screenshot
   required_asset_gaps:
   - asset: official_product
     status: PARTIAL
@@ -83,6 +539,15 @@ ranking:
     asset_availability: 20.0
     mobile_fit: 90.0
     historical_performance: 50.0
+  asset_requirements:
+    required:
+    - official_product
+    - installation_proof
+    - compatibility_proof
+    optional:
+    - lifestyle_scene
+    - ui_screenshot
+    - security_evidence
   required_asset_gaps:
   - asset: official_product
     status: PARTIAL
@@ -103,6 +568,128 @@ excluded_patterns:
   reason: 'Unsupported channel: amazon_jp'
 - pattern_id: VP-WEB-MODULAR-PROOF
   reason: 'Unsupported channel: amazon_jp'
+channel_rankings:
+  amazon_jp:
+  - excluded: false
+    pattern_id: VP-AMZ-MECHANISM-PROOF
+    name: Amazon JP Mechanism → Performance → Confidence
+    lifecycle: VALIDATED
+    score: 89.7
+    dimensions:
+      channel_fit: 100.0
+      category_fit: 100.0
+      consumer_goal_fit: 100.0
+      brand_fit: 92.0
+      information_complexity: 100.0
+      asset_availability: 60.0
+      mobile_fit: 88.0
+      historical_performance: 50.0
+    asset_requirements:
+      required:
+      - official_product
+      - mechanism_proof
+      optional:
+      - lifestyle_scene
+      - comparison_data
+      - ui_screenshot
+    required_asset_gaps:
+    - asset: official_product
+      status: PARTIAL
+    - asset: mechanism_proof
+      status: AVAILABLE_REVIEW_ONLY
+    historical_performance_status: UNKNOWN
+    sources:
+    - visual-system/patterns/amazon-mechanism-proof.yaml
+    - skills/amazon-japan-pdp-generator/reference-library/patterns/story_pattern_library.json
+    - skills/amazon-japan-pdp-generator/reference-library/patterns/gallery_sequence_library.json
+    - skills/amazon-japan-pdp-generator/reference-library/patterns/aplus_sequence_library.json
+    - skills/amazon-japan-pdp-generator/reference-library/layout/layout_primitive_mapping.json
+    rank: 1
+  - excluded: false
+    pattern_id: VP-AMZ-JAPAN-FIT-TRUST
+    name: Amazon JP Japan Fit → Trust → Installation Confidence
+    lifecycle: VALIDATED
+    score: 57.9
+    dimensions:
+      channel_fit: 100.0
+      category_fit: 0.0
+      consumer_goal_fit: 25.0
+      brand_fit: 94.0
+      information_complexity: 100.0
+      asset_availability: 20.0
+      mobile_fit: 90.0
+      historical_performance: 50.0
+    asset_requirements:
+      required:
+      - official_product
+      - installation_proof
+      - compatibility_proof
+      optional:
+      - lifestyle_scene
+      - ui_screenshot
+      - security_evidence
+    required_asset_gaps:
+    - asset: official_product
+      status: PARTIAL
+    - asset: installation_proof
+      status: MISSING_OR_UNVERIFIED
+    - asset: compatibility_proof
+      status: MISSING_OR_UNVERIFIED
+    historical_performance_status: UNKNOWN
+    sources:
+    - visual-system/patterns/amazon-japan-fit-trust.yaml
+    - skills/amazon-japan-pdp-generator/category-semantics/smart-lock.json
+    - skills/amazon-japan-pdp-generator/reference-library/patterns/story_pattern_library.json
+    - skills/amazon-japan-pdp-generator/reference-library/patterns/gallery_sequence_library.json
+    - skills/amazon-japan-pdp-generator/reference-library/patterns/aplus_sequence_library.json
+    rank: 2
+  edm:
+  - excluded: false
+    pattern_id: VP-EDM-COMPLEX-LAUNCH
+    name: Japan EDM Single Goal → Product Hierarchy → Modular Proof
+    lifecycle: CANDIDATE
+    score: 69.6
+    dimensions:
+      channel_fit: 100.0
+      category_fit: 25.0
+      consumer_goal_fit: 75.0
+      brand_fit: 90.0
+      information_complexity: 100.0
+      asset_availability: 30.0
+      mobile_fit: 82.0
+      historical_performance: 50.0
+    asset_requirements:
+      required:
+      - official_product
+      - hero_visual
+      optional:
+      - lifestyle_scene
+      - ugc_with_permission
+      - price_proof
+    required_asset_gaps:
+    - asset: official_product
+      status: PARTIAL
+    - asset: hero_visual
+      status: MISSING_OR_UNVERIFIED
+    historical_performance_status: UNKNOWN
+    sources:
+    - visual-system/patterns/edm-complex-launch.yaml
+    - skills/switchbot-japan-edm/references/edm-production-method.md
+    - skills/edm-generator
+    rank: 1
+channel_excluded_patterns:
+  amazon_jp:
+  - pattern_id: VP-EDM-COMPLEX-LAUNCH
+    reason: 'Unsupported channel: amazon_jp'
+  - pattern_id: VP-WEB-MODULAR-PROOF
+    reason: 'Unsupported channel: amazon_jp'
+  edm:
+  - pattern_id: VP-AMZ-MECHANISM-PROOF
+    reason: 'Unsupported channel: edm'
+  - pattern_id: VP-AMZ-JAPAN-FIT-TRUST
+    reason: 'Unsupported channel: edm'
+  - pattern_id: VP-WEB-MODULAR-PROOF
+    reason: 'Unsupported channel: edm'
 boundaries:
   does_not_approve:
   - Product Truth
@@ -118,6 +705,11 @@ boundaries:
   - Product Layer
   - Hardening
   - Mobile QA
+  - Campaign Truth
+  - Pricing Truth
+  - Asset Gate
+  - Desktop QA
+  - ESP Gate
 sources:
 - projects/s30-mini/project-context.yaml
 - visual-system/registry/pattern-registry.yaml
@@ -128,6 +720,10 @@ sources:
 - skills/amazon-japan-pdp-generator/reference-library/patterns/gallery_sequence_library.json
 - skills/amazon-japan-pdp-generator/reference-library/patterns/aplus_sequence_library.json
 - skills/amazon-japan-pdp-generator/reference-library/layout/layout_primitive_mapping.json
+- visual-system/registry/page-recipe-registry.yaml
+- visual-system/patterns/recipes/edm-product-launch-proof/recipe.yaml
+- skills/edm-generator/design_system/templates_v1.0.yaml
+- skills/edm-generator/design_system/modules_v1.0.yaml
 - projects/s30-mini/visual-freeze.yaml
 - memory/project-memory/s30-mini/PROJECT.md
 - memory/project-memory/s30-mini/STATUS.md

@@ -1,4 +1,4 @@
-schema_version: "1.0"
+schema_version: "1.1"
 contract: project-context
 project_id: lock-ultra-max
 project_status: PARTIAL
@@ -7,7 +7,6 @@ locale: ja-JP
 primary_channel: amazon_jp
 channels:
   - amazon_jp
-  - edm
 product:
   display_name: SwitchBot Lock Ultra Max
   name_status: NEED_CONFIRMATION
@@ -20,6 +19,11 @@ target_user:
 positioning:
   status: UNKNOWN
   statement: null
+governance:
+  product_truth_status: PENDING_VERIFICATION
+  claim_status: UNAPPROVED_OR_UNVERIFIED
+  approved_asset_status: MISSING_OR_UNVERIFIED
+  human_review_status: REQUIRED
 visual_inputs:
   category_tags:
     - home_security
@@ -66,6 +70,7 @@ constraints:
   preserve_human_review: true
   preserve_hardening: true
   preserve_mobile_qa: true
+  preserve_esp_gate: true
 unknowns:
   - Current Product Truth is pending canonical verification.
   - Target user, positioning, compatibility, installation and security Claims are not approved.

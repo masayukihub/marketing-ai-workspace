@@ -1,0 +1,4 @@
+schema_version: "1.0"
+pattern_id: SEC-EDM-CHANNEL-CTA
+mappings:
+  edm: {adapter_id: ADAPTER-EDM-JP, existing_module: MOD-CONV-CTA-BAND, renderer_owner: skills/edm-generator, esp_gate_required: true}

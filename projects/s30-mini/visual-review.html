@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>s30-mini Visual Review</title>
+  <style>
+    :root{--red:#e63223;--ink:#171717;--muted:#696969;--line:#e9e5df;--paper:#fff;--cream:#f7f4ef;--dark:#241f1c}
+    *{box-sizing:border-box} body{margin:0;background:var(--cream);color:var(--ink);font:15px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC",sans-serif}
+    .shell{max-width:1180px;margin:auto;padding:36px 24px 72px} .hero{background:var(--dark);color:#fff;border-radius:28px;padding:36px;display:grid;grid-template-columns:1.4fr .8fr;gap:30px;box-shadow:0 20px 50px #362b221c}
+    .eyebrow{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#e9594d} h1{font-size:clamp(34px,5vw,62px);line-height:1.02;margin:12px 0 16px;max-width:760px} .hero p{color:#d8d1cb;max-width:680px}
+    .gate{border:1px solid #ffffff2d;border-radius:20px;padding:22px;background:#ffffff0b} .gate strong{display:block;font-size:25px;margin:8px 0} .gate small{color:#c7beb6}
+    section{margin-top:34px} .section-head{display:flex;justify-content:space-between;gap:20px;align-items:end;margin-bottom:14px} h2{font-size:26px;margin:0} .section-head p{margin:0;color:var(--muted)}
+    .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:14px} .metric,.assignment,.panel{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:20px}
+    .metric__top{display:flex;justify-content:space-between;align-items:center} .metric__top strong{font-size:28px} .bar{height:8px;background:#eeeae4;border-radius:999px;overflow:hidden;margin:12px 0} .bar span{display:block;height:100%;background:linear-gradient(90deg,#f09b74,var(--red))}
+    .badge{display:inline-flex;padding:5px 9px;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:.04em;background:#f2eee9} .badge.bad{background:#ffe7e4;color:#a7261d} .badge.warn{background:#fff0cf;color:#8a5d00} .badge.ok{background:#dff5e8;color:#12673a}
+    .assignments{display:grid;grid-template-columns:1fr 1fr;gap:16px} .assignment__head{display:flex;justify-content:space-between;gap:12px;align-items:start} h3{margin:4px 0 14px;font-size:19px} dl{margin:0} dl div{display:grid;grid-template-columns:170px 1fr;gap:14px;padding:10px 0;border-top:1px solid var(--line)} dt{color:var(--muted)} dd{margin:0;font-weight:650;word-break:break-word}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px} ul{margin:8px 0 0;padding-left:20px} .reason-codes{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px} .code{padding:5px 8px;background:#f5f1ec;border-radius:8px;font:11px/1.3 ui-monospace,SFMono-Regular,Menlo,monospace}
+    .inherit{display:grid;grid-template-columns:1fr 1fr;gap:14px} .inherit .panel:first-child{border-top:4px solid #2e9b61} .inherit .panel:last-child{border-top:4px solid var(--red)}
+    .phone-wrap{display:grid;grid-template-columns:320px 1fr;gap:28px;align-items:center} .phone{width:286px;margin:auto;background:#111;border:9px solid #111;border-radius:40px;padding:14px 10px 22px;box-shadow:0 24px 45px #2b211b2d} .phone__screen{background:#f7f5f2;border-radius:25px;padding:12px;min-height:570px} .phone__notch{width:90px;height:18px;background:#111;border-radius:0 0 13px 13px;margin:-12px auto 14px}
+    .wire{background:#fff;border:1px solid #e5dfd7;border-radius:13px;padding:13px;margin:9px 0;min-height:58px} .wire--1{min-height:92px;background:linear-gradient(145deg,#fff4f1,#fff)} .wire--2{background:#f2f1ef} .wire span{font-size:10px;color:var(--red);font-weight:800;margin-right:7px} .wire strong{font-size:12px} .wire small{display:block;color:#8a837c;font-size:10px;margin-top:4px}
+    .callout{background:#fff0ed;border-left:5px solid var(--red);padding:16px 18px;border-radius:5px 16px 16px 5px} footer{margin-top:34px;color:var(--muted);font-size:12px}
+    @media(max-width:800px){.hero,.metrics,.assignments,.grid,.inherit,.phone-wrap{grid-template-columns:1fr} .shell{padding:18px 14px 44px} .hero{padding:24px;border-radius:20px} dl div{grid-template-columns:1fr;gap:2px} .section-head{display:block}}
+  </style>
+</head>
+<body data-project-id="s30-mini">
+  <main class="shell">
+    <header class="hero">
+      <div><span class="eyebrow">Visual Pattern Memory · Phase 2A Pilot</span><h1>S30 mini<br>Amazon → EDM</h1><p>本页面只审核跨渠道视觉结构。它不包含或批准产品事实、Claim、价格、性能数字、正式素材、Amazon 上传或 EDM 发送。</p></div>
+      <aside class="gate"><span class="eyebrow">Recommended Gate</span><strong>HUMAN + ASSET REVIEW</strong><span class="badge bad">AUTO APPLY BLOCKED</span><small>EDM Pattern 与 Recipe 均为 Candidate，且 Product Truth、Claim、素材仍未满足。</small></aside>
+    </header>
+
+    <section><div class="section-head"><div><span class="eyebrow">01 · Project Visual DNA</span><h2>跨渠道继承的是视觉原则，不是 Layout</h2></div><p>ROUTER_GENERATED_CANDIDATE</p></div><article class="panel"><dl><div><dt>状态</dt><dd>ROUTER_GENERATED_CANDIDATE</dd></div><div><dt>Tone</dt><dd>clean / japan_consumer_friendly</dd></div><div><dt>Proof Strategy</dt><dd>proof_before_persuasion</dd></div><div><dt>Visual Rhythm</dt><dd>product_first_to_mechanism_to_proof</dd></div><div><dt>Image Strategy</dt><dd>official_product_and_approved_evidence_only</dd></div><div><dt>Information Strategy</dt><dd>source_complexity: high / hierarchy_principle: structured_progressive_disclosure</dd></div><div><dt>Conversion Style</dt><dd>single_verified_action_after_proof</dd></div><div><dt>Mobile Priority</dt><dd>high</dd></div></dl></article></section>
+
+    <section><div class="section-head"><div><span class="eyebrow">02 · Decision Metrics</span><h2>Match 与 Production Readiness 分开判断</h2></div></div><div class="metrics"><article class="metric">
+        <div class="metric__top"><span>Amazon Pattern Match</span><strong>97.8</strong></div>
+        <div class="bar"><span style="width:97.8%"></span></div>
+        <span class="badge warn">HIGH</span>
+      </article><article class="metric">
+        <div class="metric__top"><span>EDM Execution Readiness</span><strong>28.0</strong></div>
+        <div class="bar"><span style="width:28.0%"></span></div>
+        <span class="badge bad">BLOCKED_BY_ASSET</span>
+      </article><article class="metric">
+        <div class="metric__top"><span>EDM Evidence Confidence</span><strong>32.5</strong></div>
+        <div class="bar"><span style="width:32.5%"></span></div>
+        <span class="badge bad">LOW</span>
+      </article></div></section>
+
+    <section><div class="section-head"><div><span class="eyebrow">03 · Channel Assignments</span><h2>同一个项目 Profile，两个渠道适配</h2></div></div><div class="assignments"><article class="assignment">
+        <div class="assignment__head">
+          <div><span class="eyebrow">AMAZON_JP</span><h3>VP-AMZ-MECHANISM-PROOF</h3></div>
+          <span class="badge bad">BLOCKED_BY_ASSET</span>
+        </div>
+        <dl>
+          <div><dt>Pattern 状态</dt><dd>VALIDATED</dd></div>
+          <div><dt>Recipe</dt><dd>AMAZON_EXISTING_FLOW · EXISTING_RUNTIME</dd></div>
+          <div><dt>Channel Intent</dt><dd>— → — · PROJECT_CONTEXT_DEFAULT</dd></div>
+          <div><dt>Channel Information Density</dt><dd>high_structured</dd></div>
+          <div><dt>Freeze Applicability</dt><dd>APPLICABLE_TO_CHANNEL</dd></div>
+          <div><dt>推荐 Template</dt><dd>Existing Amazon Flow · —</dd></div>
+          <div><dt>Template Selector</dt><dd>Stable Runtime 决定</dd></div>
+          <div><dt>Match / Readiness / Confidence</dt><dd>97.8 / 43.5 / 47.5</dd></div>
+          <div><dt>Auto Apply</dt><dd>BLOCKED</dd></div>
+          <div><dt>完整 Layout 跨渠道继承</dt><dd>否</dd></div>
+        </dl>
+      </article><article class="assignment">
+        <div class="assignment__head">
+          <div><span class="eyebrow">EDM</span><h3>VP-EDM-COMPLEX-LAUNCH</h3></div>
+          <span class="badge bad">BLOCKED_BY_ASSET</span>
+        </div>
+        <dl>
+          <div><dt>Pattern 状态</dt><dd>CANDIDATE</dd></div>
+          <div><dt>Recipe</dt><dd>RECIPE-EDM-PRODUCT-LAUNCH-PROOF · CANDIDATE</dd></div>
+          <div><dt>Channel Intent</dt><dd>product_launch → new_product_value_understanding · CANDIDATE_ROUTING_INPUT</dd></div>
+          <div><dt>Channel Information Density</dt><dd>medium_selective</dd></div>
+          <div><dt>Freeze Applicability</dt><dd>NOT_APPLICABLE_TO_CHANNEL</dd></div>
+          <div><dt>推荐 Template</dt><dd>TPL-LAUNCH-A · CANDIDATE_CONDITIONAL_MATCH</dd></div>
+          <div><dt>Template Selector</dt><dd>Stable Runtime 决定</dd></div>
+          <div><dt>Match / Readiness / Confidence</dt><dd>78.2 / 28.0 / 32.5</dd></div>
+          <div><dt>Auto Apply</dt><dd>BLOCKED</dd></div>
+          <div><dt>完整 Layout 跨渠道继承</dt><dd>否</dd></div>
+        </dl>
+      </article></div></section>
+
+    <section><div class="section-head"><div><span class="eyebrow">04 · Freeze & Gate</span><h2>Amazon-only Freeze 被记录，但不参与 EDM Readiness</h2></div></div><div class="grid"><article class="panel" data-freeze-applicability="NOT_APPLICABLE_TO_CHANNEL"><h3>Freeze Applicability</h3><p><span class="badge warn">NOT_APPLICABLE_TO_CHANNEL</span></p><ul><li>Current channel is not supported by Freeze Pattern</li><li>Current channel conflicts with Freeze scope</li></ul><div class="reason-codes"><span class="code">FREEZE_CHANNEL_SCOPE_EXCLUDES_CHANNEL</span><span class="code">FREEZE_PATTERN_CHANNEL_INCOMPATIBLE</span></div></article><article class="panel"><h3>EDM 正式生产 Blocker</h3><ul><li>Product Truth is PARTIAL</li><li>Claim Gate is UNAPPROVED_OR_UNVERIFIED</li><li>Required assets are missing, partial, or review-only</li><li>Primary Pattern is CANDIDATE</li><li>Page Recipe is CANDIDATE</li></ul><div class="reason-codes"><span class="code">PRODUCT_TRUTH_NOT_APPROVED</span><span class="code">CLAIM_GATE_NOT_APPROVED</span><span class="code">ASSET_READINESS_BELOW_REQUIRED</span><span class="code">PATTERN_CANDIDATE_REQUIRES_REVIEW</span><span class="code">RECIPE_CANDIDATE_REQUIRES_REVIEW</span><span class="code">HUMAN_REVIEW_REQUIRED</span><span class="code">PATTERN_MATCH_HIGH</span><span class="code">FREEZE_CHANNEL_SCOPE_EXCLUDES_CHANNEL</span><span class="code">FREEZE_PATTERN_CHANNEL_INCOMPATIBLE</span><span class="code">CROSS_CHANNEL_VISUAL_DNA_ONLY</span></div></article></div></section>
+
+    <section><div class="section-head"><div><span class="eyebrow">05 · Cross-channel Boundary</span><h2>继承信息层级原则，不复制渠道密度</h2></div></div><div class="inherit"><article class="panel"><h3>Amazon → EDM 可以继承</h3><ul><li>Tone 与品牌亲和度方向</li><li>Proof Strategy 与信息优先级</li><li>产品优先、机制到证据的 Visual Rhythm</li><li>structured progressive disclosure 层级原则</li><li>Mobile Priority 与单一行动原则</li></ul></article><article class="panel"><h3>必须重新适配</h3><ul><li>Amazon：high structured；EDM：medium selective</li><li>Amazon Gallery / A+ Layout 与尺寸</li><li>EDM 600px、语义堆叠与邮件客户端约束</li><li>Template、Module、CTA、Legal 与 Footer</li><li>价格、Coupon、日期、Claim、图片与产品文案</li></ul></article></div></section>
+
+    <section><div class="section-head"><div><span class="eyebrow">06 · Recipe ↔ Template Compatibility</span><h2>推荐模板是条件匹配，不是已验证绑定</h2></div></div><div class="grid"><article class="panel"><h3>TPL-LAUNCH-A</h3><dl><div><dt>Template Compatibility Status</dt><dd>CANDIDATE_CONDITIONAL_MATCH</dd></div><div><dt>Required Roles Registered</dt><dd>True</dd></div><div><dt>Required Modules Satisfied</dt><dd>True</dd></div><div><dt>Stable Selector Override</dt><dd>False</dd></div></dl></article><article class="panel"><h3>Required / Optional Section</h3><p><strong>Required</strong></p><ul><li>产品优先 Hero</li><li>利益概览</li><li>购买 CTA</li><li>Brand Footer</li></ul><p><strong>Optional / Conditional</strong></p><ul><li>消费者问题 (CONDITIONAL)</li><li>机制证据 (CONDITIONAL)</li><li>产品 / Lifestyle 场景 (OPTIONAL)</li><li>App / 自动化 (CONDITIONAL)</li><li>Legal Note (CONDITIONAL)</li></ul></article></div></section>
+
+    <section><div class="section-head"><div><span class="eyebrow">07 · Approval Boundary</span><h2>Architecture Approval ≠ Pattern Approval</h2></div></div><div class="grid"><article class="panel"><h3>Architecture Approval</h3><p>确认 Visual DNA、渠道职责、Recipe 角色顺序与 Existing Runtime 接口合理；不批准任何具体 Pattern、文案、Claim、图片或 Template 选择。</p></article><article class="panel"><h3>Pattern Approval</h3><p>对 Candidate Pattern / Recipe 的结构适用性进行具名人工批准。即使通过，Product Truth、Claim、Asset、Hardening、Mobile QA 与 ESP Gate 仍保持独立。</p></article></div></section>
+
+    <section><div class="section-head"><div><span class="eyebrow">08 · Mobile Wireframe Preview</span><h2>EDM Recipe 的手机端阅读顺序</h2></div><p>结构预览，不是 EDM 成品</p></div><div class="phone-wrap"><div class="phone"><div class="phone__screen"><div class="phone__notch"></div><div class="wire wire--1"><span>01</span><strong>产品优先 Hero</strong><small>REQUIRED · 内容待 Gate</small></div><div class="wire wire--2"><span>02</span><strong>消费者问题</strong><small>CONDITIONAL · 内容待 Gate</small></div><div class="wire wire--0"><span>03</span><strong>利益概览</strong><small>REQUIRED · 内容待 Gate</small></div><div class="wire wire--1"><span>04</span><strong>机制证据</strong><small>CONDITIONAL · 内容待 Gate</small></div><div class="wire wire--2"><span>05</span><strong>产品 / Lifestyle 场景</strong><small>OPTIONAL · 内容待 Gate</small></div><div class="wire wire--0"><span>06</span><strong>App / 自动化</strong><small>CONDITIONAL · 内容待 Gate</small></div><div class="wire wire--1"><span>07</span><strong>购买 CTA</strong><small>REQUIRED · 内容待 Gate</small></div><div class="wire wire--2"><span>08</span><strong>Brand Footer</strong><small>REQUIRED · 内容待 Gate</small></div><div class="wire wire--0"><span>09</span><strong>Legal Note</strong><small>CONDITIONAL · 内容待 Gate</small></div></div></div><div><h3>RECIPE-EDM-PRODUCT-LAUNCH-PROOF</h3><p>当前仅向 Stable Template Selector 提交 Intent 与 Role Request；<strong>TPL-LAUNCH-A</strong> 为 CANDIDATE_CONDITIONAL_MATCH，Router 不覆盖最终 Template、Renderer、Mobile QA 或 ESP Gate。</p><div class="callout"><strong>Human Review 原因</strong><br>Pattern 和 Recipe 均为 Candidate；S30 Product Truth、Approved Claim、正式素材与 CTA 尚未完成。Consumer Problem、Mechanism、App 和 Legal 仅在条件满足时加入。</div></div></div></section>
+
+    <footer>Generated from repository-relative Visual Profile · Review artifact only · No Product Truth / Claim / Asset / Send approval</footer>
+  </main>
+</body>
+</html>

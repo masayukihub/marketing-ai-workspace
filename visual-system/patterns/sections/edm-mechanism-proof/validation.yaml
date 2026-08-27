@@ -1,0 +1,4 @@
+schema_version: "1.0"
+pattern_id: SEC-EDM-MECHANISM-PROOF
+status: CANDIDATE
+checks: {structure_extracted: PASS, existing_module_mapped: PASS, product_truth_gate: REQUIRED, asset_gate: REQUIRED, human_review: REQUIRED}

@@ -1,0 +1,11 @@
+schema_version: "1.0"
+registry: page-recipes
+recipes:
+  - recipe_id: RECIPE-EDM-PRODUCT-LAUNCH-PROOF
+    file: ../patterns/recipes/edm-product-launch-proof/recipe.yaml
+    status: CANDIDATE
+    channels: [edm]
+rules:
+  - A Recipe coordinates structure but never approves Product Truth, Claim, Asset, layout, ESP, or send readiness.
+  - CANDIDATE Recipes require Human Review and channel-runtime validation.
+  - Existing templates remain owned by their channel runtime.

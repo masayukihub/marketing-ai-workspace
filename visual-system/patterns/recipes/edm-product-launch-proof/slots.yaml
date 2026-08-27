@@ -1,0 +1,27 @@
+schema_version: "1.0"
+recipe_id: RECIPE-EDM-PRODUCT-LAUNCH-PROOF
+slots:
+  - slot_id: product_identity
+    required_status: APPROVED_OR_VERIFIED_FOR_CHANNEL
+    missing_behavior: BLOCK_VISUAL_PRODUCTION
+  - slot_id: consumer_problem
+    required_status: EVIDENCE_LINKED
+    missing_behavior: OMIT_OR_HUMAN_REVIEW
+  - slot_id: approved_primary_benefit
+    required_status: APPROVED_CLAIM
+    missing_behavior: BLOCK_BENEFIT_COPY
+  - slot_id: mechanism_proof
+    required_status: APPROVED_ASSET_AND_CLAIM
+    missing_behavior: BLOCK_MECHANISM_SECTION
+  - slot_id: lifestyle_context
+    required_status: APPROVED_ASSET
+    missing_behavior: OMIT
+  - slot_id: app_or_automation
+    required_status: APPROVED_UI_ASSET_AND_CLAIM
+    missing_behavior: OMIT_OR_BLOCK_IF_PRIMARY
+  - slot_id: primary_cta
+    required_status: VERIFIED_DESTINATION
+    missing_behavior: BLOCK_SEND_READINESS
+  - slot_id: legal_and_footer
+    required_status: CURRENT_CHANNEL_APPROVAL
+    missing_behavior: BLOCK_ESP_GATE

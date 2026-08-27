@@ -1,0 +1,7 @@
+schema_version: "1.0"
+pattern_id: SEC-EDM-CHANNEL-CTA
+slots:
+  - {slot_id: decision_recap, status_required: APPROVED_CLAIM, missing_behavior: OMIT}
+  - {slot_id: cta_label, status_required: CHANNEL_APPROVED_COPY, missing_behavior: BLOCK_SEND}
+  - {slot_id: cta_destination, status_required: VERIFIED_URL, missing_behavior: BLOCK_SEND}
+  - {slot_id: commerce_condition, status_required: CURRENT_APPROVED_SOURCE, missing_behavior: OMIT_OR_BLOCK_IF_MATERIAL}

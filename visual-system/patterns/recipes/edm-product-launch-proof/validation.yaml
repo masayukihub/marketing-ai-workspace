@@ -1,0 +1,20 @@
+schema_version: "1.0"
+recipe_id: RECIPE-EDM-PRODUCT-LAUNCH-PROOF
+status: CANDIDATE
+validated_channels: []
+pilot_projects: [s30-mini]
+checks:
+  structure_only_extraction: PASS
+  maps_to_existing_skill: PASS
+  recommended_template_mapping: CANDIDATE_CONDITIONAL_MATCH
+  required_roles_registered: PASS
+  required_template_modules_satisfied: PASS
+  additional_modules_optional_or_conditional: PASS
+  stable_template_selector_override_allowed: false
+  amazon_layout_not_reused: PASS
+  product_truth_approved: NOT_AVAILABLE
+  claim_gate_passed: NOT_AVAILABLE
+  required_assets_ready: NOT_AVAILABLE
+  human_review: REQUIRED
+  esp_gate: NOT_RUN
+promotion_rule: Human approval plus real channel QA is required before VALIDATED or PREFERRED.

@@ -1,0 +1,8 @@
+schema_version: "1.0"
+pattern_id: SEC-EDM-PRODUCT-FIRST-HERO
+mappings:
+  edm:
+    adapter_id: ADAPTER-EDM-JP
+    existing_module: MOD-HERO-PRODUCT
+    template_registry: skills/edm-generator/design_system/templates_v1.0.yaml
+    renderer_owner: skills/edm-generator

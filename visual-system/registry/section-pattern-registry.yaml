@@ -1,0 +1,25 @@
+schema_version: "1.0"
+registry: section-patterns
+patterns:
+  - pattern_id: SEC-EDM-PRODUCT-FIRST-HERO
+    file: ../patterns/sections/edm-product-first-hero/pattern.yaml
+    status: CANDIDATE
+  - pattern_id: SEC-EDM-CONSUMER-PROBLEM
+    file: ../patterns/sections/edm-consumer-problem/pattern.yaml
+    status: CANDIDATE
+  - pattern_id: SEC-EDM-BENEFIT-SUMMARY
+    file: ../patterns/sections/edm-benefit-summary/pattern.yaml
+    status: CANDIDATE
+  - pattern_id: SEC-EDM-MECHANISM-PROOF
+    file: ../patterns/sections/edm-mechanism-proof/pattern.yaml
+    status: CANDIDATE
+  - pattern_id: SEC-EDM-APP-AUTOMATION
+    file: ../patterns/sections/edm-app-automation/pattern.yaml
+    status: CANDIDATE
+  - pattern_id: SEC-EDM-CHANNEL-CTA
+    file: ../patterns/sections/edm-channel-cta/pattern.yaml
+    status: CANDIDATE
+rules:
+  - Registry status must match the package pattern lifecycle status.
+  - New Section Patterns cannot auto-promote beyond CANDIDATE.
+  - Section Patterns store reusable structure only, never product copy, images, prices, coupons, Claims, complete layouts, or trade dress.

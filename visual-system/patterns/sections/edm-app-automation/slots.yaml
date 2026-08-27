@@ -1,0 +1,7 @@
+schema_version: "1.0"
+pattern_id: SEC-EDM-APP-AUTOMATION
+slots:
+  - {slot_id: user_task, status_required: APPROVED_USE_CASE, missing_behavior: OMIT}
+  - {slot_id: official_ui_asset, status_required: APPROVED_ASSET, missing_behavior: BLOCK_SECTION}
+  - {slot_id: capability_statement, status_required: APPROVED_CLAIM, missing_behavior: BLOCK_SECTION}
+  - {slot_id: dependency_and_limit, status_required: SOURCE_LINKED, missing_behavior: BLOCK_EXTERNAL_COPY}
