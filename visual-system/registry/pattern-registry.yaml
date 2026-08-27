@@ -1,0 +1,19 @@
+schema_version: "1.0"
+registry: visual-patterns
+patterns:
+  - pattern_id: VP-AMZ-MECHANISM-PROOF
+    file: ../patterns/amazon-mechanism-proof.yaml
+    status: VALIDATED
+  - pattern_id: VP-AMZ-JAPAN-FIT-TRUST
+    file: ../patterns/amazon-japan-fit-trust.yaml
+    status: VALIDATED
+  - pattern_id: VP-EDM-COMPLEX-LAUNCH
+    file: ../patterns/edm-complex-launch.yaml
+    status: CANDIDATE
+  - pattern_id: VP-WEB-MODULAR-PROOF
+    file: ../patterns/web-modular-proof.yaml
+    status: CANDIDATE
+rules:
+  - Registry status must match the Pattern lifecycle status.
+  - DEPRECATED Patterns are never auto-selected or inherited.
+  - CANDIDATE Patterns require Human Review before downstream visual production.

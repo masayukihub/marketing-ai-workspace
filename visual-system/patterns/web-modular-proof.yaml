@@ -1,0 +1,41 @@
+schema_version: "1.0"
+pattern_id: VP-WEB-MODULAR-PROOF
+name: LP / Campaign HTML Modular Value → Proof → Action
+lifecycle:
+  status: CANDIDATE
+  validation_scope: Forward-compatible Phase 1 contract only; no project has approved it as a reusable Pattern.
+fit:
+  channels: [lp, campaign_html]
+  categories: [technology_product, smart_home, appliance]
+  consumer_goals: [understand_value, verify_performance, compare_options, reach_single_cta]
+  information_complexity: [medium, high]
+  brand_fit: 86
+  mobile_fit: 84
+historical_performance:
+  status: UNKNOWN
+  score: 50
+  evidence: []
+asset_requirements:
+  required: [official_product, hero_visual]
+  optional: [lifestyle_scene, mechanism_proof, comparison_data]
+story:
+  - define_value
+  - show_scenario
+  - explain_mechanism
+  - prove_result
+  - resolve_objections
+  - close_with_primary_action
+reusable_layers:
+  - information_architecture
+  - section_rhythm
+  - component_pattern
+  - conversion_pattern
+  - responsive_principle
+prohibited_layers:
+  - third_party_copy
+  - third_party_images
+  - third_party_logo
+  - trade_dress
+  - complete_layout
+sources:
+  - visual-system/design-systems/switchbot-jp.yaml

@@ -1,0 +1,30 @@
+schema_version: "1.0"
+workflow:
+  - receive_reference
+  - analyze_source_and_rights
+  - extract_reusable_principles
+  - normalize_pattern_candidate
+  - tag_fit_and_asset_requirements
+  - register_as_candidate
+  - human_review
+  - validate_before_reuse
+accepted_inputs:
+  - URL
+  - HTML
+  - Screenshot
+  - Existing Project
+required_metadata:
+  - reference_id
+  - source_type
+  - source_locator
+  - captured_at
+  - rights_boundary
+  - extracted_layers
+  - excluded_layers
+registration_rule: New extraction is CANDIDATE until human review and relevant channel QA are complete.
+never_store_as_pattern:
+  - third_party_logo
+  - original_copy
+  - third_party_image
+  - trade_dress
+  - complete_layout

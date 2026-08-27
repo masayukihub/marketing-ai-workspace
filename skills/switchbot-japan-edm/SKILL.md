@@ -57,6 +57,10 @@ description: 统一创建、优化、审查、重排和继续 SwitchBot 日本�
 
 `Formula → Section → Module → Content Slot`
 
+若当前 EDM 属于 `projects/<project-id>/` 的正式项目，先调用共享 `visual-system/`：读取项目 `project-context.yaml`、有效 `visual-freeze.yaml` 和 `visual-profile.yaml`；需要时运行 Visual Router，并应用 `ADAPTER-EDM-JP`。有效 Freeze 默认继承，不重新要求用户选择视觉方向；Candidate、渠道冲突、素材不足或未验证 Pattern 必须保留 Human Review。
+
+Visual Router 只负责项目级视觉一致性与 Pattern 排序。EDM Runtime 仍负责 Formula、Section、Module、600px HTML、Desktop/Mobile QA、Final Human 与 ESP Gate；不得用 Visual Profile 绕过这些检查。
+
 - 历史模板决定结构职责，不复制过期文案、价格或产品。
 - 优先保留已经验证的 Template、Module 和 Visual Rhythm。
 - 没有合格模板或确有新结构需求时，才建立新模板候选；候选必须人工 Review，不能自动进入正式库。

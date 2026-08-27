@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "project-contract.schema.json",
+  "title": "Project Visual Contract",
+  "oneOf": [
+    {"$ref": "#/$defs/projectContext"},
+    {"$ref": "#/$defs/visualProfile"},
+    {"$ref": "#/$defs/visualFreeze"}
+  ],
+  "$defs": {
+    "projectContext": {
+      "type": "object",
+      "required": ["schema_version", "contract", "project_id", "market", "primary_channel", "product", "visual_inputs", "sources"],
+      "properties": {
+        "contract": {"const": "project-context"},
+        "pattern_id": false
+      },
+      "additionalProperties": true
+    },
+    "visualProfile": {
+      "type": "object",
+      "required": ["schema_version", "contract", "project_id", "decision", "ranking", "sources"],
+      "properties": {"contract": {"const": "visual-profile"}},
+      "additionalProperties": true
+    },
+    "visualFreeze": {
+      "type": "object",
+      "required": ["schema_version", "contract", "project_id", "status", "active", "human_approval"],
+      "properties": {
+        "contract": {"const": "visual-freeze"},
+        "status": {"enum": ["CANDIDATE", "APPROVED", "RETIRED"]}
+      },
+      "additionalProperties": true
+    }
+  }
+}
