@@ -1,0 +1,106 @@
+schema_version: "1.0"
+contract: visual-pattern-recipe-human-review
+project_id: s30-mini
+review_id: visual-pattern-recipe-20260827
+review_status: PENDING_HUMAN
+
+baseline:
+  formal_main_commit: 437a38ebb3d4714ad2ff3ccfe78c02c8c9c75800
+  review_branch_base: e7e8657da0af3e2be611c4e1acf2850fc1560729
+  visual_profile: projects/s30-mini/visual-profile.yaml
+  visual_freeze: projects/s30-mini/visual-freeze.yaml
+  recipe: visual-system/patterns/recipes/edm-product-launch-proof/recipe.yaml
+  protected_contract_hashes:
+    approved_asset_context: 5d8e89b92b0b429bcc34e09ea9e6464c3685b138a3daba78a7de40819a11caf2
+    visual_profile: 348795754a97d0a08721e4b2dcd2defecf4f39c71fd0400e5e84dbfcc7897a5b
+    visual_freeze: be43fe2c43ea07d372f91185a04f1050225594d2ef121823fc41b9d29576f507
+    recipe: 575ffe77d1754179cf1b4ec677ad283167f9f7e47c401bece3e0e6f905c4de33
+    section_pattern_registry: 65155064381cd3d5bc934ab88ce50b7116ca91220175c0fb3b05887fc90e81de
+    recipe_registry: 6648f35c7476d0838d03a1de53dcebf70c0259cb8a8732d9484d8eace9647d0b
+
+decision_options:
+  - APPROVE
+  - APPROVE_WITH_MODIFICATION
+  - REJECT
+  - DEFER
+
+reviewer:
+  name: null
+  reviewed_at: null
+
+decisions:
+  project_visual_dna:
+    decision: null
+    modification_notes: null
+
+  edm_channel_intent:
+    decision: null
+    modification_notes: null
+
+  recipe_core_structure:
+    decision: null
+    modification_notes: null
+
+  mechanism_proof_policy:
+    decision: null
+    generic_recipe_requirement: CONDITIONAL
+    s30_project_policy: REQUIRED_WHEN_APPROVED_EVIDENCE_AVAILABLE
+    modification_notes: null
+
+  optional_sections:
+    decision: null
+    consumer_problem: null
+    lifestyle_context: null
+    app_automation: null
+    legal_note: null
+    modification_notes: null
+
+  template_compatibility:
+    decision: null
+    recommended_template: TPL-LAUNCH-A
+    mapping_status: CANDIDATE_CONDITIONAL_MATCH
+    stable_selector_override_allowed: false
+    modification_notes: null
+
+  lifecycle:
+    decision: null
+    recipe_status: KEEP_CANDIDATE
+    section_pattern_status: KEEP_CANDIDATE
+    promotion_approved: false
+    modification_notes: null
+
+  visual_freeze:
+    create_edm_freeze: false
+    decision: null
+    modification_notes: null
+
+  approval_scope:
+    decision: null
+    project_pilot_use: null
+    reusable_pattern_validation: false
+    production_use: false
+    send_or_publish: false
+    modification_notes: null
+
+recommended_decisions:
+  project_visual_dna: APPROVE_WITH_SCOPE
+  edm_channel_intent: APPROVE
+  recipe_core_structure: APPROVE
+  mechanism_proof_policy:
+    generic_recipe: CONDITIONAL
+    s30_project: REQUIRED_WHEN_APPROVED_EVIDENCE_AVAILABLE
+  optional_sections: CONDITIONAL
+  template_compatibility: ACCEPT_AS_CONDITIONAL_RECOMMENDATION
+  lifecycle: KEEP_CANDIDATE
+  edm_visual_freeze: DO_NOT_CREATE
+  production: REMAIN_BLOCKED
+
+approval_boundary:
+  architecture_approval_is_not_pattern_lifecycle_promotion: true
+  architecture_approval_is_not_visual_freeze_approval: true
+  architecture_approval_is_not_product_truth_approval: true
+  architecture_approval_is_not_claim_approval: true
+  architecture_approval_is_not_asset_approval: true
+  architecture_approval_is_not_production_or_send_approval: true
+
+next_gate: null

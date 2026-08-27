@@ -1,0 +1,85 @@
+schema_version: "1.0"
+contract: visual-pattern-recipe-asset-gap-register
+project_id: s30-mini
+review_id: visual-pattern-recipe-20260827
+register_status: REVIEW_ONLY
+rule: Gaps are recorded from current repository contracts and are not approved, resolved, assigned, or supplemented by this review package.
+
+items:
+  - gap_id: S30-GAP-PRODUCT-TRUTH
+    item: Approved Product Truth
+    status: PARTIAL_NOT_APPROVED
+    required_for: [EDM_CONTENT, EDM_PRODUCTION]
+    owner: TBD
+    due_date: TBD
+    source: projects/s30-mini/project-context.yaml#governance.product_truth_status
+    blocking_scope: [EDM_CONTENT_APPROVAL, EDM_PRODUCTION]
+
+  - gap_id: S30-GAP-JP-CLAIM
+    item: Approved JP Claim
+    status: UNAPPROVED_OR_UNVERIFIED
+    required_for: [CLAIM_DEPENDENT_COPY, MECHANISM_PROOF, EDM_PRODUCTION]
+    owner: TBD
+    due_date: TBD
+    source: projects/s30-mini/project-context.yaml#governance.claim_status
+    blocking_scope: [CLAIM_DEPENDENT_SECTION, EDM_PRODUCTION]
+
+  - gap_id: S30-GAP-OFFICIAL-PRODUCT-ASSET
+    item: Official Product Asset
+    status: PARTIAL
+    required_for: [PRODUCT_FIRST_HERO, BENEFIT_SUMMARY, EDM_PRODUCTION]
+    owner: TBD
+    due_date: TBD
+    source: projects/s30-mini/project-context.yaml#visual_inputs.assets.official_product
+    blocking_scope: [EDM_PRODUCT_LAYER, EDM_PRODUCTION]
+
+  - gap_id: S30-GAP-MECHANISM-PROOF
+    item: Approved Mechanism Proof
+    status: AVAILABLE_REVIEW_ONLY
+    required_for: [S30_MECHANISM_PROOF_SECTION]
+    owner: TBD
+    due_date: TBD
+    source: projects/s30-mini/project-context.yaml#visual_inputs.assets.mechanism_proof
+    blocking_scope: [S30_MECHANISM_PROOF_SECTION, EDM_PRODUCTION_IF_INCLUDED]
+
+  - gap_id: S30-GAP-LIFESTYLE-ASSET
+    item: Optional Lifestyle Asset
+    status: AVAILABLE_REVIEW_ONLY
+    required_for: [LIFESTYLE_SECTION_IF_SELECTED]
+    owner: TBD
+    due_date: TBD
+    source: projects/s30-mini/project-context.yaml#visual_inputs.assets.lifestyle_scene
+    blocking_scope: [LIFESTYLE_SECTION_IF_SELECTED]
+
+  - gap_id: S30-GAP-APP-UI-ASSET
+    item: Optional App / UI Asset
+    status: MISSING_OR_UNVERIFIED
+    required_for: [APP_AUTOMATION_SECTION_IF_SELECTED]
+    owner: TBD
+    due_date: TBD
+    source: projects/s30-mini/project-context.yaml#visual_inputs.assets.ui_screenshot
+    blocking_scope: [APP_AUTOMATION_SECTION_IF_SELECTED]
+
+  - gap_id: S30-GAP-CTA-DESTINATION
+    item: Verified CTA Destination
+    status: MISSING_OR_UNVERIFIED
+    required_for: [PURCHASE_CTA, EDM_SEND]
+    owner: TBD
+    due_date: TBD
+    source: NOT_AVAILABLE_IN_CURRENT_PROJECT_CONTRACT
+    blocking_scope: [PURCHASE_CTA_FINALIZATION, ESP_READY, SEND]
+
+  - gap_id: S30-GAP-LEGAL-FOOTER
+    item: Legal / Footer Inputs
+    status: MISSING_OR_UNVERIFIED
+    required_for: [LEGAL_NOTE_IF_REQUIRED, EDM_FOOTER, ESP_READY]
+    owner: TBD
+    due_date: TBD
+    source: NOT_AVAILABLE_IN_CURRENT_PROJECT_CONTRACT
+    blocking_scope: [LEGAL_NOTE_IF_REQUIRED, ESP_READY, SEND]
+
+summary:
+  production_status: REMAIN_BLOCKED
+  gaps_auto_resolved: 0
+  owners_auto_assigned: 0
+  due_dates_auto_assigned: 0
