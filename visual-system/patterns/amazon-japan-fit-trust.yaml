@@ -1,0 +1,47 @@
+schema_version: "1.0"
+pattern_id: VP-AMZ-JAPAN-FIT-TRUST
+name: Amazon JP Japan Fit → Trust → Installation Confidence
+lifecycle:
+  status: VALIDATED
+  validation_scope: Structural Pattern validated by the existing Amazon category semantics and renderer system; not a security or compatibility Claim approval.
+fit:
+  channels: [amazon_jp]
+  categories: [smart_lock, home_security, smart_home, high_consideration_device]
+  consumer_goals: [confirm_compatibility, understand_installation, build_trust, reduce_purchase_risk]
+  information_complexity: [medium, high]
+  brand_fit: 94
+  mobile_fit: 90
+historical_performance:
+  status: UNKNOWN
+  score: 50
+  evidence: []
+asset_requirements:
+  required: [official_product, installation_proof, compatibility_proof]
+  optional: [lifestyle_scene, ui_screenshot, security_evidence]
+story:
+  - state_household_problem_without_fear_mongering
+  - show_daily_entry_benefit
+  - explain_installation_and_fit
+  - clarify_compatibility_and_conditions
+  - provide_security_and_support_evidence
+  - close_with_purchase_confidence
+reusable_layers:
+  - information_architecture
+  - trust_sequence
+  - installation_component_pattern
+  - compatibility_component_pattern
+  - visual_rhythm
+  - responsive_principle
+prohibited_layers:
+  - competitor_copy
+  - competitor_images
+  - third_party_logo
+  - trade_dress
+  - complete_layout
+  - unsupported_security_claim
+  - robot_vacuum_semantics
+sources:
+  - skills/amazon-japan-pdp-generator/category-semantics/smart-lock.json
+  - skills/amazon-japan-pdp-generator/reference-library/patterns/story_pattern_library.json
+  - skills/amazon-japan-pdp-generator/reference-library/patterns/gallery_sequence_library.json
+  - skills/amazon-japan-pdp-generator/reference-library/patterns/aplus_sequence_library.json

@@ -1,0 +1,78 @@
+schema_version: "1.0"
+contract: project-context
+project_id: lock-ultra-max
+project_status: PARTIAL
+market: JP
+locale: ja-JP
+primary_channel: amazon_jp
+channels:
+  - amazon_jp
+  - edm
+product:
+  display_name: SwitchBot Lock Ultra Max
+  name_status: NEED_CONFIRMATION
+  category: smart_lock
+  category_status: NEED_CONFIRMATION
+  product_truth_status: PENDING_VERIFICATION
+target_user:
+  status: UNKNOWN
+  description: null
+positioning:
+  status: UNKNOWN
+  statement: null
+visual_inputs:
+  category_tags:
+    - home_security
+    - smart_home
+    - high_consideration_device
+  consumer_goals:
+    - id: confirm_compatibility
+      status: ROUTING_HYPOTHESIS
+    - id: understand_installation
+      status: ROUTING_HYPOTHESIS
+    - id: build_trust
+      status: ROUTING_HYPOTHESIS
+    - id: reduce_purchase_risk
+      status: ROUTING_HYPOTHESIS
+  information_complexity: high
+  information_complexity_status: ROUTING_ASSESSMENT
+  visual_direction:
+    status: ROUTING_INPUT
+    principles:
+      - clean
+      - trust_first
+      - installation_clarity
+      - compatibility_clarity
+      - avoid_fear_mongering
+  assets:
+    official_product:
+      status: MISSING_OR_UNVERIFIED
+    installation_proof:
+      status: MISSING_OR_UNVERIFIED
+    compatibility_proof:
+      status: MISSING_OR_UNVERIFIED
+    lifestyle_scene:
+      status: MISSING_OR_UNVERIFIED
+    ui_screenshot:
+      status: MISSING_OR_UNVERIFIED
+    security_evidence:
+      status: MISSING_OR_UNVERIFIED
+  mobile_priority: high
+  exploration_requested: false
+constraints:
+  preserve_product_truth: true
+  preserve_claim_gate: true
+  preserve_asset_gate: true
+  preserve_human_review: true
+  preserve_hardening: true
+  preserve_mobile_qa: true
+unknowns:
+  - Current Product Truth is pending canonical verification.
+  - Target user, positioning, compatibility, installation and security Claims are not approved.
+  - The existing EDM plan is PLAN_ONLY and cannot be treated as a Visual Freeze.
+sources:
+  - memory/project-memory/lock-ultra-max-jp/PROJECT.md
+  - memory/project-memory/lock-ultra-max-jp/STATUS.md
+  - memory/project-memory/lock-ultra-max-jp/SOURCES.md
+  - skills/amazon-japan-pdp-generator/category-semantics/smart-lock.json
+  - /Users/lai/Documents/marketing/edm-visual-generator/validation/live_tasks/LIVE-01/design_review.html

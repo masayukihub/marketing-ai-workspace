@@ -1,0 +1,33 @@
+schema_version: "1.0"
+contract: visual-freeze
+project_id: s30-mini
+status: CANDIDATE
+active: false
+pattern_id: VP-AMZ-MECHANISM-PROOF
+channel_scope:
+  - amazon_jp
+candidate_reason: Existing explicit whole-set creative-direction approval is strong enough to propose a Freeze, but the translated project contract has not been approved.
+human_approval:
+  source_event_id: APP-WHOLE-SET-V3-20260824
+  source_text: 整组方向通过
+  approved_at: "2026-08-24T17:23:32+08:00"
+  approved_by: null
+  source_actor_status: NOT_AVAILABLE_IN_SOURCE_RECORD
+  source_scope: creative_direction_and_exact_current_outputs_only
+  translated_freeze_approved: false
+approved_output_scope:
+  gallery_slots: [G01, G02, G03, G04, G05, G06, G07, G08, G09]
+  aplus_slots: [A+M01, A+M02, A+M03, A+M04, A+M05, A+M06]
+does_not_approve:
+  - product_truth
+  - claim_evidence
+  - DVT
+  - Amazon_upload
+  - channel_native_module_fit
+activation_requirements:
+  - Named reviewer confirms this translated Freeze contract.
+  - Product and asset conflicts are resolved or explicitly scoped out.
+  - Pattern remains registered and not Deprecated.
+source:
+  - /Users/lai/Documents/marketing/listing-projects/s30-mini-amazon-jp/stage-8/reopen-v3/batch/whole-set-approval.json
+  - /Users/lai/Documents/marketing/listing-projects/s30-mini-amazon-jp/stage-8/reopen-v3/batch/set-qa.json

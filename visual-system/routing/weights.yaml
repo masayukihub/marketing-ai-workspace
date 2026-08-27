@@ -1,0 +1,21 @@
+schema_version: "1.0"
+weights:
+  channel_fit: 20
+  category_fit: 15
+  consumer_goal_fit: 15
+  brand_fit: 15
+  information_complexity: 10
+  asset_availability: 15
+  mobile_fit: 5
+  historical_performance: 5
+thresholds:
+  top_gap_human_review: 8
+  minimum_brand_fit: 70
+  minimum_auto_select_score: 68
+rules:
+  missing_context_score: 50
+  unknown_historical_performance_score: 50
+  deprecated_pattern: EXCLUDE
+  unsupported_channel: EXCLUDE
+  candidate_pattern: HUMAN_REVIEW
+  unsatisfied_required_asset: HUMAN_REVIEW

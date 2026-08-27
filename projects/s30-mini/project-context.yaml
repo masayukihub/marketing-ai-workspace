@@ -1,0 +1,77 @@
+schema_version: "1.0"
+contract: project-context
+project_id: s30-mini
+project_status: PARTIAL
+market: JP
+locale: ja-JP
+primary_channel: amazon_jp
+channels:
+  - amazon_jp
+product:
+  display_name: SwitchBot S30 mini
+  name_status: NEED_CONFIRMATION
+  category: robot_vacuum
+  category_status: NEED_CONFIRMATION
+  product_truth_status: PARTIAL
+target_user:
+  status: UNKNOWN
+  description: null
+positioning:
+  status: UNKNOWN
+  statement: null
+visual_inputs:
+  category_tags:
+    - floor_care
+    - appliance
+    - technology_product
+  consumer_goals:
+    - id: understand_mechanism
+      status: ROUTING_HYPOTHESIS
+    - id: verify_performance
+      status: ROUTING_HYPOTHESIS
+    - id: compare_options
+      status: ROUTING_HYPOTHESIS
+    - id: reduce_purchase_risk
+      status: ROUTING_HYPOTHESIS
+  information_complexity: high
+  information_complexity_status: ROUTING_ASSESSMENT
+  visual_direction:
+    status: ROUTING_INPUT
+    principles:
+      - clean
+      - product_first
+      - mechanism_visible
+      - proof_before_persuasion
+      - japan_consumer_friendly
+  assets:
+    official_product:
+      status: PARTIAL
+      note: Exact approved visual outputs exist, but the repository project gate still records missing exact product assets.
+    mechanism_proof:
+      status: AVAILABLE_REVIEW_ONLY
+      note: Direction-level outputs exist; Product Truth and Claim evidence remain outside this approval.
+    lifestyle_scene:
+      status: AVAILABLE_REVIEW_ONLY
+    comparison_data:
+      status: MISSING_OR_UNVERIFIED
+    ui_screenshot:
+      status: MISSING_OR_UNVERIFIED
+  mobile_priority: high
+  exploration_requested: false
+constraints:
+  preserve_product_truth: true
+  preserve_claim_gate: true
+  preserve_asset_gate: true
+  preserve_human_review: true
+  preserve_hardening: true
+  preserve_mobile_qa: true
+unknowns:
+  - Formal product name and offer definition still require canonical verification.
+  - Target user and positioning are not approved Current Truth.
+  - Product body and mechanism asset readiness is partial.
+sources:
+  - memory/project-memory/s30-mini/PROJECT.md
+  - memory/project-memory/s30-mini/STATUS.md
+  - memory/project-memory/s30-mini/SOURCES.md
+  - /Users/lai/Documents/marketing/marketing-ai-workspace/projects/s30-mini/japan-listing-demo/data/project_state.json
+  - /Users/lai/Documents/marketing/listing-projects/s30-mini-amazon-jp/stage-8/reopen-v3/batch/whole-set-approval.json

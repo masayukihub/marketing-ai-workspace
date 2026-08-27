@@ -1,0 +1,27 @@
+schema_version: "1.0"
+design_system_id: switchbot-jp
+name: SwitchBot Japan Shared Visual Direction
+status: ACTIVE
+brand_fit_baseline: 88
+principles:
+  - Clean
+  - Smart
+  - Friendly
+  - Modern
+  - Technology without coldness
+  - Japanese consumer friendly
+avoid:
+  - excessive_cyberpunk
+  - excessive_luxury
+  - imitation_of_third_party_trade_dress
+  - dense_chinese_ecommerce_style
+  - decorative_information_overload
+mandatory_boundaries:
+  - Product body, UI, accessories and installation relationships must use approved assets and facts.
+  - AI-generated scenes must not alter the product body or imply unsupported capabilities.
+  - Japanese copy must be natural and specific; visual polish cannot upgrade an unapproved Claim.
+  - Mobile readability is a separate QA gate.
+source:
+  - AGENTS.md
+  - skills/amazon-japan-pdp-generator/SKILL.md
+  - skills/switchbot-japan-edm/references/edm-production-method.md

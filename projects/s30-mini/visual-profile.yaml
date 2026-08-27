@@ -1,0 +1,136 @@
+schema_version: '1.0'
+contract: visual-profile
+project_id: s30-mini
+generated_at: '2026-08-27T04:04:08+00:00'
+generated_by: visual-system/routing/visual_router.py
+decision:
+  mode: HUMAN_REVIEW_REQUIRED
+  selected_pattern: VP-AMZ-MECHANISM-PROOF
+  score: 89.7
+  fallback_pattern: VP-AMZ-JAPAN-FIT-TRUST
+  human_review_required: true
+  selection_reasons:
+  - Category Fit=100.0
+  - Channel Fit=100.0
+  - Consumer Goal Fit=100.0
+  - Information Complexity=100.0
+  review_reasons:
+  - Required assets are missing, partial, or not approved
+  - Candidate Freeze exists but is not active APPROVED
+freeze:
+  file_present: true
+  status: CANDIDATE
+  inherited: false
+  inheritance_check: NOT_APPLIED
+  notes:
+  - Freeze is not active APPROVED
+  - Freeze lacks named human approval metadata
+  - Required assets no longer satisfy Freeze
+channel_adapter:
+  channel: amazon_jp
+  adapter_id: ADAPTER-AMAZON-JP
+  required_gates:
+  - Product Truth
+  - Claim Gate
+  - Human Review
+  - Product Layer
+  - Hardening
+  - Mobile QA
+  execution_targets:
+  - gallery_storyline
+  - amazon_template_primitives
+  - aplus_module_order
+  source_runtime: skills/amazon-japan-pdp-generator
+ranking:
+- excluded: false
+  pattern_id: VP-AMZ-MECHANISM-PROOF
+  name: Amazon JP Mechanism → Performance → Confidence
+  lifecycle: VALIDATED
+  score: 89.7
+  dimensions:
+    channel_fit: 100.0
+    category_fit: 100.0
+    consumer_goal_fit: 100.0
+    brand_fit: 92.0
+    information_complexity: 100.0
+    asset_availability: 60.0
+    mobile_fit: 88.0
+    historical_performance: 50.0
+  required_asset_gaps:
+  - asset: official_product
+    status: PARTIAL
+  - asset: mechanism_proof
+    status: AVAILABLE_REVIEW_ONLY
+  historical_performance_status: UNKNOWN
+  sources:
+  - visual-system/patterns/amazon-mechanism-proof.yaml
+  - skills/amazon-japan-pdp-generator/reference-library/patterns/story_pattern_library.json
+  - skills/amazon-japan-pdp-generator/reference-library/patterns/gallery_sequence_library.json
+  - skills/amazon-japan-pdp-generator/reference-library/patterns/aplus_sequence_library.json
+  - skills/amazon-japan-pdp-generator/reference-library/layout/layout_primitive_mapping.json
+  rank: 1
+- excluded: false
+  pattern_id: VP-AMZ-JAPAN-FIT-TRUST
+  name: Amazon JP Japan Fit → Trust → Installation Confidence
+  lifecycle: VALIDATED
+  score: 57.9
+  dimensions:
+    channel_fit: 100.0
+    category_fit: 0.0
+    consumer_goal_fit: 25.0
+    brand_fit: 94.0
+    information_complexity: 100.0
+    asset_availability: 20.0
+    mobile_fit: 90.0
+    historical_performance: 50.0
+  required_asset_gaps:
+  - asset: official_product
+    status: PARTIAL
+  - asset: installation_proof
+    status: MISSING_OR_UNVERIFIED
+  - asset: compatibility_proof
+    status: MISSING_OR_UNVERIFIED
+  historical_performance_status: UNKNOWN
+  sources:
+  - visual-system/patterns/amazon-japan-fit-trust.yaml
+  - skills/amazon-japan-pdp-generator/category-semantics/smart-lock.json
+  - skills/amazon-japan-pdp-generator/reference-library/patterns/story_pattern_library.json
+  - skills/amazon-japan-pdp-generator/reference-library/patterns/gallery_sequence_library.json
+  - skills/amazon-japan-pdp-generator/reference-library/patterns/aplus_sequence_library.json
+  rank: 2
+excluded_patterns:
+- pattern_id: VP-EDM-COMPLEX-LAUNCH
+  reason: 'Unsupported channel: amazon_jp'
+- pattern_id: VP-WEB-MODULAR-PROOF
+  reason: 'Unsupported channel: amazon_jp'
+boundaries:
+  does_not_approve:
+  - Product Truth
+  - Claim
+  - Asset
+  - Final Visual
+  - Amazon Upload
+  - Publication or Send
+  downstream_must_keep:
+  - Product Truth
+  - Claim Gate
+  - Human Review
+  - Product Layer
+  - Hardening
+  - Mobile QA
+sources:
+- projects/s30-mini/project-context.yaml
+- visual-system/registry/pattern-registry.yaml
+- visual-system/routing/weights.yaml
+- visual-system/routing/channel-adapters.yaml
+- visual-system/patterns/amazon-mechanism-proof.yaml
+- skills/amazon-japan-pdp-generator/reference-library/patterns/story_pattern_library.json
+- skills/amazon-japan-pdp-generator/reference-library/patterns/gallery_sequence_library.json
+- skills/amazon-japan-pdp-generator/reference-library/patterns/aplus_sequence_library.json
+- skills/amazon-japan-pdp-generator/reference-library/layout/layout_primitive_mapping.json
+- projects/s30-mini/visual-freeze.yaml
+- memory/project-memory/s30-mini/PROJECT.md
+- memory/project-memory/s30-mini/STATUS.md
+- memory/project-memory/s30-mini/SOURCES.md
+- /Users/lai/Documents/marketing/marketing-ai-workspace/projects/s30-mini/japan-listing-demo/data/project_state.json
+- /Users/lai/Documents/marketing/listing-projects/s30-mini-amazon-jp/stage-8/reopen-v3/batch/whole-set-approval.json

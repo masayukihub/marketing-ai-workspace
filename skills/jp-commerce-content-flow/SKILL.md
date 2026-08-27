@@ -9,7 +9,7 @@ description: 将产品营销资料、Product Knowledge、飞书来源、Commerce
 
 ## 首先读取
 
-每次执行先读取 [capability-map.md](references/capability-map.md) 与 [runtime-contract.md](references/runtime-contract.md)。需要定义交付物或完成条件时再读取 [output-contract.md](references/output-contract.md)。
+每次执行先读取 [capability-map.md](references/capability-map.md) 与 [runtime-contract.md](references/runtime-contract.md)。需要定义交付物或完成条件时再读取 [output-contract.md](references/output-contract.md)。进入 Planning、Visual Production 或继续老项目时，还必须读取 [visual-router-integration.md](references/visual-router-integration.md)。
 
 ## 选择执行模式
 
@@ -30,6 +30,7 @@ description: 将产品营销资料、Product Knowledge、飞书来源、Commerce
 Source Intake
 → Product Truth
 → Commerce Insight Handoff
+→ Project Visual Resolution
 → Planning
 → Human Review
 → Visual Production
@@ -76,7 +77,27 @@ Source Intake
 
 研究结论和Claim Candidate不能自动升级为Approved Claim。
 
-### 4. Planning
+### 4. Project Visual Resolution
+
+Visual Router 是共享内部能力，不是新的用户入口。进入 Planning / Visual Production 前按以下顺序执行：
+
+```text
+resolve_project
+→ load_visual_freeze
+→ load_visual_profile
+→ visual_router_if_needed
+→ apply_channel_adapter
+→ continue_existing_flow
+```
+
+- `project-context.yaml` 只保存产品、市场、渠道、目标用户、定位、信息复杂度、素材状态与视觉原则，不写死具体 Pattern。
+- 存在有效人工批准 `visual-freeze.yaml` 时默认继承，不重新问用户视觉方向。
+- Freeze 不可用或不存在时，运行 `visual-system/routing/visual_router.py` 生成 `visual-profile.yaml`，默认采用最高匹配 Pattern。
+- 只有 Top 1 / Top 2 过近、Brand Fit 不达标、必需素材不满足、Pattern 未验证、Freeze 冲突或用户明确探索时进入 Human Review。
+- Channel Adapter 只把共享 Pattern 映射到 Amazon Gallery/A+ 与已注册模板原语，不能修改 Product Truth、Claim、正式产品层或已批准资产。
+- 任何路由结果都不得绕过 Product Truth、Human Review、Claim Gate、Product Layer、Hardening 或 Mobile QA。
+
+### 5. Planning
 
 完成目标用户、JTBD、购买障碍、核心承诺、Reasons to Believe、信息层级、Gallery/A+分工、完整资产集合、Page Visual System和Evidence Mode。
 
@@ -90,7 +111,7 @@ Source Intake
 
 输出可审核的Story/Content Review并暂停。用户批准后锁定资产ID、顺序、主信息和日文文案。
 
-### 5. Visual Production
+### 6. Visual Production
 
 一次只生产一个Asset ID。输入只使用已批准Handoff、当前Asset Packet、官方产品素材与批准参考，不把长篇研究、Gate术语或项目状态塞进生成提示词。
 
@@ -106,7 +127,7 @@ HTML / CSS / SVG = Graphic Layer
 
 用户选择某一候选后，锁定精确候选和文件。除非用户明确说“重做”“修改这张”或“换版本”，不得静默替换。
 
-### 6. Whole-set Review
+### 7. Whole-set Review
 
 完成当前范围后生成Contact Sheet或整页Review，检查：
 
@@ -120,7 +141,7 @@ HTML / CSS / SVG = Graphic Layer
 
 局部问题只重开最小必要资产，不默认整套重做。
 
-### 7. Hardening 与交付
+### 8. Hardening 与交付
 
 对精确最终文件重新计算物理信息和SHA-256，核对来源、批准对象、Asset-to-Slot、尺寸、格式、嵌图、移动端、交互和页面完整性。文件名或旧状态不能替代真实验证。
 

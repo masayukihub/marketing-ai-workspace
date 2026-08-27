@@ -1,0 +1,28 @@
+schema_version: "1.0"
+adapter_id: REF-ADAPTER-AMAZON-PDP
+source_system: skills/amazon-japan-pdp-generator/reference-library
+reuse:
+  normalized_references: skills/amazon-japan-pdp-generator/reference-library/references/*/reference.json
+  story_patterns: skills/amazon-japan-pdp-generator/reference-library/patterns/story_pattern_library.json
+  gallery_patterns: skills/amazon-japan-pdp-generator/reference-library/patterns/gallery_sequence_library.json
+  aplus_patterns: skills/amazon-japan-pdp-generator/reference-library/patterns/aplus_sequence_library.json
+  layout_primitives: skills/amazon-japan-pdp-generator/reference-library/layout/layout_primitive_mapping.json
+  category_semantics: skills/amazon-japan-pdp-generator/category-semantics
+  templates: skills/amazon-japan-pdp-generator/templates
+translation_boundary:
+  source_reference_matcher: product-level competitor reference selection
+  visual_router: project-level cross-channel Pattern selection and Freeze inheritance
+  duplicate_logic: false
+allowed_extraction:
+  - information_architecture
+  - visual_rhythm
+  - component_pattern
+  - conversion_pattern
+  - responsive_pattern
+  - design_principle
+prohibited_extraction:
+  - logo
+  - original_copy
+  - image
+  - trade_dress
+  - complete_layout

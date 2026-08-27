@@ -1,0 +1,60 @@
+schema_version: "1.0"
+adapters:
+  amazon_jp:
+    adapter_id: ADAPTER-AMAZON-JP
+    required_gates:
+      - Product Truth
+      - Claim Gate
+      - Human Review
+      - Product Layer
+      - Hardening
+      - Mobile QA
+    execution_targets:
+      - gallery_storyline
+      - amazon_template_primitives
+      - aplus_module_order
+    source_runtime: skills/amazon-japan-pdp-generator
+  edm:
+    adapter_id: ADAPTER-EDM-JP
+    required_gates:
+      - Product Truth
+      - Campaign Truth
+      - Pricing Truth
+      - Claim Gate
+      - Asset Gate
+      - Human Review
+      - Desktop QA
+      - Mobile QA
+      - ESP Gate
+    execution_targets:
+      - formula
+      - section_order
+      - module_relationship
+      - content_slots
+    source_runtime: skills/edm-generator
+  lp:
+    adapter_id: ADAPTER-LP-JP-CANDIDATE
+    required_gates:
+      - Product Truth
+      - Claim Gate
+      - Asset Gate
+      - Human Review
+      - Responsive QA
+    execution_targets:
+      - section_order
+      - component_roles
+      - conversion_path
+    source_runtime: NOT_AVAILABLE_PHASE_1
+  campaign_html:
+    adapter_id: ADAPTER-CAMPAIGN-HTML-CANDIDATE
+    required_gates:
+      - Campaign Truth
+      - Claim Gate
+      - Asset Gate
+      - Human Review
+      - Responsive QA
+    execution_targets:
+      - section_order
+      - component_roles
+      - conversion_path
+    source_runtime: NOT_AVAILABLE_PHASE_1
