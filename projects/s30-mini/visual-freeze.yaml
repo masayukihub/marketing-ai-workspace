@@ -29,5 +29,13 @@ activation_requirements:
   - Product and asset conflicts are resolved or explicitly scoped out.
   - Pattern remains registered and not Deprecated.
 source:
-  - /Users/lai/Documents/marketing/listing-projects/s30-mini-amazon-jp/stage-8/reopen-v3/batch/whole-set-approval.json
-  - /Users/lai/Documents/marketing/listing-projects/s30-mini-amazon-jp/stage-8/reopen-v3/batch/set-qa.json
+  - source_id: REF-S30-WHOLE-SET-APPROVAL
+    source_type: external_local_human_approval_record
+    locator_status: REDACTED_LOCAL_PATH
+    availability: LOCAL_ONLY
+    registry_ref: visual-system/registry/reference-registry.yaml#REF-S30-WHOLE-SET-APPROVAL
+  - source_id: REF-S30-WHOLE-SET-QA
+    source_type: external_local_qa_record
+    locator_status: REDACTED_LOCAL_PATH
+    availability: LOCAL_ONLY
+    registry_ref: visual-system/registry/reference-registry.yaml#REF-S30-WHOLE-SET-QA

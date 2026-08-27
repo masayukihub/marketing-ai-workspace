@@ -8,6 +8,9 @@ Claims, assets, final visual output, publication, or sending.
 from __future__ import annotations
 
 import argparse
+import hashlib
+import json
+import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -20,6 +23,7 @@ SYSTEM_ROOT = ROOT / "visual-system"
 REGISTRY_FILE = SYSTEM_ROOT / "registry/pattern-registry.yaml"
 WEIGHTS_FILE = SYSTEM_ROOT / "routing/weights.yaml"
 ADAPTERS_FILE = SYSTEM_ROOT / "routing/channel-adapters.yaml"
+WINDOWS_ABSOLUTE_PATH = re.compile(r"^[A-Za-z]:[\\/]")
 
 
 class NoAliasSafeDumper(yaml.SafeDumper):
@@ -54,6 +58,78 @@ def values(items: Any) -> list[str]:
         if item:
             result.append(normalize(item))
     return result
+
+
+def is_local_absolute_path(value: Any) -> bool:
+    if not isinstance(value, str) or not value:
+        return False
+    if value.startswith(("http://", "https://", "skill://")):
+        return False
+    return Path(value).is_absolute() or bool(WINDOWS_ABSOLUTE_PATH.match(value)) or value.startswith("\\\\")
+
+
+def repository_relative_path(value: str) -> str | None:
+    if WINDOWS_ABSOLUTE_PATH.match(value) or value.startswith("\\\\"):
+        return None
+    try:
+        return str(Path(value).resolve().relative_to(ROOT.resolve()))
+    except ValueError:
+        return None
+
+
+def external_source_reference(value: str) -> dict[str, str]:
+    fingerprint = hashlib.sha256(value.encode("utf-8")).hexdigest()[:12].upper()
+    return {
+        "source_id": f"EXTERNAL-LOCAL-{fingerprint}",
+        "source_type": "external_local_artifact",
+        "locator_status": "REDACTED_LOCAL_PATH",
+        "availability": "LOCAL_ONLY",
+    }
+
+
+def normalize_source_reference(source: Any) -> Any:
+    """Keep repository locators portable and redact external machine paths."""
+    if isinstance(source, str):
+        if not is_local_absolute_path(source):
+            return source
+        relative = repository_relative_path(source)
+        return relative if relative is not None else external_source_reference(source)
+    if isinstance(source, list):
+        return [normalize_source_reference(item) for item in source]
+    if not isinstance(source, dict):
+        return source
+
+    normalized: dict[str, Any] = {}
+    redacted_values: list[str] = []
+    for key, value in source.items():
+        if isinstance(value, str) and is_local_absolute_path(value):
+            relative = repository_relative_path(value)
+            if relative is not None:
+                normalized[key] = relative
+            else:
+                redacted_values.append(value)
+            continue
+        normalized[key] = normalize_source_reference(value)
+    if redacted_values:
+        fingerprint = hashlib.sha256("\n".join(sorted(redacted_values)).encode("utf-8")).hexdigest()[:12].upper()
+        normalized.setdefault("source_id", f"EXTERNAL-LOCAL-{fingerprint}")
+        normalized.setdefault("source_type", "external_local_artifact")
+        normalized["locator_status"] = "REDACTED_LOCAL_PATH"
+        normalized.setdefault("availability", "LOCAL_ONLY")
+    return normalized
+
+
+def normalize_source_references(sources: list[Any]) -> list[Any]:
+    normalized = []
+    seen = set()
+    for source in sources:
+        item = normalize_source_reference(source)
+        key = json.dumps(item, ensure_ascii=False, sort_keys=True) if not isinstance(item, str) else item
+        if key in seen:
+            continue
+        seen.add(key)
+        normalized.append(item)
+    return normalized
 
 
 def resolve_project(value: str) -> Path:
@@ -186,12 +262,14 @@ def approved_freeze_decision(
     approval = freeze.get("human_approval", {})
     if not approval.get("approved_by") or not approval.get("approved_at"):
         reasons.append("Freeze lacks named human approval metadata")
+    channel = normalize(context.get("primary_channel"))
     pattern = patterns_by_id.get(freeze.get("pattern_id"))
     if not pattern:
         reasons.append("Freeze Pattern is not registered")
     elif pattern.get("lifecycle", {}).get("status") == "DEPRECATED":
         reasons.append("Freeze Pattern is DEPRECATED")
-    channel = normalize(context.get("primary_channel"))
+    elif channel not in values(pattern.get("fit", {}).get("channels")) and "all" not in values(pattern.get("fit", {}).get("channels")):
+        reasons.append("Current channel is not supported by Freeze Pattern")
     if channel not in values(freeze.get("channel_scope")):
         reasons.append("Current channel conflicts with Freeze scope")
     if context.get("visual_inputs", {}).get("exploration_requested") is True:
@@ -335,7 +413,7 @@ def build_profile(project_dir: Path) -> dict[str, Any]:
             ],
             "downstream_must_keep": adapter.get("required_gates", []),
         },
-        "sources": list(dict.fromkeys(sources)),
+        "sources": normalize_source_references(sources),
     }
 
 

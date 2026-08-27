@@ -75,4 +75,8 @@ sources:
   - memory/project-memory/lock-ultra-max-jp/STATUS.md
   - memory/project-memory/lock-ultra-max-jp/SOURCES.md
   - skills/amazon-japan-pdp-generator/category-semantics/smart-lock.json
-  - /Users/lai/Documents/marketing/edm-visual-generator/validation/live_tasks/LIVE-01/design_review.html
+  - source_id: REF-LOCK-ULTRA-MAX-EDM-PLAN
+    source_type: external_local_project_plan
+    locator_status: REDACTED_LOCAL_PATH
+    availability: LOCAL_ONLY
+    registry_ref: visual-system/registry/reference-registry.yaml#REF-LOCK-ULTRA-MAX-EDM-PLAN

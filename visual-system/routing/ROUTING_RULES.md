@@ -22,6 +22,7 @@ resolve_project
 - 存在具名 `approved_by` 与 `approved_at`；
 - Pattern 已注册且未 Deprecated；
 - 当前 Channel 在 Freeze Scope 内；
+- 当前 Channel 被 Freeze Pattern 的 `fit.channels` 支持；
 - Pattern 所需素材仍满足；
 - 用户未明确要求探索新视觉。
 

@@ -1,7 +1,7 @@
 schema_version: '1.0'
 contract: visual-profile
 project_id: s30-mini
-generated_at: '2026-08-27T04:04:08+00:00'
+generated_at: '2026-08-27T06:11:31+00:00'
 generated_by: visual-system/routing/visual_router.py
 decision:
   mode: HUMAN_REVIEW_REQUIRED
@@ -132,5 +132,13 @@ sources:
 - memory/project-memory/s30-mini/PROJECT.md
 - memory/project-memory/s30-mini/STATUS.md
 - memory/project-memory/s30-mini/SOURCES.md
-- /Users/lai/Documents/marketing/marketing-ai-workspace/projects/s30-mini/japan-listing-demo/data/project_state.json
-- /Users/lai/Documents/marketing/listing-projects/s30-mini-amazon-jp/stage-8/reopen-v3/batch/whole-set-approval.json
+- source_id: REF-S30-LISTING-DEMO-PROJECT-STATE
+  source_type: external_local_project_artifact
+  locator_status: REDACTED_LOCAL_PATH
+  availability: LOCAL_ONLY
+  registry_ref: visual-system/registry/reference-registry.yaml#REF-S30-LISTING-DEMO-PROJECT-STATE
+- source_id: REF-S30-WHOLE-SET-APPROVAL
+  source_type: external_local_human_approval_record
+  locator_status: REDACTED_LOCAL_PATH
+  availability: LOCAL_ONLY
+  registry_ref: visual-system/registry/reference-registry.yaml#REF-S30-WHOLE-SET-APPROVAL
