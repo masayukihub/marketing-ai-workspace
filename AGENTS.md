@@ -2,11 +2,15 @@
 
 ## 执行顺序
 
-1. 修改前读取对应 `memory/project-memory/<project>/`。
-2. 查询最小必要来源；产品事实优先使用 Product Knowledge 和官方 Source。
-3. 区分 `FACT`、`DECISION`、`HYPOTHESIS`、`RECOMMENDATION`。
-4. 找不到证据时写 `UNKNOWN` 或 `NEED_CONFIRMATION`，不得补全。
-5. 飞书、正式数据库和官方素材库是只读 Source of Record，除非用户明确授权写入。
+1. 仓库内 Skill 与脚本是正式执行版本；不得默认调用 `$HOME/.codex/skills/`。全局镜像只有 hash 一致时可用于诊断，不一致必须输出 `GLOBAL_SKILL_DRIFT`。
+2. 项目型任务先通过 `skills/project-context-resolver/` 解析 `projects/<project-id>/project.yaml`。
+3. 只读取 Context Package 返回的最小必要来源；再读取对应 `memory/project-memory/<project>/`。
+4. 区分 `manifest_updated_at` 与 `state_as_of`；状态 stale/unknown 时只允许只读审计、Source Refresh 和 Human Review Preparation。
+5. 产品事实优先使用 Product Knowledge 和官方 Source；Manifest 不充当产品事实库。
+6. 验证 Freshness 与当前 Gate，再执行目标 Skill；Human Approval 未完成时停在 Review Package。
+7. 区分 `FACT`、`DECISION`、`HYPOTHESIS`、`RECOMMENDATION`。
+8. 找不到证据时写 `UNKNOWN` 或 `NEED_CONFIRMATION`，不得补全。
+9. 飞书、正式数据库和官方素材库是只读 Source of Record，除非用户明确授权写入。
 
 ## Git 与变更
 

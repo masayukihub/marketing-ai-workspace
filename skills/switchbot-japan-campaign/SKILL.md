@@ -7,6 +7,10 @@ description: 统一完成 SwitchBot 日本市场 Campaign 的 GTM 策略、活�
 
 把一次日本市场活动从“为什么做”连接到“如何上线、如何测量、如何复盘”。默认用简体中文解释；面向日本消费者的文案才使用自然日语。
 
+## Project context preflight
+
+任务指向现有仓库项目时，先运行 `project-context-resolver`，只消费 Campaign Context Package 返回的 Project Memory、Decision、Product Truth、Approved Claim 与 Asset 指针并验证 Gate。活动 Artifact 先写入项目输出；可持续结果、风险、Human Decision、阶段或 Blocker 分别按 Writeback Contract 提案，不直接同时修改多个 Truth Source。
+
 ## 先判断任务模式
 
 根据用户目标选择最小必要模式，可组合执行：

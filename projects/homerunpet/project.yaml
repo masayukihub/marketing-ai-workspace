@@ -1,0 +1,75 @@
+manifest_version: "1.0"
+project_id: homerunpet
+project_name: homerunPET Japan
+aliases:
+  - homerunPET
+  - homerunPET Japan
+  - homerunpet-jp
+manifest_updated_at: "2026-08-27T15:47:05+08:00"
+state_as_of: "2026-08-20"
+freshness_status: current
+freshness_sources:
+  - ../../memory/project-memory/homerunpet-jp/STATUS.md
+  - ../../memory/project-memory/homerunpet-jp/TODO.md
+  - ../../memory/project-memory/homerunpet-jp/DECISIONS.md
+market: Japan
+status: active
+lifecycle_stage: discovery
+sources:
+  product_truth: ../../skills/product-knowledge/products/homerunpet-series.md
+  project_memory: ../../memory/project-memory/homerunpet-jp/PROJECT.md
+  decisions: ../../memory/project-memory/homerunpet-jp/DECISIONS.md
+  approved_claims: null
+  visual_context: null
+  visual_profile: null
+  visual_freeze: null
+  assets: null
+current_phase: discovery_and_context_consolidation
+gate_status:
+  overall: blocked
+  project_context: in_progress
+  product_truth: blocked
+  human_review: not_started
+approved: []
+blocking_items:
+  - blocker_id: HRP-CURRENT-TRUTH
+    summary: Formal objective, Japan product facts, and current decisions remain Pending Verification.
+    status: blocked
+    source: ../../memory/project-memory/homerunpet-jp/STATUS.md
+latest_decision:
+  status: none_confirmed
+  decision_id: null
+  summary: null
+  source: ../../memory/project-memory/homerunpet-jp/DECISIONS.md
+next_actions:
+  p0:
+    - action_id: HRP-P0-SOURCE-AUDIT
+      action: Review the highest-impact authoritative sources and confirm their current versions.
+      status: not_started
+      execution_class: read_only_audit
+      requires_human_approval: false
+      source: ../../memory/project-memory/homerunpet-jp/TODO.md
+  p1:
+    - action_id: HRP-P1-PROJECT-STATE
+      action: Confirm the project owner, objective, and lifecycle stage.
+      status: not_started
+      execution_class: human_review_preparation
+      requires_human_approval: true
+      source: ../../memory/project-memory/homerunpet-jp/TODO.md
+    - action_id: HRP-P1-DECISION-REVIEW
+      action: Promote only accepted final decisions into the Decision Log.
+      status: not_started
+      execution_class: human_review_preparation
+      requires_human_approval: true
+      source: ../../memory/project-memory/homerunpet-jp/TODO.md
+  p2: []
+skills:
+  primary:
+    - project-context-resolver
+    - project-memory-manager
+    - product-knowledge
+  optional:
+    - switchbot-campaign-review
+    - customer-review-intelligence
+    - influencer-marketing
+last_updated: "2026-08-27"

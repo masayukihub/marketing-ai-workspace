@@ -1,0 +1,172 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://github.com/masayukihub/marketing-ai-workspace/schemas/project-manifest.schema.yaml
+title: Marketing AI Workspace Project Manifest
+description: Lightweight navigation and current-state contract. It points to truth sources and must not duplicate them.
+type: object
+additionalProperties: false
+required:
+  - manifest_version
+  - project_id
+  - project_name
+  - aliases
+  - manifest_updated_at
+  - state_as_of
+  - freshness_status
+  - freshness_sources
+  - market
+  - status
+  - lifecycle_stage
+  - sources
+  - current_phase
+  - gate_status
+  - approved
+  - blocking_items
+  - latest_decision
+  - next_actions
+  - skills
+  - last_updated
+properties:
+  manifest_version:
+    const: "1.0"
+  project_id:
+    type: string
+    pattern: "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+  project_name:
+    type: string
+    minLength: 1
+  aliases:
+    type: array
+    uniqueItems: true
+    items: {type: string, minLength: 1}
+  alias_notes:
+    type: object
+    additionalProperties: {type: string, minLength: 1}
+  manifest_updated_at:
+    type: string
+    format: date-time
+  state_as_of:
+    type: [string, "null"]
+    format: date
+  freshness_status:
+    enum: [current, stale, unknown]
+  freshness_sources:
+    type: array
+    minItems: 1
+    uniqueItems: true
+    items: {type: string, minLength: 1}
+  market:
+    type: string
+    minLength: 1
+  status:
+    enum: [active, paused, completed, archived, unknown]
+  lifecycle_stage:
+    enum: [discovery, planning, validation, production, launch, live, review, archived]
+  sources:
+    type: object
+    additionalProperties: false
+    required: [product_truth, project_memory, decisions, approved_claims, visual_context, visual_profile, visual_freeze, assets]
+    properties:
+      product_truth: {$ref: "#/$defs/source_pointer"}
+      project_memory: {$ref: "#/$defs/source_pointer"}
+      decisions: {$ref: "#/$defs/source_pointer"}
+      approved_claims: {$ref: "#/$defs/source_pointer"}
+      visual_context: {$ref: "#/$defs/source_pointer"}
+      visual_profile: {$ref: "#/$defs/source_pointer"}
+      visual_freeze: {$ref: "#/$defs/source_pointer"}
+      assets: {$ref: "#/$defs/source_pointer"}
+  current_phase:
+    type: string
+    minLength: 1
+  gate_status:
+    type: object
+    minProperties: 1
+    additionalProperties:
+      $ref: "#/$defs/gate_status"
+  approved:
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [approval_id, subject, source]
+      properties:
+        approval_id: {type: string, minLength: 1}
+        subject: {type: string, minLength: 1}
+        source: {type: string, minLength: 1}
+  blocking_items:
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [blocker_id, summary, status, source]
+      properties:
+        blocker_id: {type: string, pattern: "^[A-Z0-9]+(?:-[A-Z0-9]+)*$"}
+        summary: {type: string, minLength: 1}
+        status: {$ref: "#/$defs/gate_status"}
+        source: {type: string, minLength: 1}
+  latest_decision:
+    oneOf:
+      - type: "null"
+      - type: object
+        additionalProperties: false
+        required: [status, decision_id, summary, source]
+        properties:
+          status: {enum: [none_confirmed, proposed, accepted, rejected, superseded]}
+          decision_id: {type: [string, "null"]}
+          summary: {type: [string, "null"]}
+          source: {type: string, minLength: 1}
+          target_gate: {type: string, minLength: 1}
+          expected_status: {$ref: "#/$defs/gate_status"}
+  next_actions:
+    type: object
+    additionalProperties: false
+    required: [p0, p1, p2]
+    properties:
+      p0: {$ref: "#/$defs/action_list"}
+      p1: {$ref: "#/$defs/action_list"}
+      p2: {$ref: "#/$defs/action_list"}
+  skills:
+    type: object
+    additionalProperties: false
+    required: [primary, optional]
+    properties:
+      primary:
+        type: array
+        uniqueItems: true
+        items: {type: string, minLength: 1}
+      optional:
+        type: array
+        uniqueItems: true
+        items: {type: string, minLength: 1}
+  last_updated:
+    type: string
+    format: date
+$defs:
+  source_pointer:
+    oneOf:
+      - type: "null"
+      - type: string
+        minLength: 1
+      - type: array
+        minItems: 1
+        uniqueItems: true
+        items: {type: string, minLength: 1}
+  gate_status:
+    enum: [not_started, in_progress, blocked, ready_for_review, approved, rejected, superseded]
+  action_list:
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required: [action_id, action, status, execution_class, requires_human_approval, source]
+      properties:
+        action_id: {type: string, pattern: "^[A-Z0-9]+(?:-[A-Z0-9]+)*$"}
+        action: {type: string, minLength: 1}
+        status: {$ref: "#/$defs/gate_status"}
+        execution_class:
+          enum: [read_only_audit, source_refresh, human_review_preparation, state_dependent_execution]
+        requires_human_approval: {type: boolean}
+        blocked_by:
+          type: array
+          uniqueItems: true
+          items: {type: string, minLength: 1}
+        source: {type: string, minLength: 1}

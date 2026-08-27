@@ -14,6 +14,10 @@ description: "分析和复盘 SwitchBot 日本市场营销活动，支持飞书B
 
 Turn campaign files into an evidence-backed management review for SwitchBot Japan. Work as a Japan Marketing Director, Performance Marketing Lead, e-commerce analyst, data analyst, and Campaign Planner.
 
+## Project context preflight
+
+For a named existing project, run `project-context-resolver` before source intake. Consume only Campaign-scoped Project Memory, decisions, Product Truth, approved Claims, and assets. Write campaign artifacts first; propose durable results or risks to Project Memory instead of directly changing multiple Truth Sources.
+
 ## Inputs
 
 - Identify the campaign, current and comparison periods, audience, requested deliverables, and whether budget advice is needed.

@@ -1,0 +1,84 @@
+manifest_version: "1.0"
+project_id: lock-ultra-max
+project_name: Lock Ultra Max Japan
+aliases:
+  - Lock Ultra Max
+  - SwitchBot Lock Ultra Max
+  - lock-ultra-max-jp
+manifest_updated_at: "2026-08-27T15:47:05+08:00"
+state_as_of: "2026-08-20"
+freshness_status: current
+freshness_sources:
+  - ../../memory/project-memory/lock-ultra-max-jp/STATUS.md
+  - ../../memory/project-memory/lock-ultra-max-jp/TODO.md
+  - ../../memory/project-memory/lock-ultra-max-jp/DECISIONS.md
+market: Japan
+status: active
+lifecycle_stage: discovery
+sources:
+  product_truth: null
+  project_memory: ../../memory/project-memory/lock-ultra-max-jp/PROJECT.md
+  decisions: ../../memory/project-memory/lock-ultra-max-jp/DECISIONS.md
+  approved_claims: null
+  visual_context: project-context.yaml
+  visual_profile: visual-profile.yaml
+  visual_freeze: null
+  assets: null
+current_phase: discovery_and_context_consolidation
+gate_status:
+  overall: blocked
+  project_context: in_progress
+  product_truth: blocked
+  visual_resolution: ready_for_review
+  visual_freeze: not_started
+  human_review: not_started
+approved: []
+blocking_items:
+  - blocker_id: LUM-PRODUCT-DEFINITION
+    summary: Japan naming and Product Definition remain Pending Verification.
+    status: blocked
+    source: ../../memory/project-memory/lock-ultra-max-jp/STATUS.md
+  - blocker_id: LUM-LAUNCH-STATUS
+    summary: Claim and launch status remain Pending Verification.
+    status: blocked
+    source: ../../memory/project-memory/lock-ultra-max-jp/STATUS.md
+latest_decision:
+  status: none_confirmed
+  decision_id: null
+  summary: null
+  source: ../../memory/project-memory/lock-ultra-max-jp/DECISIONS.md
+next_actions:
+  p0:
+    - action_id: LUM-P0-NAMING-AUDIT
+      action: Review canonical sources for the Japan official name and Product Definition.
+      status: not_started
+      execution_class: read_only_audit
+      requires_human_approval: false
+      source: ../../memory/project-memory/lock-ultra-max-jp/TODO.md
+    - action_id: LUM-P0-CONFLICT-REVIEW
+      action: Resolve Product Knowledge conflicts through the human review process.
+      status: not_started
+      execution_class: human_review_preparation
+      requires_human_approval: true
+      source: ../../memory/project-memory/lock-ultra-max-jp/TODO.md
+  p1:
+    - action_id: LUM-P1-GTM-GATE
+      action: Confirm the current GTM and Amazon production gate.
+      status: not_started
+      execution_class: human_review_preparation
+      requires_human_approval: true
+      source: ../../memory/project-memory/lock-ultra-max-jp/TODO.md
+  p2: []
+skills:
+  primary:
+    - project-context-resolver
+    - project-memory-manager
+    - product-knowledge
+  optional:
+    - jp-commerce-content-flow
+    - jp-commerce-insights
+    - amazon-japan-pdp-generator
+    - amazon-listing-creative
+    - switchbot-campaign-review
+    - influencer-marketing
+last_updated: "2026-08-27"

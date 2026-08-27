@@ -1,0 +1,91 @@
+manifest_version: "1.0"
+project_id: s30-mini
+project_name: S30 mini Japan
+aliases:
+  - S30 mini
+  - SwitchBot S30 mini
+  - s30-mini-jp
+  - S20 mini
+  - SwitchBot S20 mini
+  - s20-mini
+alias_notes:
+  S20 mini: Project routing alias only; does not approve an external product name.
+  SwitchBot S20 mini: Project routing alias only; does not approve an external product name.
+  s20-mini: Project routing alias only; does not approve an external product name.
+manifest_updated_at: "2026-08-27T15:47:05+08:00"
+state_as_of: "2026-08-20"
+freshness_status: current
+freshness_sources:
+  - ../../memory/project-memory/s30-mini/STATUS.md
+  - ../../memory/project-memory/s30-mini/TODO.md
+  - ../../memory/project-memory/s30-mini/DECISIONS.md
+market: Japan
+status: active
+lifecycle_stage: validation
+sources:
+  product_truth: null
+  project_memory: ../../memory/project-memory/s30-mini/PROJECT.md
+  decisions: ../../memory/project-memory/s30-mini/DECISIONS.md
+  approved_claims: null
+  visual_context: project-context.yaml
+  visual_profile: visual-profile.yaml
+  visual_freeze: visual-freeze.yaml
+  assets: null
+current_phase: context_migration_and_gate_1_evidence_review
+gate_status:
+  overall: blocked
+  project_context: in_progress
+  product_truth: blocked
+  visual_resolution: ready_for_review
+  visual_freeze: ready_for_review
+  human_review: not_started
+approved: []
+blocking_items:
+  - blocker_id: S30-PRODUCT-TRUTH
+    summary: Approved Product Truth and Claims have not been confirmed.
+    status: blocked
+    source: ../../memory/project-memory/s30-mini/STATUS.md
+  - blocker_id: S30-COMMERCIAL
+    summary: Japan official name, SKU, price, and launch build remain unconfirmed.
+    status: blocked
+    source: ../../memory/project-memory/s30-mini/TODO.md
+latest_decision:
+  status: none_confirmed
+  decision_id: null
+  summary: null
+  source: ../../memory/project-memory/s30-mini/DECISIONS.md
+next_actions:
+  p0:
+    - action_id: S30-P0-SOURCE-AUDIT
+      action: Locate and review the current authoritative Product Truth and Claim approval sources.
+      status: not_started
+      execution_class: read_only_audit
+      requires_human_approval: false
+      source: ../../memory/project-memory/s30-mini/TODO.md
+    - action_id: S30-P0-COMMERCIAL-REVIEW
+      action: Confirm the Japan official product name, SKU, price, and launch build from authoritative sources.
+      status: not_started
+      execution_class: human_review_preparation
+      requires_human_approval: true
+      source: ../../memory/project-memory/s30-mini/TODO.md
+  p1:
+    - action_id: S30-P1-MIGRATION-SCOPE
+      action: Select project documents that can be migrated without copying production assets.
+      status: not_started
+      execution_class: read_only_audit
+      requires_human_approval: false
+      source: ../../memory/project-memory/s30-mini/TODO.md
+  p2: []
+skills:
+  primary:
+    - project-context-resolver
+    - project-memory-manager
+    - product-knowledge
+  optional:
+    - jp-commerce-content-flow
+    - jp-commerce-insights
+    - amazon-japan-pdp-generator
+    - amazon-listing-creative
+    - switchbot-campaign-review
+    - customer-review-intelligence
+last_updated: "2026-08-27"

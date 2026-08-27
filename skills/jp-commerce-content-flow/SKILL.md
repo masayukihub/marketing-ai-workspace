@@ -9,6 +9,8 @@ description: 将产品营销资料、Product Knowledge、飞书来源、Commerce
 
 ## 首先读取
 
+任务指向现有仓库项目时，先运行 `project-context-resolver`。只消费 Amazon/Design/Visual Context Package 返回的 Product Truth、Decision、Approved Claim、Visual Context/Profile/Freeze 与 Asset 指针；`project.yaml` 是导航和 Gate，`project-context.yaml` 仅是 Visual Router 输入，两者都不替代 Product Truth。
+
 每次执行先读取 [capability-map.md](references/capability-map.md) 与 [runtime-contract.md](references/runtime-contract.md)。需要定义交付物或完成条件时再读取 [output-contract.md](references/output-contract.md)。进入 Planning、Visual Production 或继续老项目时，还必须读取 [visual-router-integration.md](references/visual-router-integration.md)。
 
 ## 选择执行模式

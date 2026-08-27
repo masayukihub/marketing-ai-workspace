@@ -13,10 +13,13 @@ Do not make it a document backup or a product-fact authority. Product specs, pri
 
 ## Start
 
-1. Read the smallest relevant record in `<workspace>/project-memory/PROJECT_INDEX.md`.
-2. Read that project's `project_context.md`, `decisions.md`, and only necessary source records.
-3. Check `Status`, `Last Updated`, `Confidence`, source dates, and open questions before relying on context.
-4. Keep `FACT`, `DECISION`, `HYPOTHESIS`, `RECOMMENDATION`, `UNVERIFIED`, and `OUTDATED` distinct.
+1. For an existing named repository project, first run `project-context-resolver` and read `projects/<project-id>/project.yaml`.
+2. Follow the Manifest's `sources.project_memory` and `sources.decisions` pointers. In this repository they resolve under `memory/project-memory/`; do not assume a root-level `project-memory/PROJECT_INDEX.md` exists.
+3. Read only the task-relevant Project Memory, decision, and source records returned by the Context Package.
+4. Check `Status`, `Last Updated`, `Confidence`, source dates, and open questions before relying on context.
+5. Keep `FACT`, `DECISION`, `HYPOTHESIS`, `RECOMMENDATION`, `UNVERIFIED`, and `OUTDATED` distinct.
+
+Use the legacy generated `PROJECT_INDEX.md` workflow only for bootstrap/full audit outputs created by this Skill. Do not make it a prerequisite for existing `marketing-ai-workspace` projects.
 
 If the repository does not exist, or a full audit is requested, use the bootstrap workflow below.
 
@@ -24,15 +27,26 @@ If the repository does not exist, or a full audit is requested, use the bootstra
 
 Use the existing local Feishu catalog first. Do not rescan or download original documents indiscriminately.
 
+The checked-in repository runtime is the formal execution source. Run it from the repository root; the installed global Skill is only an installation mirror and is never an automatic fallback.
+
 ```bash
 # Refresh source metadata first when a fresh Feishu pass is required.
 python3 knowledge_base/scripts/refresh_codex_knowledge_pack.py --resume --batch-size 12
 
 # Build or refresh the Project Memory repository.
-python3 "$HOME/.codex/skills/project-memory-manager/scripts/project_memory.py" --workspace . --mode initial
-python3 "$HOME/.codex/skills/project-memory-manager/scripts/project_memory.py" --workspace . --mode incremental
-python3 "$HOME/.codex/skills/project-memory-manager/scripts/project_memory.py" --workspace . --mode check
+python3 skills/project-memory-manager/scripts/project_memory.py --workspace .
+python3 skills/project-memory-manager/scripts/project_memory.py --workspace . --mode initial
+python3 skills/project-memory-manager/scripts/project_memory.py --workspace . --mode incremental
+python3 skills/project-memory-manager/scripts/project_memory.py --workspace . --mode check
 ```
+
+If an operator explicitly wants to inspect or use the global installation mirror, first run:
+
+```bash
+python3 skills/project-memory-manager/scripts/verify_global_mirror.py
+```
+
+Only `GLOBAL_SKILL_IN_SYNC` permits a mirror-based diagnostic. `GLOBAL_SKILL_DRIFT` means stop; continue with the repository runtime and never silently execute the global copy.
 
 Read [references/governance.md](references/governance.md) before resolving conflict, writing a decision, or promoting an item to Current Truth. Read [references/integration.md](references/integration.md) before connecting another Skill.
 

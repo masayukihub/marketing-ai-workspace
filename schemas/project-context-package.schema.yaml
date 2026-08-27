@@ -1,0 +1,99 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://github.com/masayukihub/marketing-ai-workspace/schemas/project-context-package.schema.yaml
+title: Project Context Resolution Result
+description: A resolved task-scoped Context Package or a safe project-bootstrap route.
+type: object
+oneOf:
+  - $ref: "#/$defs/resolved_context"
+  - $ref: "#/$defs/bootstrap_result"
+$defs:
+  resolved_context:
+    type: object
+    additionalProperties: false
+    required:
+      - resolution_status
+      - project
+      - task_type
+      - current_stage
+      - freshness
+      - current_truth
+      - approved_decisions
+      - blocking_items
+      - required_sources
+      - relevant_skills
+      - next_valid_actions
+      - warnings
+    properties:
+      resolution_status: {const: RESOLVED}
+      project:
+        type: object
+        required: [project_id, project_name, manifest_path, routing_alias, routing_alias_note]
+        additionalProperties: false
+        properties:
+          project_id: {type: string}
+          project_name: {type: string}
+          manifest_path: {type: string}
+          routing_alias: {type: [string, "null"]}
+          routing_alias_note: {type: [string, "null"]}
+      task_type:
+        enum: [GTM, Amazon, PR, KOL, Campaign, VOC, Competitor, Design, Visual, Product Knowledge, Website, SEO, Review]
+      current_stage:
+        type: object
+        required: [lifecycle_stage, current_phase, gate_status]
+        additionalProperties: false
+        properties:
+          lifecycle_stage: {type: string}
+          current_phase: {type: string}
+          gate_status: {type: object}
+      freshness:
+        type: object
+        required: [manifest_updated_at, state_as_of, declared_status, effective_status, evaluated_at, threshold_days, age_days, sources]
+        additionalProperties: false
+        properties:
+          manifest_updated_at: {type: string}
+          state_as_of: {type: [string, "null"]}
+          declared_status: {enum: [current, stale, unknown]}
+          effective_status: {enum: [current, stale, unknown]}
+          evaluated_at: {type: string}
+          threshold_days: {type: integer, minimum: 1}
+          age_days: {type: [integer, "null"]}
+          sources: {type: array, items: {type: string}}
+      current_truth:
+        type: object
+        required: [status, source]
+        additionalProperties: false
+        properties:
+          status: {type: string}
+          source: {}
+      approved_decisions: {type: array}
+      blocking_items: {type: array}
+      required_sources:
+        type: array
+        items:
+          type: object
+          required: [kind, status, paths]
+          additionalProperties: false
+          properties:
+            kind: {type: string}
+            status: {enum: [available, missing]}
+            paths: {type: array, items: {type: string}}
+      relevant_skills:
+        type: object
+        required: [primary, optional]
+        additionalProperties: false
+        properties:
+          primary: {type: array, items: {type: string}}
+          optional: {type: array, items: {type: string}}
+      next_valid_actions: {type: array}
+      warnings: {type: array, items: {type: string}}
+  bootstrap_result:
+    type: object
+    additionalProperties: false
+    required: [resolution_status, request, recommended_skill, auto_create, allowed_action, warnings]
+    properties:
+      resolution_status: {const: PROJECT_BOOTSTRAP_REQUIRED}
+      request: {type: string, minLength: 1}
+      recommended_skill: {const: project-memory-manager}
+      auto_create: {const: false}
+      allowed_action: {const: prepare_project_discovery_review}
+      warnings: {type: array, items: {type: string}}

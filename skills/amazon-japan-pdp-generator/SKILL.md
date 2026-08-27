@@ -21,6 +21,7 @@ KNOW
 
 ## 必读资源
 
+- 若任务指向现有项目，先使用 `project-context-resolver`，只消费 Amazon 所需的 Product Truth、Decision、Approved Claim、Visual Profile/Freeze 与 Asset 指针；不得自行全仓搜索上下文。
 - 每次执行先完整读取 [spec-template-system.md](references/spec-template-system.md)、[decision-journey.md](references/decision-journey.md) 与 [input-schema.md](references/input-schema.md)。
 - 进入 REFERENCE 时完整读取 [reference-library-system.md](references/reference-library-system.md)；只按需读取匹配到的 Reference Analysis、Pattern Library 与 [layout_primitive_mapping.json](reference-library/layout/layout_primitive_mapping.json)，不得把 Reference 当作产品事实源。
 - DESIGN/PRODUCE 前读取 [visual-production-workflow.md](references/visual-production-workflow.md)、[visual-layout-system.md](references/visual-layout-system.md)、[visual-quality-system.md](references/visual-quality-system.md)、[japanese-copy-review.md](references/japanese-copy-review.md) 与 [template_library.json](templates/template_library.json)。进入资产生产 Brief 或 Art Direction 任务时，还必须完整读取 [art-direction-system.md](references/art-direction-system.md)。

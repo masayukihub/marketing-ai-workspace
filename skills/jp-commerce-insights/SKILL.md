@@ -9,6 +9,8 @@ description: 统一完成日本电商选品、市场机会、Amazon关键词、�
 
 ## 开始方式
 
+任务指向现有仓库项目时，先运行 `project-context-resolver`，按 Competitor/VOC/Amazon 任务类型只读取 Context Package 返回的最小 Project Memory、Decision、Product Truth 与视觉/资产指针。研究结果只能作为 Insight、Hypothesis、Risk 或 Claim Candidate 回写提案，不得直接改变 Manifest Gate 或 Product Truth。
+
 先读取 [capability-map.md](references/capability-map.md)，根据用户需求选择最小模式：
 
 - `FULL`：完整机会研究，串联全部必要模块。

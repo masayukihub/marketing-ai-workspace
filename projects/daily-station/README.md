@@ -1,3 +1,4 @@
 # Daily Station
 
-项目上下文：[`memory/project-memory/daily-station-jp/`](../../memory/project-memory/daily-station-jp/PROJECT.md)
+- 项目入口：[`project.yaml`](project.yaml)
+- Project Memory：[`memory/project-memory/daily-station-jp/`](../../memory/project-memory/daily-station-jp/PROJECT.md)
