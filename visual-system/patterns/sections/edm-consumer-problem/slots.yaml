@@ -1,0 +1,6 @@
+schema_version: "1.0"
+pattern_id: SEC-EDM-CONSUMER-PROBLEM
+slots:
+  - {slot_id: problem_statement, status_required: EVIDENCE_LINKED, missing_behavior: OMIT}
+  - {slot_id: consequence, status_required: EVIDENCE_LINKED, missing_behavior: OMIT}
+  - {slot_id: approved_lifestyle_scene, status_required: APPROVED_ASSET, missing_behavior: TEXT_ONLY_OR_OMIT}

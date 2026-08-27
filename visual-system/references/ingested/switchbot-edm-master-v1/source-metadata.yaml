@@ -1,0 +1,15 @@
+schema_version: "1.0"
+reference_id: REF-SWITCHBOT-EDM-MASTER-V1
+source_type: EXISTING_PROJECT
+source_locator: skills/edm-generator
+locator_status: REPOSITORY_RELATIVE
+availability: AVAILABLE
+captured_at: "2026-08-27"
+source_scope:
+  - skills/edm-generator/design_system/templates_v1.0.yaml
+  - skills/edm-generator/design_system/modules_v1.0.yaml
+  - skills/edm-generator/brand_system/switchbot_approved_reverse_engineering_v1.0.yaml
+  - skills/edm-generator/brand_system/switchbot_composition_rules_v1.0.yaml
+  - skills/edm-generator/production_registry/README.md
+rights_boundary: Internal SwitchBot structural evidence; retain only normalized reusable principles in Visual Pattern Memory.
+excluded_source_layers: [recovered_html, mailchimp_mc_implementation, logo, original_copy, image, price, coupon, claim, complete_layout, trade_dress]

@@ -1,0 +1,12 @@
+schema_version: "1.0"
+baseline_commit: 787acb4fe2ba3bdc34eccf876fb86240cfa74f40
+product_truth:
+  skills/product-knowledge/references/product_master.xlsx: 9951ba4b25a927393e38875f0856e6478883057028c879f446fafa50d6f32305
+  skills/product-knowledge/references/product_facts.xlsx: 0f99a06b5ad519caf2f0129413161a803a3fdbeb559e5b1cd6cf35235271d502
+  skills/product-knowledge/references/product_specs.xlsx: defad9baa11b1b7b76b4604ac0640589612c7b5f6cb0871797ae037549d1b495
+  skills/product-knowledge/references/compatibility.xlsx: d808a0ef361a8f7fece10e8ebb982bbe495d2db846d96e44eebb7208291ebf42
+  skills/product-knowledge/references/compliance.md: edd12cc3508bd0580cb8f0d8264aaaee8db77401d23dd98d8cad60e93131d874
+  skills/product-knowledge/references/known_issues.md: 71b6ae94c8f8d9da301dc220fb435222fbbdee73fa59e1b9059f244fd95ee786
+claim:
+  skills/product-knowledge/references/claim.md: 2600c4cedc287c2901461e34dfa327a317bbbda68ee60ffd6b3d426cbe18034d
+rule: Pilot code must not mutate these governed Product Knowledge sources.

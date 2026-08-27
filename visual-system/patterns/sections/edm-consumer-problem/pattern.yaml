@@ -1,0 +1,22 @@
+schema_version: "1.0"
+pattern_id: SEC-EDM-CONSUMER-PROBLEM
+name: EDM Consumer Problem
+pattern_type: section
+lifecycle: {status: CANDIDATE, validation_scope: S30 mini Phase 2A Pilot structure only}
+fit:
+  channels: [edm]
+  roles: [problem_recognition, context_setting]
+information_architecture: One evidence-linked problem → consequence → transition to product answer
+visual_rhythm: Short contextual pause between Hero and benefit explanation
+conversion_pattern: No new CTA; prepare the reader for the product answer
+responsive_pattern: One problem statement and one supporting cue in semantic order
+design_principles: [specific_context, no_fear_mongering, no_generic_pain]
+asset_requirements:
+  required: []
+  optional: [approved_lifestyle_scene]
+channel_mapping: {edm: [MOD-STORY-PROBLEM]}
+reusable_layers: [information_architecture, visual_rhythm, responsive_pattern, design_principle]
+prohibited_layers: [invented_pain_point, original_copy, lifestyle_image, claim, complete_layout, trade_dress]
+sources:
+  - skills/edm-generator/design_system/modules_v1.0.yaml#MOD-STORY-PROBLEM
+  - visual-system/references/ingested/switchbot-edm-master-v1/analysis.yaml

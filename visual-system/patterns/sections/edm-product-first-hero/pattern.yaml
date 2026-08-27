@@ -1,0 +1,22 @@
+schema_version: "1.0"
+pattern_id: SEC-EDM-PRODUCT-FIRST-HERO
+name: EDM Product-first Hero
+pattern_type: section
+lifecycle: {status: CANDIDATE, validation_scope: S30 mini Phase 2A Pilot structure only}
+fit:
+  channels: [edm]
+  roles: [product_identity, launch_opening]
+information_architecture: Product identity → approved primary benefit → one verified action
+visual_rhythm: Dominant product evidence with restrained supporting copy
+conversion_pattern: One primary CTA only after product identity is clear
+responsive_pattern: Product and headline remain recognizable in a single-column 390px stack
+design_principles: [product_first, one_primary_message, evidence_before_decoration]
+asset_requirements:
+  required: [official_product]
+  optional: [approved_hero_visual]
+channel_mapping: {edm: [MOD-HERO-PRODUCT]}
+reusable_layers: [information_architecture, visual_rhythm, responsive_pattern, design_principle]
+prohibited_layers: [original_copy, product_image, price, coupon, claim, complete_layout, trade_dress]
+sources:
+  - skills/edm-generator/design_system/modules_v1.0.yaml#MOD-HERO-PRODUCT
+  - visual-system/references/ingested/switchbot-edm-master-v1/analysis.yaml

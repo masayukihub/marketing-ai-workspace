@@ -1,4 +1,4 @@
-schema_version: "1.0"
+schema_version: "1.1"
 adapters:
   amazon_jp:
     adapter_id: ADAPTER-AMAZON-JP
@@ -14,6 +14,11 @@ adapters:
       - amazon_template_primitives
       - aplus_module_order
     source_runtime: skills/amazon-japan-pdp-generator
+    layout_contract: AMAZON_GALLERY_APLUS
+    recipe:
+      recipe_id: AMAZON_EXISTING_FLOW
+      status: EXISTING_RUNTIME
+    existing_skill: skills/jp-commerce-content-flow
   edm:
     adapter_id: ADAPTER-EDM-JP
     required_gates:
@@ -21,8 +26,10 @@ adapters:
       - Campaign Truth
       - Pricing Truth
       - Claim Gate
+      - Product Layer
       - Asset Gate
       - Human Review
+      - Hardening
       - Desktop QA
       - Mobile QA
       - ESP Gate
@@ -32,6 +39,19 @@ adapters:
       - module_relationship
       - content_slots
     source_runtime: skills/edm-generator
+    layout_contract: EDM_600PX_RESPONSIVE
+    recipe_selection:
+      registry: visual-system/registry/page-recipe-registry.yaml
+      requires_resolved_channel_intent: true
+      missing_intent_status: EDM_INTENT_NOT_RESOLVED
+    section_registry: visual-system/registry/section-pattern-registry.yaml
+    existing_skill: skills/switchbot-japan-edm
+    existing_template:
+      selection_mode: STABLE_TEMPLATE_SELECTOR
+      registry: skills/edm-generator/design_system/templates_v1.0.yaml
+      selector: skills/edm-generator/generator/template_selector/selector.rb
+      runtime_owner: skills/edm-generator
+      override_allowed: false
   lp:
     adapter_id: ADAPTER-LP-JP-CANDIDATE
     required_gates:
@@ -45,6 +65,7 @@ adapters:
       - component_roles
       - conversion_path
     source_runtime: NOT_AVAILABLE_PHASE_1
+    layout_contract: LP_RESPONSIVE
   campaign_html:
     adapter_id: ADAPTER-CAMPAIGN-HTML-CANDIDATE
     required_gates:
@@ -58,3 +79,4 @@ adapters:
       - component_roles
       - conversion_path
     source_runtime: NOT_AVAILABLE_PHASE_1
+    layout_contract: CAMPAIGN_HTML_RESPONSIVE

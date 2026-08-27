@@ -1,0 +1,6 @@
+schema_version: "1.0"
+pattern_id: SEC-EDM-BENEFIT-SUMMARY
+slots:
+  - {slot_id: primary_benefit, status_required: APPROVED_CLAIM, max_items: 1, missing_behavior: BLOCK_SECTION}
+  - {slot_id: supporting_benefit, status_required: APPROVED_CLAIM, max_items: 3, missing_behavior: OMIT}
+  - {slot_id: supporting_icon, status_required: APPROVED_ASSET, max_items: 3, missing_behavior: TEXT_ONLY}

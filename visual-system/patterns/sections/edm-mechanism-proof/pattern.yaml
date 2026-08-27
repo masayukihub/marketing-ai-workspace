@@ -1,0 +1,23 @@
+schema_version: "1.0"
+pattern_id: SEC-EDM-MECHANISM-PROOF
+name: EDM Mechanism Proof
+pattern_type: section
+lifecycle: {status: CANDIDATE, validation_scope: S30 mini Phase 2A Pilot structure only}
+fit:
+  channels: [edm]
+  roles: [mechanism_explanation, proof]
+information_architecture: Consumer question → approved mechanism → visible evidence → condition or limitation
+visual_rhythm: One large evidence beat after the benefit summary
+conversion_pattern: Proof resolves doubt; no standalone commerce message
+responsive_pattern: Evidence image precedes concise explanation and conditions at 390px
+design_principles: [mechanism_visible, evidence_linked, conditions_preserved]
+asset_requirements:
+  required: [mechanism_proof]
+  optional: [approved_detail_asset]
+channel_mapping: {edm: [MOD-STORY-PRODUCT-DETAIL, MOD-STORY-FEATURE-SPLIT]}
+reusable_layers: [information_architecture, proof_component_pattern, visual_rhythm, responsive_pattern]
+prohibited_layers: [unsupported_mechanism, invented_result, original_copy, product_image, claim, complete_layout, trade_dress]
+sources:
+  - skills/edm-generator/design_system/modules_v1.0.yaml#MOD-STORY-PRODUCT-DETAIL
+  - skills/edm-generator/design_system/modules_v1.0.yaml#MOD-STORY-FEATURE-SPLIT
+  - visual-system/references/ingested/switchbot-edm-master-v1/analysis.yaml

@@ -1,0 +1,22 @@
+schema_version: "1.0"
+pattern_id: SEC-EDM-APP-AUTOMATION
+name: EDM App or Automation
+pattern_type: section
+lifecycle: {status: CANDIDATE, validation_scope: S30 mini Phase 2A Pilot structure only}
+fit:
+  channels: [edm]
+  roles: [app_explanation, automation_context]
+information_architecture: Approved task → exact official UI or automation flow → dependency and limitation
+visual_rhythm: Compact functional explanation before the conversion close
+conversion_pattern: App context supports product value; it does not create a second destination
+responsive_pattern: UI evidence and steps stack in task order without reconstructing the interface
+design_principles: [exact_ui_only, dependency_visible, one_task_per_section]
+asset_requirements:
+  required: [ui_screenshot]
+  optional: [approved_automation_diagram]
+channel_mapping: {edm: [MOD-STORY-APP-UI]}
+reusable_layers: [information_architecture, component_pattern, responsive_pattern, design_principle]
+prohibited_layers: [reconstructed_ui, unsupported_automation, firmware_assumption, original_copy, complete_layout, trade_dress]
+sources:
+  - skills/edm-generator/design_system/modules_v1.0.yaml#MOD-STORY-APP-UI
+  - visual-system/references/ingested/switchbot-edm-master-v1/analysis.yaml

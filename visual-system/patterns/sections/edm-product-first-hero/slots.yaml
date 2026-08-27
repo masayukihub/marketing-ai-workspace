@@ -1,0 +1,7 @@
+schema_version: "1.0"
+pattern_id: SEC-EDM-PRODUCT-FIRST-HERO
+slots:
+  - {slot_id: product_identity, status_required: APPROVED_OR_VERIFIED_FOR_CHANNEL, missing_behavior: BLOCK}
+  - {slot_id: official_product_asset, status_required: APPROVED_ASSET, missing_behavior: BLOCK}
+  - {slot_id: primary_benefit, status_required: APPROVED_CLAIM, missing_behavior: BLOCK_COPY}
+  - {slot_id: primary_cta, status_required: VERIFIED_DESTINATION, missing_behavior: OMIT_AND_BLOCK_SEND}

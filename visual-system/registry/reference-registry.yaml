@@ -72,3 +72,32 @@ references:
       - visual_freeze
       - claim_approval
       - production_readiness
+  - reference_id: REF-SWITCHBOT-EDM-MASTER-V1
+    kind: existing_internal_reference_system
+    status: ACTIVE_STRUCTURE_ONLY
+    path: visual-system/references/ingested/switchbot-edm-master-v1
+    source_type: EXISTING_PROJECT
+    locator_status: REPOSITORY_RELATIVE
+    availability: AVAILABLE
+    source_runtime:
+      - skills/edm-generator/design_system/templates_v1.0.yaml
+      - skills/edm-generator/design_system/modules_v1.0.yaml
+      - skills/edm-generator/brand_system/switchbot_approved_reverse_engineering_v1.0.yaml
+      - skills/edm-generator/brand_system/switchbot_composition_rules_v1.0.yaml
+    allowed_use:
+      - information_architecture
+      - visual_rhythm
+      - section_structure
+      - conversion_pattern
+      - responsive_principle
+      - design_principle
+    prohibited_use:
+      - mailchimp_mc_implementation
+      - logo
+      - original_copy
+      - image
+      - price
+      - coupon
+      - claim
+      - complete_layout
+      - trade_dress

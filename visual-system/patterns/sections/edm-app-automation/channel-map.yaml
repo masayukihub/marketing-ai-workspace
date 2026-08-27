@@ -1,0 +1,4 @@
+schema_version: "1.0"
+pattern_id: SEC-EDM-APP-AUTOMATION
+mappings:
+  edm: {adapter_id: ADAPTER-EDM-JP, existing_module: MOD-STORY-APP-UI, renderer_owner: skills/edm-generator}
