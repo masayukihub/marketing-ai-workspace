@@ -11,7 +11,7 @@
 5. 通过 Channel Adapter 把共享 Pattern 转成 Amazon JP、EDM、LP 或 Campaign HTML 的执行约束；
 6. 保留 Product Truth、Claim、Asset、Human Review、Hardening 与 Mobile QA 的原有 Gate。
 
-Phase 2A Pilot 增量加入 `Project Visual DNA`、独立的 Pattern Match / Execution Readiness / Evidence Confidence，以及 Amazon 与 EDM 共用的 `channel_assignments`。EDM Recipe 和 Section Pattern 只映射到既有 Template/Module Runtime，不替代 Renderer 或 ESP Gate。
+Phase 2A Pilot 增量加入 `Project Visual DNA`、渠道级 Intent / Information Density、独立的 Pattern Match / Execution Readiness / Evidence Confidence，以及 Amazon 与 EDM 共用的 `channel_assignments`。EDM Recipe 只提交 Template Selection Request；推荐模板属于条件匹配，不替代 Stable Selector、Renderer 或 ESP Gate。
 
 当前 Pilot 只验证 S30 mini Amazon → EDM，Lock Ultra Max 仅作为低 Asset Readiness 负向回归。它不生成正式 EDM，也不批准 Product Truth、Claim、素材或视觉成品。
 

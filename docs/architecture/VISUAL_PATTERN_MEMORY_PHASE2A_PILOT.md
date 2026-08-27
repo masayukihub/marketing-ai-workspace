@@ -15,12 +15,14 @@ projects/s30-mini/project-context.yaml
    → VP-AMZ-MECHANISM-PROOF
    → Existing Amazon Flow
 → channel_assignments.edm
+   → channel_contexts.edm / Channel Intent
    → VP-EDM-COMPLEX-LAUNCH (CANDIDATE)
    → RECIPE-EDM-PRODUCT-LAUNCH-PROOF (CANDIDATE)
    → 6 EDM Section Patterns (CANDIDATE)
    → ADAPTER-EDM-JP
+   → template_selection_request
    → skills/switchbot-japan-edm
-   → TPL-LAUNCH-A / Existing Module System
+   → Stable Template Selector / Existing Module System
    → Existing Renderer
    → Product Layer / Asset Gate / Human Review / Hardening
    → Mobile QA / ESP Gate
@@ -53,7 +55,7 @@ projects/s30-mini/project-context.yaml
 | Proof Strategy | proof before persuasion |
 | Visual Rhythm | product first → mechanism → proof |
 | Image Strategy | official product and approved evidence only |
-| Information Density | high structured |
+| Information Strategy | source complexity: high / structured progressive disclosure |
 | Conversion Style | single verified action after proof |
 | Mobile Priority | high |
 
@@ -71,6 +73,7 @@ Visual DNA 不包含产品事实、规格、性能数字、价格、Claim 或素
 | Execution Readiness | `43.5 / BLOCKED_BY_ASSET` |
 | Evidence Confidence | `47.5 / LOW` |
 | Freeze | Candidate，未继承 |
+| Channel Information Density | `high_structured` |
 
 ### EDM
 
@@ -78,23 +81,30 @@ Visual DNA 不包含产品事实、规格、性能数字、价格、Claim 或素
 |---|---|
 | Primary Pattern | `VP-EDM-COMPLEX-LAUNCH / CANDIDATE` |
 | Recipe | `RECIPE-EDM-PRODUCT-LAUNCH-PROOF / CANDIDATE` |
-| Existing Template | `TPL-LAUNCH-A`，仅 Router Recommendation |
+| Channel Intent | `product_launch / new_product_value_understanding`，Candidate Routing Input |
+| Channel Information Density | `medium_selective` |
+| Existing Template | `TPL-LAUNCH-A / CANDIDATE_CONDITIONAL_MATCH`，由 Stable Template Selector 最终决定 |
 | Pattern Match | `78.2 / HIGH` |
 | Execution Readiness | `28.0 / BLOCKED_BY_ASSET` |
 | Evidence Confidence | `32.5 / LOW` |
 | Auto Apply | `BLOCKED` |
 
-S30 Candidate Freeze 只覆盖 `amazon_jp`，且其 Amazon Pattern 不支持 EDM，因此 EDM Assignment 明确记录：
+S30 Candidate Freeze 只覆盖 `amazon_jp`，且其 Amazon Pattern 不支持 EDM，因此 EDM Assignment 明确记录 `applicability=NOT_APPLICABLE_TO_CHANNEL`，并保留：
 
-- `CANDIDATE_FREEZE_NOT_APPLIED`
 - `FREEZE_CHANNEL_SCOPE_EXCLUDES_CHANNEL`
 - `FREEZE_PATTERN_CHANNEL_INCOMPATIBLE`
+
+该 Freeze 只作为跨渠道治理记录存在，不进入 EDM `execution_readiness.blocking_reasons`，也不降低 EDM Readiness。只有 Freeze 对当前渠道适用、但审批状态不满足时，才是当前渠道 Blocker。
 
 ## EDM Recipe and Section Patterns
 
 Recipe：
 
-`Product-first Hero → Consumer Problem → Benefit Summary → Mechanism Proof → Product/Lifestyle Context → App/Automation → Purchase CTA → Legal Note`
+Required：`Product-first Hero → Benefit Summary → Purchase CTA → Brand Footer`
+
+Optional / Conditional：`Consumer Problem → Mechanism Proof → Product/Lifestyle Context → App/Automation → Legal Note`
+
+Recipe 只提交 `template_selection_request`。`TPL-LAUNCH-A` 当前是 `CANDIDATE_CONDITIONAL_MATCH`，不得覆盖 Stable Template Selector。缺少已解析 EDM Intent 时，Router 返回 `EDM_INTENT_NOT_RESOLVED / HUMAN_REVIEW_REQUIRED`，不得默认选择 Launch Recipe。
 
 新增 Section Pattern 不超过六个：
 

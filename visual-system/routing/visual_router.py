@@ -25,6 +25,8 @@ REGISTRY_FILE = SYSTEM_ROOT / "registry/pattern-registry.yaml"
 WEIGHTS_FILE = SYSTEM_ROOT / "routing/weights.yaml"
 ADAPTERS_FILE = SYSTEM_ROOT / "routing/channel-adapters.yaml"
 RECIPE_REGISTRY_FILE = SYSTEM_ROOT / "registry/page-recipe-registry.yaml"
+EDM_TEMPLATE_REGISTRY_FILE = ROOT / "skills/edm-generator/design_system/templates_v1.0.yaml"
+EDM_MODULE_REGISTRY_FILE = ROOT / "skills/edm-generator/design_system/modules_v1.0.yaml"
 WINDOWS_ABSOLUTE_PATH = re.compile(r"^[A-Za-z]:[\\/]")
 
 
@@ -188,7 +190,7 @@ def overlap_score(target: list[str], supported: list[str], missing_score: float)
     return round(100.0 * len(overlap) / len(target_set), 1)
 
 
-ASSET_SCORES = {
+PATTERN_ASSET_FIT_SCORES = {
     "available": 100.0,
     "approved": 100.0,
     "partial": 60.0,
@@ -214,7 +216,7 @@ def asset_evaluation(context: dict[str, Any], pattern: dict[str, Any]) -> tuple[
         if isinstance(raw, dict):
             raw = raw.get("status", "MISSING_OR_UNVERIFIED")
         status = normalize(raw)
-        score = ASSET_SCORES.get(status, 0.0)
+        score = PATTERN_ASSET_FIT_SCORES.get(status, 0.0)
         scores.append(score)
         if score < 100:
             gaps.append({"asset": asset_key, "status": str(raw)})
@@ -262,10 +264,34 @@ def score_pattern(
         "lifecycle": pattern.get("lifecycle", {}).get("status"),
         "score": round(weighted, 1),
         "dimensions": dimensions,
+        "asset_requirements": copy.deepcopy(pattern.get("asset_requirements", {})),
         "required_asset_gaps": asset_gaps,
         "historical_performance_status": historical.get("status", "UNKNOWN"),
         "sources": [pattern["_file"], *pattern.get("sources", [])],
     }
+
+
+def freeze_applicability(
+    channel: str, freeze: dict[str, Any] | None, patterns_by_id: dict[str, dict[str, Any]]
+) -> dict[str, Any]:
+    if not freeze:
+        return {"status": "NOT_AVAILABLE", "applicable": False, "reason_codes": ["NO_VISUAL_FREEZE"]}
+    normalized_channel = normalize(channel)
+    pattern = patterns_by_id.get(freeze.get("pattern_id"))
+    reason_codes = []
+    if normalized_channel not in values(freeze.get("channel_scope")):
+        reason_codes.append("FREEZE_CHANNEL_SCOPE_EXCLUDES_CHANNEL")
+    if pattern:
+        supported_channels = values(pattern.get("fit", {}).get("channels"))
+        if normalized_channel not in supported_channels and "all" not in supported_channels:
+            reason_codes.append("FREEZE_PATTERN_CHANNEL_INCOMPATIBLE")
+    if reason_codes:
+        return {
+            "status": "NOT_APPLICABLE_TO_CHANNEL",
+            "applicable": False,
+            "reason_codes": reason_codes,
+        }
+    return {"status": "APPLICABLE_TO_CHANNEL", "applicable": True, "reason_codes": []}
 
 
 def approved_freeze_decision(
@@ -273,22 +299,26 @@ def approved_freeze_decision(
 ) -> tuple[bool, list[str]]:
     if not freeze:
         return False, ["No visual-freeze.yaml"]
+    channel = normalize(context.get("primary_channel"))
+    applicability = freeze_applicability(channel, freeze, patterns_by_id)
+    if not applicability["applicable"]:
+        reasons = []
+        if "FREEZE_PATTERN_CHANNEL_INCOMPATIBLE" in applicability["reason_codes"]:
+            reasons.append("Current channel is not supported by Freeze Pattern")
+        if "FREEZE_CHANNEL_SCOPE_EXCLUDES_CHANNEL" in applicability["reason_codes"]:
+            reasons.append("Current channel conflicts with Freeze scope")
+        return False, reasons
     reasons = []
     if freeze.get("status") != "APPROVED" or freeze.get("active") is not True:
         reasons.append("Freeze is not active APPROVED")
     approval = freeze.get("human_approval", {})
     if not approval.get("approved_by") or not approval.get("approved_at"):
         reasons.append("Freeze lacks named human approval metadata")
-    channel = normalize(context.get("primary_channel"))
     pattern = patterns_by_id.get(freeze.get("pattern_id"))
     if not pattern:
         reasons.append("Freeze Pattern is not registered")
     elif pattern.get("lifecycle", {}).get("status") == "DEPRECATED":
         reasons.append("Freeze Pattern is DEPRECATED")
-    elif channel not in values(pattern.get("fit", {}).get("channels")) and "all" not in values(pattern.get("fit", {}).get("channels")):
-        reasons.append("Current channel is not supported by Freeze Pattern")
-    if channel not in values(freeze.get("channel_scope")):
-        reasons.append("Current channel conflicts with Freeze scope")
     if context.get("visual_inputs", {}).get("exploration_requested") is True:
         reasons.append("User requested visual exploration")
     if pattern:
@@ -324,13 +354,13 @@ MATCH_DIMENSIONS = (
 )
 
 
-APPROVAL_SCORES = {
+PRODUCT_TRUTH_SCORES = {
     "approved": 100.0,
     "verified_for_channel": 100.0,
-    "available": 100.0,
+    "not_required": 100.0,
     "verified": 80.0,
+    "available": 60.0,
     "partial": 50.0,
-    "available_review_only": 40.0,
     "pending_verification": 20.0,
     "unapproved_or_unverified": 0.0,
     "missing_or_unverified": 0.0,
@@ -339,8 +369,49 @@ APPROVAL_SCORES = {
 }
 
 
-def status_score(value: Any) -> float:
-    return APPROVAL_SCORES.get(normalize(value), 0.0)
+CLAIM_GATE_SCORES = {
+    "approved": 100.0,
+    "verified_for_channel": 100.0,
+    "not_required": 100.0,
+    "verified": 80.0,
+    "conditional": 60.0,
+    "available": 40.0,
+    "partial": 30.0,
+    "pending_verification": 20.0,
+    "unapproved_or_unverified": 0.0,
+    "missing_or_unverified": 0.0,
+    "unknown": 0.0,
+    "not_available": 0.0,
+}
+
+
+ASSET_READINESS_SCORES = {
+    "approved": 100.0,
+    "verified_for_channel": 100.0,
+    "not_required": 100.0,
+    "verified": 80.0,
+    "available": 80.0,
+    "partial": 60.0,
+    "available_review_only": 60.0,
+    "candidate": 40.0,
+    "pending_verification": 20.0,
+    "unapproved_or_unverified": 0.0,
+    "missing_or_unverified": 0.0,
+    "unknown": 0.0,
+    "missing": 0.0,
+    "not_available": 0.0,
+}
+
+
+def governance_score(value: Any, scores: dict[str, float]) -> float:
+    return scores.get(normalize(value), 0.0)
+
+
+def freeze_is_active_approved(freeze: dict[str, Any] | None) -> bool:
+    if not freeze or freeze.get("status") != "APPROVED" or freeze.get("active") is not True:
+        return False
+    approval = freeze.get("human_approval", {})
+    return bool(approval.get("approved_by") and approval.get("approved_at"))
 
 
 def metric_status(score: float) -> str:
@@ -354,15 +425,37 @@ def metric_status(score: float) -> str:
 def context_for_channel(context: dict[str, Any], channel: str) -> dict[str, Any]:
     routed = copy.deepcopy(context)
     routed["primary_channel"] = channel
-    if channel == "edm":
-        goals = ["understand_launch", "discover_primary_benefit", "reach_single_cta"]
-        principles = values(routed.get("visual_inputs", {}).get("visual_direction", {}).get("principles"))
-        if "mechanism_visible" in principles or "proof_before_persuasion" in principles:
-            goals.append("understand_mechanism")
-        routed.setdefault("visual_inputs", {})["consumer_goals"] = [
-            {"id": goal, "status": "CHANNEL_ROUTING_CANDIDATE"} for goal in goals
-        ]
+    channel_context = copy.deepcopy(context.get("channel_contexts", {}).get(channel))
+    if isinstance(channel_context, dict):
+        routed["resolved_channel_context"] = channel_context
+        if channel_context.get("consumer_goals") is not None:
+            routed.setdefault("visual_inputs", {})["consumer_goals"] = copy.deepcopy(
+                channel_context.get("consumer_goals")
+            )
     return routed
+
+
+def channel_intent(context: dict[str, Any], channel: str) -> dict[str, Any]:
+    raw = context.get("channel_contexts", {}).get(channel)
+    if not isinstance(raw, dict):
+        return {
+            "status": "UNRESOLVED" if channel == "edm" else "PROJECT_CONTEXT_DEFAULT",
+            "resolved": channel != "edm",
+            "campaign_type": None,
+            "primary_objective": None,
+            "consumer_goals": values(context.get("visual_inputs", {}).get("consumer_goals")),
+        }
+    campaign_type = normalize(raw.get("campaign_type")) or None
+    primary_objective = normalize(raw.get("primary_objective")) or None
+    status = normalize(raw.get("status")) or "unknown"
+    resolved = bool(campaign_type and primary_objective and status not in {"unknown", "unresolved", "not_available"})
+    return {
+        "status": str(raw.get("status") or "UNKNOWN"),
+        "resolved": resolved,
+        "campaign_type": campaign_type,
+        "primary_objective": primary_objective,
+        "consumer_goals": values(raw.get("consumer_goals")),
+    }
 
 
 def rank_patterns(
@@ -416,7 +509,10 @@ def project_visual_dna(context: dict[str, Any]) -> dict[str, Any]:
         "proof_strategy": proof_strategy,
         "visual_rhythm": rhythm,
         "image_strategy": "official_product_and_approved_evidence_only",
-        "information_density": f"{complexity}_structured",
+        "information_strategy": {
+            "source_complexity": complexity,
+            "hierarchy_principle": "structured_progressive_disclosure",
+        },
         "conversion_style": "single_verified_action_after_proof",
         "mobile_priority": normalize(visual_inputs.get("mobile_priority")) or "unknown",
         "content_boundary": [
@@ -426,18 +522,46 @@ def project_visual_dna(context: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def channel_information_density(context: dict[str, Any], channel: str) -> str:
+    complexity = normalize(context.get("visual_inputs", {}).get("information_complexity")) or "unknown"
+    if channel == "edm":
+        return "medium_selective"
+    if channel == "amazon_jp":
+        return f"{complexity}_structured"
+    return "channel_adapted"
+
+
+def asset_readiness_evaluation(context: dict[str, Any], pattern: dict[str, Any]) -> tuple[float, list[dict[str, str]]]:
+    assets = context.get("visual_inputs", {}).get("assets", {})
+    required = pattern.get("asset_requirements", {}).get("required", [])
+    if not required:
+        return 100.0, []
+    scores = []
+    gaps = []
+    for asset_key in required:
+        raw = assets.get(asset_key, "MISSING_OR_UNVERIFIED")
+        if isinstance(raw, dict):
+            raw = raw.get("status", "MISSING_OR_UNVERIFIED")
+        score = governance_score(raw, ASSET_READINESS_SCORES)
+        scores.append(score)
+        if score < 100:
+            gaps.append({"asset": asset_key, "status": str(raw)})
+    return round(sum(scores) / len(scores), 1), gaps
+
+
 def execution_readiness(
     context: dict[str, Any],
     top: dict[str, Any],
     freeze: dict[str, Any] | None,
     recipe: dict[str, Any] | None,
+    freeze_applicable: bool = True,
 ) -> tuple[dict[str, Any], list[str], list[str]]:
     governance = context.get("governance", {})
     truth_status = governance.get("product_truth_status") or context.get("product", {}).get("product_truth_status")
     claim_status = governance.get("claim_status", "UNAPPROVED_OR_UNVERIFIED")
-    truth_score = status_score(truth_status)
-    claim_score = status_score(claim_status)
-    asset_score = float(top["dimensions"]["asset_availability"])
+    truth_score = governance_score(truth_status, PRODUCT_TRUTH_SCORES)
+    claim_score = governance_score(claim_status, CLAIM_GATE_SCORES)
+    asset_score, _ = asset_readiness_evaluation(context, top)
     pattern_score = 100.0 if top.get("lifecycle") == "VALIDATED" else 50.0
     review_clear = (
         truth_score == 100
@@ -445,7 +569,7 @@ def execution_readiness(
         and asset_score == 100
         and pattern_score == 100
         and governance.get("human_review_status") in {"APPROVED", "NOT_REQUIRED"}
-        and not (freeze and freeze.get("status") != "APPROVED")
+        and not (freeze_applicable and freeze and not freeze_is_active_approved(freeze))
         and not (recipe and recipe.get("lifecycle", {}).get("status") == "CANDIDATE")
     )
     human_score = 100.0 if review_clear else 0.0
@@ -470,7 +594,7 @@ def execution_readiness(
     if recipe and recipe.get("lifecycle", {}).get("status") == "CANDIDATE":
         blockers.append("Page Recipe is CANDIDATE")
         reason_codes.append("RECIPE_CANDIDATE_REQUIRES_REVIEW")
-    if freeze and freeze.get("status") != "APPROVED":
+    if freeze_applicable and freeze and not freeze_is_active_approved(freeze):
         blockers.append("Candidate Freeze is not an active APPROVED Freeze")
         reason_codes.append("CANDIDATE_FREEZE_NOT_APPLIED")
     if governance.get("human_review_status") == "REQUIRED":
@@ -512,17 +636,89 @@ def evidence_confidence_metric(readiness: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def freeze_reason_codes(channel: str, freeze: dict[str, Any] | None, freeze_reasons: list[str]) -> list[str]:
-    if not freeze:
-        return ["NO_VISUAL_FREEZE"]
-    codes = []
-    if freeze.get("status") != "APPROVED" or freeze.get("active") is not True:
+def freeze_reason_codes(applicability: dict[str, Any], freeze: dict[str, Any] | None) -> list[str]:
+    codes = list(applicability.get("reason_codes", []))
+    if applicability.get("applicable") and freeze and (
+        freeze.get("status") != "APPROVED" or freeze.get("active") is not True
+    ):
         codes.append("CANDIDATE_FREEZE_NOT_APPLIED")
-    if channel not in values(freeze.get("channel_scope")):
-        codes.append("FREEZE_CHANNEL_SCOPE_EXCLUDES_CHANNEL")
-    if any("not supported by Freeze Pattern" in reason for reason in freeze_reasons):
-        codes.append("FREEZE_PATTERN_CHANNEL_INCOMPATIBLE")
     return list(dict.fromkeys(codes))
+
+
+def select_recipe_for_channel(
+    channel: str,
+    intent: dict[str, Any],
+    adapter: dict[str, Any],
+    recipes: dict[str, dict[str, Any]],
+) -> tuple[dict[str, Any] | None, str]:
+    if channel != "edm":
+        recipe_id = adapter.get("recipe", {}).get("recipe_id")
+        return recipes.get(recipe_id), "EXISTING_RUNTIME"
+    if not intent.get("resolved"):
+        return None, "EDM_INTENT_NOT_RESOLVED"
+    matches = []
+    for recipe in recipes.values():
+        if channel not in values(recipe.get("channels")):
+            continue
+        request = recipe.get("template_selection_request", {})
+        if normalize(request.get("campaign_type")) != normalize(intent.get("campaign_type")):
+            continue
+        if normalize(request.get("primary_objective")) != normalize(intent.get("primary_objective")):
+            continue
+        matches.append(recipe)
+    if not matches:
+        return None, "NO_COMPATIBLE_EDM_RECIPE"
+    matches.sort(key=lambda item: item["recipe_id"])
+    return matches[0], "ROUTER_CANDIDATE_MATCH"
+
+
+def recipe_template_compatibility(recipe: dict[str, Any] | None) -> dict[str, Any] | None:
+    if not recipe:
+        return None
+    request = recipe.get("template_selection_request", {})
+    compatibility = recipe.get("template_compatibility", {})
+    recommended_template = compatibility.get("recommended_template")
+    templates = {
+        item["template_id"]: item for item in load_yaml(EDM_TEMPLATE_REGISTRY_FILE).get("templates", [])
+    }
+    registered_modules = {
+        item["module_id"] for item in load_yaml(EDM_MODULE_REGISTRY_FILE).get("modules", [])
+    }
+    required_roles = request.get("required_roles", [])
+    optional_roles = request.get("optional_roles", [])
+    required_role_modules = [role.get("module_id") for role in required_roles if role.get("module_id")]
+    optional_role_modules = [role.get("module_id") for role in optional_roles if role.get("module_id")]
+    all_role_modules = required_role_modules + optional_role_modules
+    missing_registered_modules = sorted(set(all_role_modules) - registered_modules)
+    template = templates.get(recommended_template)
+    template_required_modules = template.get("required_modules", []) if template else []
+    missing_template_required_modules = sorted(set(template_required_modules) - set(required_role_modules))
+    additional_recipe_modules = sorted(set(all_role_modules) - set(template_required_modules))
+    optional_or_conditional_modules = {
+        role.get("module_id")
+        for role in optional_roles
+        if role.get("requirement") in {"OPTIONAL", "CONDITIONAL"}
+    }
+    unclassified_additional_modules = sorted(
+        module for module in additional_recipe_modules if module not in optional_or_conditional_modules
+    )
+    return {
+        "recommended_template": recommended_template,
+        "mapping_status": compatibility.get("mapping_status", "CANDIDATE_CONDITIONAL_MATCH"),
+        "stable_selector_override_allowed": False,
+        "selector_owner": compatibility.get("selector_owner", "skills/edm-generator"),
+        "recommended_template_registered": template is not None,
+        "required_roles_resolved": not missing_registered_modules,
+        "required_modules_satisfied": not missing_template_required_modules,
+        "additional_modules_are_optional_or_conditional": not unclassified_additional_modules,
+        "missing_registered_modules": missing_registered_modules,
+        "missing_template_required_modules": missing_template_required_modules,
+        "unclassified_additional_modules": unclassified_additional_modules,
+        "registry_sources": [
+            str(EDM_TEMPLATE_REGISTRY_FILE.relative_to(ROOT)),
+            str(EDM_MODULE_REGISTRY_FILE.relative_to(ROOT)),
+        ],
+    }
 
 
 def channel_assignment(
@@ -544,24 +740,55 @@ def channel_assignment(
     adapter = adapters.get(channel)
     if not adapter:
         raise ValueError(f"No channel adapter: {channel}")
+    intent = channel_intent(context, channel)
     recipe_config = adapter.get("recipe", {})
-    recipe = recipes.get(recipe_config.get("recipe_id"))
+    recipe, recipe_selection_status = select_recipe_for_channel(channel, intent, adapter, recipes)
+    recipe_id = recipe.get("recipe_id") if recipe else recipe_config.get("recipe_id")
+    applicability = freeze_applicability(channel, freeze, patterns_by_id)
     inherit, freeze_reasons = approved_freeze_decision(routed_context, freeze, patterns_by_id)
-    readiness, blockers, reason_codes = execution_readiness(routed_context, top, freeze, recipe)
+    readiness, blockers, reason_codes = execution_readiness(
+        routed_context, top, freeze, recipe, freeze_applicable=bool(applicability.get("applicable"))
+    )
+    if channel == "edm" and recipe_selection_status in {"EDM_INTENT_NOT_RESOLVED", "NO_COMPATIBLE_EDM_RECIPE"}:
+        reason_codes.append(recipe_selection_status)
+        reason_codes.append("HUMAN_REVIEW_REQUIRED")
+        blockers.append(
+            "EDM channel intent is not resolved"
+            if recipe_selection_status == "EDM_INTENT_NOT_RESOLVED"
+            else "No EDM Recipe matches the resolved channel intent"
+        )
+        if readiness["status"] == "READY_FOR_PRODUCTION":
+            readiness["status"] = "HUMAN_REVIEW_REQUIRED"
     match = pattern_match_metric(top, weights)
     confidence = evidence_confidence_metric(readiness)
     reason_codes.append(f"PATTERN_MATCH_{match['status']}")
-    reason_codes.extend(freeze_reason_codes(channel, freeze, freeze_reasons))
+    reason_codes.extend(freeze_reason_codes(applicability, freeze))
     if channel != normalize(context.get("primary_channel")):
         reason_codes.append("CROSS_CHANNEL_VISUAL_DNA_ONLY")
-    auto_eligible = readiness["status"] == "READY_FOR_PRODUCTION" and top.get("lifecycle") == "VALIDATED"
+    auto_eligible = (
+        readiness["status"] == "READY_FOR_PRODUCTION"
+        and top.get("lifecycle") == "VALIDATED"
+        and recipe_selection_status not in {"EDM_INTENT_NOT_RESOLVED", "NO_COMPATIBLE_EDM_RECIPE"}
+    )
+    compatibility = recipe_template_compatibility(recipe)
+    routing_status = (
+        "HUMAN_REVIEW_REQUIRED"
+        if recipe_selection_status in {"EDM_INTENT_NOT_RESOLVED", "NO_COMPATIBLE_EDM_RECIPE"}
+        else "CANDIDATE_ROUTE_SELECTED" if channel == "edm" else "EXISTING_RUNTIME"
+    )
     recipe_payload = {
-        "recipe_id": recipe_config.get("recipe_id"),
-        "status": recipe.get("lifecycle", {}).get("status") if recipe else recipe_config.get("status"),
+        "recipe_id": recipe_id,
+        "status": recipe.get("lifecycle", {}).get("status") if recipe else (
+            "NOT_SELECTED" if channel == "edm" else recipe_config.get("status")
+        ),
+        "selection_status": recipe_selection_status,
         "source": recipe.get("_file") if recipe else None,
         "section_patterns": [
             item["pattern_id"] for item in (recipe or {}).get("sequence", []) if item.get("pattern_id")
         ],
+        "sections": [copy.deepcopy(item) for item in (recipe or {}).get("sequence", [])],
+        "template_selection_request": copy.deepcopy((recipe or {}).get("template_selection_request")),
+        "template_compatibility": compatibility,
     }
     return {
         "primary_pattern": {
@@ -570,6 +797,9 @@ def channel_assignment(
             "legacy_ranking_score": top["score"],
         },
         "supporting_patterns": [item["pattern_id"] for item in ranked[1:3]],
+        "routing_status": routing_status,
+        "channel_intent": intent,
+        "channel_information_density": channel_information_density(context, channel),
         "recipe": recipe_payload,
         "pattern_match": match,
         "execution_readiness": readiness,
@@ -584,12 +814,15 @@ def channel_assignment(
         "freeze": {
             "applied": inherit,
             "status": freeze.get("status") if freeze else "NOT_AVAILABLE",
+            "applicability": applicability["status"],
             "channel_scope": freeze.get("channel_scope", []) if freeze else [],
-            "reason_codes": freeze_reason_codes(channel, freeze, freeze_reasons),
+            "reason_codes": freeze_reason_codes(applicability, freeze),
             "notes": [] if inherit else freeze_reasons,
         },
         "inheritance": {
             "project_visual_dna": True,
+            "information_strategy": True,
+            "channel_information_density": False,
             "layout_from_other_channel": False,
             "rule": "Cross-channel routing inherits Visual DNA, never a complete channel layout.",
         },
@@ -703,6 +936,10 @@ def build_profile(project_dir: Path) -> dict[str, Any]:
         recipe_source = assignment.get("recipe", {}).get("source")
         if recipe_source:
             sources.append(recipe_source)
+        compatibility_sources = (
+            assignment.get("recipe", {}).get("template_compatibility") or {}
+        ).get("registry_sources", [])
+        sources.extend(compatibility_sources)
     if freeze_file.is_file():
         sources.append(str(freeze_file.relative_to(ROOT)))
     sources.extend(context.get("sources", []))

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 import hashlib
 import importlib.util
 import subprocess
@@ -79,6 +80,19 @@ def local_absolute_path_counts() -> dict[str, int]:
         if count:
             counts[str(path.relative_to(ROOT))] = count
     return counts
+
+
+def build_profile_for_context(router, context, freeze=None):
+    with tempfile.TemporaryDirectory(prefix="visual-router-context-", dir=ROOT) as directory:
+        project_dir = Path(directory)
+        (project_dir / "project-context.yaml").write_text(
+            yaml.safe_dump(context, allow_unicode=True, sort_keys=False), encoding="utf-8"
+        )
+        if freeze is not None:
+            (project_dir / "visual-freeze.yaml").write_text(
+                yaml.safe_dump(freeze, allow_unicode=True, sort_keys=False), encoding="utf-8"
+            )
+        return router.build_profile(project_dir)
 
 
 class VisualSystemRegressionTest(unittest.TestCase):
@@ -299,6 +313,23 @@ class VisualSystemRegressionTest(unittest.TestCase):
         self.assertFalse(edm["inheritance"]["layout_from_other_channel"])
         self.assertNotEqual(amazon["adapter"]["layout_contract"], edm["adapter"]["layout_contract"])
 
+    def test_cross_channel_inherits_information_strategy_not_identical_density(self):
+        router = load_router()
+        profile = router.build_profile(ROOT / "projects/s30-mini")
+        dna = profile["project_visual_dna"]
+        amazon = profile["channel_assignments"]["amazon_jp"]
+        edm = profile["channel_assignments"]["edm"]
+        self.assertNotIn("information_density", dna)
+        self.assertEqual(
+            dna["information_strategy"],
+            {"source_complexity": "high", "hierarchy_principle": "structured_progressive_disclosure"},
+        )
+        self.assertEqual(amazon["channel_information_density"], "high_structured")
+        self.assertEqual(edm["channel_information_density"], "medium_selective")
+        self.assertNotEqual(amazon["channel_information_density"], edm["channel_information_density"])
+        self.assertTrue(edm["inheritance"]["information_strategy"])
+        self.assertFalse(edm["inheritance"]["channel_information_density"])
+
     def test_high_pattern_match_low_readiness_does_not_auto_produce(self):
         router = load_router()
         edm = router.build_profile(ROOT / "projects/s30-mini")["channel_assignments"]["edm"]
@@ -315,13 +346,67 @@ class VisualSystemRegressionTest(unittest.TestCase):
         self.assertIn("FREEZE_CHANNEL_SCOPE_EXCLUDES_CHANNEL", edm["freeze"]["reason_codes"])
         self.assertIn("FREEZE_PATTERN_CHANNEL_INCOMPATIBLE", edm["freeze"]["reason_codes"])
 
+    def test_out_of_scope_candidate_freeze_is_recorded_but_not_readiness_blocker(self):
+        router = load_router()
+        context = load_yaml(ROOT / "projects/s30-mini/project-context.yaml")
+        with_freeze = router.build_profile(ROOT / "projects/s30-mini")["channel_assignments"]["edm"]
+        without_freeze = build_profile_for_context(router, context)["channel_assignments"]["edm"]
+        self.assertEqual(with_freeze["freeze"]["applicability"], "NOT_APPLICABLE_TO_CHANNEL")
+        self.assertFalse(with_freeze["freeze"]["applied"])
+        self.assertNotIn(
+            "Candidate Freeze is not an active APPROVED Freeze", with_freeze["blocking_reasons"]
+        )
+        self.assertEqual(with_freeze["execution_readiness"]["score"], without_freeze["execution_readiness"]["score"])
+
+    def test_in_scope_candidate_freeze_remains_human_review_blocker(self):
+        router = load_router()
+        amazon = router.build_profile(ROOT / "projects/s30-mini")["channel_assignments"]["amazon_jp"]
+        self.assertEqual(amazon["freeze"]["applicability"], "APPLICABLE_TO_CHANNEL")
+        self.assertFalse(amazon["freeze"]["applied"])
+        self.assertIn("Candidate Freeze is not an active APPROVED Freeze", amazon["blocking_reasons"])
+        self.assertIn("CANDIDATE_FREEZE_NOT_APPLIED", amazon["reason_codes"])
+
+    def test_edm_recipe_requires_resolved_channel_intent(self):
+        router = load_router()
+        context = copy.deepcopy(load_yaml(ROOT / "projects/s30-mini/project-context.yaml"))
+        context.pop("channel_contexts", None)
+        edm = build_profile_for_context(router, context)["channel_assignments"]["edm"]
+        self.assertIsNone(edm["recipe"]["recipe_id"])
+        self.assertEqual(edm["recipe"]["selection_status"], "EDM_INTENT_NOT_RESOLVED")
+        self.assertEqual(edm["routing_status"], "HUMAN_REVIEW_REQUIRED")
+        self.assertIn("EDM_INTENT_NOT_RESOLVED", edm["reason_codes"])
+
+    def test_non_launch_edm_does_not_receive_launch_recipe(self):
+        router = load_router()
+        context = copy.deepcopy(load_yaml(ROOT / "projects/s30-mini/project-context.yaml"))
+        context["channel_contexts"]["edm"].update(
+            {
+                "campaign_type": "lifecycle_reminder",
+                "primary_objective": "existing_user_reengagement",
+                "consumer_goals": ["return_to_product"],
+                "status": "CANDIDATE_ROUTING_INPUT",
+            }
+        )
+        edm = build_profile_for_context(router, context)["channel_assignments"]["edm"]
+        self.assertIsNone(edm["recipe"]["recipe_id"])
+        self.assertEqual(edm["recipe"]["selection_status"], "NO_COMPATIBLE_EDM_RECIPE")
+        self.assertEqual(edm["routing_status"], "HUMAN_REVIEW_REQUIRED")
+
+    def test_s30_product_launch_intent_selects_launch_recipe(self):
+        router = load_router()
+        edm = router.build_profile(ROOT / "projects/s30-mini")["channel_assignments"]["edm"]
+        self.assertEqual(edm["channel_intent"]["campaign_type"], "product_launch")
+        self.assertEqual(edm["channel_intent"]["primary_objective"], "new_product_value_understanding")
+        self.assertEqual(edm["recipe"]["recipe_id"], "RECIPE-EDM-PRODUCT-LAUNCH-PROOF")
+        self.assertEqual(edm["recipe"]["selection_status"], "ROUTER_CANDIDATE_MATCH")
+
     def test_edm_recipe_maps_to_existing_skill_template(self):
         recipe_registry = load_yaml(SYSTEM / "registry/page-recipe-registry.yaml")
         self.assertEqual(len(recipe_registry["recipes"]), 1)
         recipe = load_yaml((SYSTEM / "registry" / recipe_registry["recipes"][0]["file"]).resolve())
         self.assertEqual(recipe["recipe_id"], "RECIPE-EDM-PRODUCT-LAUNCH-PROOF")
         self.assertEqual(recipe["lifecycle"]["status"], "CANDIDATE")
-        self.assertEqual(recipe["existing_template_mapping"]["template_id"], "TPL-LAUNCH-A")
+        self.assertEqual(recipe["template_compatibility"]["recommended_template"], "TPL-LAUNCH-A")
         templates = load_yaml(ROOT / "skills/edm-generator/design_system/templates_v1.0.yaml")
         self.assertIn("TPL-LAUNCH-A", {item["template_id"] for item in templates["templates"]})
         mapping = (ROOT / "skills/switchbot-japan-edm/references/visual-pattern-integration.md").read_text()
@@ -340,6 +425,99 @@ class VisualSystemRegressionTest(unittest.TestCase):
                 "ESP Gate",
             }.issubset(adapter["required_gates"])
         )
+
+    def test_recipe_required_roles_resolve_to_registered_modules(self):
+        router = load_router()
+        recipe = router.load_page_recipes()["RECIPE-EDM-PRODUCT-LAUNCH-PROOF"]
+        compatibility = router.recipe_template_compatibility(recipe)
+        self.assertTrue(compatibility["recommended_template_registered"])
+        self.assertTrue(compatibility["required_roles_resolved"])
+        self.assertTrue(compatibility["required_modules_satisfied"])
+        self.assertEqual(compatibility["missing_registered_modules"], [])
+
+    def test_recipe_does_not_override_stable_template_selector(self):
+        router = load_router()
+        recipe = router.load_page_recipes()["RECIPE-EDM-PRODUCT-LAUNCH-PROOF"]
+        adapter = load_yaml(SYSTEM / "routing/channel-adapters.yaml")["adapters"]["edm"]
+        compatibility = router.recipe_template_compatibility(recipe)
+        self.assertFalse(recipe["template_compatibility"]["stable_selector_override_allowed"])
+        self.assertFalse(compatibility["stable_selector_override_allowed"])
+        self.assertEqual(adapter["existing_template"]["selection_mode"], "STABLE_TEMPLATE_SELECTOR")
+        self.assertFalse(adapter["existing_template"]["override_allowed"])
+
+    def test_tpl_launch_a_mapping_is_conditional_not_verified(self):
+        router = load_router()
+        edm = router.build_profile(ROOT / "projects/s30-mini")["channel_assignments"]["edm"]
+        compatibility = edm["recipe"]["template_compatibility"]
+        self.assertEqual(compatibility["recommended_template"], "TPL-LAUNCH-A")
+        self.assertEqual(compatibility["mapping_status"], "CANDIDATE_CONDITIONAL_MATCH")
+        self.assertNotEqual(compatibility["mapping_status"], "VERIFIED")
+
+    def test_optional_problem_and_app_modules_do_not_block_base_launch_recipe(self):
+        router = load_router()
+        recipe = router.load_page_recipes()["RECIPE-EDM-PRODUCT-LAUNCH-PROOF"]
+        request = recipe["template_selection_request"]
+        required = {role["role_id"] for role in request["required_roles"]}
+        optional = {role["role_id"]: role["requirement"] for role in request["optional_roles"]}
+        compatibility = router.recipe_template_compatibility(recipe)
+        self.assertNotIn("consumer_problem", required)
+        self.assertNotIn("app_or_automation", required)
+        self.assertEqual(optional["consumer_problem"], "CONDITIONAL")
+        self.assertEqual(optional["app_or_automation"], "CONDITIONAL")
+        self.assertTrue(compatibility["additional_modules_are_optional_or_conditional"])
+
+    def test_visual_review_exposes_amendment_decisions_without_edm_freeze_blocker(self):
+        html = (ROOT / "projects/s30-mini/visual-review.html").read_text(encoding="utf-8")
+        for phrase in (
+            "Freeze Applicability",
+            "Channel Intent",
+            "Channel Information Density",
+            "Template Compatibility Status",
+            "Required / Optional Section",
+            "Architecture Approval ≠ Pattern Approval",
+            "NOT_APPLICABLE_TO_CHANNEL",
+        ):
+            self.assertIn(phrase, html)
+        blockers = html.split("<h3>EDM 正式生产 Blocker</h3>", 1)[1].split("</article>", 1)[0]
+        self.assertNotIn("Candidate Freeze is not an active APPROVED Freeze", blockers)
+
+    def test_available_claim_is_not_treated_as_approved(self):
+        router = load_router()
+        self.assertLess(router.governance_score("AVAILABLE", router.CLAIM_GATE_SCORES), 100)
+
+    def test_available_asset_is_not_channel_approved(self):
+        router = load_router()
+        context = {"visual_inputs": {"assets": {"official_product": {"status": "AVAILABLE"}}}}
+        top = {"asset_requirements": {"required": ["official_product"]}}
+        score, gaps = router.asset_readiness_evaluation(context, top)
+        self.assertLess(score, 100)
+        self.assertEqual(gaps[0]["status"], "AVAILABLE")
+
+    def test_only_approved_governance_can_reach_ready_for_production(self):
+        router = load_router()
+        base_context = {
+            "governance": {
+                "product_truth_status": "APPROVED",
+                "claim_status": "APPROVED",
+                "human_review_status": "APPROVED",
+            },
+            "visual_inputs": {"assets": {"official_product": {"status": "APPROVED"}}},
+        }
+        top = {"lifecycle": "VALIDATED", "asset_requirements": {"required": ["official_product"]}}
+        ready, _, _ = router.execution_readiness(base_context, top, None, None, freeze_applicable=False)
+        self.assertEqual(ready["status"], "READY_FOR_PRODUCTION")
+        for gate, value in (
+            ("product_truth_status", "AVAILABLE"),
+            ("claim_status", "AVAILABLE"),
+        ):
+            context = copy.deepcopy(base_context)
+            context["governance"][gate] = value
+            metric, _, _ = router.execution_readiness(context, top, None, None, freeze_applicable=False)
+            self.assertNotEqual(metric["status"], "READY_FOR_PRODUCTION")
+        context = copy.deepcopy(base_context)
+        context["visual_inputs"]["assets"]["official_product"]["status"] = "AVAILABLE"
+        metric, _, _ = router.execution_readiness(context, top, None, None, freeze_applicable=False)
+        self.assertNotEqual(metric["status"], "READY_FOR_PRODUCTION")
 
     def test_new_patterns_remain_candidate(self):
         registry = load_yaml(SYSTEM / "registry/section-pattern-registry.yaml")

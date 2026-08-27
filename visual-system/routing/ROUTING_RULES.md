@@ -7,6 +7,7 @@ resolve_project
 → load_visual_freeze
 → load_visual_profile
 → resolve_project_visual_dna
+→ resolve_channel_intent
 → visual_router_if_needed
 → evaluate_pattern_match
 → evaluate_execution_readiness
@@ -23,6 +24,9 @@ resolve_project
 - `evidence_confidence` 表示当前受治理证据完整度，不是转化率预测。
 - Match 高、Readiness 低时必须保持 `HUMAN_REVIEW_REQUIRED` 或 `BLOCKED_BY_ASSET`，不能进入正式 Visual Production。
 - 一个项目只使用一份 Context；各渠道写入 `channel_assignments`。跨渠道只继承 Project Visual DNA，禁止继承完整 Layout。
+- Project Visual DNA 保存 `information_strategy`；Amazon 与 EDM 分别生成渠道级 Information Density。
+- Product Truth、Claim 与 Asset 使用各自状态评分表；只有 `APPROVED`、`VERIFIED_FOR_CHANNEL`、`NOT_REQUIRED` 可获得生产级 100。
+- EDM Recipe 必须匹配已解析 Channel Intent；缺少 Intent 时不得默认使用 Product Launch Recipe。
 
 ## Freeze 优先
 
@@ -38,6 +42,8 @@ resolve_project
 - 用户未明确要求探索新视觉。
 
 Candidate Freeze 只表示“发现了可供复核的人工记录”，不会自动激活，也不会把范围外的 Product Truth、Claim、素材、上架或发送状态升级为 Approved。
+
+Freeze 不在当前 Channel Scope 或其 Pattern 不支持当前 Channel 时，标记 `NOT_APPLICABLE_TO_CHANNEL`。该记录保留用于审计，但不进入当前渠道 Readiness Blocker。
 
 ## Pattern Ranking
 

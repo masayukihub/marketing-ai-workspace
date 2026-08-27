@@ -55,14 +55,27 @@ def list_items(items: list[Any], empty: str = "无") -> str:
     return "".join(f"<li>{esc(item)}</li>" for item in items)
 
 
+def compact_value(value: Any) -> str:
+    if isinstance(value, list):
+        return " / ".join(str(item) for item in value)
+    if isinstance(value, dict):
+        return " / ".join(f"{key}: {item}" for key, item in value.items())
+    return str(value if value is not None else "—")
+
+
 def channel_card(channel: str, assignment: dict[str, Any]) -> str:
     pattern = assignment.get("primary_pattern", {})
     recipe = assignment.get("recipe", {})
     readiness = assignment.get("execution_readiness", {})
     match = assignment.get("pattern_match", {})
     confidence = assignment.get("evidence_confidence", {})
+    intent = assignment.get("channel_intent", {})
+    freeze = assignment.get("freeze", {})
+    compatibility = recipe.get("template_compatibility") or {}
     template = assignment.get("adapter", {}).get("existing_template") or {}
-    template_id = template.get("template_id", "Existing Amazon Flow") if isinstance(template, dict) else template
+    template_id = compatibility.get("recommended_template")
+    if not template_id:
+        template_id = template.get("selection_mode", "Existing Amazon Flow") if isinstance(template, dict) else template
     return f"""
       <article class="assignment">
         <div class="assignment__head">
@@ -72,7 +85,11 @@ def channel_card(channel: str, assignment: dict[str, Any]) -> str:
         <dl>
           <div><dt>Pattern 状态</dt><dd>{esc(pattern.get('status'))}</dd></div>
           <div><dt>Recipe</dt><dd>{esc(recipe.get('recipe_id'))} · {esc(recipe.get('status'))}</dd></div>
-          <div><dt>既有 Template</dt><dd>{esc(template_id)}</dd></div>
+          <div><dt>Channel Intent</dt><dd>{esc(intent.get('campaign_type'))} → {esc(intent.get('primary_objective'))} · {esc(intent.get('status'))}</dd></div>
+          <div><dt>Channel Information Density</dt><dd>{esc(assignment.get('channel_information_density'))}</dd></div>
+          <div><dt>Freeze Applicability</dt><dd>{esc(freeze.get('applicability'))}</dd></div>
+          <div><dt>推荐 Template</dt><dd>{esc(template_id)} · {esc(compatibility.get('mapping_status'))}</dd></div>
+          <div><dt>Template Selector</dt><dd>{'Stable Runtime 决定' if not compatibility.get('stable_selector_override_allowed') else 'Router 可覆盖'}</dd></div>
           <div><dt>Match / Readiness / Confidence</dt><dd>{esc(match.get('score'))} / {esc(readiness.get('score'))} / {esc(confidence.get('score'))}</dd></div>
           <div><dt>Auto Apply</dt><dd>{esc(assignment.get('auto_apply', {}).get('status'))}</dd></div>
           <div><dt>完整 Layout 跨渠道继承</dt><dd>{'否' if not assignment.get('inheritance', {}).get('layout_from_other_channel') else '是'}</dd></div>
@@ -87,7 +104,7 @@ def render(profile: dict[str, Any]) -> str:
     amazon = assignments.get("amazon_jp", {})
     edm = assignments.get("edm", {})
     freeze = edm.get("freeze", {})
-    edm_sections = edm.get("recipe", {}).get("section_patterns", [])
+    edm_sections = edm.get("recipe", {}).get("sections", [])
     wireframe_labels = {
         "SEC-EDM-PRODUCT-FIRST-HERO": "产品优先 Hero",
         "SEC-EDM-CONSUMER-PROBLEM": "消费者问题",
@@ -95,20 +112,23 @@ def render(profile: dict[str, Any]) -> str:
         "SEC-EDM-MECHANISM-PROOF": "机制证据",
         "SEC-EDM-APP-AUTOMATION": "App / 自动化",
         "SEC-EDM-CHANNEL-CTA": "购买 CTA",
+        "product_or_lifestyle_context": "产品 / Lifestyle 场景",
+        "brand_footer": "Brand Footer",
+        "legal_note": "Legal Note",
     }
     wireframe = "".join(
-        f'<div class="wire wire--{index % 3}"><span>{index:02d}</span><strong>{esc(wireframe_labels.get(section, section))}</strong><small>结构候选 · 内容待 Gate</small></div>'
+        f'<div class="wire wire--{index % 3}"><span>{index:02d}</span><strong>{esc(wireframe_labels.get(section.get("pattern_id"), wireframe_labels.get(section.get("role"), section.get("role"))))}</strong><small>{esc(section.get("requirement", "CONDITIONAL"))} · 内容待 Gate</small></div>'
         for index, section in enumerate(edm_sections, 1)
     )
     dna_rows = "".join(
-        f"<div><dt>{esc(label)}</dt><dd>{esc(' / '.join(value) if isinstance(value, list) else value)}</dd></div>"
+        f"<div><dt>{esc(label)}</dt><dd>{esc(compact_value(value))}</dd></div>"
         for label, value in [
             ("状态", dna.get("status")),
             ("Tone", dna.get("tone", [])),
             ("Proof Strategy", dna.get("proof_strategy")),
             ("Visual Rhythm", dna.get("visual_rhythm")),
             ("Image Strategy", dna.get("image_strategy")),
-            ("Information Density", dna.get("information_density")),
+            ("Information Strategy", dna.get("information_strategy")),
             ("Conversion Style", dna.get("conversion_style")),
             ("Mobile Priority", dna.get("mobile_priority")),
         ]
@@ -116,6 +136,17 @@ def render(profile: dict[str, Any]) -> str:
     freeze_notes = freeze.get("notes", [])
     blockers = edm.get("blocking_reasons", [])
     reason_codes = edm.get("reason_codes", [])
+    required_sections = [
+        wireframe_labels.get(item.get("pattern_id"), wireframe_labels.get(item.get("role"), item.get("role")))
+        for item in edm_sections
+        if item.get("requirement") == "REQUIRED"
+    ]
+    optional_sections = [
+        f"{wireframe_labels.get(item.get('pattern_id'), wireframe_labels.get(item.get('role'), item.get('role')))} ({item.get('requirement')})"
+        for item in edm_sections
+        if item.get("requirement") in {"OPTIONAL", "CONDITIONAL"}
+    ]
+    compatibility = edm.get("recipe", {}).get("template_compatibility") or {}
     project_id = profile.get("project_id")
     return f"""<!doctype html>
 <html lang="zh-CN">
@@ -156,11 +187,15 @@ def render(profile: dict[str, Any]) -> str:
 
     <section><div class="section-head"><div><span class="eyebrow">03 · Channel Assignments</span><h2>同一个项目 Profile，两个渠道适配</h2></div></div><div class="assignments">{channel_card('amazon_jp', amazon)}{channel_card('edm', edm)}</div></section>
 
-    <section><div class="section-head"><div><span class="eyebrow">04 · Freeze & Gate</span><h2>Candidate Freeze 没有继承到 EDM</h2></div></div><div class="grid"><article class="panel"><h3>原因</h3><ul>{list_items(freeze_notes, '没有 Freeze 记录')}</ul></article><article class="panel"><h3>EDM 素材与事实缺口</h3><ul>{list_items(blockers)}</ul><div class="reason-codes">{''.join(f'<span class="code">{esc(code)}</span>' for code in reason_codes)}</div></article></div></section>
+    <section><div class="section-head"><div><span class="eyebrow">04 · Freeze & Gate</span><h2>Amazon-only Freeze 被记录，但不参与 EDM Readiness</h2></div></div><div class="grid"><article class="panel" data-freeze-applicability="{esc(freeze.get('applicability'))}"><h3>Freeze Applicability</h3><p><span class="badge warn">{esc(freeze.get('applicability'))}</span></p><ul>{list_items(freeze_notes, '没有适用的 Freeze 阻塞')}</ul><div class="reason-codes">{''.join(f'<span class="code">{esc(code)}</span>' for code in freeze.get('reason_codes', []))}</div></article><article class="panel"><h3>EDM 正式生产 Blocker</h3><ul>{list_items(blockers)}</ul><div class="reason-codes">{''.join(f'<span class="code">{esc(code)}</span>' for code in reason_codes)}</div></article></div></section>
 
-    <section><div class="section-head"><div><span class="eyebrow">05 · Cross-channel Boundary</span><h2>继承项与差异项</h2></div></div><div class="inherit"><article class="panel"><h3>Amazon → EDM 可以继承</h3><ul><li>Tone 与品牌亲和度方向</li><li>Proof Strategy 与信息优先级</li><li>产品优先、机制到证据的 Visual Rhythm</li><li>高信息复杂度下的结构化密度</li><li>Mobile Priority 与单一行动原则</li></ul></article><article class="panel"><h3>必须重新适配</h3><ul><li>Amazon Gallery / A+ Layout 与尺寸</li><li>EDM 600px、语义堆叠与邮件客户端约束</li><li>Template、Module、CTA、Legal 与 Footer</li><li>价格、Coupon、日期、Claim、图片与产品文案</li><li>Mobile QA、Human Review 与 ESP Gate</li></ul></article></div></section>
+    <section><div class="section-head"><div><span class="eyebrow">05 · Cross-channel Boundary</span><h2>继承信息层级原则，不复制渠道密度</h2></div></div><div class="inherit"><article class="panel"><h3>Amazon → EDM 可以继承</h3><ul><li>Tone 与品牌亲和度方向</li><li>Proof Strategy 与信息优先级</li><li>产品优先、机制到证据的 Visual Rhythm</li><li>structured progressive disclosure 层级原则</li><li>Mobile Priority 与单一行动原则</li></ul></article><article class="panel"><h3>必须重新适配</h3><ul><li>Amazon：high structured；EDM：medium selective</li><li>Amazon Gallery / A+ Layout 与尺寸</li><li>EDM 600px、语义堆叠与邮件客户端约束</li><li>Template、Module、CTA、Legal 与 Footer</li><li>价格、Coupon、日期、Claim、图片与产品文案</li></ul></article></div></section>
 
-    <section><div class="section-head"><div><span class="eyebrow">06 · Mobile Wireframe Preview</span><h2>EDM Recipe 的手机端阅读顺序</h2></div><p>结构预览，不是 EDM 成品</p></div><div class="phone-wrap"><div class="phone"><div class="phone__screen"><div class="phone__notch"></div>{wireframe}<div class="wire"><strong>Legal Note / Brand Footer</strong><small>既有 Runtime 负责</small></div></div></div><div><h3>{esc(edm.get('recipe', {}).get('recipe_id'))}</h3><p>映射到既有 <strong>TPL-LAUNCH-A</strong> 和 EDM Module System，但最终 Template Selector、Renderer、Mobile QA 与 ESP Gate 仍归现有 Skill 所有。</p><div class="callout"><strong>Human Review 原因</strong><br>Pattern 和 Recipe 均为 Candidate；S30 Product Truth、Approved Claim、官方产品/机制/UI 素材与 CTA 尚未完成。</div></div></div></section>
+    <section><div class="section-head"><div><span class="eyebrow">06 · Recipe ↔ Template Compatibility</span><h2>推荐模板是条件匹配，不是已验证绑定</h2></div></div><div class="grid"><article class="panel"><h3>{esc(compatibility.get('recommended_template'))}</h3><dl><div><dt>Template Compatibility Status</dt><dd>{esc(compatibility.get('mapping_status'))}</dd></div><div><dt>Required Roles Registered</dt><dd>{esc(compatibility.get('required_roles_resolved'))}</dd></div><div><dt>Required Modules Satisfied</dt><dd>{esc(compatibility.get('required_modules_satisfied'))}</dd></div><div><dt>Stable Selector Override</dt><dd>{esc(compatibility.get('stable_selector_override_allowed'))}</dd></div></dl></article><article class="panel"><h3>Required / Optional Section</h3><p><strong>Required</strong></p><ul>{list_items(required_sections)}</ul><p><strong>Optional / Conditional</strong></p><ul>{list_items(optional_sections)}</ul></article></div></section>
+
+    <section><div class="section-head"><div><span class="eyebrow">07 · Approval Boundary</span><h2>Architecture Approval ≠ Pattern Approval</h2></div></div><div class="grid"><article class="panel"><h3>Architecture Approval</h3><p>确认 Visual DNA、渠道职责、Recipe 角色顺序与 Existing Runtime 接口合理；不批准任何具体 Pattern、文案、Claim、图片或 Template 选择。</p></article><article class="panel"><h3>Pattern Approval</h3><p>对 Candidate Pattern / Recipe 的结构适用性进行具名人工批准。即使通过，Product Truth、Claim、Asset、Hardening、Mobile QA 与 ESP Gate 仍保持独立。</p></article></div></section>
+
+    <section><div class="section-head"><div><span class="eyebrow">08 · Mobile Wireframe Preview</span><h2>EDM Recipe 的手机端阅读顺序</h2></div><p>结构预览，不是 EDM 成品</p></div><div class="phone-wrap"><div class="phone"><div class="phone__screen"><div class="phone__notch"></div>{wireframe}</div></div><div><h3>{esc(edm.get('recipe', {}).get('recipe_id'))}</h3><p>当前仅向 Stable Template Selector 提交 Intent 与 Role Request；<strong>{esc(compatibility.get('recommended_template'))}</strong> 为 {esc(compatibility.get('mapping_status'))}，Router 不覆盖最终 Template、Renderer、Mobile QA 或 ESP Gate。</p><div class="callout"><strong>Human Review 原因</strong><br>Pattern 和 Recipe 均为 Candidate；S30 Product Truth、Approved Claim、正式素材与 CTA 尚未完成。Consumer Problem、Mechanism、App 和 Legal 仅在条件满足时加入。</div></div></div></section>
 
     <footer>Generated from repository-relative Visual Profile · Review artifact only · No Product Truth / Claim / Asset / Send approval</footer>
   </main>

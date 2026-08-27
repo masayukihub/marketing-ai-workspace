@@ -4,6 +4,6 @@
 
 它继承项目 Visual DNA，但不会把 Amazon Gallery 或 A+ 版式搬到 EDM。Amazon 的卡片比例、模块尺寸、文案和图片均不属于可继承层。
 
-八个阶段分别承担：产品识别、问题语境、利益概览、机制解释、生活场景、App/自动化、购买行动、法务与品牌收尾。任一事实、Claim、素材、CTA 或法务输入未批准时，相应阶段应隐藏、降级为内部线框或阻塞，不得补写。
+基础 Launch Recipe 只要求产品识别、利益概览、购买行动和品牌收尾。问题语境、机制解释、生活场景、App/自动化与法务说明均为 Optional / Conditional；条件不满足时可以省略，不得阻塞基础 Recipe，也不得补写事实或 Claim。
 
-`TPL-LAUNCH-A` 只是既有 Runtime 的候选骨架。最终 Template、Module 和 Renderer 仍由 `skills/switchbot-japan-edm` 及其既有 EDM Runtime 决定。
+Recipe 只提交 `template_selection_request`。`TPL-LAUNCH-A` 只是 `CANDIDATE_CONDITIONAL_MATCH` 的候选骨架，最终 Template、Module 和 Renderer 仍由 `skills/switchbot-japan-edm` 的 Stable Template Selector 与既有 EDM Runtime 决定。

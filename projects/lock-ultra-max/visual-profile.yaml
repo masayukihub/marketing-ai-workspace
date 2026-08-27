@@ -1,7 +1,7 @@
 schema_version: '1.1'
 contract: visual-profile
 project_id: lock-ultra-max
-generated_at: '2026-08-27T06:57:57+00:00'
+generated_at: '2026-08-27T07:39:44+00:00'
 generated_by: visual-system/routing/visual_router.py
 project_visual_dna:
   status: ROUTER_GENERATED_CANDIDATE
@@ -11,7 +11,9 @@ project_visual_dna:
   proof_strategy: evidence_before_conversion
   visual_rhythm: trust_context_to_evidence_to_action
   image_strategy: official_product_and_approved_evidence_only
-  information_density: high_structured
+  information_strategy:
+    source_complexity: high
+    hierarchy_principle: structured_progressive_disclosure
   conversion_style: single_verified_action_after_proof
   mobile_priority: high
   content_boundary:
@@ -60,11 +62,27 @@ channel_assignments:
       legacy_ranking_score: 81.1
     supporting_patterns:
     - VP-AMZ-MECHANISM-PROOF
+    routing_status: EXISTING_RUNTIME
+    channel_intent:
+      status: PROJECT_CONTEXT_DEFAULT
+      resolved: true
+      campaign_type: null
+      primary_objective: null
+      consumer_goals:
+      - confirm_compatibility
+      - understand_installation
+      - build_trust
+      - reduce_purchase_risk
+    channel_information_density: high_structured
     recipe:
       recipe_id: AMAZON_EXISTING_FLOW
       status: EXISTING_RUNTIME
+      selection_status: EXISTING_RUNTIME
       source: null
       section_patterns: []
+      sections: []
+      template_selection_request: null
+      template_compatibility: null
     pattern_match:
       score: 98.2
       status: HIGH
@@ -118,6 +136,7 @@ channel_assignments:
     freeze:
       applied: false
       status: NOT_AVAILABLE
+      applicability: NOT_AVAILABLE
       channel_scope: []
       reason_codes:
       - NO_VISUAL_FREEZE
@@ -125,6 +144,8 @@ channel_assignments:
       - No visual-freeze.yaml
     inheritance:
       project_visual_dna: true
+      information_strategy: true
+      channel_information_density: false
       layout_from_other_channel: false
       rule: Cross-channel routing inherits Visual DNA, never a complete channel layout.
     adapter:
@@ -237,6 +258,15 @@ ranking:
     asset_availability: 0.0
     mobile_fit: 90.0
     historical_performance: 50.0
+  asset_requirements:
+    required:
+    - official_product
+    - installation_proof
+    - compatibility_proof
+    optional:
+    - lifestyle_scene
+    - ui_screenshot
+    - security_evidence
   required_asset_gaps:
   - asset: official_product
     status: MISSING_OR_UNVERIFIED
@@ -266,6 +296,14 @@ ranking:
     asset_availability: 0.0
     mobile_fit: 88.0
     historical_performance: 50.0
+  asset_requirements:
+    required:
+    - official_product
+    - mechanism_proof
+    optional:
+    - lifestyle_scene
+    - comparison_data
+    - ui_screenshot
   required_asset_gaps:
   - asset: official_product
     status: MISSING_OR_UNVERIFIED
@@ -300,6 +338,15 @@ channel_rankings:
       asset_availability: 0.0
       mobile_fit: 90.0
       historical_performance: 50.0
+    asset_requirements:
+      required:
+      - official_product
+      - installation_proof
+      - compatibility_proof
+      optional:
+      - lifestyle_scene
+      - ui_screenshot
+      - security_evidence
     required_asset_gaps:
     - asset: official_product
       status: MISSING_OR_UNVERIFIED
@@ -329,6 +376,14 @@ channel_rankings:
       asset_availability: 0.0
       mobile_fit: 88.0
       historical_performance: 50.0
+    asset_requirements:
+      required:
+      - official_product
+      - mechanism_proof
+      optional:
+      - lifestyle_scene
+      - comparison_data
+      - ui_screenshot
     required_asset_gaps:
     - asset: official_product
       status: MISSING_OR_UNVERIFIED

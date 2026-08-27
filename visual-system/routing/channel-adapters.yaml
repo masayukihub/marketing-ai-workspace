@@ -40,17 +40,18 @@ adapters:
       - content_slots
     source_runtime: skills/edm-generator
     layout_contract: EDM_600PX_RESPONSIVE
-    recipe:
-      recipe_id: RECIPE-EDM-PRODUCT-LAUNCH-PROOF
-      status: CANDIDATE
+    recipe_selection:
       registry: visual-system/registry/page-recipe-registry.yaml
+      requires_resolved_channel_intent: true
+      missing_intent_status: EDM_INTENT_NOT_RESOLVED
     section_registry: visual-system/registry/section-pattern-registry.yaml
     existing_skill: skills/switchbot-japan-edm
     existing_template:
-      template_id: TPL-LAUNCH-A
+      selection_mode: STABLE_TEMPLATE_SELECTOR
       registry: skills/edm-generator/design_system/templates_v1.0.yaml
+      selector: skills/edm-generator/generator/template_selector/selector.rb
       runtime_owner: skills/edm-generator
-      mapping_status: ROUTER_RECOMMENDATION_ONLY
+      override_allowed: false
   lp:
     adapter_id: ADAPTER-LP-JP-CANDIDATE
     required_gates:

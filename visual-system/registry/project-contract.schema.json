@@ -13,7 +13,11 @@
       "required": ["schema_version", "contract", "project_id", "market", "primary_channel", "product", "visual_inputs", "sources"],
       "properties": {
         "contract": {"const": "project-context"},
-        "pattern_id": false
+        "pattern_id": false,
+        "channel_contexts": {
+          "type": "object",
+          "additionalProperties": {"$ref": "#/$defs/channelContext"}
+        }
       },
       "additionalProperties": true
     },
@@ -47,7 +51,7 @@
             "proof_strategy",
             "visual_rhythm",
             "image_strategy",
-            "information_density",
+            "information_strategy",
             "conversion_style",
             "mobile_priority"
           ],
@@ -77,6 +81,17 @@
       "properties": {
         "contract": {"const": "visual-freeze"},
         "status": {"enum": ["CANDIDATE", "APPROVED", "RETIRED"]}
+      },
+      "additionalProperties": true
+    },
+    "channelContext": {
+      "type": "object",
+      "required": ["campaign_type", "primary_objective", "consumer_goals", "status"],
+      "properties": {
+        "campaign_type": {"type": ["string", "null"]},
+        "primary_objective": {"type": ["string", "null"]},
+        "consumer_goals": {"type": "array"},
+        "status": {"type": "string"}
       },
       "additionalProperties": true
     },

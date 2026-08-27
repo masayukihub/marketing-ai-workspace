@@ -8,6 +8,16 @@ primary_channel: amazon_jp
 channels:
   - amazon_jp
   - edm
+channel_contexts:
+  edm:
+    campaign_type: product_launch
+    primary_objective: new_product_value_understanding
+    consumer_goals:
+      - understand_launch
+      - discover_primary_benefit
+      - understand_mechanism
+      - reach_single_cta
+    status: CANDIDATE_ROUTING_INPUT
 product:
   display_name: SwitchBot S30 mini
   name_status: NEED_CONFIRMATION

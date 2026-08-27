@@ -3,10 +3,13 @@ recipe_id: RECIPE-EDM-PRODUCT-LAUNCH-PROOF
 channel: edm
 adapter_id: ADAPTER-EDM-JP
 existing_skill: skills/switchbot-japan-edm
-existing_template:
-  template_id: TPL-LAUNCH-A
+template_selection:
+  request_source: recipe.yaml#template_selection_request
+  recommended_template: TPL-LAUNCH-A
+  mapping_status: CANDIDATE_CONDITIONAL_MATCH
   registry: skills/edm-generator/design_system/templates_v1.0.yaml
-  ownership: EXISTING_RUNTIME
+  selector: skills/edm-generator/generator/template_selector/selector.rb
+  ownership: STABLE_SELECTOR
 renderer: skills/edm-generator
 mapping_policy:
   pattern_to_module_only: true

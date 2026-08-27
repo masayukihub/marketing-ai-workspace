@@ -32,11 +32,15 @@ resolve_project
 
 一个项目只维护一份 `project-context.yaml`。Amazon、EDM 等渠道写入同一份 Profile 的 `channel_assignments`；跨渠道只继承 `project_visual_dna`，不继承完整 Layout。
 
+渠道任务必须优先读取 `channel_contexts.<channel>`。缺少 EDM Campaign Type 或 Primary Objective 时返回 `EDM_INTENT_NOT_RESOLVED / HUMAN_REVIEW_REQUIRED`，不得默认套用 Launch Recipe。
+
 ## Freeze 合同
 
 只有 `status: APPROVED`、`active: true`、具名人工、当前渠道同时在 Freeze Scope 与 Pattern `fit.channels` 中、Pattern 未 Deprecated 且必需素材满足时自动继承。
 
 `status: CANDIDATE` 只供人工复核，不视为批准。Freeze 的创意范围不得扩张到 Product Truth、Claim、素材授权、Amazon Upload、Hardening 或 Mobile QA。
+
+先判断 Freeze 对当前渠道是否适用。其他渠道的 Freeze 记录为 `NOT_APPLICABLE_TO_CHANNEL`，保留 Scope / Pattern 冲突原因，但不得进入当前渠道 Readiness Blocker 或降低 Readiness 分数。
 
 ## 下游 Gate
 

@@ -7,6 +7,7 @@
 ```text
 Project Visual DNA
 → channel_assignments.edm
+→ resolved channel_contexts.edm Intent
 → EDM Page Recipe
 → Section Pattern
 → ADAPTER-EDM-JP
@@ -25,13 +26,17 @@ Project Visual DNA
 
 ## 跨渠道继承
 
-Amazon → EDM 只能继承 `project_visual_dna` 中的 Tone、Proof Strategy、Visual Rhythm、Image Strategy、Information Density、Conversion Style 与 Mobile Priority。
+Amazon → EDM 只能继承 `project_visual_dna` 中的 Tone、Proof Strategy、Visual Rhythm、Image Strategy、Information Strategy、Conversion Style 与 Mobile Priority。
+
+其中信息层只继承 `information_strategy.hierarchy_principle`；Amazon 与 EDM 必须分别生成 `channel_information_density`，不得复制相同密度。
 
 禁止继承 Amazon Gallery/A+ 的完整 Layout、尺寸、文案、图片、Claim、价格或 CTA。EDM 继续使用 600px、邮件客户端兼容和语义堆叠规则。
 
 ## Pilot Recipe 映射
 
-`RECIPE-EDM-PRODUCT-LAUNCH-PROOF` 是 CANDIDATE，只提供结构建议。它映射到既有 `TPL-LAUNCH-A` 和 Module Registry，但不能覆盖 Stable Template Selector。
+`RECIPE-EDM-PRODUCT-LAUNCH-PROOF` 只在 `channel_contexts.edm` 明确为 `product_launch / new_product_value_understanding` 时成为 CANDIDATE。缺少 Intent 或非 Launch Intent 时不得默认选择。
+
+Recipe 只向 Stable Template Selector 提交 `template_selection_request`。`TPL-LAUNCH-A` 仅是 `CANDIDATE_CONDITIONAL_MATCH`；Consumer Problem、Mechanism Proof、Lifestyle、App / Automation 与 Legal 是 Optional / Conditional，不得覆盖 Stable Template Selector。
 
 Pattern、Recipe、Template 与 HTML 必须分离。Router 推荐结构，既有 Runtime 最终决定 Template、Module、Renderer、Mobile QA 和 ESP Gate。
 
