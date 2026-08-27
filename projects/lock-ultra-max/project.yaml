@@ -13,7 +13,8 @@ sources:
   project_memory: ../../memory/project-memory/lock-ultra-max-jp/PROJECT.md
   decisions: ../../memory/project-memory/lock-ultra-max-jp/DECISIONS.md
   approved_claims: null
-  visual_profile: null
+  visual_context: project-context.yaml
+  visual_profile: visual-profile.yaml
   visual_freeze: null
   assets: null
 current_phase: discovery_and_context_consolidation
@@ -21,6 +22,8 @@ gate_status:
   overall: blocked
   project_context: in_progress
   product_truth: blocked
+  visual_resolution: ready_for_review
+  visual_freeze: not_started
   human_review: not_started
 approved: []
 blocking_items:
@@ -62,6 +65,8 @@ skills:
     - project-memory-manager
     - product-knowledge
   optional:
+    - jp-commerce-content-flow
+    - jp-commerce-insights
     - amazon-japan-pdp-generator
     - amazon-listing-creative
     - switchbot-campaign-review

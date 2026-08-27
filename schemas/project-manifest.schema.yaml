@@ -44,12 +44,13 @@ properties:
   sources:
     type: object
     additionalProperties: false
-    required: [product_truth, project_memory, decisions, approved_claims, visual_profile, visual_freeze, assets]
+    required: [product_truth, project_memory, decisions, approved_claims, visual_context, visual_profile, visual_freeze, assets]
     properties:
       product_truth: {$ref: "#/$defs/source_pointer"}
       project_memory: {$ref: "#/$defs/source_pointer"}
       decisions: {$ref: "#/$defs/source_pointer"}
       approved_claims: {$ref: "#/$defs/source_pointer"}
+      visual_context: {$ref: "#/$defs/source_pointer"}
       visual_profile: {$ref: "#/$defs/source_pointer"}
       visual_freeze: {$ref: "#/$defs/source_pointer"}
       assets: {$ref: "#/$defs/source_pointer"}

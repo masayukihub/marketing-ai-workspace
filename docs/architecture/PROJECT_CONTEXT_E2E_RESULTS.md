@@ -36,8 +36,8 @@ Result: **PASS**
 
 - Resolved project: `s30-mini`
 - Resolved task type: `Amazon`
-- Limited required source kinds to manifest, Project Memory, decisions, Product Truth, approved claims, visual profile, visual freeze, and assets
-- Returned Amazon/Product Knowledge skills only; Campaign and KOL context was not loaded
+- Limited required source kinds to manifest, Project Memory, decisions, Product Truth, approved claims, Visual Context, Visual Profile, Visual Freeze, and assets
+- Routed to `jp-commerce-content-flow` plus Product Knowledge, with legacy Amazon modules optional; Campaign and KOL context was not loaded
 - Missing source pointers remained explicit warnings
 
 ## Test C — Continue Lock Ultra Max
@@ -84,7 +84,7 @@ Skill is valid!
 9 passed in 0.23s
 
 PATH="$PWD/.venv/bin:$PATH" bash tests/run_skill_tests.sh
-102 pytest cases passed; EDM QA and Ruby syntax checks passed
+106 pytest cases and 9 Visual System unittest cases passed; EDM QA and Ruby syntax checks passed
 ```
 
 The full regression emitted 14 existing matplotlib/pyparsing deprecation warnings and no test failures.

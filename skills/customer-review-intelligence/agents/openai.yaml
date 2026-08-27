@@ -1,4 +1,6 @@
 interface:
-  display_name: "日本市场用户评价与VOC分析"
-  short_description: "采集日本市场 VOC，并转化为产品、营销与客服行动"
-  default_prompt: "使用 $customer-review-intelligence 执行标准化日本市场VOC流程：核对Product Knowledge映射，采集或导入可审计证据，完成规范化与分类，生成可追溯的问题和行动清单、离线Dashboard，并可选导出飞书妙搭包，但不要自动发布。"
+  display_name: "内部模块｜日本VOC"
+  short_description: "日本用户评论采集、规范化、去重和证据分析"
+  default_prompt: "Use $jp-commerce-insights for user-facing research; invoke $customer-review-intelligence only as its auditable VOC module."
+policy:
+  allow_implicit_invocation: false

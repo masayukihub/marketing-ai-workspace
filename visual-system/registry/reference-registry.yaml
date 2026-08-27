@@ -1,0 +1,74 @@
+schema_version: "1.0"
+registry: visual-references
+references:
+  - reference_id: REF-AMAZON-PDP-NORMALIZED-LIBRARY
+    kind: existing_internal_reference_system
+    status: ACTIVE
+    path: skills/amazon-japan-pdp-generator/reference-library
+    allowed_use:
+      - information_architecture
+      - visual_rhythm
+      - component_pattern
+      - conversion_pattern
+      - responsive_principle
+    prohibited_use:
+      - third_party_logo
+      - original_copy
+      - third_party_image
+      - trade_dress
+      - complete_layout
+  - reference_id: REF-S30-WHOLE-SET-APPROVAL
+    kind: existing_project_human_record
+    status: REVIEW_ONLY
+    source_type: external_local_human_approval_record
+    locator_status: REDACTED_LOCAL_PATH
+    availability: LOCAL_ONLY
+    artifact_name: whole-set-approval.json
+    allowed_use:
+      - candidate_visual_freeze_provenance
+      - project_specific_visual_direction
+    prohibited_use:
+      - product_truth_approval
+      - claim_approval
+      - amazon_upload_approval
+  - reference_id: REF-S30-WHOLE-SET-QA
+    kind: existing_project_qa_record
+    status: REVIEW_ONLY
+    source_type: external_local_qa_record
+    locator_status: REDACTED_LOCAL_PATH
+    availability: LOCAL_ONLY
+    artifact_name: set-qa.json
+    allowed_use:
+      - candidate_visual_freeze_provenance
+      - project_specific_qa_context
+    prohibited_use:
+      - product_truth_approval
+      - claim_approval
+      - amazon_upload_approval
+  - reference_id: REF-S30-LISTING-DEMO-PROJECT-STATE
+    kind: existing_project_state
+    status: REVIEW_ONLY
+    source_type: external_local_project_artifact
+    locator_status: REDACTED_LOCAL_PATH
+    availability: LOCAL_ONLY
+    artifact_name: project_state.json
+    allowed_use:
+      - routing_context_only
+      - project_gate_context
+    prohibited_use:
+      - product_truth_approval
+      - claim_approval
+      - production_readiness
+  - reference_id: REF-LOCK-ULTRA-MAX-EDM-PLAN
+    kind: existing_project_plan
+    status: UNAPPROVED
+    source_type: external_local_project_plan
+    locator_status: REDACTED_LOCAL_PATH
+    availability: LOCAL_ONLY
+    artifact_name: design_review.html
+    allowed_use:
+      - routing_context_only
+    prohibited_use:
+      - visual_freeze
+      - claim_approval
+      - production_readiness

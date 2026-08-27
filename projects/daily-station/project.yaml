@@ -13,6 +13,7 @@ sources:
   project_memory: ../../memory/project-memory/daily-station-jp/PROJECT.md
   decisions: ../../memory/project-memory/daily-station-jp/DECISIONS.md
   approved_claims: null
+  visual_context: null
   visual_profile: null
   visual_freeze: null
   assets: null

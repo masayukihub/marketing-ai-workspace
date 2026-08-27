@@ -26,7 +26,7 @@ GATE_STATUSES = {
 PROJECT_STATUSES = {"active", "paused", "completed", "archived", "unknown"}
 SOURCE_KEYS = (
     "product_truth", "project_memory", "decisions", "approved_claims",
-    "visual_profile", "visual_freeze", "assets",
+    "visual_context", "visual_profile", "visual_freeze", "assets",
 )
 TASK_TYPES = (
     "GTM", "Amazon", "PR", "KOL", "Campaign", "VOC", "Competitor",
@@ -51,7 +51,7 @@ TASK_SOURCE_KEYS = {
     "GTM": ("project_memory", "decisions", "product_truth", "approved_claims"),
     "Amazon": (
         "project_memory", "decisions", "product_truth", "approved_claims",
-        "visual_profile", "visual_freeze", "assets",
+        "visual_context", "visual_profile", "visual_freeze", "assets",
     ),
     "PR": ("project_memory", "decisions", "product_truth", "approved_claims", "assets"),
     "KOL": ("project_memory", "decisions", "product_truth", "approved_claims", "assets"),
@@ -60,11 +60,11 @@ TASK_SOURCE_KEYS = {
     "Competitor": ("project_memory", "decisions", "product_truth"),
     "Design": (
         "project_memory", "decisions", "product_truth", "approved_claims",
-        "visual_profile", "visual_freeze", "assets",
+        "visual_context", "visual_profile", "visual_freeze", "assets",
     ),
     "Visual": (
         "project_memory", "decisions", "product_truth", "approved_claims",
-        "visual_profile", "visual_freeze", "assets",
+        "visual_context", "visual_profile", "visual_freeze", "assets",
     ),
     "Product Knowledge": ("product_truth", "approved_claims", "project_memory"),
     "Website": ("project_memory", "decisions", "product_truth", "approved_claims", "assets"),
@@ -73,18 +73,25 @@ TASK_SOURCE_KEYS = {
 }
 TASK_SKILLS = {
     "GTM": ("project-memory-manager", "product-knowledge"),
-    "Amazon": ("amazon-japan-pdp-generator", "amazon-listing-creative", "product-knowledge"),
+    "Amazon": ("jp-commerce-content-flow", "product-knowledge"),
     "PR": ("product-knowledge", "project-memory-manager"),
     "KOL": ("influencer-marketing", "product-knowledge"),
-    "Campaign": ("switchbot-campaign-review", "product-knowledge"),
+    "Campaign": ("switchbot-japan-campaign", "product-knowledge"),
     "VOC": ("customer-review-intelligence", "product-knowledge"),
-    "Competitor": ("product-knowledge", "project-memory-manager"),
-    "Design": ("amazon-listing-creative", "product-knowledge"),
-    "Visual": ("amazon-listing-creative", "product-knowledge"),
+    "Competitor": ("jp-commerce-insights", "product-knowledge", "project-memory-manager"),
+    "Design": ("jp-commerce-content-flow", "product-knowledge"),
+    "Visual": ("jp-commerce-content-flow", "product-knowledge"),
     "Product Knowledge": ("product-knowledge", "project-memory-manager"),
     "Website": ("product-knowledge", "project-memory-manager"),
     "SEO": ("product-knowledge", "project-memory-manager"),
     "Review": ("project-memory-manager",),
+}
+TASK_OPTIONAL_SKILLS = {
+    "Amazon": ("amazon-japan-pdp-generator", "amazon-listing-creative", "jp-commerce-insights"),
+    "Campaign": ("switchbot-campaign-review",),
+    "VOC": ("jp-commerce-insights",),
+    "Design": ("amazon-listing-creative", "amazon-japan-pdp-generator"),
+    "Visual": ("amazon-listing-creative", "amazon-japan-pdp-generator"),
 }
 COMPLETED_ACTION_STATES = {"approved", "rejected", "superseded"}
 
@@ -361,9 +368,11 @@ def relevant_skills(manifest: dict[str, Any], task_type: str, workspace: Path) -
         if not (workspace / "skills" / skill / "SKILL.md").is_file():
             warnings.append(f"SKILL_NOT_IN_REPOSITORY:{skill}")
     manifest_optional = set((manifest.get("skills") or {}).get("optional") or [])
-    for skill in TASK_SKILLS[task_type]:
-        if skill in manifest_optional and skill not in primary:
+    for skill in TASK_OPTIONAL_SKILLS.get(task_type, ()):
+        if skill in manifest_optional and skill not in primary and skill not in optional:
             optional.append(skill)
+            if not (workspace / "skills" / skill / "SKILL.md").is_file():
+                warnings.append(f"SKILL_NOT_IN_REPOSITORY:{skill}")
     return {"primary": primary, "optional": optional}, warnings
 
 

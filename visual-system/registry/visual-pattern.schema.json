@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "visual-pattern.schema.json",
+  "title": "Reusable Visual Pattern",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "pattern_id",
+    "name",
+    "lifecycle",
+    "fit",
+    "asset_requirements",
+    "reusable_layers",
+    "prohibited_layers",
+    "sources"
+  ],
+  "properties": {
+    "schema_version": {"type": "string"},
+    "pattern_id": {"type": "string", "pattern": "^VP-[A-Z0-9-]+$"},
+    "name": {"type": "string"},
+    "lifecycle": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": {"enum": ["CANDIDATE", "VALIDATED", "DEPRECATED"]},
+        "validation_scope": {"type": "string"}
+      }
+    },
+    "fit": {
+      "type": "object",
+      "required": ["channels", "categories", "consumer_goals", "information_complexity", "brand_fit", "mobile_fit"],
+      "properties": {
+        "channels": {"type": "array", "items": {"type": "string"}},
+        "categories": {"type": "array", "items": {"type": "string"}},
+        "consumer_goals": {"type": "array", "items": {"type": "string"}},
+        "information_complexity": {"type": "array", "items": {"type": "string"}},
+        "brand_fit": {"type": "number", "minimum": 0, "maximum": 100},
+        "mobile_fit": {"type": "number", "minimum": 0, "maximum": 100}
+      }
+    },
+    "historical_performance": {
+      "type": "object",
+      "required": ["status", "score"],
+      "properties": {
+        "status": {"enum": ["UNKNOWN", "DIRECTION_APPROVED", "MEASURED"]},
+        "score": {"type": "number", "minimum": 0, "maximum": 100},
+        "evidence": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "asset_requirements": {
+      "type": "object",
+      "required": ["required", "optional"],
+      "properties": {
+        "required": {"type": "array", "items": {"type": "string"}},
+        "optional": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "reusable_layers": {"type": "array", "items": {"type": "string"}},
+    "prohibited_layers": {"type": "array", "items": {"type": "string"}},
+    "sources": {"type": "array", "items": {"type": "string"}}
+  }
+}

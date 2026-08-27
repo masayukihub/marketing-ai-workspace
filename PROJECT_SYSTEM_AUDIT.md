@@ -7,7 +7,7 @@
 
 ## Executive conclusion
 
-The repository already has the correct conceptual layers, but the runtime entry contract is incomplete. Project entrypoints, Project Memory, Product Knowledge, Skill-specific state files, and visual-pattern records exist in parallel without one lightweight resolver. The highest-impact defect is a path and contract mismatch: the repository stores Project Memory under `memory/project-memory/`, while the checked-in `project-memory-manager` expects `<workspace>/project-memory/PROJECT_INDEX.md`; that index does not exist here.
+The repository already has the correct conceptual layers, including the newly checked-in Phase 1 `visual-system/`, but the runtime entry contract is incomplete. Project entrypoints, Project Memory, Product Knowledge, Skill-specific state files, and project visual contracts exist in parallel without one lightweight resolver. The highest-impact defect is a path and contract mismatch: the repository stores Project Memory under `memory/project-memory/`, while the checked-in `project-memory-manager` expects `<workspace>/project-memory/PROJECT_INDEX.md`; that index does not exist here.
 
 The incremental fix is therefore:
 
@@ -33,9 +33,9 @@ Workspace-local, untracked files such as `projects/s30-mini/japan-listing-demo/`
 
 ## 2. Current project entrypoints
 
-Before this migration, each project entry is a three-line README that links directly to `PROJECT.md`. No file exposes aliases, gate status, blockers, source routing, Skill routing, or priority actions in a machine-readable form.
+Before this migration, each project entry was a short README that linked directly to `PROJECT.md`. Phase 1 Visual Pattern Memory added `project-context.yaml` plus Visual Profile/Freeze files for S30 mini and Lock Ultra Max, but those contracts are scoped to visual routing and do not expose the full project aliases, Product/Project Memory navigation, formal gate status, blockers, Skill routing, or priority actions.
 
-The new compatibility entry is `projects/<project-id>/project.yaml`. Existing README and Project Memory files remain valid and are not moved.
+The new compatibility entry is `projects/<project-id>/project.yaml`. Existing README, Project Memory, and visual contracts remain valid and are not moved. `project-context.yaml` remains the Visual Router input; it is not a second general project Manifest.
 
 ## 3. Product Truth location
 
@@ -87,10 +87,13 @@ All four Active Projects have `TODO.md`. Daily Station, Lock Ultra Max, and home
 | `product-knowledge` | resolves product entity from `outputs/product_index.json` and canonical records | no project stage, blockers, or decisions |
 | `amazon-japan-pdp-generator` | reads task inputs, Knowledge Units, Product Knowledge, and its own `PROJECT_STATE.json` | no shared project manifest preflight |
 | `amazon-listing-creative` | checks Knowledge Pack/Product Knowledge | no shared project/decision preflight |
+| `jp-commerce-content-flow` | restores its own project state and Visual Router inputs | unified user entry, but no general project Manifest preflight before this migration |
+| `jp-commerce-insights` | selects research mode and builds its own evidence pack | no shared project gate/blocker preflight before this migration |
+| `switchbot-japan-campaign` | builds a Campaign Context and restores project files | no shared general project Manifest preflight before this migration |
 | `switchbot-campaign-review` | accepts source registry/local task and Product Knowledge | no shared current project gate |
 | `customer-review-intelligence` | reads local config and Product Knowledge | no project-level blocker/next-action routing |
 | `influencer-marketing` | searches `.agents/product-marketing.md` or legacy context files | bypasses repository Project Memory |
-| visual pattern records | embedded in Amazon reference-library `reference.json` files | no project-level Visual Profile/Freeze authority |
+| `visual-system/` | reads project-scoped visual contracts, ranks registered Patterns, and preserves Human Review gates | only S30 mini and Lock Ultra Max have Visual Context/Profile; S30 Freeze is Candidate, not approved |
 | automations | each README defines local status only | no project manifest read/write contract |
 
 ## 9. Duplicate or conflicting Sources of Truth
@@ -106,7 +109,7 @@ All four Active Projects have `TODO.md`. Daily Station, Lock Ultra Max, and home
 1. Project directory IDs and Project Memory IDs differ for three projects.
 2. Next Actions are duplicated between `PROJECT.md` and `TODO.md` and lack executable/approval metadata.
 3. Decision storage is split between per-project files and an empty cross-project layer without routing rules.
-4. Visual Pattern Memory is a distributed reference library, not a governed project source; no Visual Freeze pointer exists for current Active Projects.
+4. `project.yaml` and the Visual Router's `project-context.yaml` can be confused by name unless their authority boundary is explicit. Only S30 mini currently has a Freeze file, and it is Candidate/inactive.
 5. The repository contains placeholders such as `campaign-review`, `voc-analyzer`, and `kol-database` beside mature Skills, which can confuse routing.
 
 ### P2
@@ -129,7 +132,7 @@ This change adds navigation and compatibility only. It does not:
 
 - The four Manifests describe the latest checked-in state; their source `STATUS.md` files were last updated on 2026-08-20 and may be stale.
 - S30 mini and Lock Ultra Max lack promoted Product Knowledge entities in the repository runtime.
-- No project has an approved visual profile or visual freeze pointer.
+- S30 mini and Lock Ultra Max have generated Visual Profiles that require Human Review; S30's Candidate Freeze is inactive, and Daily Station/homerunPET have no project visual contracts.
 - Cross-project Decision Log and automation writeback still require real accepted decisions/runs before they can be exercised.
 - Installed global Skills can drift from their GitHub copies; this PR only changes the repository versions.
-- Installed `jp-commerce-*` and media/PR Skills are outside this repository. Their shared contract is documented here, but their runtime adapters remain a separate reviewed migration.
+- The checked-in `jp-commerce-*` and unified Campaign entries now have the shared preflight adapter. Dedicated media/PR runtime Skills remain outside this repository and require a later reviewed adapter migration.

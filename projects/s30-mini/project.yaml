@@ -13,14 +13,17 @@ sources:
   project_memory: ../../memory/project-memory/s30-mini/PROJECT.md
   decisions: ../../memory/project-memory/s30-mini/DECISIONS.md
   approved_claims: null
-  visual_profile: null
-  visual_freeze: null
+  visual_context: project-context.yaml
+  visual_profile: visual-profile.yaml
+  visual_freeze: visual-freeze.yaml
   assets: null
 current_phase: context_migration_and_gate_1_evidence_review
 gate_status:
   overall: blocked
   project_context: in_progress
   product_truth: blocked
+  visual_resolution: ready_for_review
+  visual_freeze: ready_for_review
   human_review: not_started
 approved: []
 blocking_items:
@@ -62,6 +65,8 @@ skills:
     - project-memory-manager
     - product-knowledge
   optional:
+    - jp-commerce-content-flow
+    - jp-commerce-insights
     - amazon-japan-pdp-generator
     - amazon-listing-creative
     - switchbot-campaign-review

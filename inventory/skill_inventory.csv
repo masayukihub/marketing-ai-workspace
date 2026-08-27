@@ -1,10 +1,23 @@
 skill_name,source_path,last_modified,readme,skill_md,references,scripts,tests,migration_status
-amazon-japan-pdp-generator,/Users/lai/.codex/skills/amazon-japan-pdp-generator,2026-08-19T14:25:19,no,yes,yes,yes,yes,migrated
-edm-generator,/Users/lai/Documents/marketing/edm-visual-generator,2026-08-20T11:03:00,yes,no,yes,yes,yes,curated migration
-product-knowledge,/Users/lai/.codex/skills/product-knowledge,2026-08-07T14:49:09,yes,yes,yes,yes,yes,migrated
-switchbot-campaign-review,/Users/lai/Documents/marketing/.agents/skills/switchbot-campaign-review,2026-07-30T19:12:07,no,yes,yes,yes,yes,migrated
-customer-review-intelligence,/Users/lai/Documents/marketing/.agents/skills/customer-review-intelligence,2026-07-31T16:41:31,yes,yes,yes,yes,yes,migrated
-amazon-listing-creative,/Users/lai/.codex/skills/amazon-listing-creative,2026-08-17T15:40:35,no,yes,yes,no,no,migrated
-project-memory-manager,/Users/lai/.codex/skills/project-memory-manager,2026-08-18T12:30:50,no,yes,yes,yes,no,migrated
-influencer-marketing,/Users/lai/Documents/marketing/.agents/skills/influencer-marketing,2026-08-10T17:23:50,no,yes,no,no,no,migrated
-kol-database,/Users/lai/Documents/homerun pet/homerunpet_japan_project/KOL_Master.xlsx,2026-08-06T14:54:41,no,no,no,no,no,not migrated: personal-data review required
+jp-commerce-insights,skills/jp-commerce-insights,2026-08-26,no,yes,yes,no,no,canonical user entry
+jp-commerce-content-flow,skills/jp-commerce-content-flow,2026-08-26,no,yes,yes,no,no,canonical user entry
+switchbot-japan-campaign,skills/switchbot-japan-campaign,2026-08-26,no,yes,yes,no,yes,canonical user entry
+switchbot-japan-edm,skills/switchbot-japan-edm,2026-08-26,no,yes,yes,no,yes,canonical user entry
+amazon-japan-pdp-generator,skills/amazon-japan-pdp-generator,2026-08-19,no,yes,yes,yes,yes,internal module: routed by jp-commerce-content-flow
+amazon-listing-creative,skills/amazon-listing-creative,2026-08-17,no,yes,yes,no,no,internal module: routed by jp-commerce-content-flow
+customer-review-intelligence,skills/customer-review-intelligence,2026-07-31,yes,yes,yes,yes,yes,internal module: routed by jp-commerce-insights
+switchbot-campaign-review,skills/switchbot-campaign-review,2026-07-30,no,yes,yes,yes,yes,internal module: routed by switchbot-japan-campaign
+edm-generator,skills/edm-generator,2026-08-20,yes,no,yes,yes,yes,internal runtime: routed by switchbot-japan-edm
+product-knowledge,skills/product-knowledge,2026-08-07,yes,yes,yes,yes,yes,migrated shared truth layer
+project-memory-manager,skills/project-memory-manager,2026-08-18,no,yes,yes,yes,no,migrated shared context layer
+influencer-marketing,skills/influencer-marketing,2026-08-10,no,yes,no,no,no,migrated
+gtm-thinking-framework,local-installed,2026-08-26,no,no,no,no,no,source unavailable: interface routed by switchbot-japan-campaign
+jp-traffic-link-governance,local-installed,2026-08-26,no,no,no,no,no,source unavailable: interface routed by switchbot-japan-campaign
+switchbot-japan-edm-generator-v1-1-internal,local-installed,2026-08-26,no,no,no,no,no,source unavailable: runtime interface routed by switchbot-japan-edm
+switchbot-japan-edm-visual-template-skill,local-installed,2026-08-26,no,no,no,no,no,source unavailable: visual interface routed by switchbot-japan-edm
+optimize-japan-edm,personal-installed,2026-08-26,no,no,no,no,no,legacy compatibility entry: implicit invocation disabled
+amazon-keyword-miner,legacy-installed,2026-08-26,no,no,no,no,no,source unavailable: routed by jp-commerce-insights
+amazon-competitor-reviews,legacy-installed,2026-08-26,no,no,no,no,no,source unavailable: routed by jp-commerce-insights
+amazon-listing-asset-capture,legacy-installed,2026-08-26,no,no,no,no,no,source unavailable: routed by jp-commerce-insights
+amazon-voc-browser-scraper,legacy-installed,2026-08-26,no,no,no,no,no,source unavailable: routed by jp-commerce-insights
+kol-database,local-private,2026-08-06,no,no,no,no,no,not migrated: personal-data review required

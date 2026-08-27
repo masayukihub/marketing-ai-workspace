@@ -32,9 +32,10 @@ def test_b_continue_s30_amazon_loads_only_amazon_context():
     assert context["task_type"] == "Amazon"
     assert kinds == {
         "manifest", "project_memory", "decisions", "product_truth",
-        "approved_claims", "visual_profile", "visual_freeze", "assets",
+        "approved_claims", "visual_context", "visual_profile", "visual_freeze", "assets",
     }
-    assert "amazon-japan-pdp-generator" in context["relevant_skills"]["primary"]
+    assert "jp-commerce-content-flow" in context["relevant_skills"]["primary"]
+    assert "amazon-japan-pdp-generator" in context["relevant_skills"]["optional"]
     assert "influencer-marketing" not in context["relevant_skills"]["primary"]
     assert "switchbot-campaign-review" not in context["relevant_skills"]["primary"]
 
@@ -71,6 +72,7 @@ def test_d_formal_manifest_status_wins_on_accepted_decision_conflict(tmp_path: P
             "project_memory": "../../memory/PROJECT.md",
             "decisions": "../../memory/DECISIONS.md",
             "approved_claims": None,
+            "visual_context": None,
             "visual_profile": None,
             "visual_freeze": None,
             "assets": None,
@@ -180,6 +182,9 @@ def test_accepted_decision_without_gate_expectation_does_not_create_false_confli
             **source_manifest["sources"],
             "project_memory": "../../memory/PROJECT.md",
             "decisions": "../../memory/DECISIONS.md",
+            "visual_context": None,
+            "visual_profile": None,
+            "visual_freeze": None,
         },
         "blocking_items": [],
         "latest_decision": {

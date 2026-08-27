@@ -1,4 +1,6 @@
 interface:
-  display_name: "Amazon Listing Creative"
-  short_description: "生成 Amazon Listing 图片组与 A+/EBC 九宫格创意方案"
-  default_prompt: "使用 $amazon-listing-creative 基于已确认的产品资料，生成 Amazon Listing 图片组或 A+/EBC 九宫格创意方向。"
+  display_name: "内部模块｜Listing创意"
+  short_description: "单张方向探索、深化和局部修改能力"
+  default_prompt: "Use $jp-commerce-content-flow for user-facing work; invoke $amazon-listing-creative only as its internal creative module."
+policy:
+  allow_implicit_invocation: false

@@ -1,0 +1,41 @@
+schema_version: "1.0"
+pattern_id: VP-EDM-COMPLEX-LAUNCH
+name: Japan EDM Single Goal → Product Hierarchy → Modular Proof
+lifecycle:
+  status: CANDIDATE
+  validation_scope: Method-level extraction only; must pass project-specific desktop/mobile and human review before reuse.
+fit:
+  channels: [edm]
+  categories: [technology_product, smart_home, multi_product_campaign]
+  consumer_goals: [understand_launch, discover_primary_benefit, reach_single_cta]
+  information_complexity: [medium, high]
+  brand_fit: 90
+  mobile_fit: 82
+historical_performance:
+  status: UNKNOWN
+  score: 50
+  evidence: []
+asset_requirements:
+  required: [official_product, hero_visual]
+  optional: [lifestyle_scene, ugc_with_permission, price_proof]
+story:
+  - one_campaign_goal
+  - short_hero_with_one_primary_cta
+  - rank_products_by_business_role
+  - use_large_primary_cards_then_compact_secondary_grid
+  - close_with_same_destination
+reusable_layers:
+  - information_architecture
+  - visual_rhythm
+  - module_relationship
+  - density_rule
+  - responsive_principle
+prohibited_layers:
+  - historical_price
+  - historical_date
+  - historical_claim
+  - unlicensed_ugc
+  - complete_historical_email
+sources:
+  - skills/switchbot-japan-edm/references/edm-production-method.md
+  - skills/edm-generator

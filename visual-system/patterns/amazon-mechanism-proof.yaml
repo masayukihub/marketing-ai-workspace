@@ -1,0 +1,46 @@
+schema_version: "1.0"
+pattern_id: VP-AMZ-MECHANISM-PROOF
+name: Amazon JP Mechanism → Performance → Confidence
+lifecycle:
+  status: VALIDATED
+  validation_scope: Structural Pattern validated by the existing Amazon reference and renderer system; not a product or Claim approval.
+fit:
+  channels: [amazon_jp]
+  categories: [robot_vacuum, floor_care, appliance, technology_product]
+  consumer_goals: [understand_mechanism, verify_performance, compare_options, reduce_purchase_risk]
+  information_complexity: [medium, high]
+  brand_fit: 92
+  mobile_fit: 88
+historical_performance:
+  status: UNKNOWN
+  score: 50
+  evidence: []
+asset_requirements:
+  required: [official_product, mechanism_proof]
+  optional: [lifestyle_scene, comparison_data, ui_screenshot]
+story:
+  - define_product_value
+  - explain_core_mechanism
+  - show_observable_performance
+  - prove_environment_fit
+  - reduce_ownership_effort
+  - close_with_fit_and_conditions
+reusable_layers:
+  - information_architecture
+  - gallery_storyline
+  - aplus_module_order
+  - visual_rhythm
+  - proof_component_pattern
+  - responsive_principle
+prohibited_layers:
+  - competitor_copy
+  - competitor_images
+  - third_party_logo
+  - trade_dress
+  - complete_layout
+  - unsupported_claim
+sources:
+  - skills/amazon-japan-pdp-generator/reference-library/patterns/story_pattern_library.json
+  - skills/amazon-japan-pdp-generator/reference-library/patterns/gallery_sequence_library.json
+  - skills/amazon-japan-pdp-generator/reference-library/patterns/aplus_sequence_library.json
+  - skills/amazon-japan-pdp-generator/reference-library/layout/layout_primitive_mapping.json

@@ -28,7 +28,7 @@ Writeback proposal / Human Review
 
 Machine schema: [`schemas/project-manifest.schema.yaml`](../../schemas/project-manifest.schema.yaml).
 
-The Manifest is intentionally lightweight. It may contain source paths and a short blocker/action summary, but it must not copy specifications, Claims, customer evidence, creative assets, or full decisions. A missing authority is `null`, not an inferred path.
+The Manifest is intentionally lightweight. It may contain source paths and a short blocker/action summary, but it must not copy specifications, Claims, customer evidence, creative assets, or full decisions. A missing authority is `null`, not an inferred path. `project.yaml` is the general project navigation/status contract; any sibling `project-context.yaml` is a Visual Router input and never replaces it.
 
 `projects/<project-id>/project.yaml` is the version-controlled formal status for resolver conflicts. Project Memory remains the descriptive source behind it.
 
@@ -56,10 +56,10 @@ The package contains paths and status, not copied source bodies. The consuming S
 | Task type | Minimum source kinds |
 | --- | --- |
 | GTM | Project Memory, decisions, Product Truth, approved Claims |
-| Amazon | Project Memory, decisions, Product Truth, approved Claims, Visual Profile, Visual Freeze, assets |
+| Amazon | Project Memory, decisions, Product Truth, approved Claims, Visual Context, Visual Profile, Visual Freeze, assets |
 | PR / KOL / Campaign | Project Memory, decisions, Product Truth, approved Claims, assets |
 | VOC / Competitor | Project Memory, decisions, Product Truth |
-| Design / Visual | Project Memory, decisions, Product Truth, approved Claims, Visual Profile, Visual Freeze, assets |
+| Design / Visual | Project Memory, decisions, Product Truth, approved Claims, Visual Context, Visual Profile, Visual Freeze, assets |
 | Product Knowledge | Product Truth, approved Claims, Project Memory |
 | Website / SEO | Project Memory, decisions, Product Truth, approved Claims, assets |
 | Review | Project Memory and decisions; task-specific sources are added only when named |
@@ -137,16 +137,18 @@ An execution Skill must not update Product Knowledge, Project Memory, Decision L
 | --- | --- | --- | --- |
 | `product-knowledge` | named project only | project identity, Product Truth pointer, blockers | Product Knowledge; Manifest only after reviewed stage/blocker change |
 | `project-memory-manager` | always for named projects | Manifest, Project Memory, decisions | Project Memory review proposal; then Manifest navigation/status |
-| `amazon-japan-pdp-generator` | required | Amazon-scoped truth, Claims, visual, freeze, assets | Amazon artifacts; approved gate changes proposed to Manifest |
-| `amazon-listing-creative` | required | Amazon-scoped truth, Claims, visual, assets | creative artifacts; no direct truth promotion |
+| `jp-commerce-content-flow` | primary for Amazon/Design/Visual | task-scoped truth, Claims, Visual Context/Profile/Freeze, assets | commerce artifacts; approved gate changes proposed to Manifest |
+| `jp-commerce-insights` | primary for Competitor; optional for Amazon/VOC | task-scoped Project Memory, Product Truth, visual/asset gaps | Insight Pack; durable learning/risk proposal only |
+| `amazon-japan-pdp-generator` | optional internal compatibility module | Amazon-scoped truth, Claims, visual, freeze, assets | Amazon artifacts; approved gate changes proposed to Manifest |
+| `amazon-listing-creative` | optional internal compatibility module | Amazon-scoped truth, Claims, visual, assets | creative artifacts; no direct truth promotion |
+| `switchbot-japan-campaign` | primary for Campaign | Campaign-scoped Project Memory, decisions, Product Truth, Claims, assets | campaign artifact; scoped proposals to owning memory/status layer |
 | `switchbot-campaign-review` | required | campaign-scoped Project Memory, decisions, Product Truth | campaign artifact; durable result proposal to Project Memory |
 | `customer-review-intelligence` | required | VOC-scoped Project Memory and Product Truth | VOC artifacts; learning/risk proposal to Project Memory |
 | `influencer-marketing` | required | KOL-scoped Project Memory, decisions, Product Truth | KOL artifact; confirmed result/decision proposal |
-| visual pattern records | through Design/Visual/Amazon task | Visual Profile/Freeze when present | reference library or project visual artifact; never Product Truth |
-| installed `jp-commerce-*` Skills | shared contract defined; repository adapter pending | Amazon/Competitor/VOC package selected by task type | their existing artifact gates; reviewed changes return through the owning memory layer |
+| `visual-system/` | internal through Design/Visual/Amazon | Visual Context/Profile/Freeze when present | project visual artifact; never Product Truth or approval |
 | installed media/PR Skills | shared contract defined; repository adapter pending | PR-scoped Project Memory, decisions, Product Truth, Claims, assets | PR/media artifact; confirmed decision or result proposal |
 
-The `jp-commerce-*` and media/PR Skills are installed outside this repository, so this branch does not silently edit those runtime copies. Their next checked-in revision should add the same five-step Before Task contract. Placeholder directories without a canonical `SKILL.md` remain compatibility references and are not selected as primary runtime Skills.
+The checked-in `jp-commerce-*` and unified Campaign Skills use the same preflight contract. Dedicated media/PR Skills remain outside this repository, so this branch does not silently edit those runtime copies. Placeholder directories without a canonical `SKILL.md` remain compatibility references and are not selected as primary runtime Skills.
 
 ## Incremental migration plan
 
