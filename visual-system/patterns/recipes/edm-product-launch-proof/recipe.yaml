@@ -1,0 +1,58 @@
+schema_version: "1.0"
+recipe_id: RECIPE-EDM-PRODUCT-LAUNCH-PROOF
+name: EDM Product Launch — Product First → Proof → Action
+pattern_type: page_recipe
+lifecycle:
+  status: CANDIDATE
+  validation_scope: S30 mini Amazon-to-EDM vertical-slice structure only; no production or send approval.
+channels: [edm]
+project_visual_dna_inheritance:
+  allowed: true
+  inherited_layers: [tone, proof_strategy, visual_rhythm, image_strategy, information_density, conversion_style, mobile_priority]
+  forbidden_layers: [amazon_gallery_layout, amazon_aplus_layout, amazon_copy, product_claim, product_asset, commerce_fact]
+sequence:
+  - position: 1
+    role: product_first_hero
+    pattern_id: SEC-EDM-PRODUCT-FIRST-HERO
+    existing_module: MOD-HERO-PRODUCT
+  - position: 2
+    role: consumer_problem
+    pattern_id: SEC-EDM-CONSUMER-PROBLEM
+    existing_module: MOD-STORY-PROBLEM
+  - position: 3
+    role: benefit_summary
+    pattern_id: SEC-EDM-BENEFIT-SUMMARY
+    existing_module: MOD-STORY-PRIMARY-USP
+  - position: 4
+    role: mechanism_proof
+    pattern_id: SEC-EDM-MECHANISM-PROOF
+    existing_module: MOD-STORY-PRODUCT-DETAIL
+  - position: 5
+    role: product_or_lifestyle_context
+    existing_module: MOD-STORY-LIFESTYLE
+    new_pattern_created: false
+  - position: 6
+    role: app_or_automation
+    pattern_id: SEC-EDM-APP-AUTOMATION
+    existing_module: MOD-STORY-APP-UI
+  - position: 7
+    role: purchase_cta
+    pattern_id: SEC-EDM-CHANNEL-CTA
+    existing_module: MOD-CONV-CTA-BAND
+  - position: 8
+    role: legal_note_and_brand_footer
+    existing_module: MOD-SYSTEM-LEGAL-FOOTER
+    new_pattern_created: false
+existing_template_mapping:
+  template_id: TPL-LAUNCH-A
+  template_registry: skills/edm-generator/design_system/templates_v1.0.yaml
+  runtime_owner: skills/edm-generator
+  mapping_status: CANDIDATE_REQUIRES_RUNTIME_SELECTION
+  rule: The Recipe recommends roles; the existing EDM runtime remains the final owner of Template and Module selection.
+required_gates: [Product Truth, Claim Gate, Product Layer, Asset Gate, Human Review, Hardening, Mobile QA, ESP Gate]
+sources:
+  - visual-system/references/ingested/switchbot-edm-master-v1/analysis.yaml
+  - skills/edm-generator/design_system/templates_v1.0.yaml
+  - skills/edm-generator/design_system/modules_v1.0.yaml
+  - skills/edm-generator/brand_system/switchbot_approved_reverse_engineering_v1.0.yaml
+prohibited_content: [mailchimp_mc_implementation, original_copy, product_image, price, coupon, claim, complete_layout, trade_dress]

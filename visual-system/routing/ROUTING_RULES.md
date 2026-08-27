@@ -6,12 +6,23 @@
 resolve_project
 → load_visual_freeze
 → load_visual_profile
+→ resolve_project_visual_dna
 → visual_router_if_needed
+→ evaluate_pattern_match
+→ evaluate_execution_readiness
 → apply_channel_adapter
 → continue_existing_flow
 ```
 
 `visual-profile.yaml` 是生成物。只要 `project-context.yaml`、Registry、Pattern、素材状态或 Freeze 发生变化，就重新运行 Router，不手工改评分。
+
+## Match、Readiness 与 Confidence
+
+- `pattern_match` 只计算 Channel、Category、Consumer Goal、Brand、Information Complexity 与 Mobile Fit，不包含生产素材。
+- `execution_readiness` 独立检查 Product Truth、Claim、Required Asset、Pattern/Recipe 生命周期和 Human Review。
+- `evidence_confidence` 表示当前受治理证据完整度，不是转化率预测。
+- Match 高、Readiness 低时必须保持 `HUMAN_REVIEW_REQUIRED` 或 `BLOCKED_BY_ASSET`，不能进入正式 Visual Production。
+- 一个项目只使用一份 Context；各渠道写入 `channel_assignments`。跨渠道只继承 Project Visual DNA，禁止继承完整 Layout。
 
 ## Freeze 优先
 

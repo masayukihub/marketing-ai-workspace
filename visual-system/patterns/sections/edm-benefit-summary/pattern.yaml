@@ -1,0 +1,22 @@
+schema_version: "1.0"
+pattern_id: SEC-EDM-BENEFIT-SUMMARY
+name: EDM Benefit Summary
+pattern_type: section
+lifecycle: {status: CANDIDATE, validation_scope: S30 mini Phase 2A Pilot structure only}
+fit:
+  channels: [edm]
+  roles: [primary_benefit, message_hierarchy]
+information_architecture: One approved primary benefit → up to three approved supporting benefits
+visual_rhythm: Scannable bridge from problem context to deeper proof
+conversion_pattern: Benefits prepare proof; they do not replace evidence or add a second CTA
+responsive_pattern: Primary benefit first, supporting items stack vertically at 390px
+design_principles: [one_primary_benefit, concise_scanning, approved_claims_only]
+asset_requirements:
+  required: []
+  optional: [approved_supporting_icons]
+channel_mapping: {edm: [MOD-STORY-PRIMARY-USP, MOD-STORY-FEATURE-ICONS]}
+reusable_layers: [information_architecture, component_pattern, responsive_pattern, design_principle]
+prohibited_layers: [unapproved_claim, unsupported_number, original_copy, product_image, complete_layout, trade_dress]
+sources:
+  - skills/edm-generator/design_system/modules_v1.0.yaml#MOD-STORY-PRIMARY-USP
+  - skills/edm-generator/design_system/modules_v1.0.yaml#MOD-STORY-FEATURE-ICONS

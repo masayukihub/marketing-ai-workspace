@@ -1,4 +1,4 @@
-# Visual Pattern Memory（Phase 1）
+# Visual Pattern Memory（Phase 1 + Phase 2A Pilot）
 
 这是 `marketing-ai-workspace` 的共享内部视觉能力，不是用户可见 Skill。
 
@@ -11,7 +11,9 @@
 5. 通过 Channel Adapter 把共享 Pattern 转成 Amazon JP、EDM、LP 或 Campaign HTML 的执行约束；
 6. 保留 Product Truth、Claim、Asset、Human Review、Hardening 与 Mobile QA 的原有 Gate。
 
-当前只实现 Phase 1：Pattern 合同、Router、两个真实项目验证和最小接入。它不生成最终页面，也不批准 Claim、素材或视觉成品。
+Phase 2A Pilot 增量加入 `Project Visual DNA`、独立的 Pattern Match / Execution Readiness / Evidence Confidence，以及 Amazon 与 EDM 共用的 `channel_assignments`。EDM Recipe 和 Section Pattern 只映射到既有 Template/Module Runtime，不替代 Renderer 或 ESP Gate。
+
+当前 Pilot 只验证 S30 mini Amazon → EDM，Lock Ultra Max 仅作为低 Asset Readiness 负向回归。它不生成正式 EDM，也不批准 Product Truth、Claim、素材或视觉成品。
 
 ## 目录
 
@@ -29,6 +31,7 @@
 ```bash
 python3 visual-system/routing/visual_router.py --project projects/s30-mini
 python3 visual-system/routing/visual_router.py --project projects/lock-ultra-max
+python3 visual-system/routing/render_visual_review.py --project projects/s30-mini
 python3 -m unittest discover -s visual-system/tests -p 'test_*.py' -v
 ```
 

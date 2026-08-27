@@ -1,0 +1,7 @@
+schema_version: "1.0"
+pattern_id: SEC-EDM-BENEFIT-SUMMARY
+mappings:
+  edm:
+    adapter_id: ADAPTER-EDM-JP
+    existing_modules: [MOD-STORY-PRIMARY-USP, MOD-STORY-FEATURE-ICONS]
+    renderer_owner: skills/edm-generator

@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import hashlib
 import importlib.util
+import subprocess
 import tempfile
 import unittest
 from pathlib import Path
@@ -48,7 +50,46 @@ def walk_strings(value):
             yield from walk_strings(child)
 
 
+def sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def local_absolute_path_counts() -> dict[str, int]:
+    result = subprocess.run(
+        ["git", "ls-files", "--cached", "--others", "--exclude-standard", "-z"],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+    )
+    counts = {}
+    user_prefix = "/" + "Users" + "/"
+    home_prefix = "/" + "home" + "/"
+    for raw_path in result.stdout.split(b"\0"):
+        if not raw_path:
+            continue
+        path = ROOT / raw_path.decode("utf-8")
+        if not path.is_file():
+            continue
+        text = path.read_bytes().decode("utf-8", errors="ignore")
+        count = text.count(user_prefix) + text.count(home_prefix)
+        if count:
+            counts[str(path.relative_to(ROOT))] = count
+    return counts
+
+
 class VisualSystemRegressionTest(unittest.TestCase):
+    def test_visual_profile_schema_v11_required_fields(self):
+        schema = load_yaml(SYSTEM / "registry/project-contract.schema.json")
+        required = set(schema["$defs"]["visualProfile"]["required"])
+        for project in ("s30-mini", "lock-ultra-max"):
+            profile = load_yaml(ROOT / "projects" / project / "visual-profile.yaml")
+            self.assertEqual(profile["schema_version"], "1.1")
+            self.assertTrue(required.issubset(profile), f"missing v1.1 fields in {project}")
+
     def test_registry_patterns_and_weights(self):
         registry = load_yaml(SYSTEM / "registry/pattern-registry.yaml")
         weights = load_yaml(SYSTEM / "routing/weights.yaml")
@@ -215,6 +256,18 @@ class VisualSystemRegressionTest(unittest.TestCase):
             )
         )
 
+    def test_edm_master_ingestion_remains_structural_candidate(self):
+        directory = SYSTEM / "references/ingested/switchbot-edm-master-v1"
+        candidate = load_yaml(directory / "candidate-pattern.yaml")
+        originality = load_yaml(directory / "originality-check.yaml")
+        metadata = load_yaml(directory / "source-metadata.yaml")
+        self.assertEqual(candidate["lifecycle"]["status"], "CANDIDATE")
+        self.assertFalse(candidate["lifecycle"]["auto_promotion_allowed"])
+        self.assertEqual(metadata["locator_status"], "REPOSITORY_RELATIVE")
+        self.assertEqual(originality["status"], "PASS")
+        self.assertTrue(all(value == "NOT_STORED" for value in originality["rejected_layers"].values()))
+        self.assertNotIn("recovered_html", originality["stored_layers"])
+
     def test_existing_skill_entrypoints_keep_visual_and_release_gates(self):
         amazon = (ROOT / "skills/jp-commerce-content-flow/SKILL.md").read_text(encoding="utf-8")
         edm = (ROOT / "skills/switchbot-japan-edm/SKILL.md").read_text(encoding="utf-8")
@@ -234,6 +287,115 @@ class VisualSystemRegressionTest(unittest.TestCase):
         self.assertIn("ADAPTER-EDM-JP", edm)
         self.assertIn("Final Human", edm)
         self.assertIn("ESP Gate", edm)
+
+    def test_cross_channel_inherits_visual_dna_not_layout(self):
+        router = load_router()
+        profile = router.build_profile(ROOT / "projects/s30-mini")
+        amazon = profile["channel_assignments"]["amazon_jp"]
+        edm = profile["channel_assignments"]["edm"]
+        self.assertEqual(profile["project_visual_dna"]["status"], "ROUTER_GENERATED_CANDIDATE")
+        self.assertTrue(amazon["inheritance"]["project_visual_dna"])
+        self.assertTrue(edm["inheritance"]["project_visual_dna"])
+        self.assertFalse(edm["inheritance"]["layout_from_other_channel"])
+        self.assertNotEqual(amazon["adapter"]["layout_contract"], edm["adapter"]["layout_contract"])
+
+    def test_high_pattern_match_low_readiness_does_not_auto_produce(self):
+        router = load_router()
+        edm = router.build_profile(ROOT / "projects/s30-mini")["channel_assignments"]["edm"]
+        self.assertEqual(edm["pattern_match"]["status"], "HIGH")
+        self.assertEqual(edm["execution_readiness"]["status"], "BLOCKED_BY_ASSET")
+        self.assertLess(edm["execution_readiness"]["score"], edm["pattern_match"]["score"])
+        self.assertFalse(edm["auto_apply"]["eligible"])
+
+    def test_candidate_freeze_does_not_apply_to_edm(self):
+        router = load_router()
+        edm = router.build_profile(ROOT / "projects/s30-mini")["channel_assignments"]["edm"]
+        self.assertEqual(edm["freeze"]["status"], "CANDIDATE")
+        self.assertFalse(edm["freeze"]["applied"])
+        self.assertIn("FREEZE_CHANNEL_SCOPE_EXCLUDES_CHANNEL", edm["freeze"]["reason_codes"])
+        self.assertIn("FREEZE_PATTERN_CHANNEL_INCOMPATIBLE", edm["freeze"]["reason_codes"])
+
+    def test_edm_recipe_maps_to_existing_skill_template(self):
+        recipe_registry = load_yaml(SYSTEM / "registry/page-recipe-registry.yaml")
+        self.assertEqual(len(recipe_registry["recipes"]), 1)
+        recipe = load_yaml((SYSTEM / "registry" / recipe_registry["recipes"][0]["file"]).resolve())
+        self.assertEqual(recipe["recipe_id"], "RECIPE-EDM-PRODUCT-LAUNCH-PROOF")
+        self.assertEqual(recipe["lifecycle"]["status"], "CANDIDATE")
+        self.assertEqual(recipe["existing_template_mapping"]["template_id"], "TPL-LAUNCH-A")
+        templates = load_yaml(ROOT / "skills/edm-generator/design_system/templates_v1.0.yaml")
+        self.assertIn("TPL-LAUNCH-A", {item["template_id"] for item in templates["templates"]})
+        mapping = (ROOT / "skills/switchbot-japan-edm/references/visual-pattern-integration.md").read_text()
+        self.assertIn("RECIPE-EDM-PRODUCT-LAUNCH-PROOF", mapping)
+        self.assertIn("ESP Gate", mapping)
+        adapter = load_yaml(SYSTEM / "routing/channel-adapters.yaml")["adapters"]["edm"]
+        self.assertTrue(
+            {
+                "Product Truth",
+                "Claim Gate",
+                "Product Layer",
+                "Asset Gate",
+                "Human Review",
+                "Hardening",
+                "Mobile QA",
+                "ESP Gate",
+            }.issubset(adapter["required_gates"])
+        )
+
+    def test_new_patterns_remain_candidate(self):
+        registry = load_yaml(SYSTEM / "registry/section-pattern-registry.yaml")
+        self.assertEqual(len(registry["patterns"]), 6)
+        required_files = {
+            "pattern.yaml",
+            "anatomy.zh-CN.md",
+            "slots.yaml",
+            "channel-map.yaml",
+            "anti-patterns.md",
+            "validation.yaml",
+        }
+        for entry in registry["patterns"]:
+            package = (SYSTEM / "registry" / entry["file"]).resolve().parent
+            pattern = load_yaml(package / "pattern.yaml")
+            validation = load_yaml(package / "validation.yaml")
+            self.assertTrue(required_files.issubset({path.name for path in package.iterdir()}))
+            self.assertEqual(entry["status"], "CANDIDATE")
+            self.assertEqual(pattern["lifecycle"]["status"], "CANDIDATE")
+            self.assertEqual(validation["status"], "CANDIDATE")
+
+    def test_lock_ultra_max_asset_block_preserved(self):
+        router = load_router()
+        profile = router.build_profile(ROOT / "projects/lock-ultra-max")
+        self.assertEqual(profile["pattern_match"]["status"], "HIGH")
+        self.assertEqual(profile["execution_readiness"]["status"], "BLOCKED_BY_ASSET")
+        self.assertFalse(profile["auto_apply"]["eligible"])
+        self.assertFalse((ROOT / "projects/lock-ultra-max/visual-freeze.yaml").exists())
+        self.assertEqual(profile["decision"]["mode"], "HUMAN_REVIEW_REQUIRED")
+
+    def test_product_truth_hash_unchanged(self):
+        baseline = load_yaml(SYSTEM / "tests/phase2a-protected-hashes.yaml")
+        for relative, expected in baseline["product_truth"].items():
+            self.assertEqual(sha256(ROOT / relative), expected, relative)
+
+    def test_claim_hash_unchanged(self):
+        baseline = load_yaml(SYSTEM / "tests/phase2a-protected-hashes.yaml")
+        for relative, expected in baseline["claim"].items():
+            self.assertEqual(sha256(ROOT / relative), expected, relative)
+
+    def test_no_new_local_absolute_paths(self):
+        baseline = load_yaml(SYSTEM / "tests/local-absolute-path-baseline.yaml")
+        current = local_absolute_path_counts()
+        allowed = baseline["allowlist"]
+        self.assertFalse(set(current) - set(allowed), f"new files with local absolute paths: {set(current) - set(allowed)}")
+        for relative, count in current.items():
+            self.assertLessEqual(count, allowed[relative], f"local absolute path count increased: {relative}")
+        self.assertLessEqual(len(current), baseline["baseline_file_count"])
+        self.assertLessEqual(sum(current.values()), baseline["baseline_occurrence_count"])
+
+    def test_existing_amazon_ranking_preserved(self):
+        router = load_router()
+        s30 = router.build_profile(ROOT / "projects/s30-mini")
+        lock = router.build_profile(ROOT / "projects/lock-ultra-max")
+        self.assertEqual((s30["ranking"][0]["pattern_id"], s30["ranking"][0]["score"]), ("VP-AMZ-MECHANISM-PROOF", 89.7))
+        self.assertEqual((lock["ranking"][0]["pattern_id"], lock["ranking"][0]["score"]), ("VP-AMZ-JAPAN-FIT-TRUST", 81.1))
 
 
 if __name__ == "__main__":

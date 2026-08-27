@@ -1,0 +1,4 @@
+schema_version: "1.0"
+pattern_id: SEC-EDM-APP-AUTOMATION
+status: CANDIDATE
+checks: {structure_extracted: PASS, existing_module_mapped: PASS, official_ui_gate: REQUIRED, claim_gate: REQUIRED, human_review: REQUIRED}

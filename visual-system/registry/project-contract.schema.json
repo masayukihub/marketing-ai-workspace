@@ -19,8 +19,56 @@
     },
     "visualProfile": {
       "type": "object",
-      "required": ["schema_version", "contract", "project_id", "decision", "ranking", "sources"],
-      "properties": {"contract": {"const": "visual-profile"}},
+      "required": [
+        "schema_version",
+        "contract",
+        "project_id",
+        "project_visual_dna",
+        "pattern_match",
+        "execution_readiness",
+        "evidence_confidence",
+        "channel_assignments",
+        "reason_codes",
+        "auto_apply",
+        "blocking_reasons",
+        "source_provenance",
+        "decision",
+        "ranking",
+        "sources"
+      ],
+      "properties": {
+        "contract": {"const": "visual-profile"},
+        "schema_version": {"const": "1.1"},
+        "project_visual_dna": {
+          "type": "object",
+          "required": [
+            "status",
+            "tone",
+            "proof_strategy",
+            "visual_rhythm",
+            "image_strategy",
+            "information_density",
+            "conversion_style",
+            "mobile_priority"
+          ],
+          "properties": {
+            "status": {"const": "ROUTER_GENERATED_CANDIDATE"}
+          },
+          "additionalProperties": true
+        },
+        "pattern_match": {"$ref": "#/$defs/metric"},
+        "execution_readiness": {"$ref": "#/$defs/readiness"},
+        "evidence_confidence": {"$ref": "#/$defs/metric"},
+        "channel_assignments": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {"type": "object"}
+        },
+        "reason_codes": {"type": "array", "items": {"type": "string"}},
+        "auto_apply": {"type": "object", "required": ["eligible", "scope", "status"]},
+        "blocking_reasons": {"type": "array", "items": {"type": "string"}},
+        "source_provenance": {"type": "object", "required": ["status", "sources", "evidence_limits"]}
+      },
       "additionalProperties": true
     },
     "visualFreeze": {
@@ -29,6 +77,25 @@
       "properties": {
         "contract": {"const": "visual-freeze"},
         "status": {"enum": ["CANDIDATE", "APPROVED", "RETIRED"]}
+      },
+      "additionalProperties": true
+    },
+    "metric": {
+      "type": "object",
+      "required": ["score", "status"],
+      "properties": {
+        "score": {"type": "number", "minimum": 0, "maximum": 100},
+        "status": {"type": "string"}
+      },
+      "additionalProperties": true
+    },
+    "readiness": {
+      "type": "object",
+      "required": ["score", "status", "components"],
+      "properties": {
+        "score": {"type": "number", "minimum": 0, "maximum": 100},
+        "status": {"enum": ["READY_FOR_PRODUCTION", "HUMAN_REVIEW_REQUIRED", "BLOCKED_BY_ASSET"]},
+        "components": {"type": "object"}
       },
       "additionalProperties": true
     }

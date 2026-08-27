@@ -1,0 +1,22 @@
+schema_version: "1.0"
+pattern_id: SEC-EDM-CHANNEL-CTA
+name: EDM Channel CTA
+pattern_type: section
+lifecycle: {status: CANDIDATE, validation_scope: S30 mini Phase 2A Pilot structure only}
+fit:
+  channels: [edm]
+  roles: [purchase_action, conversion_close]
+information_architecture: Short decision recap → one verified destination → relevant condition or legal transition
+visual_rhythm: Clear close after the reader has received necessary proof
+conversion_pattern: One dominant action; repetition only after a distinct information stage
+responsive_pattern: Full-width tappable action with semantic label at 390px
+design_principles: [single_destination, action_named_clearly, legal_boundary_visible]
+asset_requirements:
+  required: []
+  optional: [approved_channel_badge]
+channel_mapping: {edm: [MOD-CONV-CTA-BAND]}
+reusable_layers: [information_architecture, conversion_pattern, responsive_pattern, design_principle]
+prohibited_layers: [unverified_url, false_urgency, price, coupon, original_copy, third_party_logo, complete_layout, trade_dress]
+sources:
+  - skills/edm-generator/design_system/modules_v1.0.yaml#MOD-CONV-CTA-BAND
+  - skills/edm-generator/brand_system/switchbot_composition_rules_v1.0.yaml

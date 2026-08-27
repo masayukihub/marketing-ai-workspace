@@ -1,0 +1,4 @@
+schema_version: "1.0"
+pattern_id: SEC-EDM-CONSUMER-PROBLEM
+mappings:
+  edm: {adapter_id: ADAPTER-EDM-JP, existing_module: MOD-STORY-PROBLEM, renderer_owner: skills/edm-generator}

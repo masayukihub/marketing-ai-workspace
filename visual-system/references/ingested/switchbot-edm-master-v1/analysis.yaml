@@ -1,0 +1,37 @@
+schema_version: "1.0"
+reference_id: REF-SWITCHBOT-EDM-MASTER-V1
+analysis_status: COMPLETE_STRUCTURE_ONLY
+source_assessment:
+  preferred_template_system: skills/edm-generator/design_system/templates_v1.0.yaml
+  preferred_module_system: skills/edm-generator/design_system/modules_v1.0.yaml
+  brand_calibration: skills/edm-generator/brand_system/switchbot_approved_reverse_engineering_v1.0.yaml
+  production_gate_owner: skills/edm-generator/production_registry
+  note: Frozen Template and Module systems remain authoritative; this ingestion does not overwrite them.
+extracted_layers:
+  information_architecture:
+    - Product identity should precede deep explanation for a product-first launch.
+    - Complex products need distinct problem, benefit, mechanism, context, UI and action roles when evidence exists.
+  visual_rhythm:
+    - Alternate product evidence, explanation, context and action rather than repeating uniform cards.
+    - Product evidence should re-enter after contextual or dense information stages.
+  section_structure:
+    - Product-first Hero
+    - Consumer Problem
+    - Benefit Summary
+    - Mechanism Proof
+    - Product or Lifestyle Context
+    - App or Automation
+    - Purchase CTA
+    - Legal Note and Brand Footer
+  conversion_pattern:
+    - Keep one primary task and verified destination.
+    - Commerce follows adequate product understanding unless the campaign is explicitly commerce-led.
+  responsive_principle:
+    - Preserve semantic single-column order at 390px.
+    - Do not treat fixed-width historical overflow as a reusable behavior.
+  design_principle:
+    - Product first, evidence linked, restrained action hierarchy, deep compliant closure.
+evidence_limits:
+  - Historical performance is not available as a conversion metric.
+  - Approved historical structure does not approve S30 Product Truth, Claim, Asset, price, CTA, or send readiness.
+  - The extracted Recipe and Section Patterns remain CANDIDATE.

@@ -1,0 +1,7 @@
+schema_version: "1.0"
+pattern_id: SEC-EDM-MECHANISM-PROOF
+slots:
+  - {slot_id: consumer_question, status_required: EVIDENCE_LINKED, missing_behavior: HUMAN_REVIEW}
+  - {slot_id: mechanism_statement, status_required: APPROVED_PRODUCT_TRUTH_AND_CLAIM, missing_behavior: BLOCK}
+  - {slot_id: mechanism_asset, status_required: APPROVED_ASSET, missing_behavior: BLOCK}
+  - {slot_id: conditions_and_limits, status_required: SOURCE_LINKED, missing_behavior: BLOCK_EXTERNAL_COPY}

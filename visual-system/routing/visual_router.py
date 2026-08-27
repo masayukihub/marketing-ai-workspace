@@ -8,6 +8,7 @@ Claims, assets, final visual output, publication, or sending.
 from __future__ import annotations
 
 import argparse
+import copy
 import hashlib
 import json
 import re
@@ -23,6 +24,7 @@ SYSTEM_ROOT = ROOT / "visual-system"
 REGISTRY_FILE = SYSTEM_ROOT / "registry/pattern-registry.yaml"
 WEIGHTS_FILE = SYSTEM_ROOT / "routing/weights.yaml"
 ADAPTERS_FILE = SYSTEM_ROOT / "routing/channel-adapters.yaml"
+RECIPE_REGISTRY_FILE = SYSTEM_ROOT / "registry/page-recipe-registry.yaml"
 WINDOWS_ABSOLUTE_PATH = re.compile(r"^[A-Za-z]:[\\/]")
 
 
@@ -158,6 +160,21 @@ def load_patterns() -> list[dict[str, Any]]:
         pattern["_file"] = str(path.relative_to(ROOT))
         patterns.append(pattern)
     return patterns
+
+
+def load_page_recipes() -> dict[str, dict[str, Any]]:
+    registry = load_yaml(RECIPE_REGISTRY_FILE)
+    recipes = {}
+    for entry in registry.get("recipes", []):
+        path = (RECIPE_REGISTRY_FILE.parent / entry["file"]).resolve()
+        recipe = load_yaml(path)
+        if recipe.get("recipe_id") != entry.get("recipe_id"):
+            raise ValueError(f"Recipe registry id mismatch: {path}")
+        if recipe.get("lifecycle", {}).get("status") != entry.get("status"):
+            raise ValueError(f"Recipe registry status mismatch: {path}")
+        recipe["_file"] = str(path.relative_to(ROOT))
+        recipes[recipe["recipe_id"]] = recipe
+    return recipes
 
 
 def overlap_score(target: list[str], supported: list[str], missing_score: float) -> float:
@@ -297,6 +314,296 @@ def selection_reasons(top: dict[str, Any]) -> list[str]:
     return [f"{labels[key]}={value:.1f}" for key, value in ranked[:4]]
 
 
+MATCH_DIMENSIONS = (
+    "channel_fit",
+    "category_fit",
+    "consumer_goal_fit",
+    "brand_fit",
+    "information_complexity",
+    "mobile_fit",
+)
+
+
+APPROVAL_SCORES = {
+    "approved": 100.0,
+    "verified_for_channel": 100.0,
+    "available": 100.0,
+    "verified": 80.0,
+    "partial": 50.0,
+    "available_review_only": 40.0,
+    "pending_verification": 20.0,
+    "unapproved_or_unverified": 0.0,
+    "missing_or_unverified": 0.0,
+    "unknown": 0.0,
+    "not_available": 0.0,
+}
+
+
+def status_score(value: Any) -> float:
+    return APPROVAL_SCORES.get(normalize(value), 0.0)
+
+
+def metric_status(score: float) -> str:
+    if score >= 75:
+        return "HIGH"
+    if score >= 55:
+        return "MEDIUM"
+    return "LOW"
+
+
+def context_for_channel(context: dict[str, Any], channel: str) -> dict[str, Any]:
+    routed = copy.deepcopy(context)
+    routed["primary_channel"] = channel
+    if channel == "edm":
+        goals = ["understand_launch", "discover_primary_benefit", "reach_single_cta"]
+        principles = values(routed.get("visual_inputs", {}).get("visual_direction", {}).get("principles"))
+        if "mechanism_visible" in principles or "proof_before_persuasion" in principles:
+            goals.append("understand_mechanism")
+        routed.setdefault("visual_inputs", {})["consumer_goals"] = [
+            {"id": goal, "status": "CHANNEL_ROUTING_CANDIDATE"} for goal in goals
+        ]
+    return routed
+
+
+def rank_patterns(
+    context: dict[str, Any],
+    patterns: list[dict[str, Any]],
+    weights: dict[str, float],
+    missing_score: float,
+) -> tuple[list[dict[str, Any]], list[dict[str, str]]]:
+    ranked = []
+    excluded = []
+    for pattern in patterns:
+        score = score_pattern(context, pattern, weights, missing_score)
+        if score["excluded"]:
+            excluded.append({"pattern_id": pattern["pattern_id"], "reason": score["reason"]})
+        else:
+            ranked.append(score)
+    ranked.sort(key=lambda item: (-item["score"], item["pattern_id"]))
+    for index, item in enumerate(ranked, 1):
+        item["rank"] = index
+    return ranked, excluded
+
+
+def pattern_match_metric(top: dict[str, Any], weights: dict[str, float]) -> dict[str, Any]:
+    match_weight = sum(weights[key] for key in MATCH_DIMENSIONS)
+    score = round(sum(top["dimensions"][key] * weights[key] for key in MATCH_DIMENSIONS) / match_weight, 1)
+    return {
+        "score": score,
+        "status": metric_status(score),
+        "dimensions": {key: top["dimensions"][key] for key in MATCH_DIMENSIONS},
+        "note": "Pattern Match excludes execution assets and is not a production decision.",
+    }
+
+
+def project_visual_dna(context: dict[str, Any]) -> dict[str, Any]:
+    visual_inputs = context.get("visual_inputs", {})
+    principles = values(visual_inputs.get("visual_direction", {}).get("principles"))
+    tone = [item for item in principles if item in {"clean", "friendly", "modern", "japan_consumer_friendly", "trust_first"}]
+    if not tone:
+        tone = ["clean"]
+    proof_strategy = "proof_before_persuasion" if "proof_before_persuasion" in principles else "evidence_before_conversion"
+    if "product_first" in principles and "mechanism_visible" in principles:
+        rhythm = "product_first_to_mechanism_to_proof"
+    elif "trust_first" in principles:
+        rhythm = "trust_context_to_evidence_to_action"
+    else:
+        rhythm = "context_to_evidence_to_action"
+    complexity = normalize(visual_inputs.get("information_complexity")) or "unknown"
+    return {
+        "status": "ROUTER_GENERATED_CANDIDATE",
+        "tone": tone,
+        "proof_strategy": proof_strategy,
+        "visual_rhythm": rhythm,
+        "image_strategy": "official_product_and_approved_evidence_only",
+        "information_density": f"{complexity}_structured",
+        "conversion_style": "single_verified_action_after_proof",
+        "mobile_priority": normalize(visual_inputs.get("mobile_priority")) or "unknown",
+        "content_boundary": [
+            "No Product Truth, Claim, price, performance number, specification, or asset is approved by Visual DNA.",
+            "Cross-channel inheritance excludes complete layout and channel-native module geometry.",
+        ],
+    }
+
+
+def execution_readiness(
+    context: dict[str, Any],
+    top: dict[str, Any],
+    freeze: dict[str, Any] | None,
+    recipe: dict[str, Any] | None,
+) -> tuple[dict[str, Any], list[str], list[str]]:
+    governance = context.get("governance", {})
+    truth_status = governance.get("product_truth_status") or context.get("product", {}).get("product_truth_status")
+    claim_status = governance.get("claim_status", "UNAPPROVED_OR_UNVERIFIED")
+    truth_score = status_score(truth_status)
+    claim_score = status_score(claim_status)
+    asset_score = float(top["dimensions"]["asset_availability"])
+    pattern_score = 100.0 if top.get("lifecycle") == "VALIDATED" else 50.0
+    review_clear = (
+        truth_score == 100
+        and claim_score == 100
+        and asset_score == 100
+        and pattern_score == 100
+        and governance.get("human_review_status") in {"APPROVED", "NOT_REQUIRED"}
+        and not (freeze and freeze.get("status") != "APPROVED")
+        and not (recipe and recipe.get("lifecycle", {}).get("status") == "CANDIDATE")
+    )
+    human_score = 100.0 if review_clear else 0.0
+    score = round(
+        truth_score * 0.25 + claim_score * 0.20 + asset_score * 0.35 + pattern_score * 0.10 + human_score * 0.10,
+        1,
+    )
+    blockers = []
+    reason_codes = []
+    if truth_score < 100:
+        blockers.append(f"Product Truth is {truth_status or 'UNKNOWN'}")
+        reason_codes.append("PRODUCT_TRUTH_NOT_APPROVED")
+    if claim_score < 100:
+        blockers.append(f"Claim Gate is {claim_status}")
+        reason_codes.append("CLAIM_GATE_NOT_APPROVED")
+    if asset_score < 100:
+        blockers.append("Required assets are missing, partial, or review-only")
+        reason_codes.append("ASSET_READINESS_BELOW_REQUIRED")
+    if top.get("lifecycle") == "CANDIDATE":
+        blockers.append("Primary Pattern is CANDIDATE")
+        reason_codes.append("PATTERN_CANDIDATE_REQUIRES_REVIEW")
+    if recipe and recipe.get("lifecycle", {}).get("status") == "CANDIDATE":
+        blockers.append("Page Recipe is CANDIDATE")
+        reason_codes.append("RECIPE_CANDIDATE_REQUIRES_REVIEW")
+    if freeze and freeze.get("status") != "APPROVED":
+        blockers.append("Candidate Freeze is not an active APPROVED Freeze")
+        reason_codes.append("CANDIDATE_FREEZE_NOT_APPLIED")
+    if governance.get("human_review_status") == "REQUIRED":
+        reason_codes.append("HUMAN_REVIEW_REQUIRED")
+    if asset_score < 100:
+        status = "BLOCKED_BY_ASSET"
+    elif blockers or not review_clear:
+        status = "HUMAN_REVIEW_REQUIRED"
+    else:
+        status = "READY_FOR_PRODUCTION"
+    metric = {
+        "score": score,
+        "status": status,
+        "components": {
+            "product_truth": {"status": truth_status or "UNKNOWN", "score": truth_score},
+            "claim_gate": {"status": claim_status, "score": claim_score},
+            "required_assets": {"status": "READY" if asset_score == 100 else "INCOMPLETE", "score": asset_score},
+            "pattern_lifecycle": {"status": top.get("lifecycle"), "score": pattern_score},
+            "human_review": {"status": governance.get("human_review_status", "REQUIRED"), "score": human_score},
+        },
+        "note": "Execution Readiness is evaluated independently from Pattern Match.",
+    }
+    return metric, list(dict.fromkeys(blockers)), list(dict.fromkeys(reason_codes))
+
+
+def evidence_confidence_metric(readiness: dict[str, Any]) -> dict[str, Any]:
+    components = readiness["components"]
+    score = round(
+        components["product_truth"]["score"] * 0.35
+        + components["claim_gate"]["score"] * 0.25
+        + components["required_assets"]["score"] * 0.25
+        + components["pattern_lifecycle"]["score"] * 0.15,
+        1,
+    )
+    return {
+        "score": score,
+        "status": metric_status(score),
+        "note": "Confidence reflects governed evidence availability, not predicted conversion performance.",
+    }
+
+
+def freeze_reason_codes(channel: str, freeze: dict[str, Any] | None, freeze_reasons: list[str]) -> list[str]:
+    if not freeze:
+        return ["NO_VISUAL_FREEZE"]
+    codes = []
+    if freeze.get("status") != "APPROVED" or freeze.get("active") is not True:
+        codes.append("CANDIDATE_FREEZE_NOT_APPLIED")
+    if channel not in values(freeze.get("channel_scope")):
+        codes.append("FREEZE_CHANNEL_SCOPE_EXCLUDES_CHANNEL")
+    if any("not supported by Freeze Pattern" in reason for reason in freeze_reasons):
+        codes.append("FREEZE_PATTERN_CHANNEL_INCOMPATIBLE")
+    return list(dict.fromkeys(codes))
+
+
+def channel_assignment(
+    context: dict[str, Any],
+    channel: str,
+    patterns: list[dict[str, Any]],
+    patterns_by_id: dict[str, dict[str, Any]],
+    weights: dict[str, float],
+    missing_score: float,
+    adapters: dict[str, Any],
+    recipes: dict[str, dict[str, Any]],
+    freeze: dict[str, Any] | None,
+) -> tuple[dict[str, Any], list[dict[str, Any]], list[dict[str, str]]]:
+    routed_context = context_for_channel(context, channel)
+    ranked, excluded = rank_patterns(routed_context, patterns, weights, missing_score)
+    if not ranked:
+        raise ValueError(f"No eligible Pattern for channel: {channel}")
+    top = ranked[0]
+    adapter = adapters.get(channel)
+    if not adapter:
+        raise ValueError(f"No channel adapter: {channel}")
+    recipe_config = adapter.get("recipe", {})
+    recipe = recipes.get(recipe_config.get("recipe_id"))
+    inherit, freeze_reasons = approved_freeze_decision(routed_context, freeze, patterns_by_id)
+    readiness, blockers, reason_codes = execution_readiness(routed_context, top, freeze, recipe)
+    match = pattern_match_metric(top, weights)
+    confidence = evidence_confidence_metric(readiness)
+    reason_codes.append(f"PATTERN_MATCH_{match['status']}")
+    reason_codes.extend(freeze_reason_codes(channel, freeze, freeze_reasons))
+    if channel != normalize(context.get("primary_channel")):
+        reason_codes.append("CROSS_CHANNEL_VISUAL_DNA_ONLY")
+    auto_eligible = readiness["status"] == "READY_FOR_PRODUCTION" and top.get("lifecycle") == "VALIDATED"
+    recipe_payload = {
+        "recipe_id": recipe_config.get("recipe_id"),
+        "status": recipe.get("lifecycle", {}).get("status") if recipe else recipe_config.get("status"),
+        "source": recipe.get("_file") if recipe else None,
+        "section_patterns": [
+            item["pattern_id"] for item in (recipe or {}).get("sequence", []) if item.get("pattern_id")
+        ],
+    }
+    return {
+        "primary_pattern": {
+            "pattern_id": top["pattern_id"],
+            "status": top["lifecycle"],
+            "legacy_ranking_score": top["score"],
+        },
+        "supporting_patterns": [item["pattern_id"] for item in ranked[1:3]],
+        "recipe": recipe_payload,
+        "pattern_match": match,
+        "execution_readiness": readiness,
+        "evidence_confidence": confidence,
+        "reason_codes": list(dict.fromkeys(reason_codes)),
+        "blocking_reasons": blockers,
+        "auto_apply": {
+            "eligible": auto_eligible,
+            "scope": "VISUAL_STRUCTURE_ONLY",
+            "status": "ELIGIBLE" if auto_eligible else "BLOCKED",
+        },
+        "freeze": {
+            "applied": inherit,
+            "status": freeze.get("status") if freeze else "NOT_AVAILABLE",
+            "channel_scope": freeze.get("channel_scope", []) if freeze else [],
+            "reason_codes": freeze_reason_codes(channel, freeze, freeze_reasons),
+            "notes": [] if inherit else freeze_reasons,
+        },
+        "inheritance": {
+            "project_visual_dna": True,
+            "layout_from_other_channel": False,
+            "rule": "Cross-channel routing inherits Visual DNA, never a complete channel layout.",
+        },
+        "adapter": {
+            "adapter_id": adapter.get("adapter_id"),
+            "layout_contract": adapter.get("layout_contract"),
+            "existing_skill": adapter.get("existing_skill"),
+            "existing_template": adapter.get("existing_template"),
+            "required_gates": adapter.get("required_gates", []),
+            "source_runtime": adapter.get("source_runtime"),
+        },
+    }, ranked, excluded
+
+
 def build_profile(project_dir: Path) -> dict[str, Any]:
     context_file = project_dir / "project-context.yaml"
     context = load_yaml(context_file)
@@ -309,7 +616,9 @@ def build_profile(project_dir: Path) -> dict[str, Any]:
     thresholds = routing["thresholds"]
     missing_score = float(routing["rules"].get("missing_context_score", 50))
     adapters = load_yaml(ADAPTERS_FILE).get("adapters", {})
-    adapter = adapters.get(normalize(context.get("primary_channel")))
+    recipes = load_page_recipes()
+    primary_channel = normalize(context.get("primary_channel"))
+    adapter = adapters.get(primary_channel)
     if not adapter:
         raise ValueError(f"No channel adapter: {context.get('primary_channel')}")
 
@@ -317,19 +626,29 @@ def build_profile(project_dir: Path) -> dict[str, Any]:
     freeze = load_yaml(freeze_file) if freeze_file.is_file() else None
     inherit, freeze_reasons = approved_freeze_decision(context, freeze, patterns_by_id)
 
-    excluded = []
-    ranked = []
-    for pattern in patterns:
-        score = score_pattern(context, pattern, weights, missing_score)
-        if score["excluded"]:
-            excluded.append({"pattern_id": pattern["pattern_id"], "reason": score["reason"]})
-        else:
-            ranked.append(score)
-    ranked.sort(key=lambda item: (-item["score"], item["pattern_id"]))
-    for index, item in enumerate(ranked, 1):
-        item["rank"] = index
-    if not ranked:
-        raise ValueError("No eligible Pattern for current channel")
+    requested_channels = values(context.get("channels"))
+    channels = list(dict.fromkeys([primary_channel, *requested_channels]))
+    assignments = {}
+    channel_rankings = {}
+    channel_excluded = {}
+    for channel in channels:
+        assignment, channel_ranked, channel_excluded_patterns = channel_assignment(
+            context,
+            channel,
+            patterns,
+            patterns_by_id,
+            weights,
+            missing_score,
+            adapters,
+            recipes,
+            freeze,
+        )
+        assignments[channel] = assignment
+        channel_rankings[channel] = channel_ranked
+        channel_excluded[channel] = channel_excluded_patterns
+
+    ranked = channel_rankings[primary_channel]
+    excluded = channel_excluded[primary_channel]
 
     top = ranked[0]
     fallback = ranked[1]["pattern_id"] if len(ranked) > 1 else None
@@ -363,23 +682,63 @@ def build_profile(project_dir: Path) -> dict[str, Any]:
         mode = "HUMAN_REVIEW_REQUIRED" if human_review_required else "AUTO_ROUTED"
         decision_reasons = selection_reasons(top)
 
+    primary_assignment = assignments[primary_channel]
+    if not inherit:
+        for blocker in primary_assignment["blocking_reasons"]:
+            reason = f"Execution readiness: {blocker}"
+            if reason not in review_reasons:
+                review_reasons.append(reason)
+        human_review_required = bool(review_reasons)
+        mode = "HUMAN_REVIEW_REQUIRED" if human_review_required else "AUTO_ROUTED"
+
     sources = [
         str(context_file.relative_to(ROOT)),
         str(REGISTRY_FILE.relative_to(ROOT)),
         str(WEIGHTS_FILE.relative_to(ROOT)),
         str(ADAPTERS_FILE.relative_to(ROOT)),
         *top.get("sources", []),
+        str(RECIPE_REGISTRY_FILE.relative_to(ROOT)),
     ]
+    for assignment in assignments.values():
+        recipe_source = assignment.get("recipe", {}).get("source")
+        if recipe_source:
+            sources.append(recipe_source)
     if freeze_file.is_file():
         sources.append(str(freeze_file.relative_to(ROOT)))
     sources.extend(context.get("sources", []))
+    normalized_sources = normalize_source_references(sources)
+    downstream_gates = []
+    for assignment in assignments.values():
+        downstream_gates.extend(assignment.get("adapter", {}).get("required_gates", []))
+    downstream_gates = list(dict.fromkeys(downstream_gates))
+    top_reason_codes = []
+    top_blockers = []
+    for assignment in assignments.values():
+        top_reason_codes.extend(assignment.get("reason_codes", []))
+        top_blockers.extend(assignment.get("blocking_reasons", []))
 
     return {
-        "schema_version": "1.0",
+        "schema_version": "1.1",
         "contract": "visual-profile",
         "project_id": context["project_id"],
         "generated_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
         "generated_by": "visual-system/routing/visual_router.py",
+        "project_visual_dna": project_visual_dna(context),
+        "pattern_match": primary_assignment["pattern_match"],
+        "execution_readiness": primary_assignment["execution_readiness"],
+        "evidence_confidence": primary_assignment["evidence_confidence"],
+        "channel_assignments": assignments,
+        "reason_codes": list(dict.fromkeys(top_reason_codes)),
+        "auto_apply": primary_assignment["auto_apply"],
+        "blocking_reasons": list(dict.fromkeys(top_blockers)),
+        "source_provenance": {
+            "status": "MIXED_REVIEW_ONLY",
+            "sources": normalized_sources,
+            "evidence_limits": [
+                "Visual routing does not approve Product Truth, Claim, price, performance, specification, or asset.",
+                "Cross-channel inheritance is limited to Project Visual DNA and excludes complete layout.",
+            ],
+        },
         "decision": {
             "mode": mode,
             "selected_pattern": selected_id,
@@ -397,11 +756,13 @@ def build_profile(project_dir: Path) -> dict[str, Any]:
             "notes": [] if inherit else freeze_reasons,
         },
         "channel_adapter": {
-            "channel": normalize(context.get("primary_channel")),
+            "channel": primary_channel,
             **adapter,
         },
         "ranking": ranked,
         "excluded_patterns": excluded,
+        "channel_rankings": channel_rankings,
+        "channel_excluded_patterns": channel_excluded,
         "boundaries": {
             "does_not_approve": [
                 "Product Truth",
@@ -411,9 +772,9 @@ def build_profile(project_dir: Path) -> dict[str, Any]:
                 "Amazon Upload",
                 "Publication or Send",
             ],
-            "downstream_must_keep": adapter.get("required_gates", []),
+            "downstream_must_keep": downstream_gates,
         },
-        "sources": normalize_source_references(sources),
+        "sources": normalized_sources,
     }
 
 

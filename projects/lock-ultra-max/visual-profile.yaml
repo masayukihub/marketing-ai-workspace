@@ -1,8 +1,184 @@
-schema_version: '1.0'
+schema_version: '1.1'
 contract: visual-profile
 project_id: lock-ultra-max
-generated_at: '2026-08-27T06:11:31+00:00'
+generated_at: '2026-08-27T06:57:57+00:00'
 generated_by: visual-system/routing/visual_router.py
+project_visual_dna:
+  status: ROUTER_GENERATED_CANDIDATE
+  tone:
+  - clean
+  - trust_first
+  proof_strategy: evidence_before_conversion
+  visual_rhythm: trust_context_to_evidence_to_action
+  image_strategy: official_product_and_approved_evidence_only
+  information_density: high_structured
+  conversion_style: single_verified_action_after_proof
+  mobile_priority: high
+  content_boundary:
+  - No Product Truth, Claim, price, performance number, specification, or asset is approved by Visual DNA.
+  - Cross-channel inheritance excludes complete layout and channel-native module geometry.
+pattern_match:
+  score: 98.2
+  status: HIGH
+  dimensions:
+    channel_fit: 100.0
+    category_fit: 100.0
+    consumer_goal_fit: 100.0
+    brand_fit: 94.0
+    information_complexity: 100.0
+    mobile_fit: 90.0
+  note: Pattern Match excludes execution assets and is not a production decision.
+execution_readiness:
+  score: 15.0
+  status: BLOCKED_BY_ASSET
+  components:
+    product_truth:
+      status: PENDING_VERIFICATION
+      score: 20.0
+    claim_gate:
+      status: UNAPPROVED_OR_UNVERIFIED
+      score: 0.0
+    required_assets:
+      status: INCOMPLETE
+      score: 0.0
+    pattern_lifecycle:
+      status: VALIDATED
+      score: 100.0
+    human_review:
+      status: REQUIRED
+      score: 0.0
+  note: Execution Readiness is evaluated independently from Pattern Match.
+evidence_confidence:
+  score: 22.0
+  status: LOW
+  note: Confidence reflects governed evidence availability, not predicted conversion performance.
+channel_assignments:
+  amazon_jp:
+    primary_pattern:
+      pattern_id: VP-AMZ-JAPAN-FIT-TRUST
+      status: VALIDATED
+      legacy_ranking_score: 81.1
+    supporting_patterns:
+    - VP-AMZ-MECHANISM-PROOF
+    recipe:
+      recipe_id: AMAZON_EXISTING_FLOW
+      status: EXISTING_RUNTIME
+      source: null
+      section_patterns: []
+    pattern_match:
+      score: 98.2
+      status: HIGH
+      dimensions:
+        channel_fit: 100.0
+        category_fit: 100.0
+        consumer_goal_fit: 100.0
+        brand_fit: 94.0
+        information_complexity: 100.0
+        mobile_fit: 90.0
+      note: Pattern Match excludes execution assets and is not a production decision.
+    execution_readiness:
+      score: 15.0
+      status: BLOCKED_BY_ASSET
+      components:
+        product_truth:
+          status: PENDING_VERIFICATION
+          score: 20.0
+        claim_gate:
+          status: UNAPPROVED_OR_UNVERIFIED
+          score: 0.0
+        required_assets:
+          status: INCOMPLETE
+          score: 0.0
+        pattern_lifecycle:
+          status: VALIDATED
+          score: 100.0
+        human_review:
+          status: REQUIRED
+          score: 0.0
+      note: Execution Readiness is evaluated independently from Pattern Match.
+    evidence_confidence:
+      score: 22.0
+      status: LOW
+      note: Confidence reflects governed evidence availability, not predicted conversion performance.
+    reason_codes:
+    - PRODUCT_TRUTH_NOT_APPROVED
+    - CLAIM_GATE_NOT_APPROVED
+    - ASSET_READINESS_BELOW_REQUIRED
+    - HUMAN_REVIEW_REQUIRED
+    - PATTERN_MATCH_HIGH
+    - NO_VISUAL_FREEZE
+    blocking_reasons:
+    - Product Truth is PENDING_VERIFICATION
+    - Claim Gate is UNAPPROVED_OR_UNVERIFIED
+    - Required assets are missing, partial, or review-only
+    auto_apply:
+      eligible: false
+      scope: VISUAL_STRUCTURE_ONLY
+      status: BLOCKED
+    freeze:
+      applied: false
+      status: NOT_AVAILABLE
+      channel_scope: []
+      reason_codes:
+      - NO_VISUAL_FREEZE
+      notes:
+      - No visual-freeze.yaml
+    inheritance:
+      project_visual_dna: true
+      layout_from_other_channel: false
+      rule: Cross-channel routing inherits Visual DNA, never a complete channel layout.
+    adapter:
+      adapter_id: ADAPTER-AMAZON-JP
+      layout_contract: AMAZON_GALLERY_APLUS
+      existing_skill: skills/jp-commerce-content-flow
+      existing_template: null
+      required_gates:
+      - Product Truth
+      - Claim Gate
+      - Human Review
+      - Product Layer
+      - Hardening
+      - Mobile QA
+      source_runtime: skills/amazon-japan-pdp-generator
+reason_codes:
+- PRODUCT_TRUTH_NOT_APPROVED
+- CLAIM_GATE_NOT_APPROVED
+- ASSET_READINESS_BELOW_REQUIRED
+- HUMAN_REVIEW_REQUIRED
+- PATTERN_MATCH_HIGH
+- NO_VISUAL_FREEZE
+auto_apply:
+  eligible: false
+  scope: VISUAL_STRUCTURE_ONLY
+  status: BLOCKED
+blocking_reasons:
+- Product Truth is PENDING_VERIFICATION
+- Claim Gate is UNAPPROVED_OR_UNVERIFIED
+- Required assets are missing, partial, or review-only
+source_provenance:
+  status: MIXED_REVIEW_ONLY
+  sources:
+  - projects/lock-ultra-max/project-context.yaml
+  - visual-system/registry/pattern-registry.yaml
+  - visual-system/routing/weights.yaml
+  - visual-system/routing/channel-adapters.yaml
+  - visual-system/patterns/amazon-japan-fit-trust.yaml
+  - skills/amazon-japan-pdp-generator/category-semantics/smart-lock.json
+  - skills/amazon-japan-pdp-generator/reference-library/patterns/story_pattern_library.json
+  - skills/amazon-japan-pdp-generator/reference-library/patterns/gallery_sequence_library.json
+  - skills/amazon-japan-pdp-generator/reference-library/patterns/aplus_sequence_library.json
+  - visual-system/registry/page-recipe-registry.yaml
+  - memory/project-memory/lock-ultra-max-jp/PROJECT.md
+  - memory/project-memory/lock-ultra-max-jp/STATUS.md
+  - memory/project-memory/lock-ultra-max-jp/SOURCES.md
+  - source_id: REF-LOCK-ULTRA-MAX-EDM-PLAN
+    source_type: external_local_project_plan
+    locator_status: REDACTED_LOCAL_PATH
+    availability: LOCAL_ONLY
+    registry_ref: visual-system/registry/reference-registry.yaml#REF-LOCK-ULTRA-MAX-EDM-PLAN
+  evidence_limits:
+  - Visual routing does not approve Product Truth, Claim, price, performance, specification, or asset.
+  - Cross-channel inheritance is limited to Project Visual DNA and excludes complete layout.
 decision:
   mode: HUMAN_REVIEW_REQUIRED
   selected_pattern: VP-AMZ-JAPAN-FIT-TRUST
@@ -16,6 +192,9 @@ decision:
   - Information Complexity=100.0
   review_reasons:
   - Required assets are missing, partial, or not approved
+  - 'Execution readiness: Product Truth is PENDING_VERIFICATION'
+  - 'Execution readiness: Claim Gate is UNAPPROVED_OR_UNVERIFIED'
+  - 'Execution readiness: Required assets are missing, partial, or review-only'
 freeze:
   file_present: false
   status: NOT_AVAILABLE
@@ -38,6 +217,11 @@ channel_adapter:
   - amazon_template_primitives
   - aplus_module_order
   source_runtime: skills/amazon-japan-pdp-generator
+  layout_contract: AMAZON_GALLERY_APLUS
+  recipe:
+    recipe_id: AMAZON_EXISTING_FLOW
+    status: EXISTING_RUNTIME
+  existing_skill: skills/jp-commerce-content-flow
 ranking:
 - excluded: false
   pattern_id: VP-AMZ-JAPAN-FIT-TRUST
@@ -100,6 +284,70 @@ excluded_patterns:
   reason: 'Unsupported channel: amazon_jp'
 - pattern_id: VP-WEB-MODULAR-PROOF
   reason: 'Unsupported channel: amazon_jp'
+channel_rankings:
+  amazon_jp:
+  - excluded: false
+    pattern_id: VP-AMZ-JAPAN-FIT-TRUST
+    name: Amazon JP Japan Fit → Trust → Installation Confidence
+    lifecycle: VALIDATED
+    score: 81.1
+    dimensions:
+      channel_fit: 100.0
+      category_fit: 100.0
+      consumer_goal_fit: 100.0
+      brand_fit: 94.0
+      information_complexity: 100.0
+      asset_availability: 0.0
+      mobile_fit: 90.0
+      historical_performance: 50.0
+    required_asset_gaps:
+    - asset: official_product
+      status: MISSING_OR_UNVERIFIED
+    - asset: installation_proof
+      status: MISSING_OR_UNVERIFIED
+    - asset: compatibility_proof
+      status: MISSING_OR_UNVERIFIED
+    historical_performance_status: UNKNOWN
+    sources:
+    - visual-system/patterns/amazon-japan-fit-trust.yaml
+    - skills/amazon-japan-pdp-generator/category-semantics/smart-lock.json
+    - skills/amazon-japan-pdp-generator/reference-library/patterns/story_pattern_library.json
+    - skills/amazon-japan-pdp-generator/reference-library/patterns/gallery_sequence_library.json
+    - skills/amazon-japan-pdp-generator/reference-library/patterns/aplus_sequence_library.json
+    rank: 1
+  - excluded: false
+    pattern_id: VP-AMZ-MECHANISM-PROOF
+    name: Amazon JP Mechanism → Performance → Confidence
+    lifecycle: VALIDATED
+    score: 54.5
+    dimensions:
+      channel_fit: 100.0
+      category_fit: 0.0
+      consumer_goal_fit: 25.0
+      brand_fit: 92.0
+      information_complexity: 100.0
+      asset_availability: 0.0
+      mobile_fit: 88.0
+      historical_performance: 50.0
+    required_asset_gaps:
+    - asset: official_product
+      status: MISSING_OR_UNVERIFIED
+    - asset: mechanism_proof
+      status: MISSING_OR_UNVERIFIED
+    historical_performance_status: UNKNOWN
+    sources:
+    - visual-system/patterns/amazon-mechanism-proof.yaml
+    - skills/amazon-japan-pdp-generator/reference-library/patterns/story_pattern_library.json
+    - skills/amazon-japan-pdp-generator/reference-library/patterns/gallery_sequence_library.json
+    - skills/amazon-japan-pdp-generator/reference-library/patterns/aplus_sequence_library.json
+    - skills/amazon-japan-pdp-generator/reference-library/layout/layout_primitive_mapping.json
+    rank: 2
+channel_excluded_patterns:
+  amazon_jp:
+  - pattern_id: VP-EDM-COMPLEX-LAUNCH
+    reason: 'Unsupported channel: amazon_jp'
+  - pattern_id: VP-WEB-MODULAR-PROOF
+    reason: 'Unsupported channel: amazon_jp'
 boundaries:
   does_not_approve:
   - Product Truth
@@ -125,6 +373,7 @@ sources:
 - skills/amazon-japan-pdp-generator/reference-library/patterns/story_pattern_library.json
 - skills/amazon-japan-pdp-generator/reference-library/patterns/gallery_sequence_library.json
 - skills/amazon-japan-pdp-generator/reference-library/patterns/aplus_sequence_library.json
+- visual-system/registry/page-recipe-registry.yaml
 - memory/project-memory/lock-ultra-max-jp/PROJECT.md
 - memory/project-memory/lock-ultra-max-jp/STATUS.md
 - memory/project-memory/lock-ultra-max-jp/SOURCES.md

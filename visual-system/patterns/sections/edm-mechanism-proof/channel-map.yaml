@@ -1,0 +1,7 @@
+schema_version: "1.0"
+pattern_id: SEC-EDM-MECHANISM-PROOF
+mappings:
+  edm:
+    adapter_id: ADAPTER-EDM-JP
+    existing_modules: [MOD-STORY-PRODUCT-DETAIL, MOD-STORY-FEATURE-SPLIT]
+    renderer_owner: skills/edm-generator

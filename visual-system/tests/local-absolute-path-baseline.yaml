@@ -1,0 +1,39 @@
+schema_version: "1.0"
+baseline_commit: 787acb4fe2ba3bdc34eccf876fb86240cfa74f40
+baseline_file_count: 29
+baseline_occurrence_count: 80
+path_prefix_components: [root, Users, account]
+allowlist:
+  docs/GITHUB_WORKSPACE_SETUP_REPORT.md: 4
+  memory/project-memory/s30-mini/SOURCES.md: 2
+  scripts/build_skill_inventory.py: 9
+  skills/customer-review-intelligence/README.md: 5
+  skills/customer-review-intelligence/SKILL.md: 4
+  skills/edm-generator/generator/generator_logic_v1.0/logic/support.rb: 1
+  skills/edm-generator/generator/generator_logic_v1.0/rules/edm_design_rules_v1.0.yaml: 1
+  skills/edm-generator/generator/generator_logic_v1.0/rules/edm_design_standard_v1.0.md: 1
+  skills/edm-generator/generator/support.rb: 1
+  skills/edm-generator/production_pipeline/lib/pipeline.rb: 1
+  skills/edm-generator/production_readiness/inspect_product_knowledge.py: 1
+  skills/edm-generator/production_registry/claims/claim_registry.yaml: 2
+  skills/edm-generator/production_registry/products/daily_station.yaml: 4
+  skills/edm-generator/production_registry/products/lock_ultra.yaml: 4
+  skills/edm-generator/production_truth/claims/daily_station.yaml: 2
+  skills/edm-generator/production_truth/claims/lock_ultra.yaml: 4
+  skills/edm-generator/production_truth/manifest.yaml: 1
+  skills/edm-generator/production_truth/pricing/daily_station.yaml: 1
+  skills/edm-generator/production_truth/pricing/lock_ultra.yaml: 1
+  skills/edm-generator/production_truth/products/daily_station.yaml: 9
+  skills/edm-generator/production_truth/products/lock_ultra.yaml: 13
+  skills/edm-generator/renderer/README.md: 2
+  skills/edm-generator/renderer/qa/browser_run.js: 1
+  skills/edm-generator/renderer/qa/review_browser_run.js: 1
+  skills/edm-generator/standards/edm_design_rules_v1.0.yaml: 1
+  skills/edm-generator/standards/edm_design_standard_v1.0.md: 1
+  skills/product-knowledge/outputs/validation_report.md: 1
+  skills/product-knowledge/scripts/create_templates_fallback.py: 1
+  tests/validate_workspace.py: 1
+rules:
+  - Existing allowlisted files may decrease or remove local absolute paths.
+  - A new file containing a local user-home path fails CI.
+  - An allowlisted file exceeding its baseline occurrence count fails CI.
