@@ -2,9 +2,10 @@
 
 ## Before a project task
 
-1. Query `PROJECT_INDEX.md` by `project_id` or exact project name.
-2. Read the smallest matching context and relevant decision record.
-3. For product facts, invoke Product Knowledge and verify canonical sources as required.
+1. For an existing `marketing-ai-workspace` project, resolve `projects/<project-id>/project.yaml` through `project-context-resolver`.
+2. Follow only the returned `project_memory` and `decisions` pointers. Use a generated `PROJECT_INDEX.md` only when operating on a separate bootstrap repository that actually contains it.
+3. Read the smallest matching context and relevant decision record.
+4. For product facts, invoke Product Knowledge and verify canonical sources as required.
 
 ## During a project task
 
@@ -13,6 +14,8 @@ Label conclusions as Fact, Insight, Hypothesis, or Recommendation. Do not presen
 ## After a project task
 
 Propose a write-back only for a durable fact, confirmed decision, reusable learning, material risk, or major result. Include the source, date, scope, confidence, and whether review is required. Do not overwrite the context directly when the change is major or conflicted.
+
+After the responsible memory/decision review is accepted, update only the corresponding Manifest navigation, gate, blocker, or next-action field. Do not make the execution Skill write every layer itself.
 
 ## Recommended consumers
 

@@ -1,0 +1,68 @@
+manifest_version: "1.0"
+project_id: daily-station
+project_name: Daily Station Japan
+aliases:
+  - Daily Station
+  - SwitchBot Daily Station
+  - daily-station-jp
+market: Japan
+status: active
+lifecycle_stage: discovery
+sources:
+  product_truth: ../../skills/product-knowledge/products/daily-station.md
+  project_memory: ../../memory/project-memory/daily-station-jp/PROJECT.md
+  decisions: ../../memory/project-memory/daily-station-jp/DECISIONS.md
+  approved_claims: null
+  visual_profile: null
+  visual_freeze: null
+  assets: null
+current_phase: discovery_and_context_consolidation
+gate_status:
+  overall: blocked
+  project_context: in_progress
+  product_truth: blocked
+  asset_approval: blocked
+approved: []
+blocking_items:
+  - blocker_id: DS-PRODUCT-TRUTH
+    summary: Product Truth and Claims remain Pending Verification.
+    status: blocked
+    source: ../../memory/project-memory/daily-station-jp/STATUS.md
+  - blocker_id: DS-ASSET-APPROVAL
+    summary: Official asset availability and usage approval remain unconfirmed.
+    status: blocked
+    source: ../../memory/project-memory/daily-station-jp/TODO.md
+latest_decision:
+  status: none_confirmed
+  decision_id: null
+  summary: null
+  source: ../../memory/project-memory/daily-station-jp/DECISIONS.md
+next_actions:
+  p0:
+    - action_id: DS-P0-TRUTH-AUDIT
+      action: Review current Product Truth and official Claim sources.
+      status: not_started
+      requires_human_approval: false
+      source: ../../memory/project-memory/daily-station-jp/TODO.md
+    - action_id: DS-P0-ASSET-APPROVAL
+      action: Confirm official assets and their usage approval.
+      status: not_started
+      requires_human_approval: true
+      source: ../../memory/project-memory/daily-station-jp/TODO.md
+  p1:
+    - action_id: DS-P1-PROJECT-STATE
+      action: Confirm the project owner, launch stage, and channel status.
+      status: not_started
+      requires_human_approval: true
+      source: ../../memory/project-memory/daily-station-jp/TODO.md
+  p2: []
+skills:
+  primary:
+    - project-context-resolver
+    - project-memory-manager
+    - product-knowledge
+  optional:
+    - switchbot-campaign-review
+    - customer-review-intelligence
+    - amazon-japan-pdp-generator
+last_updated: 2026-08-27

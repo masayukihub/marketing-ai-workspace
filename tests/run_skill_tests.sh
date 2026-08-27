@@ -2,6 +2,7 @@
 set -euo pipefail
 
 python3 -m pytest -q skills/product-knowledge/tests
+python3 -m pytest -q skills/project-context-resolver/tests
 python3 -m pytest -q skills/switchbot-campaign-review/tests
 python3 -m pytest -q skills/customer-review-intelligence/tests
 

@@ -1,0 +1,69 @@
+manifest_version: "1.0"
+project_id: s30-mini
+project_name: S30 mini Japan
+aliases:
+  - S30 mini
+  - SwitchBot S30 mini
+  - s30-mini-jp
+market: Japan
+status: active
+lifecycle_stage: validation
+sources:
+  product_truth: null
+  project_memory: ../../memory/project-memory/s30-mini/PROJECT.md
+  decisions: ../../memory/project-memory/s30-mini/DECISIONS.md
+  approved_claims: null
+  visual_profile: null
+  visual_freeze: null
+  assets: null
+current_phase: context_migration_and_gate_1_evidence_review
+gate_status:
+  overall: blocked
+  project_context: in_progress
+  product_truth: blocked
+  human_review: not_started
+approved: []
+blocking_items:
+  - blocker_id: S30-PRODUCT-TRUTH
+    summary: Approved Product Truth and Claims have not been confirmed.
+    status: blocked
+    source: ../../memory/project-memory/s30-mini/STATUS.md
+  - blocker_id: S30-COMMERCIAL
+    summary: Japan official name, SKU, price, and launch build remain unconfirmed.
+    status: blocked
+    source: ../../memory/project-memory/s30-mini/TODO.md
+latest_decision:
+  status: none_confirmed
+  decision_id: null
+  summary: null
+  source: ../../memory/project-memory/s30-mini/DECISIONS.md
+next_actions:
+  p0:
+    - action_id: S30-P0-SOURCE-AUDIT
+      action: Locate and review the current authoritative Product Truth and Claim approval sources.
+      status: not_started
+      requires_human_approval: false
+      source: ../../memory/project-memory/s30-mini/TODO.md
+    - action_id: S30-P0-COMMERCIAL-REVIEW
+      action: Confirm the Japan official product name, SKU, price, and launch build from authoritative sources.
+      status: not_started
+      requires_human_approval: true
+      source: ../../memory/project-memory/s30-mini/TODO.md
+  p1:
+    - action_id: S30-P1-MIGRATION-SCOPE
+      action: Select project documents that can be migrated without copying production assets.
+      status: not_started
+      requires_human_approval: false
+      source: ../../memory/project-memory/s30-mini/TODO.md
+  p2: []
+skills:
+  primary:
+    - project-context-resolver
+    - project-memory-manager
+    - product-knowledge
+  optional:
+    - amazon-japan-pdp-generator
+    - amazon-listing-creative
+    - switchbot-campaign-review
+    - customer-review-intelligence
+last_updated: 2026-08-27

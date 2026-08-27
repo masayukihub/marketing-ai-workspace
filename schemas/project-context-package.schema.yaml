@@ -1,0 +1,66 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://github.com/laixiaohong/marketing-ai-workspace/schemas/project-context-package.schema.yaml
+title: Project Context Package
+description: Minimal task-scoped context returned by project-context-resolver.
+type: object
+additionalProperties: false
+required:
+  - project
+  - task_type
+  - current_stage
+  - current_truth
+  - approved_decisions
+  - blocking_items
+  - required_sources
+  - relevant_skills
+  - next_valid_actions
+  - warnings
+properties:
+  project:
+    type: object
+    required: [project_id, project_name, manifest_path]
+    additionalProperties: false
+    properties:
+      project_id: {type: string}
+      project_name: {type: string}
+      manifest_path: {type: string}
+  task_type:
+    enum: [GTM, Amazon, PR, KOL, Campaign, VOC, Competitor, Design, Visual, Product Knowledge, Website, SEO, Review]
+  current_stage:
+    type: object
+    required: [lifecycle_stage, current_phase, gate_status]
+    additionalProperties: false
+    properties:
+      lifecycle_stage: {type: string}
+      current_phase: {type: string}
+      gate_status: {type: object}
+  current_truth:
+    type: object
+    required: [status, source]
+    additionalProperties: false
+    properties:
+      status: {type: string}
+      source: {}
+  approved_decisions: {type: array}
+  blocking_items: {type: array}
+  required_sources:
+    type: array
+    items:
+      type: object
+      required: [kind, status, paths]
+      additionalProperties: false
+      properties:
+        kind: {type: string}
+        status: {enum: [available, missing]}
+        paths:
+          type: array
+          items: {type: string}
+  relevant_skills:
+    type: object
+    required: [primary, optional]
+    additionalProperties: false
+    properties:
+      primary: {type: array, items: {type: string}}
+      optional: {type: array, items: {type: string}}
+  next_valid_actions: {type: array}
+  warnings: {type: array, items: {type: string}}

@@ -14,6 +14,10 @@ description: "收集、规范化、去重、映射、分类并分析 SwitchBot �
 
 Build an auditable Japanese-market VOC history. Separate actual user feedback from owned, paid, syndicated, or unavailable evidence.
 
+## Project context preflight
+
+For a named existing project, run `project-context-resolver` first and consume only VOC-scoped Project Memory, decisions, and Product Truth. A VOC result may propose a durable learning or risk to Project Memory, but it must not directly promote Product Truth, decisions, or project stage.
+
 ## Required workflow
 
 1. Read [standard_run_contract.md](references/standard_run_contract.md), [collection_rules.md](references/collection_rules.md), [data_contract.md](references/data_contract.md), and [analysis_rules.md](references/analysis_rules.md). For product, marketing, EC, support, or management deliverables, also read [business_application_rules.md](references/business_application_rules.md). For a Feishu Miaoda handoff or application, also read [miaoda_integration.md](references/miaoda_integration.md) and use `$lark-apps` for external app actions. When the user requests a Feishu Base / 多维表格 operating layer, also read [feishu_base_operations.md](references/feishu_base_operations.md) and use `$lark-base`.

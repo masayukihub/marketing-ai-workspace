@@ -13,10 +13,13 @@ Do not make it a document backup or a product-fact authority. Product specs, pri
 
 ## Start
 
-1. Read the smallest relevant record in `<workspace>/project-memory/PROJECT_INDEX.md`.
-2. Read that project's `project_context.md`, `decisions.md`, and only necessary source records.
-3. Check `Status`, `Last Updated`, `Confidence`, source dates, and open questions before relying on context.
-4. Keep `FACT`, `DECISION`, `HYPOTHESIS`, `RECOMMENDATION`, `UNVERIFIED`, and `OUTDATED` distinct.
+1. For an existing named repository project, first run `project-context-resolver` and read `projects/<project-id>/project.yaml`.
+2. Follow the Manifest's `sources.project_memory` and `sources.decisions` pointers. In this repository they resolve under `memory/project-memory/`; do not assume a root-level `project-memory/PROJECT_INDEX.md` exists.
+3. Read only the task-relevant Project Memory, decision, and source records returned by the Context Package.
+4. Check `Status`, `Last Updated`, `Confidence`, source dates, and open questions before relying on context.
+5. Keep `FACT`, `DECISION`, `HYPOTHESIS`, `RECOMMENDATION`, `UNVERIFIED`, and `OUTDATED` distinct.
+
+Use the legacy generated `PROJECT_INDEX.md` workflow only for bootstrap/full audit outputs created by this Skill. Do not make it a prerequisite for existing `marketing-ai-workspace` projects.
 
 If the repository does not exist, or a full audit is requested, use the bootstrap workflow below.
 

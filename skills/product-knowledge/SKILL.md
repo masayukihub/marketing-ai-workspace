@@ -7,6 +7,10 @@ description: Use the SwitchBot Japan Product Knowledge Hub to retrieve, verify, 
 
 Use this Skill as the SwitchBot Japan product-fact gate and reusable marketing knowledge hub.
 
+## Project context preflight
+
+When the request names an existing repository project, first consume the `project-context-resolver` Context Package. Use its identity, stage, blockers, and Product Truth pointer; then apply this Skill's canonical fact checks. The Manifest never approves a product fact or Claim, and projectless product lookup continues to use the normal entity index.
+
 ## Architecture
 
 - **Feishu** is the primary discovery and evidence source. Search it before asking the user to download documents.

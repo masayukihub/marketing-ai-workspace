@@ -20,22 +20,23 @@
 
 ## 如何让 Codex 工作
 
-直接说明项目、目标、来源、期望输出和允许的修改范围。例如：
+项目型任务先由 `project-context-resolver` 读取轻量 Manifest，生成最小 Context Package，再进入执行 Skill。直接说明项目、目标、来源、期望输出和允许的修改范围。例如：
 
 ```text
-读取 memory/project-memory/s30-mini 后，检查对应 Skill，
+解析 S30 mini 项目后，只读取 Amazon 所需 Context，
 在 feature/s30-pdp 分支更新 Amazon PDP 流程；不要修改产品事实，完成后运行测试。
 ```
 
-Codex 必须先读取根目录 `AGENTS.md`，再读取项目的 Project Memory。
+Codex 必须先读取根目录 `AGENTS.md`，再解析 `projects/<project-id>/project.yaml`。Manifest 只负责导航、当前 Gate、Blocker 和 Next Action；Product Truth 与 Project Memory 仍由原有系统负责。
 
 ## 新增 Project
 
 1. 从 `memory/project-memory/_template/` 复制一个目录。
 2. 命名使用小写英文和连字符，例如 `hub-3-jp`。
 3. 填写 `PROJECT.md`、`STATUS.md`、`DECISIONS.md`、`SOURCES.md` 和 `TODO.md`。
-4. 未确认内容标记 `UNKNOWN` 或 `NEED_CONFIRMATION`。
-5. 在 `projects/<project>/README.md` 建立工作入口。
+4. 在 `projects/<project-id>/project.yaml` 建立轻量 Manifest，并通过 Resolver 校验。
+5. 未确认内容标记 `UNKNOWN` 或 `NEED_CONFIRMATION`，对应 Source 指针用 `null`。
+6. 在 `projects/<project-id>/README.md` 保留人类可读入口。
 
 ## 更新 Skill
 

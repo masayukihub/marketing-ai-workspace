@@ -1,3 +1,4 @@
 # homerunPET
 
-项目上下文：[`memory/project-memory/homerunpet-jp/`](../../memory/project-memory/homerunpet-jp/PROJECT.md)
+- 项目入口：[`project.yaml`](project.yaml)
+- Project Memory：[`memory/project-memory/homerunpet-jp/`](../../memory/project-memory/homerunpet-jp/PROJECT.md)

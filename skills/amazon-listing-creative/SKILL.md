@@ -7,6 +7,10 @@ description: "基于已确认的产品事实，规划、评审和迭代 Amazon L
 
 把产品事实转化为消费者能在 3 秒内理解的 Amazon 视觉销售故事。先锁定事实和唯一信息，再设计创意；不要用视觉想象补齐未知产品信息。
 
+## Project context preflight
+
+若用户指定现有项目，先使用 `project-context-resolver`，只读取 Amazon Context Package 返回的 Product Truth、Decision、Approved Claim、Visual Profile/Freeze 与 Asset。Manifest 只负责导航和 Gate，不替代 Fact Lock。
+
 ## 先确定工作模式
 
 根据用户目标选择一种模式，并在输出开头说明：

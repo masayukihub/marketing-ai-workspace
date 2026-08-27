@@ -2,11 +2,13 @@
 
 ## 执行顺序
 
-1. 修改前读取对应 `memory/project-memory/<project>/`。
-2. 查询最小必要来源；产品事实优先使用 Product Knowledge 和官方 Source。
-3. 区分 `FACT`、`DECISION`、`HYPOTHESIS`、`RECOMMENDATION`。
-4. 找不到证据时写 `UNKNOWN` 或 `NEED_CONFIRMATION`，不得补全。
-5. 飞书、正式数据库和官方素材库是只读 Source of Record，除非用户明确授权写入。
+1. 项目型任务先通过 `skills/project-context-resolver/` 解析 `projects/<project-id>/project.yaml`。
+2. 只读取 Context Package 返回的最小必要来源；再读取对应 `memory/project-memory/<project>/`。
+3. 产品事实优先使用 Product Knowledge 和官方 Source；Manifest 不充当产品事实库。
+4. 验证当前 Gate，再执行目标 Skill；Human Approval 未完成时停在 Review Package。
+5. 区分 `FACT`、`DECISION`、`HYPOTHESIS`、`RECOMMENDATION`。
+6. 找不到证据时写 `UNKNOWN` 或 `NEED_CONFIRMATION`，不得补全。
+7. 飞书、正式数据库和官方素材库是只读 Source of Record，除非用户明确授权写入。
 
 ## Git 与变更
 
