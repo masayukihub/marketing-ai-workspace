@@ -11,7 +11,6 @@ required:
   - aliases
   - manifest_updated_at
   - state_as_of
-  - freshness_status
   - freshness_sources
   - market
   - status
@@ -47,7 +46,11 @@ properties:
   state_as_of:
     type: [string, "null"]
     format: date
+  freshness_status_at_manifest_update:
+    description: Freshness assessment recorded when the Manifest was maintained; runtime freshness is computed only by the resolver.
+    enum: [current, stale, unknown]
   freshness_status:
+    description: Deprecated compatibility field. New Manifests use freshness_status_at_manifest_update.
     enum: [current, stale, unknown]
   freshness_sources:
     type: array
@@ -142,6 +145,9 @@ properties:
   last_updated:
     type: string
     format: date
+oneOf:
+  - required: [freshness_status_at_manifest_update]
+  - required: [freshness_status]
 $defs:
   source_pointer:
     oneOf:

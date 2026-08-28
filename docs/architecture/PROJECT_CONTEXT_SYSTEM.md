@@ -32,7 +32,7 @@ The checked-in `skills/` tree is the formal runtime. Commands must call reposito
 python3 skills/project-memory-manager/scripts/project_memory.py --workspace . --mode check
 ```
 
-`$HOME/.codex/skills/` is only an installation mirror. Before any explicit mirror diagnostic, compare the runtime bundle with `verify_global_mirror.py`. `GLOBAL_SKILL_DRIFT` blocks global execution; it never causes an automatic fallback.
+`$CODEX_HOME/skills/` is only an installation mirror. Before any explicit mirror diagnostic, validate every locked Runtime with `scripts/verify_codex_runtime.py`. `RUNTIME_DRIFT`, `MIRROR_MISSING`, or `REPOSITORY_RUNTIME_MISSING` blocks global execution; it never causes an automatic fallback.
 
 ## Project Manifest contract
 
@@ -42,7 +42,7 @@ The Manifest is intentionally lightweight. It may contain source paths and a sho
 
 `projects/<project-id>/project.yaml` is the version-controlled formal status for resolver conflicts. Project Memory remains the descriptive source behind it.
 
-`manifest_updated_at` records when navigation metadata changed. `state_as_of` records when the project status sources were actually verified. `freshness_status` and `freshness_sources` make that distinction auditable; the active-project threshold is configured in `skills/project-context-resolver/config/freshness.yaml`.
+`manifest_updated_at` records when navigation metadata changed. `state_as_of` records when the project status sources were actually verified. `freshness_status_at_manifest_update` records the maintenance-time assessment and `freshness_sources` records its basis. The active-project threshold is configured in `skills/project-context-resolver/config/freshness.yaml`; only the Resolver's `effective_freshness_status` is valid for runtime execution.
 
 ## Context Package contract
 
@@ -67,7 +67,7 @@ The package contains paths and status, not copied source bodies. The consuming S
 
 ## Freshness contract
 
-- `manifest_updated_at` never substitutes for `state_as_of`.
+- `manifest_updated_at` and `freshness_status_at_manifest_update` never substitute for `state_as_of` or runtime `effective_freshness_status`.
 - Active state older than `active_project_max_age_days` becomes `stale` and emits `PROJECT_STATE_STALE`.
 - Missing, invalid, future-dated, or explicitly unknown state becomes `unknown`.
 - With `stale` or `unknown` state, only `read_only_audit`, `source_refresh`, and `human_review_preparation` are eligible.

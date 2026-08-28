@@ -12,9 +12,9 @@ alias_notes:
   S20 mini: Project routing alias only; does not approve an external product name.
   SwitchBot S20 mini: Project routing alias only; does not approve an external product name.
   s20-mini: Project routing alias only; does not approve an external product name.
-manifest_updated_at: "2026-08-28T12:17:51+08:00"
+manifest_updated_at: "2026-08-28T18:15:12+08:00"
 state_as_of: "2026-08-20"
-freshness_status: current
+freshness_status_at_manifest_update: stale
 freshness_sources:
   - ../../memory/project-memory/s30-mini/STATUS.md
   - ../../memory/project-memory/s30-mini/TODO.md

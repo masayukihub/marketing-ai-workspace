@@ -9,7 +9,7 @@ Read these repository-level contracts when changing resolver behavior or connect
 
 The Manifest is the current navigation/status contract. It does not replace the source files it points to.
 
-`manifest_updated_at` is infrastructure metadata. `state_as_of`, `freshness_status`, and `freshness_sources` describe the verified state basis. The resolver recalculates effective freshness using `config/freshness.yaml`; a recent Manifest edit cannot make old state current.
+`manifest_updated_at` is infrastructure metadata. `state_as_of`, `freshness_status_at_manifest_update`, and `freshness_sources` describe the state basis at maintenance time. The resolver emits `effective_freshness_status` dynamically using `config/freshness.yaml`; neither a recent Manifest edit nor the static maintenance-time value can make old state current. The legacy `freshness_status` key is accepted only as a compatibility input and emits a warning.
 
 Unknown project names return the non-mutating `PROJECT_BOOTSTRAP_REQUIRED` result. Only `project-memory-manager` discovery review may follow; no project directory, Product Knowledge record, or execution Skill is created or invoked.
 

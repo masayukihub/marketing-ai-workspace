@@ -47,13 +47,13 @@ $defs:
           gate_status: {type: object}
       freshness:
         type: object
-        required: [manifest_updated_at, state_as_of, declared_status, effective_status, evaluated_at, threshold_days, age_days, sources]
+        required: [manifest_updated_at, state_as_of, status_at_manifest_update, effective_freshness_status, evaluated_at, threshold_days, age_days, sources]
         additionalProperties: false
         properties:
           manifest_updated_at: {type: string}
           state_as_of: {type: [string, "null"]}
-          declared_status: {enum: [current, stale, unknown]}
-          effective_status: {enum: [current, stale, unknown]}
+          status_at_manifest_update: {enum: [current, stale, unknown]}
+          effective_freshness_status: {enum: [current, stale, unknown]}
           evaluated_at: {type: string}
           threshold_days: {type: integer, minimum: 1}
           age_days: {type: [integer, "null"]}

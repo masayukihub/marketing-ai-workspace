@@ -179,8 +179,7 @@ def validate_manifest(path: Path, workspace: Path) -> list[str]:
         "manifest_version", "project_id", "project_name", "aliases", "market",
         "status", "lifecycle_stage", "sources", "current_phase", "gate_status",
         "approved", "blocking_items", "latest_decision", "next_actions", "skills",
-        "last_updated", "manifest_updated_at", "state_as_of", "freshness_status",
-        "freshness_sources",
+        "last_updated", "manifest_updated_at", "state_as_of", "freshness_sources",
     )
     for key in required:
         if key not in data:
@@ -313,9 +312,16 @@ def validate_manifest(path: Path, workspace: Path) -> list[str]:
             date.fromisoformat(str(state_as_of))
         except ValueError:
             errors.append("STATE_AS_OF_MUST_BE_DATE_OR_NULL")
-    if data.get("freshness_status") not in FRESHNESS_STATUSES:
-        errors.append(f"INVALID_FRESHNESS_STATUS:{data.get('freshness_status')}")
-    if data.get("freshness_status") == "current" and state_as_of is None:
+    status_at_update = data.get("freshness_status_at_manifest_update")
+    legacy_status = data.get("freshness_status")
+    if status_at_update is not None and legacy_status is not None:
+        errors.append("FRESHNESS_STATUS_FIELDS_ARE_MUTUALLY_EXCLUSIVE")
+    declared_status = status_at_update if status_at_update is not None else legacy_status
+    if declared_status is None:
+        errors.append("MISSING_REQUIRED_FIELD:freshness_status_at_manifest_update")
+    elif declared_status not in FRESHNESS_STATUSES:
+        errors.append(f"INVALID_FRESHNESS_STATUS:{declared_status}")
+    if declared_status == "current" and state_as_of is None:
         errors.append("CURRENT_FRESHNESS_REQUIRES_STATE_AS_OF")
     freshness_sources = data.get("freshness_sources")
     if not isinstance(freshness_sources, list) or not freshness_sources:
@@ -510,9 +516,15 @@ def evaluate_freshness(
 ) -> tuple[dict[str, Any], list[str]]:
     threshold_days = load_freshness_threshold(workspace)
     as_of = as_of or date.today()
-    declared_status = manifest.get("freshness_status", "unknown")
+    legacy_status_used = "freshness_status_at_manifest_update" not in manifest and "freshness_status" in manifest
+    declared_status = manifest.get(
+        "freshness_status_at_manifest_update",
+        manifest.get("freshness_status", "unknown"),
+    )
     state_value = manifest.get("state_as_of")
     warnings: list[str] = []
+    if legacy_status_used:
+        warnings.append("LEGACY_FRESHNESS_FIELD:freshness_status")
     state_date: date | None = None
     age_days: int | None = None
 
@@ -531,15 +543,9 @@ def evaluate_freshness(
             "PROJECT_STATE_STALE:"
             f"state_as_of={state_date.isoformat()};age_days={age_days};threshold_days={threshold_days}"
         )
-    elif declared_status == "stale":
-        effective_status = "stale"
-        warnings.append(
-            "PROJECT_STATE_STALE:"
-            f"declared_status=stale;state_as_of={state_date.isoformat()};threshold_days={threshold_days}"
-        )
     elif declared_status == "unknown":
         effective_status = "unknown"
-        warnings.append("PROJECT_STATE_UNKNOWN:manifest freshness_status is unknown")
+        warnings.append("PROJECT_STATE_UNKNOWN:manifest freshness status at update is unknown")
     else:
         effective_status = "current"
 
@@ -552,8 +558,8 @@ def evaluate_freshness(
     return {
         "manifest_updated_at": str(manifest.get("manifest_updated_at")),
         "state_as_of": None if state_date is None else state_date.isoformat(),
-        "declared_status": declared_status,
-        "effective_status": effective_status,
+        "status_at_manifest_update": declared_status,
+        "effective_freshness_status": effective_status,
         "evaluated_at": as_of.isoformat(),
         "threshold_days": threshold_days,
         "age_days": age_days,
@@ -717,7 +723,11 @@ def build_context(
         "blocking_items": task_blocking_items,
         "required_sources": source_rows,
         "relevant_skills": skill_rows,
-        "next_valid_actions": select_next_action(manifest, freshness["effective_status"], task_type),
+        "next_valid_actions": select_next_action(
+            manifest,
+            freshness["effective_freshness_status"],
+            task_type,
+        ),
         "warnings": sorted(set(warnings)),
     }
 

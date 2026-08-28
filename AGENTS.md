@@ -2,15 +2,22 @@
 
 ## 执行顺序
 
-1. 仓库内 Skill 与脚本是正式执行版本；不得默认调用 `$HOME/.codex/skills/`。全局镜像只有 hash 一致时可用于诊断，不一致必须输出 `GLOBAL_SKILL_DRIFT`。
+1. GitHub `main` 的仓库内 Skill 与脚本是正式执行版本；不得默认调用 `$CODEX_HOME/skills/`。全局目录只是安装镜像，必须通过 `runtime/skill-lock.json` 和 `scripts/verify_codex_runtime.py` 验证；`RUNTIME_DRIFT` 或 `MIRROR_MISSING` 时不得静默使用。
 2. 项目型任务先通过 `skills/project-context-resolver/` 解析 `projects/<project-id>/project.yaml`。
 3. 只读取 Context Package 返回的最小必要来源；再读取对应 `memory/project-memory/<project>/`。
-4. 区分 `manifest_updated_at` 与 `state_as_of`；状态 stale/unknown 时只允许只读审计、Source Refresh 和 Human Review Preparation。
+4. 区分 `manifest_updated_at`、`state_as_of` 与 `freshness_status_at_manifest_update`；运行时只使用 Resolver 生成的 `effective_freshness_status`。状态 stale/unknown 时只允许只读审计、Source Refresh 和 Human Review Preparation。
 5. 产品事实优先使用 Product Knowledge 和官方 Source；Manifest 不充当产品事实库。
 6. 验证 Freshness 与当前 Gate，再执行目标 Skill；Human Approval 未完成时停在 Review Package。
 7. 区分 `FACT`、`DECISION`、`HYPOTHESIS`、`RECOMMENDATION`。
 8. 找不到证据时写 `UNKNOWN` 或 `NEED_CONFIRMATION`，不得补全。
 9. 飞书、正式数据库和官方素材库是只读 Source of Record，除非用户明确授权写入。
+
+## ChatGPT Project Bootstrap
+
+1. 讨论具名项目、Skill、“继续”或“下一步”时，先确认最新 GitHub `main` HEAD，再读取 `AGENTS.md`、项目 Manifest 与任务相关 Sources。
+2. `projects/*/chatgpt-context.md` 是生成型只读快照，不是 Truth Source；ChatGPT Memory 和历史聊天不得覆盖 GitHub Product Knowledge、Project Memory 或 Decision。
+3. 无法确认 GitHub `main` 时输出 `GITHUB_CONTEXT_UNVERIFIED`，不得把快照或聊天内容提升为当前状态。
+4. 对话中的批准只有写入相应正式文件并合并到 GitHub `main` 后，才成为 Formal State。
 
 ## Git 与变更
 

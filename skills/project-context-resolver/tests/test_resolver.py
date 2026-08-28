@@ -106,7 +106,7 @@ def test_d_formal_manifest_status_wins_on_accepted_decision_conflict(tmp_path: P
         "aliases": ["Conflict Project"],
         "manifest_updated_at": "2026-08-27T12:00:00+08:00",
         "state_as_of": "2026-08-27",
-        "freshness_status": "current",
+        "freshness_status_at_manifest_update": "current",
         "freshness_sources": ["../../memory/PROJECT.md", "../../memory/DECISIONS.md"],
         "market": "Japan",
         "status": "active",
@@ -236,7 +236,7 @@ def test_accepted_decision_without_gate_expectation_does_not_create_false_confli
         },
         "manifest_updated_at": "2026-08-27T12:00:00+08:00",
         "state_as_of": "2026-08-27",
-        "freshness_status": "current",
+        "freshness_status_at_manifest_update": "current",
         "freshness_sources": ["../../memory/PROJECT.md", "../../memory/DECISIONS.md"],
         "blocking_items": [],
         "approved": [],
@@ -308,11 +308,22 @@ def test_unknown_project_returns_bootstrap_route_without_writes():
 def test_active_project_becomes_stale_after_threshold_but_read_only_audit_remains_allowed():
     context = resolver.build_context(ROOT, "继续 S30 mini", as_of=date(2026, 8, 28))
 
-    assert context["freshness"]["effective_status"] == "stale"
+    assert context["freshness"]["effective_freshness_status"] == "stale"
     assert context["freshness"]["age_days"] == 8
     assert any(item.startswith("PROJECT_STATE_STALE:") for item in context["warnings"])
     assert context["next_valid_actions"][0]["execution_class"] == "read_only_audit"
     assert context["next_valid_actions"][0]["execution"] == "read_only_allowed_with_unverified_state"
+
+
+def test_freshness_crosses_threshold_between_august_27_and_28():
+    current = resolver.build_context(ROOT, "继续 S30 mini", as_of=date(2026, 8, 27))
+    stale = resolver.build_context(ROOT, "继续 S30 mini", as_of=date(2026, 8, 28))
+
+    assert current["freshness"]["status_at_manifest_update"] == "stale"
+    assert current["freshness"]["effective_freshness_status"] == "current"
+    assert current["freshness"]["age_days"] == 7
+    assert stale["freshness"]["effective_freshness_status"] == "stale"
+    assert stale["freshness"]["age_days"] == 8
 
 
 def test_s30_continuation_prompts_expose_accepted_visual_planning_lock():

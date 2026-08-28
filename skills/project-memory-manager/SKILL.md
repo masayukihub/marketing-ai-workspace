@@ -40,13 +40,13 @@ python3 skills/project-memory-manager/scripts/project_memory.py --workspace . --
 python3 skills/project-memory-manager/scripts/project_memory.py --workspace . --mode check
 ```
 
-If an operator explicitly wants to inspect or use the global installation mirror, first run:
+If an operator explicitly wants to inspect or use installation mirrors, verify the repository-wide Skill Lock first:
 
 ```bash
-python3 skills/project-memory-manager/scripts/verify_global_mirror.py
+python3 scripts/verify_codex_runtime.py
 ```
 
-Only `GLOBAL_SKILL_IN_SYNC` permits a mirror-based diagnostic. `GLOBAL_SKILL_DRIFT` means stop; continue with the repository runtime and never silently execute the global copy.
+Only `RUNTIME_IN_SYNC` permits a mirror-based diagnostic. `RUNTIME_DRIFT`, `MIRROR_MISSING`, or `REPOSITORY_RUNTIME_MISSING` means stop; continue with the repository runtime and never silently execute the global copy. `scripts/verify_global_mirror.py` remains only as a compatibility adapter for this Skill.
 
 Read [references/governance.md](references/governance.md) before resolving conflict, writing a decision, or promoting an item to Current Truth. Read [references/integration.md](references/integration.md) before connecting another Skill.
 

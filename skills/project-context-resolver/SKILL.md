@@ -51,7 +51,7 @@ Use `--as-of YYYY-MM-DD` only for deterministic audit/testing. Normal execution 
 
 Consume only `required_sources` whose status is `available`. A `missing` source remains a blocker or warning; it is not permission to search the whole repository. Product facts must still pass `product-knowledge`. Project context and durable writeback must still pass `project-memory-manager`.
 
-`manifest_updated_at` records navigation-file maintenance; `state_as_of` records when project state was actually verified. Never substitute one for the other. For active projects beyond the configured threshold, emit `PROJECT_STATE_STALE`. With `stale` or `unknown` state, allow only `read_only_audit`, `source_refresh`, and `human_review_preparation`; return `blocked_by_freshness` for state-dependent execution.
+`manifest_updated_at` records navigation-file maintenance; `state_as_of` records when project state was actually verified; `freshness_status_at_manifest_update` is only the maintenance-time assessment. Runtime execution must use the Context Package's dynamic `effective_freshness_status`. For active projects beyond the configured threshold, emit `PROJECT_STATE_STALE`. With `stale` or `unknown` state, allow only `read_only_audit`, `source_refresh`, and `human_review_preparation`; return `blocked_by_freshness` for state-dependent execution.
 
 The Context Package contract is defined in [contracts.md](references/contracts.md).
 

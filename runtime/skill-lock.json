@@ -1,0 +1,120 @@
+{
+  "lock_version": "1.0",
+  "runtime_authority": "repository",
+  "skills": [
+    {
+      "name": "project-context-resolver",
+      "role": "internal_project_context_router",
+      "repository_path": "skills/project-context-resolver",
+      "repository_tree_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "required_runtime_files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "config/freshness.yaml",
+        "references/contracts.md",
+        "scripts/resolve_project_context.py"
+      ],
+      "user_visible": false,
+      "mirror_required": true,
+      "last_verified_commit": "2d2bea6dad5c937310b4f800b0a9cf2dd9ad9882"
+    },
+    {
+      "name": "project-memory-manager",
+      "role": "internal_project_memory_owner",
+      "repository_path": "skills/project-memory-manager",
+      "repository_tree_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "required_runtime_files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/governance.md",
+        "references/integration.md",
+        "scripts/project_memory.py",
+        "scripts/verify_global_mirror.py"
+      ],
+      "user_visible": false,
+      "mirror_required": true,
+      "last_verified_commit": "2d2bea6dad5c937310b4f800b0a9cf2dd9ad9882"
+    },
+    {
+      "name": "product-knowledge",
+      "role": "internal_product_truth_gate",
+      "repository_path": "skills/product-knowledge",
+      "repository_tree_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "required_runtime_files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "config/product_mapping.yaml",
+        "config/source_priority.yaml",
+        "config/update_rules.yaml",
+        "scripts/product_data.py",
+        "scripts/validate_product_data.py"
+      ],
+      "user_visible": false,
+      "mirror_required": true,
+      "last_verified_commit": "2d2bea6dad5c937310b4f800b0a9cf2dd9ad9882"
+    },
+    {
+      "name": "jp-commerce-insights",
+      "role": "user_entry_japan_commerce_research",
+      "repository_path": "skills/jp-commerce-insights",
+      "repository_tree_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "required_runtime_files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/capability-map.md",
+        "references/output-contract.md",
+        "references/source-rules.md",
+        "references/workflow-modules.md"
+      ],
+      "user_visible": true,
+      "mirror_required": true,
+      "last_verified_commit": "2d2bea6dad5c937310b4f800b0a9cf2dd9ad9882"
+    },
+    {
+      "name": "jp-commerce-content-flow",
+      "role": "user_entry_japan_commerce_content",
+      "repository_path": "skills/jp-commerce-content-flow",
+      "repository_tree_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "required_runtime_files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/capability-map.md",
+        "references/output-contract.md",
+        "references/runtime-contract.md",
+        "references/visual-router-integration.md"
+      ],
+      "user_visible": true,
+      "mirror_required": true,
+      "last_verified_commit": "2d2bea6dad5c937310b4f800b0a9cf2dd9ad9882"
+    },
+    {
+      "name": "switchbot-japan-campaign",
+      "role": "user_entry_japan_campaign",
+      "repository_path": "skills/switchbot-japan-campaign",
+      "repository_tree_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "required_runtime_files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/campaign-lifecycle.md"
+      ],
+      "user_visible": true,
+      "mirror_required": true,
+      "last_verified_commit": "2d2bea6dad5c937310b4f800b0a9cf2dd9ad9882"
+    },
+    {
+      "name": "switchbot-japan-edm",
+      "role": "user_entry_japan_edm",
+      "repository_path": "skills/switchbot-japan-edm",
+      "repository_tree_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "required_runtime_files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "references/edm-production-method.md",
+        "references/visual-pattern-integration.md"
+      ],
+      "user_visible": true,
+      "mirror_required": true,
+      "last_verified_commit": "2d2bea6dad5c937310b4f800b0a9cf2dd9ad9882"
+    }
+  ]
+}

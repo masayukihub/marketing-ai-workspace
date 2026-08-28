@@ -28,22 +28,25 @@
 在 feature/s30-pdp 分支更新 Amazon PDP 流程；不要修改产品事实，完成后运行测试。
 ```
 
-Codex 必须先读取根目录 `AGENTS.md`，再解析 `projects/<project-id>/project.yaml`。Manifest 只负责导航、Freshness、当前 Gate、Blocker 和 Next Action；Product Truth 与 Project Memory 仍由原有系统负责。Manifest 当天修改不代表项目状态当天确认，实际状态以 `state_as_of` 和 `freshness_sources` 为准。
+Codex 必须先读取根目录 `AGENTS.md`，再解析 `projects/<project-id>/project.yaml`。Manifest 只负责导航、Freshness、当前 Gate、Blocker 和 Next Action；Product Truth 与 Project Memory 仍由原有系统负责。Manifest 当天修改不代表项目状态当天确认；`freshness_status_at_manifest_update` 只是维护时快照，运行时状态以 Resolver 生成的 `effective_freshness_status` 为准。
 
-仓库内 `skills/` 是正式运行来源。`$HOME/.codex/skills/` 只作为安装镜像；需要检查 Project Memory Manager 镜像时运行：
+仓库内 `skills/` 是正式运行来源，`runtime/skill-lock.json` 锁定关键 Runtime。`$CODEX_HOME/skills/` 只作为安装镜像；检查全部锁定 Skill 时运行：
 
 ```bash
-python3 skills/project-memory-manager/scripts/verify_global_mirror.py
+python3 scripts/verify_codex_runtime.py
+python3 scripts/sync_codex_skill_mirror.py --dry-run
 ```
 
-出现 `GLOBAL_SKILL_DRIFT` 时不得执行全局镜像。
+出现 `RUNTIME_DRIFT`、`MIRROR_MISSING` 或 `REPOSITORY_RUNTIME_MISSING` 时不得执行全局镜像。实际同步只允许从 clean `main` 单向写入 Global Mirror。
+
+ChatGPT 项目读取规则见 `chatgpt/PROJECT_INSTRUCTIONS.md`。`projects/*/chatgpt-context.md` 是可重复生成的阅读快照，不是 Product Truth、Decision 或 Approval。
 
 ## 新增 Project
 
 1. 从 `memory/project-memory/_template/` 复制一个目录。
 2. 命名使用小写英文和连字符，例如 `hub-3-jp`。
 3. 填写 `PROJECT.md`、`STATUS.md`、`DECISIONS.md`、`SOURCES.md` 和 `TODO.md`。
-4. 在 `projects/<project-id>/project.yaml` 建立轻量 Manifest，分别记录 Manifest 更新时间与项目状态验证日期，并通过 Resolver 校验。
+4. 在 `projects/<project-id>/project.yaml` 建立轻量 Manifest，分别记录 Manifest 更新时间、状态验证日期和维护时 Freshness，并通过 Resolver 动态计算有效 Freshness。
 5. 未确认内容标记 `UNKNOWN` 或 `NEED_CONFIRMATION`，对应 Source 指针用 `null`。
 6. 在 `projects/<project-id>/README.md` 保留人类可读入口。
 
