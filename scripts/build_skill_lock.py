@@ -51,7 +51,14 @@ def main() -> int:
     workspace = Path(args.workspace).resolve()
     lock_path = Path(args.lock).resolve()
     try:
-        commit = args.commit or git_head(workspace)
+        if args.check and not args.commit:
+            existing = load_skill_lock(lock_path)
+            commits = {item["last_verified_commit"] for item in existing["skills"]}
+            if len(commits) != 1:
+                raise RuntimeContractError("SKILL_LOCK_LAST_VERIFIED_COMMIT_INCONSISTENT")
+            commit = next(iter(commits))
+        else:
+            commit = args.commit or git_head(workspace)
         output = serialized(refreshed_lock(workspace, lock_path, commit))
         if args.check:
             if lock_path.read_text(encoding="utf-8") != output:
