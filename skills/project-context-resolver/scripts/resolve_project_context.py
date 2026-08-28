@@ -42,9 +42,12 @@ OPTIONAL_SOURCE_KEYS = ("visual_planning_decision",)
 TASK_TYPES = (
     "GTM", "Amazon", "PR", "KOL", "Campaign", "VOC", "Competitor",
     "Design", "Visual", "Product Knowledge", "Website", "SEO", "Review",
+    "EDM", "Commercial",
 )
 TASK_PATTERNS = (
     ("Product Knowledge", ("product knowledge", "product truth", "产品知识", "产品事实")),
+    ("EDM", ("edm", "email", "newsletter", "邮件", "メールマガジン")),
+    ("Commercial", ("commercial", "商业信息", "商業情報", "msrp", "deal price", "launch build", "sku", "价格", "価格")),
     ("Amazon", ("amazon", "亚马逊", "日亚", "gallery", "a+")),
     ("PR", ("pr", "prtimes", "媒体稿", "新闻稿")),
     ("KOL", ("kol", "influencer", "creator", "达人", "网红")),
@@ -81,6 +84,11 @@ TASK_SOURCE_KEYS = {
     "Website": ("project_memory", "decisions", "product_truth", "approved_claims", "assets"),
     "SEO": ("project_memory", "decisions", "product_truth", "approved_claims"),
     "Review": ("project_memory", "decisions"),
+    "EDM": (
+        "project_memory", "decisions", "product_truth", "approved_claims",
+        "visual_context", "visual_profile", "visual_freeze", "assets",
+    ),
+    "Commercial": ("project_memory", "decisions", "product_truth", "approved_claims"),
 }
 TASK_SKILLS = {
     "GTM": ("project-memory-manager", "product-knowledge"),
@@ -96,6 +104,8 @@ TASK_SKILLS = {
     "Website": ("product-knowledge", "project-memory-manager"),
     "SEO": ("product-knowledge", "project-memory-manager"),
     "Review": ("project-memory-manager",),
+    "EDM": ("switchbot-japan-edm", "product-knowledge", "project-memory-manager"),
+    "Commercial": ("project-memory-manager", "product-knowledge"),
 }
 TASK_OPTIONAL_SKILLS = {
     "Amazon": ("amazon-japan-pdp-generator", "amazon-listing-creative", "jp-commerce-insights"),
@@ -105,6 +115,9 @@ TASK_OPTIONAL_SKILLS = {
     "Visual": ("amazon-listing-creative", "amazon-japan-pdp-generator"),
 }
 COMPLETED_ACTION_STATES = {"approved", "rejected", "superseded"}
+CHANNEL_GATE_TASKS = {
+    "edm_content_claim_asset_unlock": {"EDM"},
+}
 
 
 class ResolverError(RuntimeError):
@@ -245,10 +258,22 @@ def validate_manifest(path: Path, workspace: Path) -> list[str]:
         if not exists:
             errors.append(f"RECORD_SOURCE_PATH_MISSING:{label}:{source}")
 
+    def validate_task_types(label: str, record: Any) -> None:
+        if not isinstance(record, dict) or "task_types" not in record:
+            return
+        task_types = record.get("task_types")
+        if not isinstance(task_types, list) or not task_types:
+            errors.append(f"TASK_TYPES_MUST_BE_NONEMPTY_LIST:{label}")
+            return
+        for task_type in task_types:
+            if task_type not in TASK_TYPES:
+                errors.append(f"UNSUPPORTED_RECORD_TASK_TYPE:{label}:{task_type}")
+
     for index, item in enumerate(data.get("approved") or []):
         validate_record_source(f"approved[{index}]", item)
     for index, item in enumerate(data.get("blocking_items") or []):
         validate_record_source(f"blocking_items[{index}]", item)
+        validate_task_types(f"blocking_items[{index}]", item)
     validate_record_source("latest_decision", data.get("latest_decision"))
 
     next_actions = data.get("next_actions")
@@ -271,6 +296,7 @@ def validate_manifest(path: Path, workspace: Path) -> list[str]:
                 if action.get("execution_class") not in ACTION_EXECUTION_CLASSES:
                     errors.append(f"INVALID_ACTION_EXECUTION_CLASS:{action.get('action_id')}")
                 validate_record_source(f"next_actions.{priority}.{action.get('action_id')}", action)
+                validate_task_types(f"next_actions.{priority}.{action.get('action_id')}", action)
 
     if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(data.get("last_updated") or "")):
         errors.append("LAST_UPDATED_MUST_BE_DATE")
@@ -535,16 +561,42 @@ def evaluate_freshness(
     }, warnings
 
 
-def select_next_action(manifest: dict[str, Any], freshness_status: str = "current") -> list[dict[str, Any]]:
+def record_applies_to_task(record: dict[str, Any], task_type: str | None) -> bool:
+    scopes = record.get("task_types")
+    return task_type is None or not scopes or task_type in scopes
+
+
+def blocking_items_for_task(manifest: dict[str, Any], task_type: str) -> list[dict[str, Any]]:
+    return [
+        item for item in manifest.get("blocking_items") or []
+        if record_applies_to_task(item, task_type)
+    ]
+
+
+def gate_status_for_task(manifest: dict[str, Any], task_type: str) -> dict[str, str]:
+    return {
+        gate: status
+        for gate, status in (manifest.get("gate_status") or {}).items()
+        if gate not in CHANNEL_GATE_TASKS or task_type in CHANNEL_GATE_TASKS[gate]
+    }
+
+
+def select_next_action(
+    manifest: dict[str, Any],
+    freshness_status: str = "current",
+    task_type: str | None = None,
+) -> list[dict[str, Any]]:
     blocking_states = {"blocked", "in_progress", "ready_for_review"}
     blockers = {
         str(item.get("blocker_id"))
         for item in manifest.get("blocking_items") or []
-        if item.get("status") in blocking_states
+        if item.get("status") in blocking_states and record_applies_to_task(item, task_type)
     }
     freshness_blocked_candidate: dict[str, Any] | None = None
     for priority in ("p0", "p1", "p2"):
         for action in (manifest.get("next_actions") or {}).get(priority, []):
+            if not record_applies_to_task(action, task_type):
+                continue
             if action.get("status") in COMPLETED_ACTION_STATES:
                 continue
             blocked_by = [item for item in action.get("blocked_by", []) if item in blockers]
@@ -632,6 +684,8 @@ def build_context(
     if isinstance(latest_decision, dict) and latest_decision.get("status") == "accepted":
         approved_decisions.append(latest_decision)
     visual_planning_decision = accepted_visual_planning_decision(manifest_path, manifest, workspace)
+    task_blocking_items = blocking_items_for_task(manifest, task_type)
+    task_gate_status = gate_status_for_task(manifest, task_type)
 
     product_truth_row = next((row for row in source_rows if row["kind"] == "product_truth"), None)
     current_truth = {
@@ -654,16 +708,16 @@ def build_context(
         "current_stage": {
             "lifecycle_stage": manifest["lifecycle_stage"],
             "current_phase": manifest["current_phase"],
-            "gate_status": manifest["gate_status"],
+            "gate_status": task_gate_status,
         },
         "freshness": freshness,
         "current_truth": current_truth,
         "approved_decisions": approved_decisions,
         "project_visual_decision": visual_planning_decision,
-        "blocking_items": manifest.get("blocking_items") or [],
+        "blocking_items": task_blocking_items,
         "required_sources": source_rows,
         "relevant_skills": skill_rows,
-        "next_valid_actions": select_next_action(manifest, freshness["effective_status"]),
+        "next_valid_actions": select_next_action(manifest, freshness["effective_status"], task_type),
         "warnings": sorted(set(warnings)),
     }
 

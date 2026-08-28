@@ -14,3 +14,5 @@ The Manifest is the current navigation/status contract. It does not replace the 
 Unknown project names return the non-mutating `PROJECT_BOOTSTRAP_REQUIRED` result. Only `project-memory-manager` discovery review may follow; no project directory, Product Knowledge record, or execution Skill is created or invoked.
 
 An accepted Human Decision may appear under `approved_decisions`, but it does not itself update a gate. If the decision is intended to change formal execution state, `latest_decision` also declares `target_gate` and `expected_status`. The resolver reports a conflict only when accepted decision evidence exists and the checked-in Manifest differs; unrelated accepted decisions do not imply overall approval.
+
+Optional `task_types` on Manifest Blockers and Actions are a compatibility filter, not a new Truth Source. Project-wide Blockers remain present for every declared task, channel-only Gates appear only in their channel Context Package, and `blocked_by` dependencies remain fail-closed.

@@ -85,6 +85,10 @@ The package contains paths and status, not copied source bodies. The consuming S
 | Product Knowledge | Product Truth, approved Claims, Project Memory |
 | Website / SEO | Project Memory, decisions, Product Truth, approved Claims, assets |
 | Review | Project Memory and decisions; task-specific sources are added only when named |
+| EDM | Project Memory, decisions, Product Truth, approved Claims, Visual Context, Visual Profile, Visual Freeze, assets |
+| Commercial | Project Memory, decisions, Product Truth, approved Claims |
+
+Manifest Blockers and Actions may declare optional `task_types`. The resolver keeps project-wide records visible to every applicable task while exposing a channel-only Gate only to that channel. `blocked_by` continues to reference the project-level Blocker IDs; task scoping never marks a dependency resolved.
 
 ## Shared state model
 
@@ -137,10 +141,11 @@ If no exact project can be resolved, return `PROJECT_BOOTSTRAP_REQUIRED` and rou
 For `继续`, `下一步`, `接着做`, or `继续这个项目`:
 
 1. select the first incomplete P0, then P1, then P2 action;
-2. preserve blocker dependencies;
-3. validate the action's `execution_class` against Freshness;
-4. if the action requires Human Approval, return `human_review_required` or preparation-only status and generate a blank Human Review Package when requested;
-5. never execute or approve the action inside the resolver.
+2. apply the selected task's optional `task_types` scope;
+3. preserve blocker dependencies;
+4. validate the action's `execution_class` against Freshness;
+5. if the action requires Human Approval, return `human_review_required` or preparation-only status and generate a blank Human Review Package when requested;
+6. never execute or approve the action inside the resolver.
 
 ## Writeback contract
 

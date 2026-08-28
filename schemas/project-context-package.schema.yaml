@@ -36,7 +36,7 @@ $defs:
           routing_alias: {type: [string, "null"]}
           routing_alias_note: {type: [string, "null"]}
       task_type:
-        enum: [GTM, Amazon, PR, KOL, Campaign, VOC, Competitor, Design, Visual, Product Knowledge, Website, SEO, Review]
+        enum: [GTM, Amazon, PR, KOL, Campaign, VOC, Competitor, Design, Visual, Product Knowledge, Website, SEO, Review, EDM, Commercial]
       current_stage:
         type: object
         required: [lifecycle_stage, current_phase, gate_status]
