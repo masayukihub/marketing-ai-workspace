@@ -307,7 +307,9 @@ class VisualSystemRegressionTest(unittest.TestCase):
         profile = router.build_profile(ROOT / "projects/s30-mini")
         amazon = profile["channel_assignments"]["amazon_jp"]
         edm = profile["channel_assignments"]["edm"]
-        self.assertEqual(profile["project_visual_dna"]["status"], "ROUTER_GENERATED_CANDIDATE")
+        self.assertEqual(profile["project_visual_dna"]["status"], "HUMAN_APPROVED_FOR_PROJECT_PLANNING")
+        self.assertTrue(profile["project_planning_lock"]["applied"])
+        self.assertFalse(profile["decision"]["reask_visual_direction"])
         self.assertTrue(amazon["inheritance"]["project_visual_dna"])
         self.assertTrue(edm["inheritance"]["project_visual_dna"])
         self.assertFalse(edm["inheritance"]["layout_from_other_channel"])
@@ -574,6 +576,55 @@ class VisualSystemRegressionTest(unittest.TestCase):
         lock = router.build_profile(ROOT / "projects/lock-ultra-max")
         self.assertEqual((s30["ranking"][0]["pattern_id"], s30["ranking"][0]["score"]), ("VP-AMZ-MECHANISM-PROOF", 89.7))
         self.assertEqual((lock["ranking"][0]["pattern_id"], lock["ranking"][0]["score"]), ("VP-AMZ-JAPAN-FIT-TRUST", 81.1))
+
+    def test_s30_accepted_planning_lock_is_applied_without_production_unlock(self):
+        router = load_router()
+        profile = router.build_profile(ROOT / "projects/s30-mini")
+        self.assertEqual(profile["project_planning_lock"]["status"], "ACTIVE")
+        self.assertTrue(profile["project_planning_lock"]["applied"])
+        self.assertEqual(profile["project_visual_direction_status"], "HUMAN_APPROVED_FOR_PROJECT_PLANNING")
+        self.assertFalse(profile["decision"]["reask_visual_direction"])
+        self.assertFalse(profile["decision"]["visual_direction_review_required"])
+        self.assertTrue(profile["decision"]["human_review_required"])
+        self.assertEqual(profile["channel_assignments"]["edm"]["execution_readiness"]["status"], "BLOCKED_BY_ASSET")
+        self.assertFalse(profile["channel_assignments"]["edm"]["auto_apply"]["eligible"])
+
+    def test_user_explicit_visual_change_reopens_planning_lock(self):
+        router = load_router()
+        context = copy.deepcopy(load_yaml(ROOT / "projects/s30-mini/project-context.yaml"))
+        context["visual_inputs"]["exploration_requested"] = True
+        record = load_yaml(ROOT / "projects/s30-mini/reviews/visual-pattern-recipe-20260827/decision-record.yaml")
+        profile = router.build_profile(ROOT / "projects/s30-mini")
+        assignments = profile["channel_assignments"]
+        patterns = {item["pattern_id"]: item for item in router.load_patterns()}
+        state = router.project_planning_lock_decision(context, record, patterns, assignments, False)
+        self.assertTrue(state["reask_visual_direction"])
+        self.assertIn("USER_EXPLICITLY_REQUESTS_VISUAL_CHANGE", state["reopen_reasons"])
+
+    def test_channel_hard_conflict_reopens_planning_lock(self):
+        router = load_router()
+        context = copy.deepcopy(load_yaml(ROOT / "projects/s30-mini/project-context.yaml"))
+        context["channels"].append("lp")
+        record = load_yaml(ROOT / "projects/s30-mini/reviews/visual-pattern-recipe-20260827/decision-record.yaml")
+        profile = router.build_profile(ROOT / "projects/s30-mini")
+        assignments = profile["channel_assignments"]
+        patterns = {item["pattern_id"]: item for item in router.load_patterns()}
+        state = router.project_planning_lock_decision(context, record, patterns, assignments, False)
+        self.assertTrue(state["reask_visual_direction"])
+        self.assertIn("CHANNEL_HARD_CONFLICT", state["reopen_reasons"])
+
+    def test_approved_freeze_precedes_project_planning_lock(self):
+        router = load_router()
+        context = load_yaml(ROOT / "projects/s30-mini/project-context.yaml")
+        record = load_yaml(ROOT / "projects/s30-mini/reviews/visual-pattern-recipe-20260827/decision-record.yaml")
+        profile = router.build_profile(ROOT / "projects/s30-mini")
+        patterns = {item["pattern_id"]: item for item in router.load_patterns()}
+        state = router.project_planning_lock_decision(
+            context, record, patterns, profile["channel_assignments"], True
+        )
+        self.assertEqual(state["precedence"], "APPROVED_VISUAL_FREEZE")
+        self.assertFalse(state["applied"])
+        self.assertFalse(state["reask_visual_direction"])
 
 
 if __name__ == "__main__":

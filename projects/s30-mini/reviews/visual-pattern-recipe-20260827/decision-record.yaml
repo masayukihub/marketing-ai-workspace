@@ -1,0 +1,103 @@
+schema_version: "1.0"
+contract: visual-pattern-recipe-decision-record
+project_id: s30-mini
+review_id: visual-pattern-recipe-20260827
+record_status: ACCEPTED
+decision_result: APPROVED_WITH_MODIFICATION
+record_policy:
+  mutability: IMMUTABLE_APPEND_ONLY
+  amendment_requires_new_record: true
+
+reviewer:
+  name: 赖晓洪（ライ）
+  reviewed_at: "2026-08-28T11:08:38+08:00"
+
+source:
+  decision_template: projects/s30-mini/reviews/visual-pattern-recipe-20260827/decision-template.yaml
+  source_commit: SELF_COMMIT
+  source_commit_resolution: FIRST_GIT_COMMIT_CONTAINING_THIS_RECORD
+  baseline_main_commit: 437a38ebb3d4714ad2ff3ccfe78c02c8c9c75800
+
+decision_application:
+  commit: SELF_COMMIT
+  commit_resolution: FIRST_GIT_COMMIT_CONTAINING_THIS_RECORD
+  expected_commit_message: "review: approve S30 visual planning direction with scope"
+
+project_planning_lock:
+  status: ACTIVE
+  project_visual_direction_status: HUMAN_APPROVED_FOR_PROJECT_PLANNING
+  reask_visual_direction: false
+  approved_channels:
+    - amazon_jp
+    - edm
+  approved_scope:
+    - project_visual_dna
+    - edm_channel_intent
+    - recipe_core_structure
+    - mechanism_proof_policy
+    - optional_section_policy
+    - conditional_template_recommendation
+  reviewed_pattern_ids:
+    - VP-AMZ-MECHANISM-PROOF
+    - VP-EDM-COMPLEX-LAUNCH
+  reopen_when:
+    - USER_EXPLICITLY_REQUESTS_VISUAL_CHANGE
+    - CHANNEL_HARD_CONFLICT
+    - APPROVED_PROJECT_DIRECTION_CONFLICT
+    - SELECTED_PATTERN_DEPRECATED
+    - NO_COMPATIBLE_TEMPLATE
+  does_not_approve:
+    - product_truth
+    - claim
+    - price
+    - asset
+    - final_layout
+    - visual_freeze
+    - production
+    - esp
+    - send
+    - publication
+
+lifecycle_boundary:
+  recipe_status: CANDIDATE
+  section_pattern_status: CANDIDATE
+  reusable_validation_approved: false
+
+production_boundary:
+  status: BLOCKED
+  remaining_gates:
+    - Approved Product Truth
+    - Approved JP Claim
+    - Approved Official Product Asset
+    - Approved Mechanism Proof if section enabled
+    - Verified CTA Destination
+    - Legal and Footer Inputs
+    - Renderer
+    - Desktop QA
+    - Mobile QA
+    - Final Human Review
+    - ESP Gate
+
+next_gate:
+  gate_id: S30_CONTENT_CLAIM_ASSET_UNLOCK
+  after_completion:
+    - Existing EDM Runtime
+    - Stable Template Selector
+    - Renderer
+    - Desktop QA
+    - Mobile QA
+    - Final Human Review
+    - ESP Gate
+
+integrity:
+  algorithm: SHA-256
+  decision_template_sha256: 606d4907c1cbf37f7336ba0de77f23129d9544ce59cd8bbe11bb68dfc362f13d
+  decision_record_content_sha256: 6a98d10b4bff8d10b696eaa31955865866809f607aeb6ba3e91b1dfee3c0cbf4
+  decision_record_hash_scope: CANONICAL_JSON_EXCLUDING_integrity.decision_record_content_sha256
+  baseline_protected_contract_hashes:
+    approved_asset_context: 5d8e89b92b0b429bcc34e09ea9e6464c3685b138a3daba78a7de40819a11caf2
+    visual_profile: 348795754a97d0a08721e4b2dcd2defecf4f39c71fd0400e5e84dbfcc7897a5b
+    visual_freeze: be43fe2c43ea07d372f91185a04f1050225594d2ef121823fc41b9d29576f507
+    recipe: 575ffe77d1754179cf1b4ec677ad283167f9f7e47c401bece3e0e6f905c4de33
+    section_pattern_registry: 65155064381cd3d5bc934ab88ce50b7116ca91220175c0fb3b05887fc90e81de
+    recipe_registry: 6648f35c7476d0838d03a1de53dcebf70c0259cb8a8732d9484d8eace9647d0b

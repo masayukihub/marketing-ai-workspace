@@ -2,7 +2,9 @@
 
 ## 审核目的
 
-本次只审核 S30 mini 的项目视觉原则与 Amazon → EDM 结构适配是否适合继续作为 Pilot 使用。它是 `human_review_preparation`，不是产品事实、素材或发布审批。
+本次已由赖晓洪（ライ）完成 S30 mini 项目视觉原则与 Amazon → EDM 结构适配审核，并将批准范围应用为 Project Visual Planning Lock。它不是产品事实、素材、最终视觉或发布审批。
+
+状态：`HUMAN DECISION COMPLETED / PROJECT VISUAL PLANNING LOCK ACTIVE / PRODUCTION REMAINS BLOCKED`
 
 ## 正式基线
 
@@ -34,33 +36,33 @@
 - Renderer、ESP Send、Publication；
 - Pattern / Recipe Lifecycle Promotion。
 
-## 推荐判断（非人工决定）
+## 已写入的人工决定
 
-| 审核对象 | 系统建议 | 理由 |
+| 审核对象 | 人工决定 | 生效范围 |
 |---|---|---|
-| Project Visual DNA | `APPROVE_WITH_SCOPE` | 可用于结构规划，但不批准事实、Claim、素材或 Layout |
+| Project Visual DNA | `APPROVE_WITH_MODIFICATION` | 仅用于 S30 Amazon JP / EDM 项目级视觉规划 |
 | EDM Channel Intent | `APPROVE` | 与新品价值理解任务匹配 |
 | Recipe Core | `APPROVE` | 产品识别 → 利益 → 行动 → 品牌收尾清晰 |
-| Mechanism Proof | Generic `CONDITIONAL`；S30 `REQUIRED_WHEN_APPROVED_EVIDENCE_AVAILABLE` | S30 的价值理解需要机制证据，但必须先获得已批准证据 |
-| Optional Sections | `CONDITIONAL` | 仅在目标与素材满足时加入 |
-| Template Mapping | `ACCEPT_AS_CONDITIONAL_RECOMMENDATION` | Stable Template Selector 保留最终决定权 |
+| Mechanism Proof | `APPROVE` | Generic `CONDITIONAL`；S30 在已批准 Claim 与素材齐备时自动启用 |
+| Optional Sections | `APPROVE_WITH_MODIFICATION` | 按已批准证据与 Intent 条件启用，不逐项重问 |
+| Template Mapping | `APPROVE` | `TPL-LAUNCH-A` 只作条件推荐，Stable Selector 保留最终决定权 |
 | Lifecycle | `KEEP_CANDIDATE` | 当前只有单项目 Pilot 证据 |
 | EDM Visual Freeze | `DO_NOT_CREATE` | 尚无独立 EDM 视觉批准 |
 | Production | `REMAIN_BLOCKED` | Product Truth、Claim、正式素材、CTA 与 ESP Gate 未完成 |
 
 ## 决策规则
 
-人工只能在 `decision-template.yaml` 中选择：
+已填写的人工决定保存在 `decision-template.yaml`，不可变记录保存在 `decision-record.yaml`。合法 Decision 值为：
 
 - `APPROVE`
 - `APPROVE_WITH_MODIFICATION`
 - `REJECT`
 - `DEFER`
 
-所有字段默认空白。Recommended Decision 只用于帮助审核，不得复制为人工决定。即使本次结构审核通过，也不能自动修改 Pattern、Recipe、Freeze、Product Truth、Claim、Asset 或 Production 状态。
+本次只批准项目规划方向。即使结构审核通过，也不能自动修改 Pattern/Recipe 生命周期、创建 Final Freeze、批准 Product Truth/Claim/Asset 或进入 Production。
 
-## Recommended Human Gate
+## 当前后续 Gate
 
-`S30_VISUAL_PATTERN_RECIPE_HUMAN_REVIEW`
+`S30_CONTENT_CLAIM_ASSET_UNLOCK`
 
-完成具名审核后，应先进行 Decision Record Review；只有被接受的正式决策才可以进入后续项目状态更新。
+Decision Record Review 已在本 PR 内完成并通过。该 Gate 完成后直接进入 Existing EDM Runtime → Stable Template Selector → Renderer → Desktop/Mobile QA → Final Human Review → ESP Gate，不再增加视觉方向选择 Gate。

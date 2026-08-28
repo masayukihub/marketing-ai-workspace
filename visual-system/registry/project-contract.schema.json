@@ -56,7 +56,14 @@
             "mobile_priority"
           ],
           "properties": {
-            "status": {"const": "ROUTER_GENERATED_CANDIDATE"}
+            "status": {
+              "enum": [
+                "ROUTER_GENERATED_CANDIDATE",
+                "HUMAN_APPROVED_FOR_PROJECT_PLANNING",
+                "HUMAN_APPROVED_FINAL_FREEZE",
+                "HUMAN_REVIEW_REQUIRED"
+              ]
+            }
           },
           "additionalProperties": true
         },

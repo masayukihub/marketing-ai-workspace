@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23ef4438'/%3E%3Cpath d='M18 20h28v8H26v6h18v8H26v8h-8z' fill='white'/%3E%3C/svg%3E">
-  <title>S30 mini Visual Pattern / Recipe 人工审核</title>
+  <title>S30 mini Visual Planning Decision</title>
   <style>
     :root {
       --ink: #201c1a;
@@ -98,6 +98,7 @@
     .options { display: flex; flex-wrap: wrap; gap: 6px; }
     .option { padding: 5px 8px; color: var(--muted); border: 1px solid var(--line); background: #fff; }
     .blank { margin-top: auto; padding: 14px; color: var(--muted); background: repeating-linear-gradient(-45deg,#fff,#fff 8px,#f7f3ef 8px,#f7f3ef 16px); border: 1px dashed #bcaea5; border-radius: 12px; font-weight: 750; }
+    .blank.complete { color: var(--green); background: var(--green-soft); border: 1px solid #a8d5c3; }
     .gap-list { display: grid; gap: 10px; padding: 0; list-style: none; }
     .gap-list li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 13px 0; border-top: 1px solid var(--line); }
     .gap-list li:first-child { border-top: 0; }
@@ -134,21 +135,21 @@
   <main>
     <header class="hero">
       <div>
-        <span class="eyebrow">S30 mini · Visual Human Review</span>
-        <h1>视觉结构可以审核，生产仍然暂停</h1>
-        <p>本页帮助营销人员判断 Project Visual DNA、Amazon → EDM 继承边界、Launch Recipe 与 Template 条件映射。它不批准产品事实、Claim、素材、Freeze、Production 或 Send。</p>
-        <span class="badge amber">PENDING_HUMAN</span>
+        <span class="eyebrow">S30 mini · Visual Planning Decision</span>
+        <h1>项目视觉方向已固定，生产仍然暂停</h1>
+        <p>赖晓洪（ライ）已完成 Project Visual DNA、Amazon → EDM 继承边界、Launch Recipe 与条件 Template 映射审核。该决定只锁定项目级规划，不批准产品事实、Claim、素材、最终 Freeze、Production 或 Send。</p>
+        <span class="badge green">HUMAN DECISION COMPLETED</span>
       </div>
       <aside class="gate">
-        <span class="eyebrow">Recommended Human Gate</span>
-        <strong>S30_VISUAL_PATTERN_RECIPE_HUMAN_REVIEW</strong>
-        <p>人工决策必须填写在 decision-template.yaml；当前全部为空。</p>
+        <span class="eyebrow">Project Status</span>
+        <strong>PROJECT VISUAL PLANNING LOCK ACTIVE</strong>
+        <p>Reviewer：赖晓洪（ライ）<br>Reviewed At：2026-08-28T11:08:38+08:00</p>
         <span class="badge red">PRODUCTION REMAINS BLOCKED</span>
       </aside>
     </header>
 
     <section>
-      <div class="section-head"><div><span class="eyebrow">A · Project Visual DNA</span><h2>先讲清产品，再用证据帮助理解</h2></div><p>这是 Router 生成的项目级候选方向，只用于结构与视觉节奏。它不包含产品事实或外部 Claim。</p></div>
+      <div class="section-head"><div><span class="eyebrow">A · Project Visual DNA</span><h2>先讲清产品，再用证据帮助理解</h2></div><p>这是 Router 生成并由人工批准用于项目规划的方向，只覆盖结构与视觉节奏。它不包含产品事实或外部 Claim。</p></div>
       <div class="grid">
         <article class="card span-8">
           <dl>
@@ -163,9 +164,9 @@
         </article>
         <aside class="card span-4">
           <h3>Approval Boundary</h3>
-          <p>建议：<strong>APPROVE_WITH_SCOPE</strong></p>
-          <p>可批准“结构规划方向”，但不得由此批准 Product Truth、Claim、价格、性能、素材、完整 Layout 或发布。</p>
-          <span class="badge blue">ROUTER_GENERATED_CANDIDATE</span>
+          <p>人工决定：<strong>APPROVE_WITH_MODIFICATION</strong></p>
+          <p>已批准“项目结构规划方向”，但不得由此批准 Product Truth、Claim、价格、性能、素材、完整 Layout 或发布。</p>
+          <span class="badge green">HUMAN_APPROVED_FOR_PROJECT_PLANNING</span>
         </aside>
       </div>
     </section>
@@ -227,22 +228,22 @@
     </section>
 
     <section>
-      <div class="section-head"><div><span class="eyebrow">D · Human Decision</span><h2>系统给建议，人来做决定</h2></div><p>每项支持 APPROVE、APPROVE_WITH_MODIFICATION、REJECT、DEFER。下方 Human Decision 均为空白。</p></div>
+      <div class="section-head"><div><span class="eyebrow">D · Human Decision</span><h2>九项人工决定已经写入</h2></div><p>Decision Record 已接受并通过同一 PR 内的独立校验。下列批准只在明确 Scope 内生效。</p></div>
       <div class="grid">
-        <article class="card decision-card span-4"><h3>Project Visual DNA</h3><div class="recommendation">推荐：APPROVE_WITH_SCOPE</div><div class="options"><span class="option">APPROVE</span><span class="option">APPROVE_WITH_MODIFICATION</span><span class="option">REJECT</span><span class="option">DEFER</span></div><div class="blank" data-human-decision="">Human Decision：待人工填写</div></article>
-        <article class="card decision-card span-4"><h3>EDM Channel Intent</h3><div class="recommendation">推荐：APPROVE</div><div class="options"><span class="option">APPROVE</span><span class="option">APPROVE_WITH_MODIFICATION</span><span class="option">REJECT</span><span class="option">DEFER</span></div><div class="blank" data-human-decision="">Human Decision：待人工填写</div></article>
-        <article class="card decision-card span-4"><h3>Recipe Core Structure</h3><div class="recommendation">推荐：APPROVE</div><div class="options"><span class="option">APPROVE</span><span class="option">APPROVE_WITH_MODIFICATION</span><span class="option">REJECT</span><span class="option">DEFER</span></div><div class="blank" data-human-decision="">Human Decision：待人工填写</div></article>
-        <article class="card decision-card span-4"><h3>Mechanism Proof Policy</h3><div class="recommendation">推荐：Generic CONDITIONAL / S30 REQUIRED WHEN EVIDENCE APPROVED</div><div class="options"><span class="option">APPROVE</span><span class="option">APPROVE_WITH_MODIFICATION</span><span class="option">REJECT</span><span class="option">DEFER</span></div><div class="blank" data-human-decision="">Human Decision：待人工填写</div></article>
-        <article class="card decision-card span-4"><h3>Optional Sections</h3><div class="recommendation">推荐：CONDITIONAL</div><div class="options"><span class="option">APPROVE</span><span class="option">APPROVE_WITH_MODIFICATION</span><span class="option">REJECT</span><span class="option">DEFER</span></div><div class="blank" data-human-decision="">Human Decision：待人工填写</div></article>
-        <article class="card decision-card span-4"><h3>Template Compatibility</h3><div class="recommendation">推荐：ACCEPT AS CONDITIONAL RECOMMENDATION</div><div class="options"><span class="option">APPROVE</span><span class="option">APPROVE_WITH_MODIFICATION</span><span class="option">REJECT</span><span class="option">DEFER</span></div><div class="blank" data-human-decision="">Human Decision：待人工填写</div></article>
-        <article class="card decision-card span-4"><h3>Pattern / Recipe Lifecycle</h3><div class="recommendation">推荐：KEEP_CANDIDATE</div><div class="options"><span class="option">APPROVE</span><span class="option">APPROVE_WITH_MODIFICATION</span><span class="option">REJECT</span><span class="option">DEFER</span></div><div class="blank" data-human-decision="">Human Decision：待人工填写</div></article>
-        <article class="card decision-card span-4"><h3>EDM Visual Freeze</h3><div class="recommendation">推荐：DO_NOT_CREATE</div><div class="options"><span class="option">APPROVE</span><span class="option">APPROVE_WITH_MODIFICATION</span><span class="option">REJECT</span><span class="option">DEFER</span></div><div class="blank" data-human-decision="">Human Decision：待人工填写</div></article>
-        <article class="card decision-card span-4"><h3>Pilot / Production Scope</h3><div class="recommendation">推荐：Pilot 可审；Production REMAIN_BLOCKED</div><div class="options"><span class="option">APPROVE</span><span class="option">APPROVE_WITH_MODIFICATION</span><span class="option">REJECT</span><span class="option">DEFER</span></div><div class="blank" data-human-decision="">Human Decision：待人工填写</div></article>
+        <article class="card decision-card span-4"><h3>Project Visual DNA</h3><div class="recommendation">固定 clean / product first / proof before persuasion / mobile priority high</div><div class="blank complete" data-human-decision="APPROVE_WITH_MODIFICATION">Human Decision：APPROVE_WITH_MODIFICATION</div></article>
+        <article class="card decision-card span-4"><h3>EDM Channel Intent</h3><div class="recommendation">product_launch / new_product_value_understanding</div><div class="blank complete" data-human-decision="APPROVE">Human Decision：APPROVE</div></article>
+        <article class="card decision-card span-4"><h3>Recipe Core Structure</h3><div class="recommendation">Product-first Hero → Benefit Summary → Purchase CTA → Brand Footer</div><div class="blank complete" data-human-decision="APPROVE">Human Decision：APPROVE</div></article>
+        <article class="card decision-card span-4"><h3>Mechanism Proof Policy</h3><div class="recommendation">Generic CONDITIONAL / S30 在批准证据齐备时必须启用</div><div class="blank complete" data-human-decision="APPROVE">Human Decision：APPROVE</div></article>
+        <article class="card decision-card span-4"><h3>Optional Sections</h3><div class="recommendation">四类模块统一按已批准证据和 Intent 条件启用</div><div class="blank complete" data-human-decision="APPROVE_WITH_MODIFICATION">Human Decision：APPROVE_WITH_MODIFICATION</div></article>
+        <article class="card decision-card span-4"><h3>Template Compatibility</h3><div class="recommendation">TPL-LAUNCH-A 为条件推荐，Stable Selector 不可被覆盖</div><div class="blank complete" data-human-decision="APPROVE">Human Decision：APPROVE</div></article>
+        <article class="card decision-card span-4"><h3>Pattern / Recipe Lifecycle</h3><div class="recommendation">通用 Recipe 与 Section Pattern 继续 KEEP_CANDIDATE</div><div class="blank complete" data-human-decision="APPROVE">Human Decision：APPROVE</div></article>
+        <article class="card decision-card span-4"><h3>EDM Visual Freeze</h3><div class="recommendation">当前不创建 Final Freeze，仅激活 Planning Lock</div><div class="blank complete" data-human-decision="APPROVE_WITH_MODIFICATION">Human Decision：APPROVE_WITH_MODIFICATION</div></article>
+        <article class="card decision-card span-4"><h3>Pilot / Production Scope</h3><div class="recommendation">项目规划与内部 Handoff 可继续；Production / Send 不批准</div><div class="blank complete" data-human-decision="APPROVE_WITH_MODIFICATION">Human Decision：APPROVE_WITH_MODIFICATION</div></article>
       </div>
     </section>
 
     <section>
-      <div class="section-head"><div><span class="eyebrow">E · Evidence & Asset Gaps</span><h2>只登记缺口，不在本次补齐</h2></div><p>Owner 与 Due Date 均保持 TBD。Optional 素材只阻塞被选择的模块；事实、Claim、主产品素材和 CTA 会阻塞正式生产。</p></div>
+      <div class="section-head"><div><span class="eyebrow">E · S30_CONTENT_CLAIM_ASSET_UNLOCK</span><h2>八类缺口合并为一个后续 Gate</h2></div><p>Owner 与 Due Date 均保持 TBD。该 Gate 只处理事实、Claim、素材、CTA 与 Legal/Footer，不再要求重新选择视觉方向。</p></div>
       <div class="grid">
         <article class="card span-6"><ul class="gap-list">
           <li><div><strong>Approved Product Truth</strong><small>EDM Content / Production</small></div><span class="badge red">PARTIAL</span></li>
@@ -261,7 +262,7 @@
 
     <section class="boundary">
       <span class="eyebrow" style="color:#fff3ef">F · Boundary</span>
-      <h2>Architecture Approval ≠ Pattern Lifecycle Promotion ≠ Visual Freeze Approval ≠ Product Truth Approval ≠ Claim Approval ≠ Asset Approval ≠ Production / Send Approval</h2>
+      <h2>项目级视觉方向已经固定 ≠ 通用 Pattern 已 VALIDATED ≠ 最终 EDM Visual Freeze ≠ Product Truth / Claim / Asset Approval ≠ Production / Send Approval</h2>
       <div class="boundary-grid">
         <div>Recipe / Section Pattern：KEEP_CANDIDATE</div>
         <div>EDM Visual Freeze：DO_NOT_CREATE</div>
@@ -270,14 +271,14 @@
     </section>
 
     <section>
-      <div class="section-head"><div><span class="eyebrow">G · Next Gate</span><h2>填写决策，再审决策记录</h2></div></div>
+      <div class="section-head"><div><span class="eyebrow">G · Next Gate</span><h2>只解锁内容、Claim 与素材</h2></div></div>
       <div class="next">
-        <article class="card"><h3>本次需要人工完成</h3><p>在 <code>decision-template.yaml</code> 填写具名审核人、时间、九项决定、必要的修改说明和 Next Gate。Recommended Decision 不能替代人工填写。</p></article>
-        <article class="card"><h3>停止条件</h3><p><strong>S30_VISUAL_PATTERN_RECIPE_HUMAN_REVIEW</strong></p><span class="badge amber">等待人工决策</span></article>
+        <article class="card"><h3>Gate 完成后的固定路径</h3><p>Existing EDM Runtime → Stable Template Selector → Renderer → Desktop / Mobile QA → Final Human Review → ESP Gate。</p></article>
+        <article class="card"><h3>当前停止条件</h3><p><strong>S30_CONTENT_CLAIM_ASSET_UNLOCK</strong></p><span class="badge red">BLOCKED</span></article>
       </div>
     </section>
 
-    <footer>Review artifact only · Sources: projects/s30-mini/visual-profile.yaml · projects/s30-mini/project-context.yaml · projects/s30-mini/visual-freeze.yaml · visual-system/patterns/recipes/edm-product-launch-proof/recipe.yaml</footer>
+    <footer>Decision artifact · Decision Record: projects/s30-mini/reviews/visual-pattern-recipe-20260827/decision-record.yaml · Protected baselines: visual-profile.yaml / visual-freeze.yaml / Recipe / Registry remain unchanged</footer>
   </main>
 </body>
 </html>

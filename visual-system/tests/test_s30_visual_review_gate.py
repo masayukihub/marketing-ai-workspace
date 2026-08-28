@@ -1,7 +1,10 @@
 from __future__ import annotations
 
 import hashlib
+import json
+import subprocess
 import unittest
+from datetime import datetime
 from pathlib import Path
 
 import yaml
@@ -28,25 +31,29 @@ class S30VisualPatternRecipeReviewGateTest(unittest.TestCase):
         expected = {
             "review.html",
             "decision-template.yaml",
+            "decision-record.yaml",
+            "decision-record-review.yaml",
             "asset-gap-register.yaml",
             "review-scope.md",
             "README.zh-CN.md",
         }
         self.assertTrue(expected.issubset({path.name for path in REVIEW.iterdir()}))
 
-    def test_human_decision_fields_are_blank(self):
+    def test_human_decision_is_completed_with_valid_values(self):
         decision = load_yaml(REVIEW / "decision-template.yaml")
-        self.assertEqual(decision["review_status"], "PENDING_HUMAN")
-        self.assertIsNone(decision["reviewer"]["name"])
-        self.assertIsNone(decision["reviewer"]["reviewed_at"])
+        self.assertEqual(decision["review_status"], "APPROVED_WITH_MODIFICATION")
+        self.assertEqual(decision["reviewer"]["name"], "赖晓洪（ライ）")
+        reviewed_at = decision["reviewer"]["reviewed_at"]
+        self.assertIsNotNone(datetime.fromisoformat(reviewed_at).tzinfo)
+        allowed = set(decision["decision_options"])
         for review_object in decision["decisions"].values():
-            self.assertIsNone(review_object["decision"])
-            self.assertIsNone(review_object["modification_notes"])
+            self.assertIn(review_object["decision"], allowed)
+            self.assertTrue(review_object["modification_notes"])
         optional = decision["decisions"]["optional_sections"]
         for key in ("consumer_problem", "lifestyle_context", "app_automation", "legal_note"):
-            self.assertIsNone(optional[key])
-        self.assertIsNone(decision["decisions"]["approval_scope"]["project_pilot_use"])
-        self.assertIsNone(decision["next_gate"])
+            self.assertEqual(optional[key], "APPROVE_WITH_MODIFICATION")
+        self.assertTrue(decision["decisions"]["approval_scope"]["project_pilot_use"])
+        self.assertEqual(decision["next_gate"], "S30_CONTENT_CLAIM_ASSET_UNLOCK")
         self.assertEqual(
             decision["decision_options"],
             ["APPROVE", "APPROVE_WITH_MODIFICATION", "REJECT", "DEFER"],
@@ -88,8 +95,10 @@ class S30VisualPatternRecipeReviewGateTest(unittest.TestCase):
             self.assertTrue(item["source"])
             self.assertTrue(item["blocking_scope"])
         self.assertEqual(register["summary"]["gaps_auto_resolved"], 0)
+        self.assertEqual(register["next_gate"], "S30_CONTENT_CLAIM_ASSET_UNLOCK")
+        self.assertTrue(register["gate"]["no_additional_visual_direction_gate"])
 
-    def test_review_html_is_marketing_readable_and_human_blank(self):
+    def test_review_html_is_marketing_readable_and_human_completed(self):
         html = (REVIEW / "review.html").read_text(encoding="utf-8")
         for phrase in (
             "Project Visual DNA",
@@ -99,12 +108,43 @@ class S30VisualPatternRecipeReviewGateTest(unittest.TestCase):
             "REQUIRED_WHEN_APPROVED_EVIDENCE_AVAILABLE",
             "TPL-LAUNCH-A",
             "CANDIDATE_CONDITIONAL_MATCH",
-            "Architecture Approval ≠ Pattern Lifecycle Promotion",
-            "S30_VISUAL_PATTERN_RECIPE_HUMAN_REVIEW",
+            "HUMAN DECISION COMPLETED",
+            "PROJECT VISUAL PLANNING LOCK ACTIVE",
+            "S30_CONTENT_CLAIM_ASSET_UNLOCK",
         ):
             self.assertIn(phrase, html)
-        self.assertEqual(html.count('data-human-decision=""'), 9)
-        self.assertNotIn('data-human-decision="APPROVE', html)
+        self.assertEqual(html.count('data-human-decision="'), 9)
+        self.assertNotIn('data-human-decision=""', html)
+
+    def test_decision_record_hashes_and_review_are_verifiable(self):
+        decision = load_yaml(REVIEW / "decision-template.yaml")
+        record = load_yaml(REVIEW / "decision-record.yaml")
+        review = load_yaml(REVIEW / "decision-record-review.yaml")
+        self.assertEqual(record["record_status"], "ACCEPTED")
+        self.assertEqual(record["reviewer"], decision["reviewer"])
+        self.assertEqual(record["integrity"]["decision_template_sha256"], sha256(REVIEW / "decision-template.yaml"))
+        canonical = json.loads(json.dumps(record, ensure_ascii=False))
+        canonical["integrity"].pop("decision_record_content_sha256")
+        payload = json.dumps(canonical, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+        self.assertEqual(
+            record["integrity"]["decision_record_content_sha256"],
+            hashlib.sha256(payload.encode("utf-8")).hexdigest(),
+        )
+        self.assertEqual(review["review_status"], "PASS")
+        self.assertTrue(review["reviewer_present"])
+        self.assertTrue(review["all_decisions_valid"])
+        self.assertTrue(review["protected_hashes_unchanged"])
+        self.assertEqual(review["production_status"], "BLOCKED")
+        self.assertEqual(record["source"]["source_commit"], "SELF_COMMIT")
+        result = subprocess.run(
+            ["git", "log", "--diff-filter=A", "--format=%H", "--", str((REVIEW / "decision-record.yaml").relative_to(ROOT))],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+        if result.stdout.strip():
+            self.assertEqual(result.stdout.strip().splitlines()[0], subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip())
 
     def test_visual_governance_state_remains_unchanged(self):
         decision = load_yaml(REVIEW / "decision-template.yaml")
@@ -140,6 +180,16 @@ class S30VisualPatternRecipeReviewGateTest(unittest.TestCase):
         for group in ("product_truth", "claim"):
             for relative, expected in baseline[group].items():
                 self.assertEqual(sha256(ROOT / relative), expected, relative)
+
+    def test_project_manifest_points_to_accepted_planning_lock(self):
+        manifest = load_yaml(ROOT / "projects/s30-mini/project.yaml")
+        self.assertEqual(
+            manifest["sources"]["visual_planning_decision"],
+            "reviews/visual-pattern-recipe-20260827/decision-record.yaml",
+        )
+        self.assertEqual(manifest["gate_status"]["visual_planning"], "approved")
+        self.assertEqual(manifest["latest_decision"]["status"], "accepted")
+        self.assertEqual(manifest["blocking_items"][0]["blocker_id"], "S30-CONTENT-CLAIM-ASSET-UNLOCK")
 
     def test_review_package_has_no_local_absolute_paths(self):
         forbidden = ("/" + "Users" + "/", "/" + "home" + "/")

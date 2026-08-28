@@ -4,6 +4,11 @@ project_id: s30-mini
 review_id: visual-pattern-recipe-20260827
 register_status: REVIEW_ONLY
 rule: Gaps are recorded from current repository contracts and are not approved, resolved, assigned, or supplemented by this review package.
+next_gate: S30_CONTENT_CLAIM_ASSET_UNLOCK
+gate:
+  status: BLOCKED
+  purpose: Resolve content truth, claims, channel assets, CTA, and Legal/Footer inputs in one governed handoff.
+  no_additional_visual_direction_gate: true
 
 items:
   - gap_id: S30-GAP-PRODUCT-TRUTH
@@ -80,6 +85,15 @@ items:
 
 summary:
   production_status: REMAIN_BLOCKED
+  consolidated_gate: S30_CONTENT_CLAIM_ASSET_UNLOCK
   gaps_auto_resolved: 0
   owners_auto_assigned: 0
   due_dates_auto_assigned: 0
+  after_gate_completion:
+    - Existing EDM Runtime
+    - Stable Template Selector
+    - Renderer
+    - Desktop QA
+    - Mobile QA
+    - Final Human Review
+    - ESP Gate

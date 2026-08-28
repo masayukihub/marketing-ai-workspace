@@ -1,0 +1,55 @@
+schema_version: "1.0"
+contract: visual-pattern-recipe-decision-record-review
+project_id: s30-mini
+review_id: visual-pattern-recipe-20260827
+review_status: PASS
+reviewed_at: "2026-08-28T11:08:38+08:00"
+reviewer_present: true
+all_decisions_valid: true
+protected_hashes_unchanged: true
+visual_freeze_unchanged: true
+recipe_lifecycle_unchanged: true
+section_pattern_lifecycle_unchanged: true
+production_status: BLOCKED
+project_planning_lock: ACTIVE
+project_visual_direction_status: HUMAN_APPROVED_FOR_PROJECT_PLANNING
+reask_visual_direction: false
+decision_application_commit: SELF_COMMIT
+decision_application_commit_resolution: FIRST_GIT_COMMIT_CONTAINING_THIS_REVIEW
+integrity:
+  decision_template_sha256: 606d4907c1cbf37f7336ba0de77f23129d9544ce59cd8bbe11bb68dfc362f13d
+  decision_record_content_sha256: 6a98d10b4bff8d10b696eaa31955865866809f607aeb6ba3e91b1dfee3c0cbf4
+  protected_contracts:
+    approved_asset_context:
+      expected: 5d8e89b92b0b429bcc34e09ea9e6464c3685b138a3daba78a7de40819a11caf2
+      actual: 5d8e89b92b0b429bcc34e09ea9e6464c3685b138a3daba78a7de40819a11caf2
+      result: PASS
+    visual_profile:
+      expected: 348795754a97d0a08721e4b2dcd2defecf4f39c71fd0400e5e84dbfcc7897a5b
+      actual: 348795754a97d0a08721e4b2dcd2defecf4f39c71fd0400e5e84dbfcc7897a5b
+      result: PASS
+    visual_freeze:
+      expected: be43fe2c43ea07d372f91185a04f1050225594d2ef121823fc41b9d29576f507
+      actual: be43fe2c43ea07d372f91185a04f1050225594d2ef121823fc41b9d29576f507
+      result: PASS
+    recipe:
+      expected: 575ffe77d1754179cf1b4ec677ad283167f9f7e47c401bece3e0e6f905c4de33
+      actual: 575ffe77d1754179cf1b4ec677ad283167f9f7e47c401bece3e0e6f905c4de33
+      result: PASS
+    section_pattern_registry:
+      expected: 65155064381cd3d5bc934ab88ce50b7116ca91220175c0fb3b05887fc90e81de
+      actual: 65155064381cd3d5bc934ab88ce50b7116ca91220175c0fb3b05887fc90e81de
+      result: PASS
+    recipe_registry:
+      expected: 6648f35c7476d0838d03a1de53dcebf70c0259cb8a8732d9484d8eace9647d0b
+      actual: 6648f35c7476d0838d03a1de53dcebf70c0259cb8a8732d9484d8eace9647d0b
+      result: PASS
+boundaries:
+  product_truth_approved: false
+  claim_approved: false
+  asset_approved: false
+  edm_visual_freeze_created: false
+  production_approved: false
+  esp_approved: false
+  send_or_publication_approved: false
+next_gate: S30_CONTENT_CLAIM_ASSET_UNLOCK

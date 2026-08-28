@@ -2,7 +2,7 @@ schema_version: "1.0"
 contract: visual-pattern-recipe-human-review
 project_id: s30-mini
 review_id: visual-pattern-recipe-20260827
-review_status: PENDING_HUMAN
+review_status: APPROVED_WITH_MODIFICATION
 
 baseline:
   formal_main_commit: 437a38ebb3d4714ad2ff3ccfe78c02c8c9c75800
@@ -25,62 +25,106 @@ decision_options:
   - DEFER
 
 reviewer:
-  name: null
-  reviewed_at: null
+  name: 赖晓洪（ライ）
+  reviewed_at: "2026-08-28T11:08:38+08:00"
 
 decisions:
   project_visual_dna:
-    decision: null
-    modification_notes: null
+    decision: APPROVE_WITH_MODIFICATION
+    modification_notes: >
+      批准用于 S30 mini 的 Amazon JP 与 EDM 项目级视觉规划。
+      固定 clean、Japan consumer friendly、product first、
+      proof before persuasion、product → mechanism → proof、
+      structured progressive disclosure 与 mobile priority high。
+      本批准不包含 Product Truth、Claim、价格、规格、素材、
+      Amazon Gallery/A+ Layout 或最终 EDM Layout。
+      除非用户明确要求修改、当前渠道存在硬冲突、Pattern Deprecated
+      或已批准项目方向发生实质冲突，否则不再重新询问视觉方向。
 
   edm_channel_intent:
-    decision: null
-    modification_notes: null
+    decision: APPROVE
+    modification_notes: >
+      S30 mini 首发 EDM 固定为
+      campaign_type=product_launch，
+      primary_objective=new_product_value_understanding。
+      促销、Last Chance、品类教育或多产品 EDM 应建立新的 Campaign Intent，
+      但不得因此重做 S30 Project Visual DNA。
 
   recipe_core_structure:
-    decision: null
-    modification_notes: null
+    decision: APPROVE
+    modification_notes: >
+      批准 Product-first Hero → Benefit Summary → Purchase CTA
+      → Brand Footer 作为基础必需结构。
+      条件模块由已批准证据和 Channel Intent 自动决定，
+      不再逐项要求用户重新选择。
 
   mechanism_proof_policy:
-    decision: null
+    decision: APPROVE
     generic_recipe_requirement: CONDITIONAL
     s30_project_policy: REQUIRED_WHEN_APPROVED_EVIDENCE_AVAILABLE
-    modification_notes: null
+    modification_notes: >
+      通用 Product Launch Recipe 中 Mechanism Proof 保持 CONDITIONAL。
+      对 S30 mini，当 Approved JP Claim 与 Approved Mechanism Proof Asset
+      同时满足时，系统自动启用 Mechanism Proof，不再进行额外视觉方向询问。
+      在任一证据未批准时，该模块保持阻塞，禁止使用未批准 Claim 或素材。
 
   optional_sections:
-    decision: null
-    consumer_problem: null
-    lifestyle_context: null
-    app_automation: null
-    legal_note: null
-    modification_notes: null
+    decision: APPROVE_WITH_MODIFICATION
+    consumer_problem: APPROVE_WITH_MODIFICATION
+    lifestyle_context: APPROVE_WITH_MODIFICATION
+    app_automation: APPROVE_WITH_MODIFICATION
+    legal_note: APPROVE_WITH_MODIFICATION
+    modification_notes: >
+      四类模块统一采用条件启用规则，不再逐项询问用户。
+      Consumer Problem 默认关闭，仅在目标用户证据表明需要先建立问题认知时启用。
+      Lifestyle Context 默认关闭，仅在有批准场景素材且场景能解释产品价值时启用。
+      App / Automation 默认关闭，仅在该能力对本次核心价值重要、
+      且有当前版本批准 UI 素材时启用。
+      Claim、价格、优惠或渠道存在必要限定时启用 Legal Note；
+      标准 Brand Footer 与退订信息继续由现有 EDM Runtime 强制保留。
 
   template_compatibility:
-    decision: null
+    decision: APPROVE
     recommended_template: TPL-LAUNCH-A
     mapping_status: CANDIDATE_CONDITIONAL_MATCH
     stable_selector_override_allowed: false
-    modification_notes: null
+    modification_notes: >
+      接受 TPL-LAUNCH-A 作为当前条件推荐，但 Visual Router 不得直接锁定最终 Template。
+      Existing Stable Template Selector 保留最终选择权。
+      Selector 返回高置信度结果时自动继续，不再询问用户 A/B。
+      仅在 Selector 冲突、无兼容 Template 或硬约束不满足时进入 Human Review。
 
   lifecycle:
-    decision: null
+    decision: APPROVE
     recipe_status: KEEP_CANDIDATE
     section_pattern_status: KEEP_CANDIDATE
     promotion_approved: false
-    modification_notes: null
+    modification_notes: >
+      通用 Recipe 与六个 Section Pattern 继续保持 CANDIDATE。
+      该生命周期状态不得阻塞 S30 项目级规划使用。
+      Golden Fixture Runtime Validation 仅用于未来将通用 Pattern
+      从 CANDIDATE 提升为 VALIDATED，不作为 S30 项目继续规划的前置条件。
 
   visual_freeze:
     create_edm_freeze: false
-    decision: null
-    modification_notes: null
+    decision: APPROVE_WITH_MODIFICATION
+    modification_notes: >
+      当前不创建最终 EDM Visual Freeze。
+      本次建立的是 Project Visual Planning Lock，
+      用于固定 Visual DNA、Channel Intent、Recipe Core 与条件模块政策。
+      最终 EDM Visual Freeze 只能在真实 Renderer 输出完成、
+      Desktop/Mobile QA 与具名 Final Human Review 通过后创建。
 
   approval_scope:
-    decision: null
-    project_pilot_use: null
+    decision: APPROVE_WITH_MODIFICATION
+    project_pilot_use: true
     reusable_pattern_validation: false
     production_use: false
     send_or_publish: false
-    modification_notes: null
+    modification_notes: >
+      批准用于 S30 项目规划、结构生成、内部 Review 与后续 Content/Asset Handoff。
+      不批准正式 EDM Production、ESP、Send、Publication，
+      不批准 Product Truth、Claim、Price 或 Asset。
 
 recommended_decisions:
   project_visual_dna: APPROVE_WITH_SCOPE
@@ -103,4 +147,4 @@ approval_boundary:
   architecture_approval_is_not_asset_approval: true
   architecture_approval_is_not_production_or_send_approval: true
 
-next_gate: null
+next_gate: S30_CONTENT_CLAIM_ASSET_UNLOCK

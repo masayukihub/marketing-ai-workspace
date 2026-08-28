@@ -38,6 +38,7 @@ SOURCE_KEYS = (
     "product_truth", "project_memory", "decisions", "approved_claims",
     "visual_context", "visual_profile", "visual_freeze", "assets",
 )
+OPTIONAL_SOURCE_KEYS = ("visual_planning_decision",)
 TASK_TYPES = (
     "GTM", "Amazon", "PR", "KOL", "Campaign", "VOC", "Competitor",
     "Design", "Visual", "Product Knowledge", "Website", "SEO", "Review",
@@ -220,6 +221,18 @@ def validate_manifest(path: Path, workspace: Path) -> list[str]:
                 _, exists = resolve_pointer(path, pointer, workspace)
                 if not exists:
                     errors.append(f"SOURCE_PATH_MISSING:{key}:{pointer}")
+        for key in OPTIONAL_SOURCE_KEYS:
+            if key not in sources:
+                continue
+            try:
+                values = pointer_values(sources.get(key))
+            except ResolverError as exc:
+                errors.append(f"INVALID_SOURCE_POINTER:{key}:{exc}")
+                continue
+            for pointer in values:
+                _, exists = resolve_pointer(path, pointer, workspace)
+                if not exists:
+                    errors.append(f"SOURCE_PATH_MISSING:{key}:{pointer}")
 
     def validate_record_source(label: str, record: Any) -> None:
         if not isinstance(record, dict):
@@ -386,9 +399,50 @@ def required_source_rows(
 def has_accepted_decision(decision_path: Path) -> bool:
     if not decision_path.is_file():
         return False
+    if decision_path.suffix.lower() in {".yaml", ".yml"}:
+        try:
+            decision = load_yaml(decision_path)
+        except (OSError, ValueError, yaml.YAMLError, ResolverError):
+            return False
+        return (
+            str(decision.get("record_status") or "").upper() == "ACCEPTED"
+            and str(decision.get("decision_result") or "").upper()
+            in {"APPROVED", "APPROVED_WITH_MODIFICATION"}
+        )
     text = decision_path.read_text(encoding="utf-8")
     blocks = re.findall(r"^###\s+DEC-[^\n]+\n(.*?)(?=^###\s+DEC-|\Z)", text, re.MULTILINE | re.DOTALL)
     return any(re.search(r"^- Status:\s*(?:Accepted|Approved)\s*$", block, re.MULTILINE | re.IGNORECASE) for block in blocks)
+
+
+def accepted_visual_planning_decision(
+    manifest_path: Path, manifest: dict[str, Any], workspace: Path
+) -> dict[str, Any] | None:
+    pointers = pointer_values((manifest.get("sources") or {}).get("visual_planning_decision"))
+    if not pointers:
+        return None
+    display, exists = resolve_pointer(manifest_path, pointers[0], workspace)
+    if not exists:
+        return None
+    path = workspace / display if not Path(display).is_absolute() else Path(display)
+    try:
+        record = load_yaml(path)
+    except (OSError, ValueError, yaml.YAMLError, ResolverError):
+        return None
+    lock = record.get("project_planning_lock") or {}
+    if (
+        record.get("contract") != "visual-pattern-recipe-decision-record"
+        or str(record.get("record_status") or "").upper() != "ACCEPTED"
+        or str(lock.get("status") or "").upper() != "ACTIVE"
+    ):
+        return None
+    return {
+        "status": "ACCEPTED",
+        "project_visual_direction_status": lock.get("project_visual_direction_status"),
+        "reask_visual_direction": lock.get("reask_visual_direction"),
+        "review_id": record.get("review_id"),
+        "source": display,
+        "reopen_when": lock.get("reopen_when", []),
+    }
 
 
 def decision_conflict_warning(manifest_path: Path, manifest: dict[str, Any], workspace: Path) -> list[str]:
@@ -577,6 +631,7 @@ def build_context(
     approved_decisions = []
     if isinstance(latest_decision, dict) and latest_decision.get("status") == "accepted":
         approved_decisions.append(latest_decision)
+    visual_planning_decision = accepted_visual_planning_decision(manifest_path, manifest, workspace)
 
     product_truth_row = next((row for row in source_rows if row["kind"] == "product_truth"), None)
     current_truth = {
@@ -604,6 +659,7 @@ def build_context(
         "freshness": freshness,
         "current_truth": current_truth,
         "approved_decisions": approved_decisions,
+        "project_visual_decision": visual_planning_decision,
         "blocking_items": manifest.get("blocking_items") or [],
         "required_sources": source_rows,
         "relevant_skills": skill_rows,
