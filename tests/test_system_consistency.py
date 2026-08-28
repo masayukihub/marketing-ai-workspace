@@ -109,8 +109,8 @@ def test_inventory_is_repository_owned_and_has_no_machine_paths():
     assert "project-context-resolver" in names
     assert LOCKED_SKILLS.issubset(names)
     assert all(row["runtime_authority"] == "repository" for row in rows)
-    assert "/Users/" not in text
-    assert "/home/" not in text
+    forbidden = ("/" + "Users" + "/", "/" + "home" + "/")
+    assert not any(prefix in text for prefix in forbidden)
     assert "local-installed" not in text
 
 
@@ -173,9 +173,10 @@ def test_consistency_artifacts_do_not_contain_absolute_machine_paths():
         ROOT / "chatgpt/context-index.yaml",
         *sorted((ROOT / "projects").glob("*/chatgpt-context.md")),
     ]
+    forbidden = ("/" + "Users" + "/", "/" + "home" + "/")
     offenders = []
     for path in paths:
         text = path.read_text(encoding="utf-8")
-        if "/Users/" in text or "/home/" in text:
+        if any(prefix in text for prefix in forbidden):
             offenders.append(path.relative_to(ROOT).as_posix())
     assert offenders == []
