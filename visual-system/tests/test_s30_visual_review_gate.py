@@ -136,15 +136,33 @@ class S30VisualPatternRecipeReviewGateTest(unittest.TestCase):
         self.assertTrue(review["protected_hashes_unchanged"])
         self.assertEqual(review["production_status"], "BLOCKED")
         self.assertEqual(record["source"]["source_commit"], "SELF_COMMIT")
-        result = subprocess.run(
-            ["git", "log", "--diff-filter=A", "--format=%H", "--", str((REVIEW / "decision-record.yaml").relative_to(ROOT))],
-            cwd=ROOT,
-            capture_output=True,
-            text=True,
-            check=True,
-        )
-        if result.stdout.strip():
-            self.assertEqual(result.stdout.strip().splitlines()[0], subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip())
+        is_shallow = subprocess.check_output(
+            ["git", "rev-parse", "--is-shallow-repository"], cwd=ROOT, text=True
+        ).strip() == "true"
+        if not is_shallow:
+            result = subprocess.run(
+                [
+                    "git",
+                    "log",
+                    "--diff-filter=A",
+                    "--format=%H",
+                    "--",
+                    str((REVIEW / "decision-record.yaml").relative_to(ROOT)),
+                ],
+                cwd=ROOT,
+                capture_output=True,
+                text=True,
+                check=True,
+            )
+            self.assertTrue(result.stdout.strip())
+            source_commit = result.stdout.strip().splitlines()[0]
+            source_subject = subprocess.check_output(
+                ["git", "show", "-s", "--format=%s", source_commit], cwd=ROOT, text=True
+            ).strip()
+            self.assertEqual(
+                source_subject,
+                record["decision_application"]["expected_commit_message"],
+            )
 
     def test_visual_governance_state_remains_unchanged(self):
         decision = load_yaml(REVIEW / "decision-template.yaml")
