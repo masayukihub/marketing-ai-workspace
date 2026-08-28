@@ -1,11 +1,12 @@
 # Visual Pattern 接入
 
-正式项目的 EDM 先读取同一份 `projects/<project-id>/project-context.yaml` 与 `visual-profile.yaml`。不要为 EDM 复制另一份 Project Context。
+正式项目的 EDM 先读取同一份 `projects/<project-id>/project-context.yaml`、Project Manifest 指向的 Accepted Visual Planning Decision 与 `visual-profile.yaml`。不要为 EDM 复制另一份 Project Context。
 
 执行顺序：
 
 ```text
 Project Visual DNA
+→ Approved Freeze precedence / Accepted Planning Lock
 → channel_assignments.edm
 → resolved channel_contexts.edm Intent
 → EDM Page Recipe
@@ -41,3 +42,11 @@ Recipe 只向 Stable Template Selector 提交 `template_selection_request`。`TP
 Pattern、Recipe、Template 与 HTML 必须分离。Router 推荐结构，既有 Runtime 最终决定 Template、Module、Renderer、Mobile QA 和 ESP Gate。
 
 Visual Router 不能删除或替代 Product Truth、Claim Gate、Product Layer、Asset Gate、Human Review、Hardening、Mobile QA 与 ESP Gate。
+
+## Planning Lock 行为
+
+- Approved Visual Freeze 优先于 Project Visual Planning Lock。
+- 没有 Approved Freeze 时，`ACCEPTED / ACTIVE` Planning Lock 使 `reask_visual_direction=false`，并把项目方向标为 `HUMAN_APPROVED_FOR_PROJECT_PLANNING`。
+- Planning Lock 不锁定最终 Template。`TPL-LAUNCH-A` 继续只是条件推荐，Stable Template Selector 保留最终选择权。
+- 只有用户明确改方向、渠道硬冲突、已批准项目方向冲突、Pattern Deprecated 或无兼容 Template 时重开视觉方向审核。
+- Planning Lock 不批准 Product Truth、Claim、Price、Asset、Final Layout、Production、ESP、Send 或 Publication。

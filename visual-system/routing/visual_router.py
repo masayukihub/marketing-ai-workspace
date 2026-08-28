@@ -136,6 +136,161 @@ def normalize_source_references(sources: list[Any]) -> list[Any]:
     return normalized
 
 
+def sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def decision_record_content_hash(record: dict[str, Any]) -> str:
+    """Hash a Decision Record without its self-declared content hash."""
+    canonical = copy.deepcopy(record)
+    integrity = canonical.get("integrity")
+    if isinstance(integrity, dict):
+        integrity.pop("decision_record_content_sha256", None)
+    payload = json.dumps(canonical, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+
+def load_project_planning_decision(project_dir: Path) -> tuple[dict[str, Any] | None, list[str], str | None]:
+    """Load and verify an accepted project-level visual planning decision."""
+    manifest_file = project_dir / "project.yaml"
+    if not manifest_file.is_file():
+        return None, ["No project manifest visual planning decision"], None
+    manifest = load_yaml(manifest_file)
+    pointer = (manifest.get("sources") or {}).get("visual_planning_decision")
+    if not isinstance(pointer, str) or not pointer.strip():
+        return None, ["No accepted Project Visual Planning Decision"], None
+    raw = Path(pointer)
+    if raw.is_absolute() or WINDOWS_ABSOLUTE_PATH.match(pointer) or pointer.startswith("\\\\"):
+        return None, ["Visual planning decision pointer must be repository-relative"], None
+    record_file = (project_dir / raw).resolve()
+    try:
+        record_source = record_file.relative_to(ROOT.resolve()).as_posix()
+    except ValueError:
+        return None, ["Visual planning decision pointer escapes repository"], None
+    if not record_file.is_file():
+        return None, ["Visual planning decision record is missing"], record_source
+    record = load_yaml(record_file)
+    lock = record.get("project_planning_lock") or {}
+    reasons = []
+    if record.get("contract") != "visual-pattern-recipe-decision-record":
+        reasons.append("Invalid visual planning decision contract")
+    if record.get("project_id") != manifest.get("project_id"):
+        reasons.append("Visual planning decision project mismatch")
+    if str(record.get("record_status") or "").upper() != "ACCEPTED":
+        reasons.append("Visual planning decision is not ACCEPTED")
+    if str(lock.get("status") or "").upper() != "ACTIVE":
+        reasons.append("Project Visual Planning Lock is not ACTIVE")
+    integrity = record.get("integrity") or {}
+    expected_record_hash = integrity.get("decision_record_content_sha256")
+    if expected_record_hash != decision_record_content_hash(record):
+        reasons.append("Decision Record content hash mismatch")
+    template_pointer = (record.get("source") or {}).get("decision_template")
+    if not isinstance(template_pointer, str) or Path(template_pointer).is_absolute():
+        reasons.append("Decision template pointer is not repository-relative")
+    else:
+        template_file = (ROOT / template_pointer).resolve()
+        try:
+            template_file.relative_to(ROOT.resolve())
+        except ValueError:
+            reasons.append("Decision template pointer escapes repository")
+        else:
+            if not template_file.is_file():
+                reasons.append("Decision template is missing")
+            elif integrity.get("decision_template_sha256") != sha256_file(template_file):
+                reasons.append("Decision template hash mismatch")
+    return (None if reasons else record), reasons, record_source
+
+
+def project_planning_lock_decision(
+    context: dict[str, Any],
+    record: dict[str, Any] | None,
+    patterns_by_id: dict[str, dict[str, Any]],
+    assignments: dict[str, dict[str, Any]],
+    approved_freeze_inherited: bool,
+    load_reasons: list[str] | None = None,
+) -> dict[str, Any]:
+    """Resolve Planning Lock applicability without changing production gates."""
+    if not record:
+        return {
+            "status": "NOT_APPLIED",
+            "applied": False,
+            "project_visual_direction_status": "ROUTER_GENERATED_CANDIDATE",
+            "reask_visual_direction": True,
+            "reopen_reasons": list(load_reasons or []),
+            "precedence": "VISUAL_ROUTER",
+        }
+    lock = record.get("project_planning_lock") or {}
+    if approved_freeze_inherited:
+        return {
+            "status": "SUPERSEDED_BY_APPROVED_FREEZE",
+            "applied": False,
+            "project_visual_direction_status": "HUMAN_APPROVED_FINAL_FREEZE",
+            "reask_visual_direction": False,
+            "reopen_reasons": [],
+            "precedence": "APPROVED_VISUAL_FREEZE",
+            "review_id": record.get("review_id"),
+        }
+
+    reopen_reasons = []
+    visual_inputs = context.get("visual_inputs") or {}
+    governance = context.get("governance") or {}
+    if visual_inputs.get("exploration_requested") is True:
+        reopen_reasons.append("USER_EXPLICITLY_REQUESTS_VISUAL_CHANGE")
+    approved_channels = set(values(lock.get("approved_channels")))
+    requested_channels = set(values([context.get("primary_channel"), *(context.get("channels") or [])]))
+    if approved_channels and requested_channels - approved_channels:
+        reopen_reasons.append("CHANNEL_HARD_CONFLICT")
+    if visual_inputs.get("channel_hard_conflict") is True:
+        reopen_reasons.append("CHANNEL_HARD_CONFLICT")
+    if governance.get("approved_project_direction_conflict") is True:
+        reopen_reasons.append("APPROVED_PROJECT_DIRECTION_CONFLICT")
+    for pattern_id in lock.get("reviewed_pattern_ids", []):
+        pattern = patterns_by_id.get(pattern_id)
+        if pattern and pattern.get("lifecycle", {}).get("status") == "DEPRECATED":
+            reopen_reasons.append("SELECTED_PATTERN_DEPRECATED")
+    for channel, assignment in assignments.items():
+        if channel != "edm":
+            continue
+        recipe = assignment.get("recipe") or {}
+        compatibility = recipe.get("template_compatibility") or {}
+        if (
+            recipe.get("selection_status") in {"EDM_INTENT_NOT_RESOLVED", "NO_COMPATIBLE_EDM_RECIPE"}
+            or not compatibility.get("recommended_template_registered", False)
+            or not compatibility.get("required_roles_resolved", False)
+            or not compatibility.get("required_modules_satisfied", False)
+            or not compatibility.get("additional_modules_are_optional_or_conditional", False)
+        ):
+            reopen_reasons.append("NO_COMPATIBLE_TEMPLATE")
+    reopen_reasons = list(dict.fromkeys(reopen_reasons))
+    if reopen_reasons:
+        return {
+            "status": "REOPEN_REQUIRED",
+            "applied": False,
+            "project_visual_direction_status": "HUMAN_REVIEW_REQUIRED",
+            "reask_visual_direction": True,
+            "reopen_reasons": reopen_reasons,
+            "precedence": "PROJECT_PLANNING_DECISION",
+            "review_id": record.get("review_id"),
+        }
+    return {
+        "status": "ACTIVE",
+        "applied": True,
+        "project_visual_direction_status": lock.get(
+            "project_visual_direction_status", "HUMAN_APPROVED_FOR_PROJECT_PLANNING"
+        ),
+        "reask_visual_direction": False,
+        "reopen_reasons": [],
+        "precedence": "PROJECT_PLANNING_DECISION",
+        "review_id": record.get("review_id"),
+        "approved_scope": copy.deepcopy(lock.get("approved_scope", [])),
+        "does_not_approve": copy.deepcopy(lock.get("does_not_approve", [])),
+    }
+
+
 def resolve_project(value: str) -> Path:
     candidate = Path(value)
     if candidate.is_absolute() and candidate.is_dir():
@@ -858,6 +1013,7 @@ def build_profile(project_dir: Path) -> dict[str, Any]:
     freeze_file = project_dir / "visual-freeze.yaml"
     freeze = load_yaml(freeze_file) if freeze_file.is_file() else None
     inherit, freeze_reasons = approved_freeze_decision(context, freeze, patterns_by_id)
+    planning_record, planning_load_reasons, planning_record_source = load_project_planning_decision(project_dir)
 
     requested_channels = values(context.get("channels"))
     channels = list(dict.fromkeys([primary_channel, *requested_channels]))
@@ -880,12 +1036,22 @@ def build_profile(project_dir: Path) -> dict[str, Any]:
         channel_rankings[channel] = channel_ranked
         channel_excluded[channel] = channel_excluded_patterns
 
+    planning_lock = project_planning_lock_decision(
+        context,
+        planning_record,
+        patterns_by_id,
+        assignments,
+        inherit,
+        planning_load_reasons,
+    )
+
     ranked = channel_rankings[primary_channel]
     excluded = channel_excluded[primary_channel]
 
     top = ranked[0]
     fallback = ranked[1]["pattern_id"] if len(ranked) > 1 else None
     review_reasons = []
+    visual_direction_review_reasons = []
     if inherit:
         selected_id = freeze["pattern_id"]
         mode = "INHERIT_FREEZE"
@@ -896,24 +1062,37 @@ def build_profile(project_dir: Path) -> dict[str, Any]:
         if len(ranked) > 1:
             gap = round(top["score"] - ranked[1]["score"], 1)
             if gap < float(thresholds["top_gap_human_review"]):
-                review_reasons.append(f"Top 1 / Top 2 score gap is {gap}, below {thresholds['top_gap_human_review']}")
+                visual_direction_review_reasons.append(
+                    f"Top 1 / Top 2 score gap is {gap}, below {thresholds['top_gap_human_review']}"
+                )
         if top["dimensions"]["brand_fit"] < float(thresholds["minimum_brand_fit"]):
-            review_reasons.append("Brand Fit is below threshold")
+            visual_direction_review_reasons.append("Brand Fit is below threshold")
         if top["required_asset_gaps"]:
-            review_reasons.append("Required assets are missing, partial, or not approved")
+            visual_direction_review_reasons.append("Required assets are missing, partial, or not approved")
         if top["lifecycle"] == "CANDIDATE":
-            review_reasons.append("Selected Pattern is CANDIDATE")
+            visual_direction_review_reasons.append("Selected Pattern is CANDIDATE")
         if top["score"] < float(thresholds["minimum_auto_select_score"]):
-            review_reasons.append("Top score is below auto-select threshold")
+            visual_direction_review_reasons.append("Top score is below auto-select threshold")
         if context.get("visual_inputs", {}).get("exploration_requested") is True:
-            review_reasons.append("User explicitly requested visual exploration")
+            visual_direction_review_reasons.append("User explicitly requested visual exploration")
         if freeze and freeze.get("status") != "APPROVED":
-            review_reasons.append("Candidate Freeze exists but is not active APPROVED")
+            visual_direction_review_reasons.append("Candidate Freeze exists but is not active APPROVED")
         if freeze and freeze.get("status") == "APPROVED" and freeze_reasons:
-            review_reasons.extend(f"Freeze conflict: {reason}" for reason in freeze_reasons)
+            visual_direction_review_reasons.extend(f"Freeze conflict: {reason}" for reason in freeze_reasons)
+        if planning_lock["applied"]:
+            decision_reasons = [
+                "Accepted Project Visual Planning Decision inherited without re-asking visual direction."
+            ]
+        else:
+            review_reasons.extend(visual_direction_review_reasons)
+            if planning_lock["status"] == "REOPEN_REQUIRED":
+                review_reasons.extend(
+                    f"Planning Lock reopened: {reason}" for reason in planning_lock["reopen_reasons"]
+                )
         human_review_required = bool(review_reasons)
         mode = "HUMAN_REVIEW_REQUIRED" if human_review_required else "AUTO_ROUTED"
-        decision_reasons = selection_reasons(top)
+        if not planning_lock["applied"]:
+            decision_reasons = selection_reasons(top)
 
     primary_assignment = assignments[primary_channel]
     if not inherit:
@@ -942,6 +1121,8 @@ def build_profile(project_dir: Path) -> dict[str, Any]:
         sources.extend(compatibility_sources)
     if freeze_file.is_file():
         sources.append(str(freeze_file.relative_to(ROOT)))
+    if planning_record_source:
+        sources.append(planning_record_source)
     sources.extend(context.get("sources", []))
     normalized_sources = normalize_source_references(sources)
     downstream_gates = []
@@ -954,13 +1135,18 @@ def build_profile(project_dir: Path) -> dict[str, Any]:
         top_reason_codes.extend(assignment.get("reason_codes", []))
         top_blockers.extend(assignment.get("blocking_reasons", []))
 
+    visual_dna = project_visual_dna(context)
+    visual_dna["status"] = planning_lock["project_visual_direction_status"]
+
     return {
         "schema_version": "1.1",
         "contract": "visual-profile",
         "project_id": context["project_id"],
         "generated_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
         "generated_by": "visual-system/routing/visual_router.py",
-        "project_visual_dna": project_visual_dna(context),
+        "project_visual_dna": visual_dna,
+        "project_visual_direction_status": planning_lock["project_visual_direction_status"],
+        "project_planning_lock": planning_lock,
         "pattern_match": primary_assignment["pattern_match"],
         "execution_readiness": primary_assignment["execution_readiness"],
         "evidence_confidence": primary_assignment["evidence_confidence"],
@@ -982,6 +1168,8 @@ def build_profile(project_dir: Path) -> dict[str, Any]:
             "score": next((item["score"] for item in ranked if item["pattern_id"] == selected_id), None),
             "fallback_pattern": fallback,
             "human_review_required": human_review_required,
+            "visual_direction_review_required": planning_lock["reask_visual_direction"],
+            "reask_visual_direction": planning_lock["reask_visual_direction"],
             "selection_reasons": decision_reasons,
             "review_reasons": review_reasons,
         },

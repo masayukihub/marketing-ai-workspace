@@ -73,6 +73,7 @@ properties:
       visual_context: {$ref: "#/$defs/source_pointer"}
       visual_profile: {$ref: "#/$defs/source_pointer"}
       visual_freeze: {$ref: "#/$defs/source_pointer"}
+      visual_planning_decision: {$ref: "#/$defs/source_pointer"}
       assets: {$ref: "#/$defs/source_pointer"}
   current_phase:
     type: string

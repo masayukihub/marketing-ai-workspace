@@ -20,6 +20,7 @@ Visual Router 选择 `Pattern` 后，Amazon Channel Adapter 仍须调用现有 R
 resolve_project
 → load projects/<id>/project-context.yaml
 → load projects/<id>/visual-freeze.yaml if present
+→ load accepted Project Visual Planning Decision when no Approved Freeze applies
 → load projects/<id>/visual-profile.yaml if current
 → resolve Project Visual DNA
 → run visual-system/routing/visual_router.py if needed
@@ -39,6 +40,14 @@ resolve_project
 只有 `status: APPROVED`、`active: true`、具名人工、当前渠道同时在 Freeze Scope 与 Pattern `fit.channels` 中、Pattern 未 Deprecated 且必需素材满足时自动继承。
 
 `status: CANDIDATE` 只供人工复核，不视为批准。Freeze 的创意范围不得扩张到 Product Truth、Claim、素材授权、Amazon Upload、Hardening 或 Mobile QA。
+
+## Project Visual Planning Lock
+
+Approved Visual Freeze 始终拥有最高优先级。没有适用的 Approved Freeze 时，Router 可读取 `project.yaml.sources.visual_planning_decision` 指向的 `ACCEPTED / ACTIVE` Decision Record。
+
+Planning Lock 只允许继承 Project Visual DNA、Channel Intent、Recipe Core、Mechanism Proof Policy、Optional Section Policy 与条件 Template Recommendation。它输出 `project_visual_direction_status=HUMAN_APPROVED_FOR_PROJECT_PLANNING` 与 `reask_visual_direction=false`，但仍保留 Product Truth、Claim、Asset、Renderer、Final Human、Mobile QA、ESP 与 Send Gate。
+
+只有用户明确要求改变方向、渠道硬冲突、已批准项目方向冲突、Reviewed Pattern Deprecated 或 Stable Selector 无兼容 Template 时重新打开视觉方向审核。Candidate Freeze 不得覆盖该 Planning Lock，也不能由此升级为 Approved Freeze。
 
 先判断 Freeze 对当前渠道是否适用。其他渠道的 Freeze 记录为 `NOT_APPLICABLE_TO_CHANNEL`，保留 Scope / Pattern 冲突原因，但不得进入当前渠道 Readiness Blocker 或降低 Readiness 分数。
 

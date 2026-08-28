@@ -22,8 +22,10 @@ def test_a_continue_s30_resolves_manifest_blocker_and_next_action():
     assert context["project"]["project_id"] == "s30-mini"
     assert context["current_stage"]["gate_status"]["overall"] == "blocked"
     assert context["blocking_items"]
-    assert context["next_valid_actions"][0]["action_id"] == "S30-P0-SOURCE-AUDIT"
-    assert context["next_valid_actions"][0]["execution"] == "executable"
+    assert context["next_valid_actions"][0]["action_id"] == "S30-CONTENT-CLAIM-ASSET-UNLOCK"
+    assert context["next_valid_actions"][0]["execution"] == "human_review_required"
+    assert context["project_visual_decision"]["status"] == "ACCEPTED"
+    assert context["project_visual_decision"]["reask_visual_direction"] is False
     assert "TASK_TYPE_DEFAULTED_TO_GTM_FOR_PROJECT_CONTINUATION" in context["warnings"]
 
 
@@ -81,6 +83,7 @@ def test_d_formal_manifest_status_wins_on_accepted_decision_conflict(tmp_path: P
             "visual_context": None,
             "visual_profile": None,
             "visual_freeze": None,
+            "visual_planning_decision": None,
             "assets": None,
         },
         "current_phase": "gate_review",
@@ -193,12 +196,14 @@ def test_accepted_decision_without_gate_expectation_does_not_create_false_confli
             "visual_context": None,
             "visual_profile": None,
             "visual_freeze": None,
+            "visual_planning_decision": None,
         },
         "manifest_updated_at": "2026-08-27T12:00:00+08:00",
         "state_as_of": "2026-08-27",
         "freshness_status": "current",
         "freshness_sources": ["../../memory/PROJECT.md", "../../memory/DECISIONS.md"],
         "blocking_items": [],
+        "approved": [],
         "latest_decision": {
             "status": "accepted",
             "decision_id": "DEC-0002",
@@ -268,8 +273,22 @@ def test_active_project_becomes_stale_after_threshold_but_read_only_audit_remain
     assert context["freshness"]["effective_status"] == "stale"
     assert context["freshness"]["age_days"] == 8
     assert any(item.startswith("PROJECT_STATE_STALE:") for item in context["warnings"])
-    assert context["next_valid_actions"][0]["execution_class"] == "read_only_audit"
-    assert context["next_valid_actions"][0]["execution"] == "read_only_allowed_with_unverified_state"
+    assert context["next_valid_actions"][0]["execution_class"] == "human_review_preparation"
+    assert context["next_valid_actions"][0]["execution"] == "human_review_preparation_allowed"
+
+
+def test_s30_continuation_prompts_expose_accepted_visual_planning_lock():
+    for request in (
+        "继续 S30 mini",
+        "做 S30 mini 的 EDM",
+        "继续 S30 mini 日本电商内容生成",
+    ):
+        context = resolver.build_context(ROOT, request, as_of=date(2026, 8, 28))
+        decision = context["project_visual_decision"]
+        assert decision["status"] == "ACCEPTED", request
+        assert decision["project_visual_direction_status"] == "HUMAN_APPROVED_FOR_PROJECT_PLANNING", request
+        assert decision["reask_visual_direction"] is False, request
+        assert decision["source"].endswith("decision-record.yaml"), request
 
 
 def test_unknown_freshness_blocks_state_dependent_execution():

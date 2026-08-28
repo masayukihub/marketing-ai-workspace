@@ -86,6 +86,7 @@ Visual Router 是共享内部能力，不是新的用户入口。进入 Planning
 ```text
 resolve_project
 → load_visual_freeze
+→ load_accepted_project_visual_planning_decision_if_no_approved_freeze
 → load_visual_profile
 → visual_router_if_needed
 → apply_channel_adapter
@@ -94,6 +95,7 @@ resolve_project
 
 - `project-context.yaml` 只保存产品、市场、渠道、目标用户、定位、信息复杂度、素材状态与视觉原则，不写死具体 Pattern。
 - 存在有效人工批准 `visual-freeze.yaml` 时默认继承，不重新问用户视觉方向。
+- 没有有效 Approved Freeze 时，读取 Project Manifest 指向的 Accepted Project Visual Planning Decision。其 `reask_visual_direction=false` 只锁定项目 Visual DNA、渠道 Intent、Recipe Core 与条件模块政策；不得锁定最终 Layout、Template、文案、素材或 Claim。
 - Freeze 不可用或不存在时，运行 `visual-system/routing/visual_router.py` 生成 `visual-profile.yaml`，默认采用最高匹配 Pattern。
 - 只有 Top 1 / Top 2 过近、Brand Fit 不达标、必需素材不满足、Pattern 未验证、Freeze 冲突或用户明确探索时进入 Human Review。
 - Channel Adapter 只把共享 Pattern 映射到 Amazon Gallery/A+ 与已注册模板原语，不能修改 Product Truth、Claim、正式产品层或已批准资产。
