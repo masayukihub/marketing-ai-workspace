@@ -201,13 +201,28 @@ class S30VisualPatternRecipeReviewGateTest(unittest.TestCase):
 
     def test_project_manifest_points_to_accepted_planning_lock(self):
         manifest = load_yaml(ROOT / "projects/s30-mini/project.yaml")
+        blocker_ids = [item["blocker_id"] for item in manifest["blocking_items"]]
+        p0_ids = [item["action_id"] for item in manifest["next_actions"]["p0"]]
         self.assertEqual(
             manifest["sources"]["visual_planning_decision"],
             "reviews/visual-pattern-recipe-20260827/decision-record.yaml",
         )
+        self.assertEqual(manifest["current_phase"], "context_migration_and_gate_1_evidence_review")
         self.assertEqual(manifest["gate_status"]["visual_planning"], "approved")
+        self.assertEqual(manifest["gate_status"]["visual_resolution"], "ready_for_review")
+        self.assertEqual(manifest["gate_status"]["edm_content_claim_asset_unlock"], "blocked")
         self.assertEqual(manifest["latest_decision"]["status"], "accepted")
-        self.assertEqual(manifest["blocking_items"][0]["blocker_id"], "S30-CONTENT-CLAIM-ASSET-UNLOCK")
+        self.assertEqual(
+            blocker_ids,
+            ["S30-PRODUCT-TRUTH", "S30-COMMERCIAL", "S30-CONTENT-CLAIM-ASSET-UNLOCK"],
+        )
+        self.assertEqual(
+            p0_ids,
+            ["S30-P0-SOURCE-AUDIT", "S30-P0-COMMERCIAL-REVIEW", "S30-CONTENT-CLAIM-ASSET-UNLOCK"],
+        )
+        edm_action = manifest["next_actions"]["p0"][2]
+        self.assertEqual(edm_action["task_types"], ["EDM"])
+        self.assertEqual(edm_action["blocked_by"], ["S30-PRODUCT-TRUTH", "S30-COMMERCIAL"])
 
     def test_review_package_has_no_local_absolute_paths(self):
         forbidden = ("/" + "Users" + "/", "/" + "home" + "/")

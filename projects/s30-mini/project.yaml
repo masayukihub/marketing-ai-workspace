@@ -12,7 +12,7 @@ alias_notes:
   S20 mini: Project routing alias only; does not approve an external product name.
   SwitchBot S20 mini: Project routing alias only; does not approve an external product name.
   s20-mini: Project routing alias only; does not approve an external product name.
-manifest_updated_at: "2026-08-28T11:08:38+08:00"
+manifest_updated_at: "2026-08-28T12:17:51+08:00"
 state_as_of: "2026-08-20"
 freshness_status: current
 freshness_sources:
@@ -32,23 +32,57 @@ sources:
   visual_freeze: visual-freeze.yaml
   visual_planning_decision: reviews/visual-pattern-recipe-20260827/decision-record.yaml
   assets: null
-current_phase: visual_planning_locked_and_content_claim_asset_unlock
+current_phase: context_migration_and_gate_1_evidence_review
 gate_status:
   overall: blocked
   project_context: in_progress
   product_truth: blocked
-  visual_resolution: approved
+  commercial: blocked
+  visual_resolution: ready_for_review
   visual_freeze: ready_for_review
   human_review: not_started
   visual_planning: approved
+  edm_content_claim_asset_unlock: blocked
 approved:
   - approval_id: S30-VISUAL-PLANNING-20260827
     subject: S30 project visual planning scope only; excludes Product Truth, Claim, Asset, final layout, production, send, and publication.
     source: reviews/visual-pattern-recipe-20260827/decision-record.yaml
 blocking_items:
-  - blocker_id: S30-CONTENT-CLAIM-ASSET-UNLOCK
-    summary: Product Truth, JP Claim, official assets, CTA, and Legal/Footer inputs remain unresolved for EDM production.
+  - blocker_id: S30-PRODUCT-TRUTH
+    summary: Approved Product Truth, approved JP Claims, and their authoritative sources remain unconfirmed or not formally written back.
     status: blocked
+    task_types:
+      - GTM
+      - Amazon
+      - PR
+      - KOL
+      - Campaign
+      - EDM
+      - Design
+      - Visual
+      - Product Knowledge
+      - Website
+      - SEO
+      - Review
+    source: ../../memory/project-memory/s30-mini/STATUS.md
+  - blocker_id: S30-COMMERCIAL
+    summary: Japan official product name, SKU, MSRP / Deal Price, Launch Build, and Launch Timeline still contain unresolved items.
+    status: blocked
+    task_types:
+      - GTM
+      - Amazon
+      - PR
+      - Campaign
+      - EDM
+      - Commercial
+      - Website
+      - Review
+    source: ../../memory/project-memory/s30-mini/TODO.md
+  - blocker_id: S30-CONTENT-CLAIM-ASSET-UNLOCK
+    summary: EDM Content, approved Claims, official Assets, CTA, and Legal / Footer inputs must be unlocked before entry into the Existing EDM Runtime.
+    status: blocked
+    task_types:
+      - EDM
     source: reviews/visual-pattern-recipe-20260827/asset-gap-register.yaml
 latest_decision:
   status: accepted
@@ -59,11 +93,46 @@ latest_decision:
   expected_status: approved
 next_actions:
   p0:
+    - action_id: S30-P0-SOURCE-AUDIT
+      action: Determine the authoritative Product Truth and JP Claim approval sources before downstream execution.
+      status: not_started
+      execution_class: read_only_audit
+      requires_human_approval: false
+      task_types:
+        - GTM
+        - Amazon
+        - PR
+        - KOL
+        - Campaign
+        - VOC
+        - Competitor
+        - Design
+        - Visual
+        - Product Knowledge
+        - Website
+        - SEO
+        - Review
+      source: ../../memory/project-memory/s30-mini/STATUS.md
+    - action_id: S30-P0-COMMERCIAL-REVIEW
+      action: Confirm Japan official product name, SKU, MSRP / Deal Price, Launch Build, and Launch Timeline from authoritative sources.
+      status: not_started
+      execution_class: human_review_preparation
+      requires_human_approval: true
+      task_types:
+        - GTM
+        - Amazon
+        - Commercial
+      source: ../../memory/project-memory/s30-mini/TODO.md
     - action_id: S30-CONTENT-CLAIM-ASSET-UNLOCK
       action: Resolve S30_CONTENT_CLAIM_ASSET_UNLOCK as one governed handoff before Existing EDM Runtime.
       status: not_started
       execution_class: human_review_preparation
       requires_human_approval: true
+      blocked_by:
+        - S30-PRODUCT-TRUTH
+        - S30-COMMERCIAL
+      task_types:
+        - EDM
       source: reviews/visual-pattern-recipe-20260827/asset-gap-register.yaml
   p1:
     - action_id: S30-P1-MIGRATION-SCOPE
@@ -71,6 +140,8 @@ next_actions:
       status: not_started
       execution_class: read_only_audit
       requires_human_approval: false
+      task_types:
+        - GTM
       source: ../../memory/project-memory/s30-mini/TODO.md
   p2: []
 skills:
