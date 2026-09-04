@@ -1,0 +1,270 @@
+policy_version: "1.0"
+policy_id: switchbot-japan-marketing-review-policy
+default_execution: AUTONOMOUS_TO_NEXT_MATERIAL_HUMAN_GATE
+max_auto_repair_attempts: 2
+batch_human_review_preferred: true
+
+progress_ux:
+  normal:
+    fields:
+      - 已完成
+      - 待处理
+      - 下一步
+    rules:
+      - "不要重复完整架构、Gate 定义、测试理论和已批准内容。"
+      - "用户说继续时，只说明锁定了什么和接下来执行什么。"
+  blocked:
+    fields:
+      - Blocker
+      - Missing_Input_or_Decision
+      - Owner_Role
+      - Impact
+      - Required_Evidence
+      - Next_Action
+    rules:
+      - "不要只问是否继续。"
+      - "多个问题合并为一次性 Owner Action Pack。"
+
+transition_commands:
+  advance:
+    - "继续"
+    - "下一步"
+    - "go"
+    - "next"
+    - "接着做"
+  exact_asset_acceptance:
+    - "这张先过"
+    - "选择这个版本"
+    - "锁定这张"
+  ambiguous_no_automatic_stage_advance:
+    - "先这样"
+    - "看看再说"
+  rules:
+    - "Transition Command 不得把 BLOCKED、UNKNOWN、UNAPPROVED 或 HUMAN_REVIEW_REQUIRED 自动改成 PASS。"
+    - "精确资产接受只锁定当前 candidate/output，不跳过未完成的 Production 或 Hardening。"
+    - "已经锁定的对象只有在用户明确说重做、修改、换版本时才能重新打开。"
+
+auto_continue:
+  source_and_context:
+    - confirm_latest_main_head
+    - resolve_project_alias
+    - build_minimal_context_package
+    - evaluate_freshness
+    - read_available_task_scoped_sources
+    - normalize_source_metadata
+    - deduplicate_sources
+    - classify_fact_decision_hypothesis_recommendation
+  analysis_and_planning:
+    - choose_minimum_execution_mode
+    - route_to_internal_module
+    - apply_approved_project_visual_decision
+    - select_verified_formula_template_or_pattern
+    - create_internal_strategy_draft
+    - create_brief_or_page_spec
+    - build_claim_and_asset_gap_register
+    - create_owner_grouped_blocker_pack
+  production_and_qa:
+    - generate_internal_candidate_within_approved_scope
+    - copy_deduplication
+    - copy_shortening_without_meaning_change
+    - line_break_and_spacing_fix
+    - responsive_layout_fix
+    - footer_normalization_from_approved_footer
+    - alt_text_and_internal_link_format_fix
+    - browser_qa
+    - source_link_and_hash_validation
+    - run_manifest_generation
+    - review_html_generation
+  scope_reduction:
+    allowed_when:
+      - unsupported_secondary_claim_removed
+      - no_product_offer_or_primary_message_change
+      - no_new_fact_number_or_claim_added
+      - remaining_message_has_evidence
+    output_requirement: record_scope_delta_and_reason
+
+conditional_auto_approval:
+  decision: MINOR_REVISION_AUTO_APPROVE_IF_QA_PASS
+  meaning: "用户预先授权指定范围内的轻微修改；条件全部满足时，不需要第二次人工确认。"
+  allowed_change_categories:
+    - COPY_DEDUPLICATION
+    - COPY_SHORTENING
+    - HEADLINE_LENGTH
+    - LINE_BREAK
+    - SPACING
+    - RESPONSIVE_LAYOUT
+    - FOOTER_NORMALIZATION
+    - CTA_LABEL_NORMALIZATION
+    - ALT_TEXT
+    - INTERNAL_LINK_FORMAT
+    - MODULE_COPY_BALANCE
+  required_conditions:
+    - product_identity_unchanged
+    - variant_bundle_offer_unchanged
+    - approved_claim_scope_unchanged
+    - price_discount_promotion_period_unchanged
+    - asset_identity_unchanged
+    - formula_template_and_module_set_unchanged
+    - destination_url_unchanged
+    - no_new_number_rank_award_or_certification
+    - changes_within_authorized_budget
+    - desktop_qa_pass
+    - mobile_qa_pass
+    - no_console_error
+    - no_external_resource_failure
+  result_status: HUMAN_APPROVED_CONDITIONALLY_FOR_INTERNAL_CREATIVE
+  does_not_mean:
+    - product_truth_approved
+    - external_claim_approved
+    - esp_ready
+    - publish_ready
+    - published
+
+material_human_gates:
+  - gate_id: PRODUCT_OR_PROJECT_IDENTITY_GATE
+    trigger:
+      - product_variant_bundle_or_offer_ambiguous
+      - official_japanese_name_unresolved
+      - sku_asin_color_or_bom_conflict_affects_scope
+    automation_may:
+      - prepare_evidence_matrix
+      - propose_resolution_options
+    automation_must_not:
+      - choose_one_without_authority
+
+  - gate_id: CLAIM_COMMERCIAL_COMPLIANCE_GATE
+    trigger:
+      - new_or_expanded_claim
+      - price_discount_coupon_or_promotion_change
+      - launch_date_or_stock_commitment
+      - certification_award_no1_or_legal_expression
+      - external_url_or_tracking_destination_change
+    automation_may:
+      - prepare_review_queue
+      - validate_source_and_conditions
+    automation_must_not:
+      - approve_or_publish
+
+  - gate_id: STRATEGY_SCOPE_GATE
+    trigger:
+      - target_audience_change
+      - positioning_or_primary_message_change
+      - channel_or_page_scope_change
+      - required_asset_set_expansion
+    automation_may:
+      - compare_options
+      - recommend_one
+    automation_must_not:
+      - treat_silence_as_approval
+
+  - gate_id: VISUAL_DIRECTION_GATE
+    trigger:
+      - no_valid_visual_freeze_or_accepted_planning_decision
+      - router_top_candidates_too_close
+      - brand_fit_below_threshold
+      - pattern_evidence_unverified
+      - required_official_assets_missing
+    automation_may:
+      - produce_limited_direction_review
+      - create_one_or_two_anchor_candidates
+    automation_must_not:
+      - start_unrestricted_batch_production
+
+  - gate_id: EXACT_ASSET_AND_WHOLE_SET_GATE
+    trigger:
+      - select_exact_final_candidate
+      - approve_exact_hash_role_and_scope
+      - approve_whole_set_contact_sheet
+    automation_may:
+      - fingerprint_and_validate
+      - preserve_selection_lock
+    automation_must_not:
+      - transfer_approval_to_changed_file
+
+  - gate_id: FINAL_CONTENT_OR_VISUAL_GATE
+    trigger:
+      - content_approved
+      - visual_freeze
+      - final_creative_approval
+    automation_may:
+      - run_full_qa
+      - assemble_review_candidate
+    automation_must_not:
+      - self_approve_final
+
+  - gate_id: EXTERNAL_ACTION_GATE
+    trigger:
+      - feishu_writeback
+      - product_knowledge_canonical_write
+      - bitly_creation
+      - amazon_upload
+      - esp_send
+      - social_or_pr_publication
+      - permission_or_visibility_change
+    automation_may:
+      - generate_change_preview
+      - prepare_import_or_upload_package
+    automation_must_not:
+      - execute_without_explicit_authorization
+
+restricted_auto_changes:
+  - PRODUCT_TRUTH
+  - CLAIM_SCOPE
+  - PRICE
+  - DISCOUNT
+  - PROMOTION_PERIOD
+  - LEGAL_TEXT
+  - OFFER_SCOPE
+  - PRODUCT_IDENTITY
+  - PRODUCT_ASSET
+  - PRODUCT_GEOMETRY
+  - CERTIFICATION
+  - EXTERNAL_URL
+  - ESP_SEND_SETTING
+  - FORMAL_PROJECT_STAGE
+  - APPROVED_DECISION
+
+fail_closed_rules:
+  - "真实工具未返回正文时，不声称已读取飞书或网页。"
+  - "Renderer、浏览器、Pillow、Playwright 或正式 Runtime 未实际运行时，不声称已通过对应 QA。"
+  - "缺失值不写成 0、None JPY、成功或已批准。"
+  - "Fixture、占位图和合成数据不得冒充正式产品资料或生产结果。"
+  - "Research、VOC、竞品、KOL 或媒体证据不得覆盖 Product Knowledge。"
+  - "Candidate、Draft、QA PASS 和 Review Ready 不得自动升级为 Publish Ready。"
+
+review_cockpit:
+  preferred_sections:
+    - management_judgment
+    - decisions_required_now
+    - needs_owner_evidence
+    - safe_to_defer
+    - approved_or_locked_scope
+    - blocked_claims_and_actions
+    - outputs_and_qa
+  technical_details:
+    default_collapsed: true
+    includes:
+      - schemas
+      - hashes
+      - source_lineage
+      - validator_logs
+      - gate_details
+  filters:
+    - priority
+    - item_type
+    - owner_role
+    - readiness
+    - decision_status
+
+publication_boundary:
+  default_publication_status: publish_blocked
+  publish_ready_requires:
+    - current_product_truth
+    - approved_claims_for_exact_scope
+    - commercial_and_offer_approval
+    - authorized_assets
+    - japan_copy_review
+    - technical_and_mobile_qa
+    - named_final_human_approval
+    - destination_or_esp_validation
+  g6_release_or_send: always_human_authorized

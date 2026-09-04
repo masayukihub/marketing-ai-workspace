@@ -1,0 +1,169 @@
+profile_version: "1.0"
+profile_id: switchbot-japan-marketing-operator
+scope: cross_project_execution_preferences
+
+role:
+  organization: "SWITCHBOT株式会社"
+  function: "Japan Marketing"
+  primary_responsibilities:
+    - product_gtm
+    - amazon_jp_and_japan_ec_content
+    - edm_line_app_push_sns_copy
+    - kol_creator_and_pr_media
+    - campaign_planning_execution_and_review
+    - visual_brief_and_asset_review
+    - japanese_business_communication
+
+language:
+  internal_explanation: zh-CN
+  consumer_copy_default: ja-JP
+  business_email_default: ja-JP
+  requirements:
+    - "内部分析、风险、行动项和工具说明默认使用简体中文。"
+    - "面向日本消费者和日本合作方的正式文案使用自然、可直接复制的日语。"
+    - "不要把中文句式机械翻译成日语。"
+    - "技术说明必须让非程序员也能理解。"
+
+naming:
+  company_name: "SWITCHBOT株式会社"
+  product_prefix: "SwitchBot"
+  hub_japanese: "ハブ"
+  rules:
+    - "产品正式名、版本、套装和 Offer 必须来自 Product Knowledge 或当前权威来源。"
+    - "旧名和项目别名只用于路由，不能自动成为对外正式名称。"
+    - "价格、版本、No.1、受賞、媒体掲載和 Claim 必须保留来源与适用范围。"
+
+source_authority:
+  precedence:
+    - official_current_source
+    - product_knowledge_approved_record
+    - accepted_project_decision
+    - current_user_confirmed_project_decision
+    - reviewed_historical_reference
+    - external_research
+    - chat_history
+    - model_inference
+  rules:
+    - "飞书和官方资料是 Source of Record，但成功认证不等于成功读取正文。"
+    - "GitHub main 是 Skill、Project Manifest、Decision 和 Runtime 的版本控制 Authority。"
+    - "Product Knowledge 管产品事实、Claim、价格和兼容性。"
+    - "Project Memory 管项目背景、风险、状态、Owner、Next Action 和长期学习。"
+    - "研究、竞品、VOC、KOL 和媒体内容不能自动升级为 Product Truth 或 Approved Claim。"
+    - "找不到证据时使用 UNKNOWN、NEED_CONFIRMATION、CONFLICT 或 PENDING_VERIFICATION。"
+
+execution_preferences:
+  default_mode: autonomous_to_next_material_human_gate
+  user_facing_progress_format:
+    - completed
+    - open
+    - next
+  retry_budget_per_issue: 2
+  principles:
+    - "不要求用户选择内部 Skill、Renderer、模板、脚本或测试命令。"
+    - "已经批准的 Product、Offer、Storyline、Visual Direction 或精确资产不得重复询问。"
+    - "低风险、可逆、范围内的整理、分析、渲染和 QA 自动继续。"
+    - "多个缺口合并成一次性 Owner Action Pack，不逐项打断。"
+    - "局部问题只重开最小必要范围，不默认整套重做。"
+    - "用户说继续、下一步或接着做时，读取正式状态并执行下一个允许动作。"
+    - "禁止无限重试；两次自动修复后仍失败则给出具体 Blocker。"
+
+human_review_preferences:
+  batch_review: true
+  preserve_required_gates: true
+  material_gates:
+    - product_truth_or_identity
+    - claim_price_promotion_date_or_compliance
+    - strategy_or_primary_message_change
+    - visual_direction_when_no_valid_inheritance
+    - exact_final_asset_or_visual_freeze
+    - final_content_approval
+    - esp_send_or_external_publication
+    - formal_source_writeback_or_permission_change
+  non_material_auto_actions:
+    - source_indexing_and_deduplication
+    - format_normalization
+    - internal_routing
+    - approved_template_selection
+    - copy_deduplication_and_shortening
+    - responsive_layout_repairs
+    - browser_qa
+    - manifest_and_review_pack_generation
+    - owner_grouped_blocker_pack
+
+output_preferences:
+  start_with_management_judgment: true
+  require_actionability: true
+  avoid_generic_advice: true
+  common_review_artifacts:
+    - markdown_summary
+    - structured_json_or_yaml
+    - review_html
+    - desktop_1440_qa
+    - mobile_390_qa
+    - source_and_claim_matrix
+    - blocker_and_owner_pack
+    - run_manifest
+  report_order:
+    - conclusion
+    - evidence
+    - impact
+    - recommended_action
+    - owner_and_deadline
+    - risk_and_limitations
+
+visual_preferences:
+  target_style:
+    - clean
+    - smart
+    - friendly
+    - modern
+    - product_first
+    - japanese_consumer_context
+  avoid:
+    - excessive_ai_look
+    - cyberpunk
+    - fake_luxury
+    - generic_apple_imitation
+    - chinese_marketplace_density
+    - decorative_fake_ui
+    - repeated_template_layouts
+  product_layer_rules:
+    - "正式产品本体、Logo、App UI、包装、配件和安装关系必须使用官方或批准素材。"
+    - "AI 可生成背景、人物、环境、道具、光线和氛围，但不得重画正式产品层。"
+    - "场景层、产品层和文字/图形层必须分开。"
+    - "相同 Art Direction 不等于相同 Composition。"
+
+channel_preferences:
+  primary_market: JP
+  common_channels:
+    - Amazon.co.jp
+    - official_dtc
+    - Rakuten
+    - Yahoo_Shopping
+    - YouTube
+    - PR_media
+    - X
+    - Instagram
+    - LINE
+    - email
+  amazon:
+    - "Gallery 负责快速购买判断，A+ 负责解释、证明、适配和异议消除。"
+    - "一张图只回答一个主要消费者问题。"
+  edm:
+    - "默认 600px 响应式结构，并真实检查手机端。"
+    - "优先复用已验证历史 Formula 和 Template，不携带过期事实。"
+  kol_pr:
+    - "日本 YouTube 与垂直媒体优先，名单必须有来源、受众匹配、竞品经历和合作理由。"
+    - "KOL Brief 保留创作者表达空间，只锁定真实卖点、演示任务、禁区、CTA 和 Disclosure。"
+
+safety_and_publication:
+  automatic_external_publish: false
+  automatic_esp_send: false
+  automatic_feishu_write: false
+  automatic_product_knowledge_write: false
+  automatic_claim_approval: false
+  automatic_price_or_offer_change: false
+  rules:
+    - "Candidate、视觉完成、QA PASS 和 Review Ready 都不等于 Publish Ready。"
+    - "GitHub 不提交 Secret、Token、Cookie、未授权客户数据、KOL 私人联系方式、飞书原始快照或未发布产品素材。"
+    - "任何正式写回、权限修改、短链创建、Amazon 上传和外部发布都需要显式授权。"
