@@ -82,6 +82,33 @@
 缺少硬性输入时一次性输出按 Owner 分组的 Blocker Pack，不要逐项询问。
 ```
 
+### 统一生成 Brief
+
+```text
+读取最新 GitHub main，解析【项目名】。
+根据已确认的 Product Truth、Project Memory、Campaign Context 和可用素材，
+为【Amazon / EDM / KOL / PR / 视频 / SNS / LP】生成可执行 Brief。
+自动路由到正确入口；所有事实和 Claim 标明来源或 NEED_CONFIRMATION；
+输出 Mandatory、Do Not、Deliverables、Owner、Deadline 和 Acceptance Criteria，停在 Brief Human Review Gate。
+```
+
+### 生成产品视觉或卖点图
+
+```text
+根据【项目】当前有效 Product Truth、Insight Pack、官方产品素材和 Visual Decision，
+自动选择正确渠道入口，生成【交付范围】的视觉候选。
+正式产品本体不得由 AI 重画；AI 只生成 Scene Layer；文字和图形程序化排版。
+自动完成两轮以内安全修复和 Desktop/Mobile QA，停在精确资产或 Whole-set Human Review Gate。
+```
+
+### 每周 GTM 风险报告
+
+```text
+使用 $switchbot-japan-campaign 的 EXECUTION 模式，读取最新 GitHub main 并解析当前 Active Projects。
+只输出相较上周新增/变化的状态、P0/P1、未来两周里程碑、Owner、Deadline、影响和 Next Action。
+缺口一次性按 Owner 分组，不逐项询问；不修改正式日期、价格、Offer 或发布状态。
+```
+
 ### 2026 秋促：建立活动项目
 
 ```text
@@ -145,8 +172,12 @@
 
 ## 进一步查看
 
+- 工作流索引：[`docs/workflow/README.md`](docs/workflow/README.md)
 - 完整操作手册：[`docs/workflow/OPERATOR_PLAYBOOK.zh-CN.md`](docs/workflow/OPERATOR_PLAYBOOK.zh-CN.md)
+- 统一 Brief：[`docs/workflow/BRIEF_FACTORY_PLAYBOOK.zh-CN.md`](docs/workflow/BRIEF_FACTORY_PLAYBOOK.zh-CN.md)
+- AI 视觉生产：[`docs/workflow/VISUAL_AI_PLAYBOOK.zh-CN.md`](docs/workflow/VISUAL_AI_PLAYBOOK.zh-CN.md)
 - KOL / PR 专项：[`docs/workflow/KOL_PR_PLAYBOOK.zh-CN.md`](docs/workflow/KOL_PR_PLAYBOOK.zh-CN.md)
+- GTM 周度管理：[`docs/workflow/GTM_WEEKLY_OPERATING_RHYTHM.zh-CN.md`](docs/workflow/GTM_WEEKLY_OPERATING_RHYTHM.zh-CN.md)
 - 四个 Skill 入口：[`skills/README.md`](skills/README.md)
 - Project Context 规则：[`docs/architecture/PROJECT_CONTEXT_SYSTEM.md`](docs/architecture/PROJECT_CONTEXT_SYSTEM.md)
 - ChatGPT 读取规则：[`chatgpt/PROJECT_INSTRUCTIONS.md`](chatgpt/PROJECT_INSTRUCTIONS.md)
