@@ -18,7 +18,7 @@
 4. `projects/<project-id>/chatgpt-context.md` 只是生成型阅读快照，不是 Product Truth、Project Memory、Decision 或 Approval。
 5. ChatGPT Memory 与历史聊天可帮助识别稳定偏好和候选需求，但不得覆盖 GitHub Product Knowledge、Project Memory、Decision 或 Manifest。
 6. 无法读取或确认 GitHub `main` 时，输出 `GITHUB_CONTEXT_UNVERIFIED`，不得把快照或历史聊天提升为当前正式状态。
-7. 对话中出现的批准，只有在相应 Decision/状态写入正式位置并合并到 GitHub `main` 后，才成为 Formal State。
+7. 对话中出现的批准，只有在相应 Decision/状态写入正式位置并合并到 `main` 后，才成为 Formal State。
 
 ## Authority Precedence
 
