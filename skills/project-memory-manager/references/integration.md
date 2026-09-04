@@ -2,7 +2,7 @@
 
 ## Before a project task
 
-1. Use the checked-in `skills/project-memory-manager/` runtime as the formal execution source. A global installation is only a mirror; validate it with `scripts/verify_global_mirror.py` and stop on `GLOBAL_SKILL_DRIFT`.
+1. Use the checked-in repository Skill runtime as the formal execution source. A global installation is only a mirror; validate `runtime/skill-lock.json` with `scripts/verify_codex_runtime.py` and stop on `RUNTIME_DRIFT`, `MIRROR_MISSING`, or `REPOSITORY_RUNTIME_MISSING`.
 2. For an existing `marketing-ai-workspace` project, resolve `projects/<project-id>/project.yaml` through `project-context-resolver`.
 3. Follow only the returned `project_memory` and `decisions` pointers. Use a generated `PROJECT_INDEX.md` only when operating on a separate bootstrap repository that actually contains it.
 4. Read the smallest matching context and relevant decision record.

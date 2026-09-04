@@ -18,12 +18,15 @@ AS_OF = date(2026, 8, 27)
 
 def test_a_continue_s30_resolves_manifest_blocker_and_next_action():
     context = resolver.build_context(ROOT, "继续 S30 mini", as_of=AS_OF)
+    blocker_ids = {item["blocker_id"] for item in context["blocking_items"]}
 
     assert context["project"]["project_id"] == "s30-mini"
     assert context["current_stage"]["gate_status"]["overall"] == "blocked"
-    assert context["blocking_items"]
-    assert context["next_valid_actions"][0]["action_id"] == "S30-CONTENT-CLAIM-ASSET-UNLOCK"
-    assert context["next_valid_actions"][0]["execution"] == "human_review_required"
+    assert context["current_stage"]["current_phase"] == "context_migration_and_gate_1_evidence_review"
+    assert blocker_ids == {"S30-PRODUCT-TRUTH", "S30-COMMERCIAL"}
+    assert "edm_content_claim_asset_unlock" not in context["current_stage"]["gate_status"]
+    assert context["next_valid_actions"][0]["action_id"] == "S30-P0-SOURCE-AUDIT"
+    assert context["next_valid_actions"][0]["execution"] == "executable"
     assert context["project_visual_decision"]["status"] == "ACCEPTED"
     assert context["project_visual_decision"]["reask_visual_direction"] is False
     assert "TASK_TYPE_DEFAULTED_TO_GTM_FOR_PROJECT_CONTINUATION" in context["warnings"]
@@ -32,6 +35,7 @@ def test_a_continue_s30_resolves_manifest_blocker_and_next_action():
 def test_b_continue_s30_amazon_loads_only_amazon_context():
     context = resolver.build_context(ROOT, "继续 S30 mini Amazon", as_of=AS_OF)
     kinds = {item["kind"] for item in context["required_sources"]}
+    blocker_ids = {item["blocker_id"] for item in context["blocking_items"]}
 
     assert context["task_type"] == "Amazon"
     assert kinds == {
@@ -42,6 +46,38 @@ def test_b_continue_s30_amazon_loads_only_amazon_context():
     assert "amazon-japan-pdp-generator" in context["relevant_skills"]["optional"]
     assert "influencer-marketing" not in context["relevant_skills"]["primary"]
     assert "switchbot-campaign-review" not in context["relevant_skills"]["primary"]
+    assert blocker_ids == {"S30-PRODUCT-TRUTH", "S30-COMMERCIAL"}
+    assert "S30-CONTENT-CLAIM-ASSET-UNLOCK" not in blocker_ids
+    assert context["next_valid_actions"][0]["action_id"] == "S30-P0-SOURCE-AUDIT"
+    assert context["project_visual_decision"]["reask_visual_direction"] is False
+
+
+def test_s30_edm_sees_channel_gate_without_replacing_project_blockers():
+    context = resolver.build_context(ROOT, "做 S30 mini EDM", as_of=AS_OF)
+    blocker_ids = [item["blocker_id"] for item in context["blocking_items"]]
+
+    assert context["task_type"] == "EDM"
+    assert blocker_ids == [
+        "S30-PRODUCT-TRUTH",
+        "S30-COMMERCIAL",
+        "S30-CONTENT-CLAIM-ASSET-UNLOCK",
+    ]
+    assert context["current_stage"]["gate_status"]["edm_content_claim_asset_unlock"] == "blocked"
+    assert context["next_valid_actions"][0]["action_id"] == "S30-CONTENT-CLAIM-ASSET-UNLOCK"
+    assert context["next_valid_actions"][0]["blocked_by"] == ["S30-PRODUCT-TRUTH", "S30-COMMERCIAL"]
+    assert context["next_valid_actions"][0]["execution"] == "blocked_by_manifest"
+    assert context["project_visual_decision"]["reask_visual_direction"] is False
+
+
+def test_s30_commercial_review_sees_only_commercial_project_scope():
+    context = resolver.build_context(ROOT, "检查 S30 mini 商业信息", as_of=AS_OF)
+    blocker_ids = [item["blocker_id"] for item in context["blocking_items"]]
+
+    assert context["task_type"] == "Commercial"
+    assert blocker_ids == ["S30-COMMERCIAL"]
+    assert "edm_content_claim_asset_unlock" not in context["current_stage"]["gate_status"]
+    assert context["next_valid_actions"][0]["action_id"] == "S30-P0-COMMERCIAL-REVIEW"
+    assert context["next_valid_actions"][0]["execution"] == "human_review_required"
 
 
 def test_c_lock_ultra_max_context_has_no_s30_contamination():
@@ -70,7 +106,7 @@ def test_d_formal_manifest_status_wins_on_accepted_decision_conflict(tmp_path: P
         "aliases": ["Conflict Project"],
         "manifest_updated_at": "2026-08-27T12:00:00+08:00",
         "state_as_of": "2026-08-27",
-        "freshness_status": "current",
+        "freshness_status_at_manifest_update": "current",
         "freshness_sources": ["../../memory/PROJECT.md", "../../memory/DECISIONS.md"],
         "market": "Japan",
         "status": "active",
@@ -200,7 +236,7 @@ def test_accepted_decision_without_gate_expectation_does_not_create_false_confli
         },
         "manifest_updated_at": "2026-08-27T12:00:00+08:00",
         "state_as_of": "2026-08-27",
-        "freshness_status": "current",
+        "freshness_status_at_manifest_update": "current",
         "freshness_sources": ["../../memory/PROJECT.md", "../../memory/DECISIONS.md"],
         "blocking_items": [],
         "approved": [],
@@ -229,6 +265,8 @@ def test_task_type_matching_is_token_aware_and_preserves_explicit_routes():
         "继续 S30 mini PR": "PR",
         "S30 mini PR TIMES 新闻稿": "PR",
         "继续 S30 mini Amazon": "Amazon",
+        "做 S30 mini EDM": "EDM",
+        "检查 S30 mini 商业信息": "Commercial",
     }
 
     for request, expected in cases.items():
@@ -270,11 +308,22 @@ def test_unknown_project_returns_bootstrap_route_without_writes():
 def test_active_project_becomes_stale_after_threshold_but_read_only_audit_remains_allowed():
     context = resolver.build_context(ROOT, "继续 S30 mini", as_of=date(2026, 8, 28))
 
-    assert context["freshness"]["effective_status"] == "stale"
+    assert context["freshness"]["effective_freshness_status"] == "stale"
     assert context["freshness"]["age_days"] == 8
     assert any(item.startswith("PROJECT_STATE_STALE:") for item in context["warnings"])
-    assert context["next_valid_actions"][0]["execution_class"] == "human_review_preparation"
-    assert context["next_valid_actions"][0]["execution"] == "human_review_preparation_allowed"
+    assert context["next_valid_actions"][0]["execution_class"] == "read_only_audit"
+    assert context["next_valid_actions"][0]["execution"] == "read_only_allowed_with_unverified_state"
+
+
+def test_freshness_crosses_threshold_between_august_27_and_28():
+    current = resolver.build_context(ROOT, "继续 S30 mini", as_of=date(2026, 8, 27))
+    stale = resolver.build_context(ROOT, "继续 S30 mini", as_of=date(2026, 8, 28))
+
+    assert current["freshness"]["status_at_manifest_update"] == "stale"
+    assert current["freshness"]["effective_freshness_status"] == "current"
+    assert current["freshness"]["age_days"] == 7
+    assert stale["freshness"]["effective_freshness_status"] == "stale"
+    assert stale["freshness"]["age_days"] == 8
 
 
 def test_s30_continuation_prompts_expose_accepted_visual_planning_lock():

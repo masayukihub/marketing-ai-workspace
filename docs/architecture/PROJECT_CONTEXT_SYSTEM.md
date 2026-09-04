@@ -32,7 +32,7 @@ The checked-in `skills/` tree is the formal runtime. Commands must call reposito
 python3 skills/project-memory-manager/scripts/project_memory.py --workspace . --mode check
 ```
 
-`$HOME/.codex/skills/` is only an installation mirror. Before any explicit mirror diagnostic, compare the runtime bundle with `verify_global_mirror.py`. `GLOBAL_SKILL_DRIFT` blocks global execution; it never causes an automatic fallback.
+`$CODEX_HOME/skills/` is only an installation mirror. Before any explicit mirror diagnostic, validate every locked Runtime with `scripts/verify_codex_runtime.py`. `RUNTIME_DRIFT`, `MIRROR_MISSING`, or `REPOSITORY_RUNTIME_MISSING` blocks global execution; it never causes an automatic fallback.
 
 ## Project Manifest contract
 
@@ -42,7 +42,7 @@ The Manifest is intentionally lightweight. It may contain source paths and a sho
 
 `projects/<project-id>/project.yaml` is the version-controlled formal status for resolver conflicts. Project Memory remains the descriptive source behind it.
 
-`manifest_updated_at` records when navigation metadata changed. `state_as_of` records when the project status sources were actually verified. `freshness_status` and `freshness_sources` make that distinction auditable; the active-project threshold is configured in `skills/project-context-resolver/config/freshness.yaml`.
+`manifest_updated_at` records when navigation metadata changed. `state_as_of` records when the project status sources were actually verified. `freshness_status_at_manifest_update` records the maintenance-time assessment and `freshness_sources` records its basis. The active-project threshold is configured in `skills/project-context-resolver/config/freshness.yaml`; only the Resolver's `effective_freshness_status` is valid for runtime execution.
 
 ## Context Package contract
 
@@ -67,7 +67,7 @@ The package contains paths and status, not copied source bodies. The consuming S
 
 ## Freshness contract
 
-- `manifest_updated_at` never substitutes for `state_as_of`.
+- `manifest_updated_at` and `freshness_status_at_manifest_update` never substitute for `state_as_of` or runtime `effective_freshness_status`.
 - Active state older than `active_project_max_age_days` becomes `stale` and emits `PROJECT_STATE_STALE`.
 - Missing, invalid, future-dated, or explicitly unknown state becomes `unknown`.
 - With `stale` or `unknown` state, only `read_only_audit`, `source_refresh`, and `human_review_preparation` are eligible.
@@ -85,6 +85,10 @@ The package contains paths and status, not copied source bodies. The consuming S
 | Product Knowledge | Product Truth, approved Claims, Project Memory |
 | Website / SEO | Project Memory, decisions, Product Truth, approved Claims, assets |
 | Review | Project Memory and decisions; task-specific sources are added only when named |
+| EDM | Project Memory, decisions, Product Truth, approved Claims, Visual Context, Visual Profile, Visual Freeze, assets |
+| Commercial | Project Memory, decisions, Product Truth, approved Claims |
+
+Manifest Blockers and Actions may declare optional `task_types`. The resolver keeps project-wide records visible to every applicable task while exposing a channel-only Gate only to that channel. `blocked_by` continues to reference the project-level Blocker IDs; task scoping never marks a dependency resolved.
 
 ## Shared state model
 
@@ -137,10 +141,11 @@ If no exact project can be resolved, return `PROJECT_BOOTSTRAP_REQUIRED` and rou
 For `继续`, `下一步`, `接着做`, or `继续这个项目`:
 
 1. select the first incomplete P0, then P1, then P2 action;
-2. preserve blocker dependencies;
-3. validate the action's `execution_class` against Freshness;
-4. if the action requires Human Approval, return `human_review_required` or preparation-only status and generate a blank Human Review Package when requested;
-5. never execute or approve the action inside the resolver.
+2. apply the selected task's optional `task_types` scope;
+3. preserve blocker dependencies;
+4. validate the action's `execution_class` against Freshness;
+5. if the action requires Human Approval, return `human_review_required` or preparation-only status and generate a blank Human Review Package when requested;
+6. never execute or approve the action inside the resolver.
 
 ## Writeback contract
 

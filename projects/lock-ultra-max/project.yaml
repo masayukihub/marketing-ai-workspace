@@ -5,9 +5,9 @@ aliases:
   - Lock Ultra Max
   - SwitchBot Lock Ultra Max
   - lock-ultra-max-jp
-manifest_updated_at: "2026-08-27T15:47:05+08:00"
+manifest_updated_at: "2026-08-28T18:15:12+08:00"
 state_as_of: "2026-08-20"
-freshness_status: current
+freshness_status_at_manifest_update: stale
 freshness_sources:
   - ../../memory/project-memory/lock-ultra-max-jp/STATUS.md
   - ../../memory/project-memory/lock-ultra-max-jp/TODO.md

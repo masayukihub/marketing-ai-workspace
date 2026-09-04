@@ -41,6 +41,14 @@
 
 用户说“继续”“下一步”“只修改这张/这一段”时，入口 Skill 先读取正式项目状态，只执行最小必要步骤。下游不得重新解释已经冻结的产品、Offer、日期、链接或指标口径。
 
+## Runtime 一致性
+
+- GitHub `main` 下的 `skills/` 是正式 Runtime Authority。
+- `runtime/skill-lock.json` 锁定 Project Context、Project Memory、Product Knowledge 与四个中文入口的完整仓库 Tree Hash。
+- `$CODEX_HOME/skills/` 只作为安装镜像；实时状态由 `scripts/verify_codex_runtime.py` 输出。
+- `scripts/sync_codex_skill_mirror.py` 只允许从 clean `main` 单向同步，禁止 Global Mirror 反向写回仓库。
+- `inventory/skill_inventory.csv` 和 `docs/SKILL_CATALOG.md` 均由 `scripts/build_skill_inventory.py` 生成；本机存在但仓库无源码的接口不列为正式 Skill。
+
 ## 能力边界
 
 - Product Knowledge、官方资料和正式项目记录仍是事实源。

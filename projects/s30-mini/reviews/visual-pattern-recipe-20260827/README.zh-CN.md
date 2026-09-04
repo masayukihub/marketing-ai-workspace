@@ -18,7 +18,7 @@
 1. 执行“继续 S30 mini”“做 S30 mini 的 EDM”或“继续日本电商内容生成”时，先由 Project Resolver 读取 Accepted Decision Record；
 2. 没有适用 Approved Freeze 时，Router 自动继承 Project Visual Planning Lock，并输出 `reask_visual_direction=false`；
 3. 用户明确改方向、渠道硬冲突、Pattern Deprecated、无兼容 Template 或新批准方向冲突时，才重新打开视觉方向审核；
-4. 当前下一步只处理 `S30_CONTENT_CLAIM_ASSET_UNLOCK`；
+4. 当前 EDM 渠道下一步处理 `S30_CONTENT_CLAIM_ASSET_UNLOCK`；项目级 Product Truth 与 Commercial 审查继续并存；
 5. 不因 Planning Lock 绕过 Product Truth、Claim、Asset、Renderer、Final Human、ESP 或 Send Gate。
 
 ## 特别规则

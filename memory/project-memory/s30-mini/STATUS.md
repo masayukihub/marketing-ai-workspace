@@ -4,8 +4,8 @@
 - Current Stage: Context migration / Gate 1 evidence review
 - Readiness: PARTIAL
 - Completed: Workspace memory skeleton
-- Incomplete: Canonical source selection and approved Product Truth
-- Blockers: Approved Claims、Compatibility、Price、Launch Build 等待正式来源确认
+- Incomplete: Canonical source selection、approved Product Truth，以及日本正式产品名、SKU、MSRP / Deal Price、Launch Build / Timeline 的商业确认
+- Blockers: Product Truth 与 JP Claim 尚未批准；Commercial 信息仍不完整；项目整体保持 PARTIAL / BLOCKED
 
 ## Infrastructure Update
 

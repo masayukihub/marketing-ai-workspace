@@ -1,0 +1,21 @@
+contract: chatgpt-context-index-v1
+snapshot_authority: generated_read_only_not_truth_source
+current_main_commit: 2d2bea6dad5c937310b4f800b0a9cf2dd9ad9882
+generated_as_of: '2026-08-28'
+truth_precedence:
+- github_product_knowledge_project_memory_decision
+- chatgpt_snapshot
+- chat_history_or_memory
+projects:
+- project_id: daily-station
+  manifest: projects/daily-station/project.yaml
+  snapshot: projects/daily-station/chatgpt-context.md
+- project_id: homerunpet
+  manifest: projects/homerunpet/project.yaml
+  snapshot: projects/homerunpet/chatgpt-context.md
+- project_id: lock-ultra-max
+  manifest: projects/lock-ultra-max/project.yaml
+  snapshot: projects/lock-ultra-max/chatgpt-context.md
+- project_id: s30-mini
+  manifest: projects/s30-mini/project.yaml
+  snapshot: projects/s30-mini/chatgpt-context.md

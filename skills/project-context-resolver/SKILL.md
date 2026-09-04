@@ -1,6 +1,6 @@
 ---
 name: project-context-resolver
-description: Resolve a named marketing project from projects/*/project.yaml, select the minimum task-specific context, validate current gates, and identify the next permitted action. Use before GTM, Amazon, PR, KOL, campaign, VOC, competitor, design, visual, Product Knowledge, website, SEO, or review work on an existing project. Do not use it to scan Feishu, create Product Truth, or replace Project Memory.
+description: Resolve a named marketing project from projects/*/project.yaml, select the minimum task-specific context, validate current gates, and identify the next permitted action. Use before GTM, Amazon, PR, KOL, campaign, VOC, competitor, design, visual, Product Knowledge, website, SEO, review, EDM, or commercial work on an existing project. Do not use it to scan Feishu, create Product Truth, or replace Project Memory.
 ---
 
 # Project Context Resolver
@@ -21,7 +21,7 @@ Do not fuzzy-create a project when no exact alias matches. An unknown project re
 
 ## Supported task types
 
-`GTM`, `Amazon`, `PR`, `KOL`, `Campaign`, `VOC`, `Competitor`, `Design`, `Visual`, `Product Knowledge`, `Website`, `SEO`, and `Review`.
+`GTM`, `Amazon`, `PR`, `KOL`, `Campaign`, `VOC`, `Competitor`, `Design`, `Visual`, `Product Knowledge`, `Website`, `SEO`, `Review`, `EDM`, and `Commercial`.
 
 For generic continuation requests such as `继续 S30 mini`, use the Manifest's priorities. The resolver may default the context type to `GTM`, but it must report that default in `warnings`.
 
@@ -51,7 +51,7 @@ Use `--as-of YYYY-MM-DD` only for deterministic audit/testing. Normal execution 
 
 Consume only `required_sources` whose status is `available`. A `missing` source remains a blocker or warning; it is not permission to search the whole repository. Product facts must still pass `product-knowledge`. Project context and durable writeback must still pass `project-memory-manager`.
 
-`manifest_updated_at` records navigation-file maintenance; `state_as_of` records when project state was actually verified. Never substitute one for the other. For active projects beyond the configured threshold, emit `PROJECT_STATE_STALE`. With `stale` or `unknown` state, allow only `read_only_audit`, `source_refresh`, and `human_review_preparation`; return `blocked_by_freshness` for state-dependent execution.
+`manifest_updated_at` records navigation-file maintenance; `state_as_of` records when project state was actually verified; `freshness_status_at_manifest_update` is only the maintenance-time assessment. Runtime execution must use the Context Package's dynamic `effective_freshness_status`. For active projects beyond the configured threshold, emit `PROJECT_STATE_STALE`. With `stale` or `unknown` state, allow only `read_only_audit`, `source_refresh`, and `human_review_preparation`; return `blocked_by_freshness` for state-dependent execution.
 
 The Context Package contract is defined in [contracts.md](references/contracts.md).
 
@@ -62,9 +62,10 @@ For `继续`, `下一步`, `接着做`, or `继续这个项目`:
 1. inspect P0, then P1, then P2;
 2. skip completed or superseded actions;
 3. preserve `blocked_by` dependencies;
-4. validate `execution_class` against project freshness;
-5. if `requires_human_approval: true`, stop at Human Review;
-6. never convert a proposed decision or a technical pass into approval.
+4. apply optional `task_types` scope to Blockers and Actions so a channel Gate does not replace or pollute project-wide state;
+5. validate `execution_class` against project freshness;
+6. if `requires_human_approval: true`, stop at Human Review;
+7. never convert a proposed decision or a technical pass into approval.
 
 Routing aliases identify the project only. An alias note such as S20 mini → S30 mini must be returned as `PROJECT_ROUTING_ALIAS_ONLY`; it never approves a product name, Claim, or external copy.
 
