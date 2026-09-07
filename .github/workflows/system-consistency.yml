@@ -18,6 +18,8 @@ on:
       - "scripts/runtime_contract.py"
       - "scripts/verify_codex_runtime.py"
       - "scripts/sync_codex_skill_mirror.py"
+      - "scripts/audit_personal_skill_mirrors.py"
+      - "tests/test_personal_skill_mirrors.py"
       - "tests/test_system_consistency.py"
       - ".github/workflows/system-consistency.yml"
   push:
@@ -34,6 +36,7 @@ on:
       - "docs/SKILL_CATALOG.md"
       - "scripts/**"
       - "tests/test_system_consistency.py"
+      - "tests/test_personal_skill_mirrors.py"
       - ".github/workflows/system-consistency.yml"
   workflow_dispatch:
 
@@ -68,3 +71,5 @@ jobs:
           skills/project-memory-manager/tests
       - name: Workspace and Secret validation
         run: python tests/validate_workspace.py
+      - name: Verify personal catalog adapter with offline fixtures
+        run: python -m unittest discover -s tests -p test_personal_skill_mirrors.py -v

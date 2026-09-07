@@ -1,5 +1,7 @@
 # Marketing AI Workspace
 
+个人 Codex 技能与本仓库的结合点、版本检查和安全更新方法见 [Flow × Codex 衔接与同步](docs/workflow/CODEX_FLOW_INTEGRATION.zh-CN.md)。入口包一致不等于 Renderer、浏览器 QA 或发布就绪。
+
 这是面向 **SwitchBot 日本市场营销** 的长期 AI 工作空间，用来管理可复用 Skills、Project Memory、Product Knowledge、视觉系统、自动化脚本、测试和项目状态。
 
 日常使用先打开：
