@@ -35,6 +35,8 @@ class CreativeBriefTests(unittest.TestCase):
             self.assertNotIn(value, str(scene))
         self.assertEqual(scene["reference_sources"], ["synthetic/scene.png"])
         self.assertIn("Invented functionality", scene["prompt"])
+        brief["canvas"].update({"width": 1464, "height": 600})
+        self.assertIn("1464 x 600", module.compile_brief(brief)["scene_request"]["prompt"])
         self.assertEqual(result["copy_layer"], brief["copy_layer"])
         self.assertEqual(result["locks"], brief["locks"])
         self.assertEqual(result["status"], "BRIEF_PREPARED_NOT_RENDERED")

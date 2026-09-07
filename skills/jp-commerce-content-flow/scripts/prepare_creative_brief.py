@@ -80,6 +80,7 @@ def compile_brief(brief: dict) -> dict:
         packet["scene_request"] = {
             "prompt": "\n".join([
                 "Create only the environment layer.",
+                f"Canvas: {dimensions['width']} x {dimensions['height']} pixels; maintain this aspect ratio.",
                 f"Environment/action: {shot['scene']}",
                 f"Camera/perspective: {shot['camera']}",
                 f"Lighting/materials: {shot['light']}",
