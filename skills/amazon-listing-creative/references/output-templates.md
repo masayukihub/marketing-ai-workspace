@@ -52,7 +52,7 @@
 ## Listing 图片 Brief
 
 ```markdown
-## Image [1–9] — [Role]
+## Asset [Current Asset ID] — [Role]
 
 - Purpose:
 - Audience Question:
@@ -136,37 +136,28 @@
 
 ## AI 图片提示词
 
-优先使用结构化英文提示词承载视觉指令，把面向消费者的文案单独列出：
+正式产品素材与消费者文案保留在后期合成任务。以下 Prompt 只交给场景生成模型；先检查官方产品的机位能否与该场景匹配：
 
 ```text
-Create a premium Amazon commerce key visual for [placement].
-
-Product and reference:
-- Product: [exact product and SKU]
-- Use the attached reference image(s) as the source of truth.
-- Preserve exactly: [shape, proportions, materials, colors, controls, ports, accessories].
-
-Single message:
-[one message]
-
-Visual proof:
-[how the scene visibly proves the benefit]
+Create only an environment layer for [placement and aspect ratio].
 
 Scene and composition:
-[setting, human moment, scale cue, foreground/background, camera, reading order, text safe zone]
+[specific space, restrained human action, material, scale cue, camera height,
+perspective, contact surface, foreground/background, empty product insertion area,
+empty text safe zone]
 
 Art direction:
-[brand style, palette, lighting, realism, mood, aspect ratio]
+[approved palette, light direction, shadow direction, material, mood]
 
 Allowed changes:
-[background, camera angle, lighting, approved props]
+[environment and approved non-product props within the brief]
 
 Do not:
-- change the product design, SKU, proportions, materials, colors, controls, ports, or accessories
+- generate any product, logo, text, UI, technical diagram or supposed evidence
 - invent functions, UI, measurements, certifications, awards, ratings, or comparative claims
 - add unsupported text or logos
 - distort hands, physical contact, scale, shadows, or reflections
-- render long copy; reserve a clean text-safe area for post-production
+- fill the reserved areas; product identity, proof and typography are composited later
 ```
 
 若画面需要真实 UI、参数、图表、认证、包装文字或法律说明，将其列入 `Post-production Overlay`，并使用原始资产叠加。
@@ -190,4 +181,4 @@ Do not:
 - Confidence: High / Medium / Low
 ```
 
-评分只用于比较方向，不能替代事实门槛。`Product Accuracy` 或 `Evidence Strength` 有硬伤时，Gate 必须为 `Blocked` 或 `Revise`。
+此表仅用于有依据的方向比较，不要求填满分数。未看实际成图的维度填“未评估”，CTR 无实验数据时填“待验证假设”。单张修图直接写观察与修复。`Product Accuracy` 或 `Evidence Strength` 有硬伤时，不能靠平均分抵消。

@@ -7,7 +7,8 @@
   "scripts": {
     "test:production-safety": "node tests/production_safety_regression.mjs",
     "test:reference": "node tests/reference_system_regression.mjs",
-    "test": "npm run test:production-safety && npm run test:reference"
+    "test:creative-quality": "node --test tests/creative_quality_regression.mjs",
+    "test": "npm run test:production-safety && npm run test:reference && npm run test:creative-quality"
   },
   "dependencies": {
     "sharp": "0.35.3"

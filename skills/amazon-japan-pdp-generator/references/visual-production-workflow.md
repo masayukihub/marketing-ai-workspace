@@ -54,10 +54,10 @@ Network images are visual references only unless commercial rights are confirmed
 
 - Round 1: render the selected template with real assets and selected copy.
 - Visual Review: check visual center, whitespace, hierarchy, Japanese line breaks, product scale/accuracy, scene dominance and five-second comprehension.
-- Round 2: correct layout, scale, copy density and mobile safe area. Only Round 2 that passes QA enters `design/product_images/` or `design/aplus/`.
+- Round 2: revise only the observed defect. The legacy renderer keeps `design/product_images/` and `design/aplus/` as output paths for compatibility; files there are candidates until reviewed. A filename or directory never establishes approval.
 - Preserve Round 1 in `design/editable/round_01/` and editable Final SVG in `design/editable/final/`.
 
-## Automatic rejection
+## Metadata checks and observed rejection
 
 Reject after Round 2 when any of these remain:
 
@@ -70,7 +70,9 @@ Reject after Round 2 when any of these remain:
 - product body is AI-generated, AI-redrawn or source is untraceable;
 - user cannot state the image's one message within five seconds.
 
-Design QA and Publish Gate are independent. A visual may pass design QA but remain `Blocked` because official user-provided assets or approved Claims are missing.
+The code checks text capacity, layout IDs and source metadata. Product prominence, background competition, actual mobile reading and five-second comprehension require opening the exported image. Do not label them automatically tested. Record those observations using [creative-review-record.md](creative-review-record.md); absent/stale reviews leave the candidate at `Need Verification`.
+
+Design QA and Publish Gate are independent. A recorded model review does not grant human approval. A visual may pass creative review but remain `Blocked` because official user-provided assets or approved Claims are missing.
 
 ## Re-render rule
 

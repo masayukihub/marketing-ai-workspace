@@ -30,6 +30,8 @@
 
 Product Knowledge、Project Memory、Project Context Resolver、Visual Router、Amazon Renderer、Campaign Review Runtime、EDM Runtime、Customer Review 和 Influencer Marketing 等能力属于内部模块，由系统自动路由。
 
+图片效果不满意时，沿用内容入口并提供原图与认可的参考图。见 [成图质量诊断与改进](docs/workflow/CREATIVE_OUTPUT_QUALITY.zh-CN.md)：单张制作、实际成图审核与最小范围修图。
+
 ## 默认工作逻辑
 
 ```text

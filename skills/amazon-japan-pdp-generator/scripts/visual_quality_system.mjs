@@ -123,7 +123,12 @@ export function visualRhythmScore(manifest) {
   const cardHeavy = manifest.aplus.filter((item) => /three-semantic|bounded|card/i.test(item.card_structure)).length;
   const backgroundRun = longestRun(backgrounds);
   const layoutRun = longestRun(layouts);
-  const highRun = longestRun(densities.map((value) => value === "high" ? "high" : "reset"));
+  let highRun = 0;
+  let currentHighRun = 0;
+  for (const density of densities) {
+    currentHighRun = density === "high" ? currentHighRun + 1 : 0;
+    highRun = Math.max(highRun, currentHighRun);
+  }
   const mobileFamilies = new Set(manifest.aplus.map((item) => item.mobile_layout_family).filter(Boolean));
   const positionRun = longestRun(sequence.map((item) => item.product_position));
   const components = {
@@ -140,40 +145,20 @@ export function visualRhythmScore(manifest) {
   };
   const score = Object.values(components).reduce((sum, value) => sum + value, 0);
   const warnings = detectRhythmWarnings(manifest);
-  return { score, components, warnings, evidence: { unique_roles: [...roles], background_longest_run: backgroundRun, layout_longest_run: layoutRun, product_position_longest_run: positionRun, high_density_longest_run: highRun, product_scales: [...scales], card_heavy_aplus_modules: cardHeavy, mobile_layout_families: [...mobileFamilies] } };
+  return { score, scope: "PLANNED_METADATA_ONLY", final_image_quality_assessed: false, components, warnings, evidence: { unique_roles: [...roles], background_longest_run: backgroundRun, layout_longest_run: layoutRun, product_position_longest_run: positionRun, high_density_longest_run: highRun, product_scales: [...scales], card_heavy_aplus_modules: cardHeavy, mobile_layout_families: [...mobileFamilies] } };
 }
 
 export function brandFitAssessment(mode = "ON") {
-  const on = String(mode).toUpperCase() === "ON";
-  const dimensions = {
-    product_first: on ? 90 : 73,
-    smart_but_approachable: on ? 88 : 70,
-    functional_clarity: on ? 91 : 74,
-    japanese_home_fit: on ? 84 : 66,
-    everyday_benefit: on ? 87 : 69,
-    brand_restraint: on ? 92 : 72,
-    ecosystem_consistency: on ? 84 : 76,
-    human_product_balance: on ? 85 : 60,
-  };
-  const score = Math.round(Object.values(dimensions).reduce((sum, value) => sum + value, 0) / Object.keys(dimensions).length);
   return {
-    score,
-    risk: score >= 85 ? "LOW" : score >= 70 ? "MEDIUM" : "HIGH",
-    dimensions,
-    basis: on
-      ? "SwitchBot white/mint/warm-neutral tokens, product-led scale, programmatic type, bounded dark contrast, and a late ownership breath."
-      : "Baseline is structurally consistent but relies on repeated rounded cards and a generic mobile card stack; the late A+ closure is visually under-resolved.",
+    mode, score: null, risk: "NOT_ASSESSED", dimensions: {},
+    basis: "A rendering switch is not evidence of brand fit. Inspect the actual output against the approved visual direction.",
   };
 }
 
 export function templateFeelingAssessment(mode = "ON") {
-  const on = String(mode).toUpperCase() === "ON";
   return {
-    overall_risk: on ? "LOW" : "HIGH",
-    gallery_risk: on ? "LOW" : "MEDIUM",
-    aplus_risk: on ? "LOW" : "HIGH",
-    signals: on
-      ? ["Each visual role has a bounded composition family.", "Only the parallel-detail module uses repeated semantic panels.", "Mobile variants preserve role differences instead of one universal card stack."]
-      : ["Rounded white cards recur across proof, detail, comparison and closure.", "All mobile A+ modules use the same title/body/product/card formula.", "The final FAQ module has a large unused field that reads as an unfinished template."],
+    mode, overall_risk: "NOT_ASSESSED", gallery_risk: "NOT_ASSESSED",
+    aplus_risk: "NOT_ASSESSED", signals: [],
+    basis: "Inspect the contact sheet; planned layout variety cannot establish the absence of template feeling.",
   };
 }

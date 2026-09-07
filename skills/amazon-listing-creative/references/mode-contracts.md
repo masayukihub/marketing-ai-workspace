@@ -36,12 +36,12 @@
 ### 阶段 A：策略
 
 1. 完成 Fact Lock、定位、JTBD 和 Hero Story。
-2. 生成 10 个候选视觉方向。每个方向包含 Core Idea、Visual Mechanism、Layout、Emotion、Platform Fit 和主要风险。
-3. 按统一评分维度推荐 Top 3。不要仅用总分排序；Product Accuracy 或 Evidence Strength 不合格时淘汰。
+2. 沿用已批准方向；从零开始先给一个推荐方向，有实质分歧时增加一个对照。每个方向包含 Core Idea、Visual Mechanism、Layout、Emotion、Platform Fit 和主要风险。
+3. 用户明确要求广泛探索时按指定数量展开，必要时推荐 Top 3。Product Accuracy 或 Evidence Strength 不合格时不能用总分抵消。
 
 ### 阶段 B：图片组
 
-将选定策略映射到 9 张图：
+将选定策略映射到当前批准的资产集合；从零开始按购买任务定图数。以下九图为角色示例：
 
 | Image | 决策任务 | 最小输出 |
 |---:|---|---|
@@ -55,7 +55,7 @@
 | 8 | 异议消除 2 / 比较 | 只使用有来源的比较维度 |
 | 9 | 品牌或生活方式 | 情绪、身份与品牌记忆 |
 
-若产品信息不足，不强行填满 9 张：用 `Pending Verification` 占位，或建议合并重复内容。
+若产品信息不足，不为凑数填图。已有批准集合不得自动合并、删图或更改顺序；标出受影响资产和缺口，只提出最小范围的修订建议。
 
 ## Mode 2 A+EBC 9-Grid
 
