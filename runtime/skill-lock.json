@@ -74,14 +74,16 @@
       "name": "jp-commerce-content-flow",
       "role": "user_entry_japan_commerce_content",
       "repository_path": "skills/jp-commerce-content-flow",
-      "repository_tree_hash": "1fa786441a63323b0eaa40771c0ee9042c921603fc776e5163c6e9f06173c36c",
+      "repository_tree_hash": "993a1d5a5129240fca6d48dca257ef7898f1894ed20d46652d3dfc1a7b793f08",
       "required_runtime_files": [
         "SKILL.md",
         "agents/openai.yaml",
         "references/capability-map.md",
         "references/output-contract.md",
         "references/runtime-contract.md",
-        "references/visual-router-integration.md"
+        "references/visual-router-integration.md",
+        "references/creative-production.md",
+        "scripts/prepare_creative_brief.py"
       ],
       "user_visible": true,
       "mirror_required": true,

@@ -6,6 +6,12 @@ import { renderReferencePrimitive } from "./reference_renderers.mjs";
 import { runMobileReadabilityGate } from "./mobile_readability_gate.mjs";
 import { visualProfile, visualQualityEnabled, visualQualityManifest } from "./visual_quality_system.mjs";
 import { renderVisualQualityAplus, renderVisualQualityMobileAplus, renderVisualQualityProduct } from "./visual_quality_renderers.mjs";
+import { evaluateCreativeReview } from "./creative_review.mjs";
+
+// A registered Reference primitive owns its composition. Quality defaults are fallbacks.
+export function selectCompositionSvg(referenceSvg, qualitySvg, fallbackSvg) {
+  return referenceSvg || qualitySvg || (typeof fallbackSvg === "function" ? fallbackSvg() : fallbackSvg);
+}
 
 function esc(value) {
   return String(value ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;");
@@ -347,7 +353,7 @@ export async function renderFromSpec(spec, outputDir, selection = null) {
       ? await renderReferencePrimitive({ templateId: item.template_id, record: item, outputDir, viewport: "desktop" })
       : null;
     const visualQualitySvg = visualQuality && item.template_id !== "P-MAIN-OFFICIAL" ? renderVisualQualityProduct({item,productUri,sceneUri}) : null;
-    const rawSvg = visualQualitySvg || referenceRender?.svg || (item.template_id === "P-MAIN-OFFICIAL" ? `<svg xmlns="http://www.w3.org/2000/svg" width="2000" height="2000"><rect width="2000" height="2000" fill="#fff"/><image href="${esc(productUri)}" x="170" y="170" width="1660" height="1660" preserveAspectRatio="xMidYMid meet"/></svg>` : productTemplateSvg(item,productUri,sceneUri,spec));
+    const rawSvg = selectCompositionSvg(referenceRender?.svg, visualQualitySvg, () => item.template_id === "P-MAIN-OFFICIAL" ? `<svg xmlns="http://www.w3.org/2000/svg" width="2000" height="2000"><rect width="2000" height="2000" fill="#fff"/><image href="${esc(productUri)}" x="170" y="170" width="1660" height="1660" preserveAspectRatio="xMidYMid meet"/></svg>` : productTemplateSvg(item,productUri,sceneUri,spec));
     const svg = `<!-- PRODUCT_PAGE_SPEC ${spec.meta.spec_sha256} -->\n${rawSvg}`;
     const svgFile=path.join(outputDir,item.outputs.svg);const wireframeFile=path.join(outputDir,item.outputs.wireframe_svg);const jpegFile=path.join(outputDir,item.outputs.jpeg);
     if (selectedProductIds && !selectedProductIds.has(item.id) && await exists(jpegFile)) {
@@ -365,10 +371,12 @@ export async function renderFromSpec(spec, outputDir, selection = null) {
       ? await renderReferencePrimitive({ templateId: module.template_id, record: module, outputDir, viewport: "desktop" })
       : null;
     const visualQualitySvg = visualQuality ? renderVisualQualityAplus({module,prepared}) : null;
-    const svg=`<!-- PRODUCT_PAGE_SPEC ${spec.meta.spec_sha256} -->\n${visualQualitySvg || referenceRender?.svg || moduleSvg(module,prepared,spec)}`;const svgFile=path.join(outputDir,module.outputs.svg);const wireframeFile=path.join(outputDir,module.outputs.wireframe_svg);const jpegFile=path.join(outputDir,module.outputs.jpeg);
+    const svg=`<!-- PRODUCT_PAGE_SPEC ${spec.meta.spec_sha256} -->\n${selectCompositionSvg(referenceRender?.svg, visualQualitySvg, () => moduleSvg(module,prepared,spec))}`;const svgFile=path.join(outputDir,module.outputs.svg);const wireframeFile=path.join(outputDir,module.outputs.wireframe_svg);const jpegFile=path.join(outputDir,module.outputs.jpeg);
     const mobileSvgRelative=`design/aplus/mobile/aplus_${String(module.sequence).padStart(2,"0")}.svg`;
     const mobileJpegRelative=`design/aplus/mobile/aplus_${String(module.sequence).padStart(2,"0")}.jpg`;
-    const mobileSvgRaw = visualQuality ? renderVisualQualityMobileAplus({module,prepared}) : (await renderReferencePrimitive({templateId:module.template_id,record:module,outputDir,viewport:"mobile"})).svg;
+    const mobileSvgRaw = referenceRender || !visualQuality
+      ? (await renderReferencePrimitive({templateId:module.template_id,record:module,outputDir,viewport:"mobile"})).svg
+      : renderVisualQualityMobileAplus({module,prepared});
     const mobileSvg=`<!-- PRODUCT_PAGE_SPEC ${spec.meta.spec_sha256} -->\n${mobileSvgRaw}`;
     await writeSvg(path.join(outputDir,mobileSvgRelative),mobileSvg);
     await renderSvgToJpeg(sharp,mobileSvg,path.join(outputDir,mobileJpegRelative),spec.meta.spec_sha256);
@@ -378,6 +386,12 @@ export async function renderFromSpec(spec, outputDir, selection = null) {
     }
     await writeSvg(svgFile,svg);await writeSvg(wireframeFile,`<!-- PRODUCT_PAGE_SPEC ${spec.meta.spec_sha256} -->\n${wireframeSvg(module,true)}`);await renderSvgToJpeg(sharp,svg,jpegFile,spec.meta.spec_sha256);
     manifest.aplus_modules.push({id:module.id,template_id:module.template_id,units:module.units.length,svg:module.outputs.svg,jpeg:module.outputs.jpeg,jpeg_sha256:await sha256File(jpegFile),mobile_svg:mobileSvgRelative,mobile_jpeg:mobileJpegRelative,mobile_jpeg_sha256:await sha256File(path.join(outputDir,mobileJpegRelative)),product_layers:module.units.map(unit=>unit.layers.product_layer.source),scene_layers:module.units.map(unit=>unit.layers.scene_layer.source),graphic_layer:"programmatic SVG",publication_status:module.units.every(unit=>productStatus(unit)==="Product Layer Ready")?"Product Layer Ready":"Blocked for Final Launch"});
+  }
+  for (const entry of [...manifest.product_images, ...manifest.aplus_modules]) {
+    const record = [...spec.product_images, ...spec.aplus_modules].find((item) => item.id === entry.id);
+    entry.production_method = "DETERMINISTIC_SOURCE_COMPOSITE";
+    entry.creative_review = evaluateCreativeReview(record.creative_reviews?.desktop, { id: entry.id, path: entry.jpeg, sha256: entry.jpeg_sha256 });
+    if (entry.mobile_jpeg) entry.mobile_creative_review = evaluateCreativeReview(record.creative_reviews?.mobile, { id: entry.id, path: entry.mobile_jpeg, sha256: entry.mobile_jpeg_sha256 });
   }
   const mobileReadability=await runMobileReadabilityGate(spec,outputDir);
   await fs.mkdir(path.join(outputDir,"qa"),{recursive:true});

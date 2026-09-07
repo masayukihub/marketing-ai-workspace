@@ -4,7 +4,7 @@
 
 This layer changes only deterministic rendering parameters inside the existing 19 Layout Primitives. It must not change Product Knowledge, Claims, Reference selection, Story sequence, Template IDs, asset provenance, Gallery/A+ counts, workbooks, human Gates or Publish Gate.
 
-`VISUAL_QUALITY=ON` is the production default. Set `VISUAL_QUALITY=OFF` only for regression or troubleshooting.
+`VISUAL_QUALITY=ON` is the production default. Set `VISUAL_QUALITY=OFF` only for regression or troubleshooting. Registered Reference renderers retain composition priority on desktop and mobile; quality presets are fallbacks and must not silently replace the selected Reference primitive.
 
 ## Visual Roles
 
@@ -61,6 +61,6 @@ Reference learning may change information rhythm, but must never import competit
 
 ## Output and QA
 
-ON writes `reports/VISUAL_QUALITY_MANIFEST.json`, including Visual Role and deterministic parameters. The score and Template Feeling assessment are advisory; any Story, Claim, Asset, Mobile, renderer or Publish hard failure remains blocking.
+ON writes `reports/VISUAL_QUALITY_MANIFEST.json`, including Visual Role and deterministic parameters. Rhythm scores describe planned metadata only. Brand Fit and Template Feeling remain `NOT_ASSESSED` until the actual files are inspected; ON/OFF is not image evidence. Any Story, Claim, Asset, Mobile, renderer or Publish hard failure remains blocking. Use [creative-review-record.md](creative-review-record.md) for observed findings.
 
 Required regression freezes Product Brief, Claims, Reference Selection, Story Lock, sequence, Template IDs and Asset Resolution, then compares Baseline vs ON. Browser QA must cover Gallery, full A+, Design Review and Before/After Review at desktop and 390×844.

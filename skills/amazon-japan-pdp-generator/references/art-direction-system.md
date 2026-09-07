@@ -55,7 +55,7 @@ MIXED
 
 Contact Sheet 至少同时展示现状视觉、线框、推荐方向、生产方法、资产、风险、Desktop/Mobile crop 与人工 Decision/Comment。Desktop 1440×1000 和 Mobile 390×844 必须检查 broken image、overflow、可读字号、单元完整性和表单持久化。
 
-Art Direction Score 只评价生产 Brief 的完整度、可执行性与节奏控制；不能表示 Final Asset 已达到相同视觉质量，也不得覆盖 Product、Claim、Asset、Mobile 或 Publish Gate。
+Art Direction 的语义检查与字段完整性仍按真实元数据计算。品牌、真实感、构图、JP Fit 和总体视觉分在未观察成图前保持 null / NOT_ASSESSED；不得展示固定的基线分与推荐分暗示效果提升。生产 Brief 不能表示 Final Asset 已达到相同质量，也不得覆盖 Product、Claim、Asset、Mobile 或 Publish Gate。
 
 ## 命令
 

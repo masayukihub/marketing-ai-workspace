@@ -1,6 +1,7 @@
 import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
+import { evaluateCreativeReview } from "./creative_review.mjs";
 
 const USER_OFFICIAL_ORIGIN = "User Provided Official";
 const OFFICIAL_TYPES = new Set(["Official White Background", "Official PNG", "Official Render", "Official Lifestyle", "Official Installation", "Official Detail"]);
@@ -156,11 +157,12 @@ function sourceMetadata(record, data) {
   return { origin: record.sourceOrigin || record.productSourceOrigin || data.product.mainImageOrigin || data.meta.productAssetOrigin || "Legacy Unverified", type: record.sourceAssetType || record.productSourceType || data.product.mainImageType || "Legacy Unverified", productBodyAiGenerated: record.productBodyAiGenerated ?? data.product.productBodyAiGenerated ?? null, aiGeneratedElements: record.aiGeneratedElements || [] };
 }
 function claimReady(record, data) { const byId = new Map((data.claims || []).map((claim) => [claim.id, claim])); return (record.claimIds || []).every((id) => byId.get(id)?.status === "Approved"); }
-function publicationStatus(record, meta, sourceExists, claimsApproved, designPassed) {
-  if (!sourceExists || !designPassed || meta.productBodyAiGenerated !== false) return "Blocked";
+export function publicationStatus(record, meta, sourceExists, claimsApproved, designPassed) {
+  if (!sourceExists || meta.productBodyAiGenerated !== false) return "Blocked";
   if (meta.origin !== USER_OFFICIAL_ORIGIN || !OFFICIAL_TYPES.has(meta.type)) return "Blocked";
   if (!claimsApproved || ["Need Verification", "Conflict", "Unsupported", "Prohibited"].includes(record.status)) return "Need Verification";
-  if (["Asset Missing", "Blocked"].includes(record.status)) return "Blocked"; return "Final Ready";
+  if (["Asset Missing", "Blocked"].includes(record.status)) return "Blocked";
+  return designPassed ? "Final Ready" : "Need Verification";
 }
 
 function round1Audit(record, kind = "image") {
@@ -169,10 +171,10 @@ function round1Audit(record, kind = "image") {
   if (body > (kind === "image" ? 48 : 80)) issues.push(`Supporting Copy ${body}字：移动端密度偏高`);
   if (record.copyReview?.status?.startsWith("Auto Draft")) issues.push("三案由旧输入兼容生成，需日文编辑复核");
   if (!record.layoutId && kind === "image") issues.push("缺少明确Layout ID");
-  return issues.length ? issues : ["初版进入常规版式、产品占比与留白优化"];
+  return issues.length ? issues : ["文案与版式元数据未发现问题；尚未查看实际成图"];
 }
 
-function finalAudit(record, kind = "image", templateType = "") {
+export function finalAudit(record, kind = "image", templateType = "") {
   const issues = []; const h = chars(record.headline).length; const body = chars(kind === "image" ? record.subcopy : record.copy).length;
   if (h > 28) issues.push("Headline仍过长"); if (body > (kind === "image" ? 100 : 150)) issues.push("Supporting Copy仍过长");
   if ((record.informationHierarchy?.level3 || []).length > 4) issues.push("Level 3超过4项");
@@ -201,7 +203,7 @@ function finalAudit(record, kind = "image", templateType = "") {
     if (capacity && body > capacity.body) issues.push(`Supporting Copy超过${templateType}安全容量`);
   }
   if (record.productBodyAiGenerated === true) issues.push("产品本体由AI生成");
-  return { status: issues.length ? "Reject" : "Pass", issues, fiveSecondMessage: compact(record.headline || record.keyMessage || record.purpose, 28) };
+  return { status: issues.length ? "Reject" : "Pass", scope: "CONTENT_AND_LAYOUT_METADATA_ONLY", issues, intendedMessage: compact(record.headline || record.keyMessage || record.purpose, 28), fiveSecondMessage: null };
 }
 
 function defs() { return `<defs><filter id="shadow"><feDropShadow dx="0" dy="24" stdDeviation="28" flood-opacity=".16"/></filter><linearGradient id="darkFade" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0A1717" stop-opacity=".76"/><stop offset=".62" stop-color="#0A1717" stop-opacity=".10"/><stop offset="1" stop-color="#0A1717" stop-opacity="0"/></linearGradient><linearGradient id="mint" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F7FCFA"/><stop offset="1" stop-color="#CBE9E1"/></linearGradient></defs>`; }
@@ -311,10 +313,13 @@ export async function produceFinalVisuals(data, outputDir) {
     await writeSvg(editableSvgFile, finalSvg);
     item.round1Path = path.relative(outputDir, round1File); item.editablePath = path.relative(outputDir, editableSvgFile); item.round1Review = round1Audit(item, "image"); item.round2Qa = finalAudit(item, "image");
     if (item.round2Qa.status !== "Pass") throw new Error(`${item.id} rejected after Round 2: ${item.round2Qa.issues.join("; ")}`);
-    item.finalPath = `design/product_images/${PRODUCT_FILENAMES[index]}`; item.mockupPath = item.finalPath; item.designQaStatus = "Pass";
-    item.visualProductionStatus = publicationStatus(item, meta, sourceInfo.exists, claimReady(item, data), true);
+    item.finalPath = `design/product_images/${PRODUCT_FILENAMES[index]}`; item.mockupPath = item.finalPath;
+    item.outputSha256 = await sha256(outputFile);
+    item.creativeReviewResult = evaluateCreativeReview(item.creativeReview, { id: item.id, path: item.finalPath, sha256: item.outputSha256 });
+    item.designQaStatus = item.creativeReviewResult.status;
+    item.visualProductionStatus = publicationStatus(item, meta, sourceInfo.exists, claimReady(item, data), item.designQaStatus === "Pass");
     await copySource(source.productAbsolute, sourcesDir, manifest.sources, item.id, "product"); await copySource(source.sceneAbsolute, sourcesDir, manifest.sources, item.id, "scene");
-    manifest.productImages.push({ id: item.id, layoutId: item.layoutId, wireframePath: item.wireframePath, round1Path: item.round1Path, editablePath: item.editablePath, finalPath: item.finalPath, productSourcePath: source.productValue, sceneSourcePath: source.sceneValue, sourceOrigin: meta.origin, sourceAssetType: meta.type, productSource: sourceInfo, sceneSource: sceneInfo, productBodyAiGenerated: meta.productBodyAiGenerated, aiGeneratedElements: meta.aiGeneratedElements, operations: ["wireframe", "official product decode", sceneInfo.exists ? "separate scene/background decode" : "brand background construction", "Round 1 composition", "visual review", "Round 2 controlled SVG composition", "programmatic Japanese typography", "JPEG export"], round1Review: item.round1Review, round2Qa: item.round2Qa, output: await sourceEntry(sharp, outputFile), visualProductionStatus: item.visualProductionStatus, rendered });
+    manifest.productImages.push({ id: item.id, layoutId: item.layoutId, wireframePath: item.wireframePath, round1Path: item.round1Path, editablePath: item.editablePath, finalPath: item.finalPath, productSourcePath: source.productValue, sceneSourcePath: source.sceneValue, sourceOrigin: meta.origin, sourceAssetType: meta.type, productSource: sourceInfo, sceneSource: sceneInfo, productBodyAiGenerated: meta.productBodyAiGenerated, aiGeneratedElements: meta.aiGeneratedElements, operations: ["wireframe", "official product decode", sceneInfo.exists ? "separate scene/background decode" : "brand background construction", "Round 1 composition", "content/layout metadata audit", "Round 2 controlled SVG composition", "programmatic Japanese typography", "JPEG export"], round1Review: item.round1Review, round2Qa: item.round2Qa, creativeReview: item.creativeReviewResult, output: await sourceEntry(sharp, outputFile), visualProductionStatus: item.visualProductionStatus, rendered });
   }
 
   for (let index = 0; index < data.aplusModules.length; index += 1) {
@@ -334,12 +339,15 @@ export async function produceFinalVisuals(data, outputDir) {
     const round1File = path.join(editableDir, "round_01", "aplus", filename); const editableSvgFile = path.join(editableDir, "final", "aplus", filename.replace(".jpg", ".svg")); const outputFile = path.join(aplusDir, filename);
     await fs.mkdir(path.dirname(round1File), { recursive: true }); const composedSvg = moduleSvg(module, preparedUnits, index); await renderSvg(sharp, composedSvg, round1File); await renderSvg(sharp, composedSvg, outputFile); await writeSvg(editableSvgFile, composedSvg);
     module.round1Path = path.relative(outputDir, round1File); module.editablePath = path.relative(outputDir, editableSvgFile); module.finalPath = `design/aplus/${filename}`; module.mockupPath = module.finalPath;
-    module.round1Review = preparedUnits.flatMap((x) => x.record.round1Review); module.round2Qa = { status: preparedUnits.every((x) => x.record.round2Qa.status === "Pass") ? "Pass" : "Reject", issues: preparedUnits.flatMap((x) => x.record.round2Qa.issues), fiveSecondMessage: compact(module.purpose, 28) }; module.designQaStatus = module.round2Qa.status;
+    module.round1Review = preparedUnits.flatMap((x) => x.record.round1Review); module.round2Qa = { status: preparedUnits.every((x) => x.record.round2Qa.status === "Pass") ? "Pass" : "Reject", scope: "CONTENT_AND_LAYOUT_METADATA_ONLY", issues: preparedUnits.flatMap((x) => x.record.round2Qa.issues), intendedMessage: compact(module.purpose, 28), fiveSecondMessage: null };
+    module.outputSha256 = await sha256(outputFile);
+    module.creativeReviewResult = evaluateCreativeReview(module.creativeReview, { id: module.id, path: module.finalPath, sha256: module.outputSha256 });
+    module.designQaStatus = module.creativeReviewResult.status;
     const allSources = preparedUnits.length > 0 && preparedUnits.every((x) => x.sourceInfo.exists); const allClaims = (module.units || []).every((x) => claimReady(x, data));
     const allOfficial = metas.length > 0 && metas.every((meta) => meta.origin === USER_OFFICIAL_ORIGIN && OFFICIAL_TYPES.has(meta.type) && meta.productBodyAiGenerated === false);
-    module.visualProductionStatus = !allSources || module.round2Qa.status !== "Pass" ? "Blocked" : !allOfficial ? "Blocked" : !allClaims || module.moduleAvailability !== "Confirmed" ? "Need Verification" : "Final Ready";
+    module.visualProductionStatus = !allSources || module.round2Qa.status !== "Pass" ? "Blocked" : !allOfficial ? "Blocked" : !allClaims || module.moduleAvailability !== "Confirmed" || module.designQaStatus !== "Pass" ? "Need Verification" : "Final Ready";
     for (const unit of module.units || []) { unit.moduleFinalPath = module.finalPath; unit.visualProductionStatus = module.visualProductionStatus; }
-    manifest.aplusModules.push({ id: module.id, templateType: module.templateType, visualUnits: module.units.length, wireframePath: module.wireframePath, round1Path: module.round1Path, editablePath: module.editablePath, finalPath: module.finalPath, round1Review: module.round1Review, round2Qa: module.round2Qa, operations: ["module wireframe", "official product/scene source assembly", "Round 1 module composition", "visual review", "Round 2 controlled SVG composition", "programmatic Japanese typography", "JPEG export"], output: await sourceEntry(sharp, outputFile), visualProductionStatus: module.visualProductionStatus });
+    manifest.aplusModules.push({ id: module.id, templateType: module.templateType, visualUnits: module.units.length, wireframePath: module.wireframePath, round1Path: module.round1Path, editablePath: module.editablePath, finalPath: module.finalPath, round1Review: module.round1Review, round2Qa: module.round2Qa, creativeReview: module.creativeReviewResult, operations: ["module wireframe", "official product/scene source assembly", "Round 1 module composition", "content/layout metadata audit", "Round 2 controlled SVG composition", "programmatic Japanese typography", "JPEG export"], output: await sourceEntry(sharp, outputFile), visualProductionStatus: module.visualProductionStatus });
   }
   await fs.writeFile(path.join(sourcesDir, "source_inventory.json"), JSON.stringify(manifest.sources, null, 2), "utf8");
   await fs.writeFile(path.join(outputDir, "visual_production_manifest.json"), JSON.stringify(manifest, null, 2), "utf8"); return manifest;
@@ -351,6 +359,9 @@ export function evaluatePublishGate(data) {
   if (data.meta.moduleAvailability !== "Confirmed" || (data.aplusModules || []).some((module) => module.moduleAvailability !== "Confirmed")) reasons.push("Amazon A+ module availability is not Confirmed");
   const nonApprovedClaims = (data.claims || []).filter((claim) => claim.usedInExternalCopy && claim.status !== "Approved"); if (nonApprovedClaims.length) reasons.push(`${nonApprovedClaims.length} external Claim(s) are not Approved`);
   const nonFinal = [...(data.images || []), ...(data.aplusModules || [])].filter((record) => record.visualProductionStatus !== "Final Ready"); if (nonFinal.length) reasons.push(`${nonFinal.length} final visual(s) are not Final Ready`);
+  const unreviewed = [...(data.images || []), ...(data.aplusModules || [])].filter((record) =>
+    evaluateCreativeReview(record.creativeReview, { id: record.id, path: record.finalPath, sha256: record.outputSha256 }).status !== "Pass");
+  if (unreviewed.length) reasons.push(`${unreviewed.length} visual(s) need a current creative review of the exported image`);
   const prohibitedAi = visuals.filter((record) => record.productBodyAiGenerated !== false); if (prohibitedAi.length) reasons.push(`${prohibitedAi.length} visual unit(s) do not explicitly prove productBodyAiGenerated=false`);
   const nonUserOfficial = visuals.filter((record) => record.sourceOrigin !== USER_OFFICIAL_ORIGIN || !OFFICIAL_TYPES.has(record.sourceAssetType)); if (nonUserOfficial.length) reasons.push(`${nonUserOfficial.length} visual unit(s) are not traced to user-provided official product assets`);
   if (data.meta.japanLocalizationStatus !== "Natural") reasons.push("Japanese consumer copy has unresolved localization or Claim review issues"); if (data.meta.visualConsistencyStatus !== "Pass") reasons.push("Visual consistency review is not Pass");
