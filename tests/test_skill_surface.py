@@ -161,10 +161,11 @@ def test_exact_legacy_alias_precedes_generic_keywords():
     aliases = routing["legacy_aliases"]
     assert aliases["Amazon Listing Asset Capture"] == {
         "primary_entry": "$jp-commerce-insights",
-        "mode": "ASSET_CAPTURE",
+        "default_mode": "ASSET_CAPTURE",
     }
+    assert "完整请求" in routing["legacy_alias_resolution"]["mode_selection"]
     assert aliases["Amazon Japan PDP Generator"]["primary_entry"] == "$jp-commerce-content-flow"
-    assert aliases["Japan Listing Demo"]["mode"] == "RESUME"
+    assert aliases["Japan Listing Demo"]["default_mode"] == "RESUME"
     surface = load_surface(SURFACE_PATH)
     for item in surface["internalized_entries"]:
         assert item["directory_name"] in aliases

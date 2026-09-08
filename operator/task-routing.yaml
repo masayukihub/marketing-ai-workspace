@@ -8,32 +8,36 @@ routing_precedence:
   - exact_legacy_alias
   - semantic_route
 
+legacy_alias_resolution:
+  entry_selection: "精确旧名称只锁定统一入口。"
+  mode_selection: "先根据完整请求选择模式；无法判断时才使用default_mode。"
+
 legacy_aliases:
-  "电商选品情报": {primary_entry: "$jp-commerce-insights", mode: SELECTION}
-  "Amazon Keyword Miner": {primary_entry: "$jp-commerce-insights", mode: KEYWORD}
-  "Amazon Competitor Reviews": {primary_entry: "$jp-commerce-insights", mode: COMPETITOR}
-  "Amazon VOC Browser Scraper": {primary_entry: "$jp-commerce-insights", mode: VOC}
-  "Amazon Listing Asset Capture": {primary_entry: "$jp-commerce-insights", mode: ASSET_CAPTURE}
-  "Amazon Japan PDP Generator": {primary_entry: "$jp-commerce-content-flow", mode: FULL_FLOW}
-  "Amazon Listing Creative": {primary_entry: "$jp-commerce-content-flow", mode: CREATIVE_EXPLORE}
-  "Japan Listing Demo": {primary_entry: "$jp-commerce-content-flow", mode: RESUME}
-  "JP Commerce Creative Flow": {primary_entry: "$jp-commerce-content-flow", mode: RESUME}
-  "ecommerce-product-selection": {primary_entry: "$jp-commerce-insights", mode: SELECTION}
-  "amazon-review-scraper": {primary_entry: "$jp-commerce-insights", mode: VOC}
-  "amazon-competitor-reviews": {primary_entry: "$jp-commerce-insights", mode: COMPETITOR}
-  "amazon-voc-browser-scraper": {primary_entry: "$jp-commerce-insights", mode: VOC}
-  "amazon-keyword-miner": {primary_entry: "$jp-commerce-insights", mode: KEYWORD}
-  "amazon-listing-asset-capture": {primary_entry: "$jp-commerce-insights", mode: ASSET_CAPTURE}
-  "product-intel": {primary_entry: "$jp-commerce-insights", mode: COMPETITOR}
-  "sorftime-market-intel": {primary_entry: "$jp-commerce-insights", mode: SELECTION}
-  "amazon-japan-pdp-generator": {primary_entry: "$jp-commerce-content-flow", mode: FULL_FLOW}
-  "amazon-listing-creative": {primary_entry: "$jp-commerce-content-flow", mode: CREATIVE_EXPLORE}
-  "jp-commerce-creative-flow": {primary_entry: "$jp-commerce-content-flow", mode: RESUME}
-  "japan-listing-demo": {primary_entry: "$jp-commerce-content-flow", mode: RESUME}
-  "listing-planning": {primary_entry: "$jp-commerce-content-flow", mode: PLAN_ONLY}
-  "listing-production": {primary_entry: "$jp-commerce-content-flow", mode: PRODUCE}
-  "listing-hardening": {primary_entry: "$jp-commerce-content-flow", mode: HARDEN}
-  "listing-evidence-auditor": {primary_entry: "$jp-commerce-content-flow", mode: HARDEN}
+  "电商选品情报": {primary_entry: "$jp-commerce-insights", default_mode: SELECTION}
+  "Amazon Keyword Miner": {primary_entry: "$jp-commerce-insights", default_mode: KEYWORD}
+  "Amazon Competitor Reviews": {primary_entry: "$jp-commerce-insights", default_mode: COMPETITOR}
+  "Amazon VOC Browser Scraper": {primary_entry: "$jp-commerce-insights", default_mode: VOC}
+  "Amazon Listing Asset Capture": {primary_entry: "$jp-commerce-insights", default_mode: ASSET_CAPTURE}
+  "Amazon Japan PDP Generator": {primary_entry: "$jp-commerce-content-flow", default_mode: FULL_FLOW}
+  "Amazon Listing Creative": {primary_entry: "$jp-commerce-content-flow", default_mode: CREATIVE_EXPLORE}
+  "Japan Listing Demo": {primary_entry: "$jp-commerce-content-flow", default_mode: RESUME}
+  "JP Commerce Creative Flow": {primary_entry: "$jp-commerce-content-flow", default_mode: RESUME}
+  "ecommerce-product-selection": {primary_entry: "$jp-commerce-insights", default_mode: SELECTION}
+  "amazon-review-scraper": {primary_entry: "$jp-commerce-insights", default_mode: VOC}
+  "amazon-competitor-reviews": {primary_entry: "$jp-commerce-insights", default_mode: COMPETITOR}
+  "amazon-voc-browser-scraper": {primary_entry: "$jp-commerce-insights", default_mode: VOC}
+  "amazon-keyword-miner": {primary_entry: "$jp-commerce-insights", default_mode: KEYWORD}
+  "amazon-listing-asset-capture": {primary_entry: "$jp-commerce-insights", default_mode: ASSET_CAPTURE}
+  "product-intel": {primary_entry: "$jp-commerce-insights", default_mode: COMPETITOR}
+  "sorftime-market-intel": {primary_entry: "$jp-commerce-insights", default_mode: SELECTION}
+  "amazon-japan-pdp-generator": {primary_entry: "$jp-commerce-content-flow", default_mode: FULL_FLOW}
+  "amazon-listing-creative": {primary_entry: "$jp-commerce-content-flow", default_mode: CREATIVE_EXPLORE}
+  "jp-commerce-creative-flow": {primary_entry: "$jp-commerce-content-flow", default_mode: RESUME}
+  "japan-listing-demo": {primary_entry: "$jp-commerce-content-flow", default_mode: RESUME}
+  "listing-planning": {primary_entry: "$jp-commerce-content-flow", default_mode: PLAN_ONLY}
+  "listing-production": {primary_entry: "$jp-commerce-content-flow", default_mode: PRODUCE}
+  "listing-hardening": {primary_entry: "$jp-commerce-content-flow", default_mode: HARDEN}
+  "listing-evidence-auditor": {primary_entry: "$jp-commerce-content-flow", default_mode: HARDEN}
 
 preflight:
   named_project:
