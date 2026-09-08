@@ -9,6 +9,7 @@
 | [`VISUAL_AI_PLAYBOOK.zh-CN.md`](VISUAL_AI_PLAYBOOK.zh-CN.md) | 产品卖点图、AI 场景、产品层合成、视觉 QA 与交付 |
 | [`KOL_PR_PLAYBOOK.zh-CN.md`](KOL_PR_PLAYBOOK.zh-CN.md) | KOL/Creator、媒体、PR、名单、Brief、KPI、Tracking 与复盘 |
 | [`GTM_WEEKLY_OPERATING_RHYTHM.zh-CN.md`](GTM_WEEKLY_OPERATING_RHYTHM.zh-CN.md) | 新品与 Campaign 的周报、依赖、风险、Owner 和 Decision Queue |
+| [`GTM_STRATEGY_INTEGRATION_REVIEW.md`](GTM_STRATEGY_INTEGRATION_REVIEW.md) | GTM答案完整度、共享策略决策包、Brief继承与接入验收 |
 | [`GIT_GUIDE.md`](GIT_GUIDE.md) | Git 分支、提交、PR 和安全回退 |
 
 ## 使用原则

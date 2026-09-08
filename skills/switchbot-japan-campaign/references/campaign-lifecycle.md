@@ -4,8 +4,8 @@
 
 | 阶段 | 核心问题 | 必须产物 | 进入下一阶段的最低条件 |
 |---|---|---|---|
-| Discover | 为什么做、给谁做 | 问题、受众、机会、假设 | 目标与受众可解释 |
-| Plan | 卖什么、怎么讲、在哪投 | 策划案、渠道角色、预算方向 | 产品/Offer 范围明确 |
+| Discover | 为什么做、给谁做 | GTM答案完整度地图、场景与受众候选、证据缺口 | 关键答案有范围匹配的证据与取舍；未知不升级 |
+| Plan | 卖什么、怎么讲、在哪投 | 共享策略决策包、Strategy Review；接受后One Pager与Brief | 按准确版本通过现有STRATEGY_SCOPE_GATE；不代替Product/Claim等审批 |
 | Prepare | 是否能安全上线 | 素材表、RACI、Readiness | Blocker 已清零或获明确豁免 |
 | Launch | 是否按计划上线和测量 | 链接表、状态表、运行日志 | 链接与事件验证通过 |
 | Optimize | 什么需要调整 | 异常、原因、动作 | 修改有 Owner 和指标 |
@@ -114,3 +114,5 @@ Bitly 输入门槛：
 | `switchbot-campaign-review` | Review 的数据清洗、指标、报告运行时 |
 
 旧模块可保留脚本和测试，但不应再作为日常首选入口。
+
+GTM映射现在由仓库内 [gtm-strategy.md](gtm-strategy.md) 与 `scripts/gtm_strategy.py` 执行，不依赖未迁入仓库的旧独立评分器。新模块按核心依赖阻断，保留来源类型与Source Idea / Synthesized Insight / New Hypothesis区别。轻量活动及局部修改仍使用现有最小流程。

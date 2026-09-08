@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "project_id": "example-project",
+  "market": "JP",
+  "scope_ref": "example-scope-replace-with-resolved-identity",
+  "strategy_version": "candidate-1",
+  "context": {
+    "effective_freshness_status": "unknown",
+    "state_as_of": null,
+    "threshold_days": 7,
+    "product_truth_ref": null,
+    "blocking_items": []
+  },
+  "evidence": [],
+  "answers": [
+    {"id": "why_now"},
+    {"id": "primary_audience", "origin": "New Hypothesis", "principle_ids": ["F11"], "candidates": []},
+    {"id": "core_problem"},
+    {"id": "old_vs_new"},
+    {"id": "category"},
+    {"id": "positioning", "origin": "New Hypothesis", "principle_ids": ["A01"], "candidates": []},
+    {"id": "core_value", "origin": "New Hypothesis", "principle_ids": ["A03", "F12"], "candidates": []},
+    {"id": "rtb"},
+    {"id": "objection"},
+    {"id": "message_hierarchy"},
+    {"id": "launch_story"},
+    {"id": "channel_role", "origin": "New Hypothesis", "principle_ids": ["F13"]},
+    {"id": "launch_sequence"},
+    {"id": "success_metric"}
+  ]
+}

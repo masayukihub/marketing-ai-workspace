@@ -139,6 +139,7 @@ routes:
       update_existing_pack: UPDATE
     output: Commerce_Insight_Pack
     handoff_to: "$jp-commerce-content-flow"
+    decision_gap_handoff: "$switchbot-japan-campaign"
 
   - route_id: amazon_jp_content
     user_intents:
@@ -199,8 +200,16 @@ routes:
       - project-memory-manager
       - product-knowledge
       - switchbot-campaign-review
+    strategy_decision_module:
+      runtime: skills/switchbot-japan-campaign/scripts/gtm_strategy.py
+      applies_to: [new_product_gtm, material_strategy_change]
+      first_output: gtm_answer_completeness_map
+      stop_gate: STRATEGY_SCOPE_GATE
+      preserve_accepted_baseline_for: [local_revision, historical_campaign_resume]
+      does_not_authorize: [claim_approval, channel_execution, publication]
     output:
       - campaign_context
+      - gtm_decision_pack_when_strategy_in_scope
       - launch_readiness
       - owner_action_table
       - risk_and_decision_queue
@@ -255,6 +264,7 @@ routes:
       - visual-system
     rules:
       - inherit_campaign_context_when_available
+      - inherit_exact_gtm_decision_pack_when_present
       - reuse_verified_formula_and_template
       - no_fixture_fallback_as_production
       - no_esp_send
