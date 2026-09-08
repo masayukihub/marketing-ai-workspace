@@ -1,10 +1,10 @@
 # Skills
 
-日常使用只保留四个中文入口。旧 Skill 不删除成熟代码，以内部模块、兼容入口或 Runtime 形式保留脚本、测试和回退能力。
+本工作区的日本营销主流程只保留四个中文业务入口。旧 Skill 不删除成熟代码，以内部模块、兼容入口或 Runtime 形式保留脚本、测试和回退能力。Lark、插件及其他独立方法 Skill 不在本次精简范围内，仍可正常显示和使用。
 
 先从仓库根目录 [`START_HERE.md`](../START_HERE.md) 开始。用户只需要描述业务目标；`operator/task-routing.yaml` 负责选择入口和内部模块，`operator/review-policy.yaml` 决定自动执行到哪里、什么时候需要人工审核。
 
-## 四个用户入口
+## 四个主流程入口
 
 | 用户入口 | 什么时候用 | 内部整合能力 |
 |---|---|---|
@@ -12,6 +12,15 @@
 | `$jp-commerce-content-flow`（日本电商内容生成） | 日亚 Gallery、A+、Listing 文案、产品卖点图、Content Review HTML、继续现有项目 | JP Commerce Creative Flow、Japan Listing Demo、Amazon Japan PDP Generator、Amazon Listing Creative、Visual System |
 | `$switchbot-japan-campaign`（日本营销活动策划与复盘） | GTM、项目管理、Launch Readiness、KOL/PR、渠道素材、Tracking/UTM、执行和复盘 | Project Context、Project Memory、Influencer Marketing、Campaign Review、Traffic Link Governance |
 | `$switchbot-japan-edm`（日本EDM制作） | 日本 EDM 策略、产品排序、日语文案、Brief、历史模板、HTML/视觉和发送前 QA | Optimize Japan EDM、EDM Generator、Visual System、EDM Stable Runtime |
+
+## 截图中的旧名称如何归并
+
+| 你以前看到的 Skill | 现在从哪里进入 | 当前角色 |
+|---|---|---|
+| 电商选品情报、Amazon Keyword Miner、Amazon Competitor Reviews、Amazon VOC Browser Scraper、Amazon Listing Asset Capture、Customer Review Intelligence | `$jp-commerce-insights` | 选品、关键词、评论、VOC分析与页面证据的内部模块 |
+| Amazon Japan PDP Generator、Amazon Listing Creative、Japan Listing Demo、JP Commerce Creative Flow | `$jp-commerce-content-flow` | Spec/模板、创意探索、主路由与来源治理的内部模块 |
+
+这里的“合并”是统一用户入口、自动路由和输出合同。成熟采集器、Renderer、上游Flow、Gate与测试仍各自保留，因此升级和回退不会互相破坏。内部旧目录会从Codex日常发现目录移动到 `internal-skills/`，只是不再显示为独立卡片，不会删除源码；迁移支持恢复。
 
 ## 最简单的用法
 
@@ -104,6 +113,10 @@
 - `scripts/sync_codex_skill_mirror.py` 只允许从 clean `main` 单向同步，禁止 Global Mirror 反向写回仓库。
 - `inventory/skill_inventory.csv` 和 `docs/SKILL_CATALOG.md` 由 `scripts/build_skill_inventory.py` 生成；本机存在但仓库无源码的接口不列为正式 Skill。
 - 未进入 Runtime Lock 的 supporting Skill 在使用前必须验证；缺失时输出 `BLOCKED_RUNTIME_MISSING`，不能假装已经运行。
+- `runtime/skill-surface.yaml` 定义四个用户入口、旧Skill归属和内部目录；`scripts/consolidate_codex_skill_surface.py` 默认只输出迁移计划，只有在 clean `main` 且Runtime验证通过时才允许移动。`--restore` 只恢复本次Journal记录的移动，不会把迁移前已在内部目录的模块重新暴露。
+- 正式入口若仍是旧Runtime软链接，单向同步会用GitHub版本替换该链接，但不会删除链接指向的原源码；回退仍可从原仓库或Git历史执行。
+
+合并后的本机启用顺序固定为：先从 clean `main` 运行 `sync_codex_skill_mirror.py --apply`，确认所有锁定入口为 `RUNTIME_IN_SYNC`；再运行 `consolidate_codex_skill_surface.py --project-root <workspace> --apply`。顺序不满足时脚本会拒绝移动旧入口。
 
 ## 能力边界
 

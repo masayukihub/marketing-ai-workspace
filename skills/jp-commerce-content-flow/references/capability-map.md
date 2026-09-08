@@ -3,8 +3,12 @@
 | 旧入口 | 合并后的内部角色 | 保留能力 | 不再承担 |
 |---|---|---|---|
 | JP Commerce Creative Flow | `ROUTER + SOURCE GOVERNANCE` | 来源治理、Product Truth、阶段路由、人工Gate、Evidence边界 | 不单独产出创意稿 |
+| Japan Listing Demo | `UPSTREAM LISTING ROUTER` | 上游主路由、Checkpoint、Context Firewall | 不承载SwitchBot业务规则 |
+| Listing Planning / Production / Hardening | `STAGE RUNTIMES` | Stage 0–10的规划、生产、核验与交付 | 不作为用户入口，不改变Gate顺序 |
 | Amazon Japan PDP Generator | `SPEC + TEMPLATE RENDERER` | 7图/A+结构、模板、Spec、Amazon预览、移动端和回归QA | 不直接从原始资料跳到成品 |
 | Amazon Listing Creative | `CREATIVE MODULE` | 方向探索、单张深化、局部修改、日文文案、视觉Brief | 不自建另一套完整Listing流程 |
+
+完整调用链、阶段所有权和运行时解析顺序见 [internal-components.md](internal-components.md)。
 
 ## 用户入口
 

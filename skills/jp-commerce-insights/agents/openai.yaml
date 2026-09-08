@@ -1,6 +1,6 @@
 interface:
   display_name: "日本电商洞察"
-  short_description: "统一完成选品、关键词、竞品、VOC、评论和素材采集"
-  default_prompt: "Use $jp-commerce-insights to research a Japan e-commerce product opportunity and return a Chinese decision-ready insight pack."
+  short_description: "统一完成日本电商选品、关键词、竞品、VOC与页面证据研究"
+  default_prompt: "使用 $jp-commerce-insights，研究指定日本电商产品或品类，并输出中文决策结论、证据缺口与内容交接包。"
 policy:
   allow_implicit_invocation: true

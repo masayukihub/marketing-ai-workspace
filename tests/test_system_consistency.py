@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from runtime_contract import repository_file_hashes, tree_hash  # noqa: E402
-from sync_codex_skill_mirror import sync_preconditions  # noqa: E402
+from sync_codex_skill_mirror import apply_skill, sync_preconditions  # noqa: E402
 from verify_codex_runtime import verify_runtime  # noqa: E402
 
 
@@ -98,6 +98,35 @@ def test_sync_apply_is_blocked_outside_clean_main():
     reasons = sync_preconditions(ROOT, lock)
 
     assert "SYNC_REQUIRES_MAIN_BRANCH" in reasons
+
+
+def test_sync_replaces_legacy_symlink_but_preserves_its_source(tmp_path: Path):
+    workspace = tmp_path / "repo"
+    skill = workspace / "skills/demo"
+    skill.mkdir(parents=True)
+    (skill / "SKILL.md").write_text("repository runtime\n", encoding="utf-8")
+    subprocess.run(["git", "init", "-q"], cwd=workspace, check=True)
+    subprocess.run(["git", "add", "."], cwd=workspace, check=True)
+    subprocess.run(
+        ["git", "-c", "user.name=Test", "-c", "user.email=test@example.invalid", "commit", "-qm", "init"],
+        cwd=workspace,
+        check=True,
+    )
+
+    legacy_source = tmp_path / "legacy-runtime"
+    legacy_source.mkdir()
+    (legacy_source / "legacy.txt").write_text("preserve me\n", encoding="utf-8")
+    codex_home = tmp_path / "codex"
+    target = codex_home / "skills/demo"
+    target.parent.mkdir(parents=True)
+    target.symlink_to(legacy_source, target_is_directory=True)
+
+    apply_skill(workspace, codex_home, {"name": "demo", "repository_path": "skills/demo"})
+
+    assert target.is_dir()
+    assert not target.is_symlink()
+    assert (target / "SKILL.md").read_text(encoding="utf-8") == "repository runtime\n"
+    assert (legacy_source / "legacy.txt").read_text(encoding="utf-8") == "preserve me\n"
 
 
 def test_inventory_is_repository_owned_and_has_no_machine_paths():

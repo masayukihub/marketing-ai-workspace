@@ -19,14 +19,14 @@
 确认最新 GitHub main
 → 解析项目 Manifest
 → 读取最小必要 Context
-→ 自动路由到四个中文入口之一
+→ 属于日本营销主流程时，自动路由到四个中文入口之一
 → 执行到下一个真正需要人工判断的 Gate
 → 只显示“已完成 / 待处理 / 下一步”
 ```
 
 默认不要求你选择内部 Skill、模板、Renderer 或测试命令。
 
-## 四个日常入口
+## 四个日本营销主流程入口
 
 | 你要做的事 | 统一入口 | 常用模式 |
 |---|---|---|
@@ -35,7 +35,7 @@
 | GTM、Launch Readiness、项目管理、KOL/PR 规划、渠道素材、Tracking、活动复盘 | `$switchbot-japan-campaign` | `PLAN` / `READINESS` / `EXECUTION` / `TRAFFIC` / `REVIEW` / `FULL` |
 | 日本 EDM 文案、Brief、HTML、视觉、修改和发送前 QA | `$switchbot-japan-edm` | `COPY` / `DESIGN_BRIEF` / `HTML_VISUAL` / `LOCAL_REVISION` / `RESUME` / `SEND_READINESS` |
 
-内部的 Product Knowledge、Project Memory、Project Context Resolver、Visual Router、Amazon Renderer、Campaign Review Runtime、EDM Runtime、Influencer Marketing 等能力由系统自动调用。
+内部的 Product Knowledge、Project Memory、Project Context Resolver、Visual Router、Amazon Renderer、Campaign Review Runtime、EDM Runtime、Influencer Marketing 等能力由系统自动调用。Lark、插件和其他独立工具 Skill 不属于这组重复项，不会被删除或强制合并。
 
 ## 直接复制的常用指令
 

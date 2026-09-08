@@ -19,7 +19,7 @@
 
 本仓库不是飞书或正式产品资料的替代品。飞书与官方资料仍是 Source of Record；Product Knowledge 和 Project Memory 负责治理事实与项目状态；GitHub `main` 保存经过审核、可版本管理的执行能力、Manifest、Decision 和规则。
 
-## 日常只使用四个入口
+## 日本营销主流程只使用四个入口
 
 | 业务任务 | 统一入口 | 常见输出 |
 |---|---|---|
@@ -29,6 +29,8 @@
 | 日本 EDM 文案、Brief、HTML、视觉和发送前 QA | `$switchbot-japan-edm` | 日语 Copy、600px HTML、Desktop/Mobile Preview、ESP Gate |
 
 Product Knowledge、Project Memory、Project Context Resolver、Visual Router、Amazon Renderer、Campaign Review Runtime、EDM Runtime、Customer Review 和 Influencer Marketing 等能力属于内部模块，由系统自动路由。
+
+这不表示Codex全局只剩四个Skill。Lark、插件、通用营销方法和其他独立工具仍按各自用途保留；这里只统一会让日常日本营销工作重复选择的主流程入口。
 
 ## 默认工作逻辑
 

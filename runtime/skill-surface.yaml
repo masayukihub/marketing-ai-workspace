@@ -1,0 +1,131 @@
+schema_version: "1.0"
+surface_id: "jp-commerce-unified-skill-surface"
+runtime_authority: "repository"
+
+user_entries:
+  - skill_id: "jp-commerce-insights"
+    display_name: "日本电商洞察"
+    purpose: "判断日本市场机会，并整理关键词、竞品、VOC与页面证据。"
+    normal_use: "提供市场、品类或产品，以及要支持的业务决策。"
+  - skill_id: "jp-commerce-content-flow"
+    display_name: "日本电商内容生成"
+    purpose: "基于已确认事实，规划和制作日本Amazon商品页、A+、视觉稿与审核HTML。"
+    normal_use: "提供产品/项目、目标渠道、期望产物和可用资料。"
+  - skill_id: "switchbot-japan-campaign"
+    display_name: "日本营销活动策划与复盘"
+    purpose: "处理GTM、Launch、渠道执行、Tracking和活动复盘。"
+    normal_use: "提供项目、活动阶段、目标和当前资料。"
+  - skill_id: "switchbot-japan-edm"
+    display_name: "日本EDM制作"
+    purpose: "处理日本EDM策略、日语文案、HTML、视觉预览与发送前QA。"
+    normal_use: "提供产品/活动、邮件目标、CTA、时间与期望输出。"
+
+surface_rules:
+  - "这组日本营销主流程只把 user_entries 作为业务入口。"
+  - "内部模块保留原代码、测试、Gate与历史复现能力，不合并成超级Skill。"
+  - "旧名称仍可被统一入口识别，但不再作为独立用户入口。"
+  - "本机整理只移动目录或软链接，不删除源码。"
+  - "GitHub main 是正式Runtime Authority；本机安装不得反向覆盖仓库。"
+  - "Lark、插件及其他独立方法Skill不在本次精简范围内，仍可正常显示和使用。"
+
+internal_runtime_roots:
+  codex_global: "$CODEX_HOME/internal-skills"
+  project: ".agents/internal-skills"
+
+internalized_entries:
+  - directory_name: "ecommerce-product-selection"
+    declared_skill_name: "ecommerce-product-selection"
+    canonical_entry: "jp-commerce-insights"
+    internal_role: "SELECTION"
+    scopes: ["codex_global"]
+  - directory_name: "amazon-review-scraper"
+    declared_skill_name: "amazon-competitor-reviews"
+    canonical_entry: "jp-commerce-insights"
+    internal_role: "AMAZON_VOC_COLLECTION_OWNER"
+    scopes: ["codex_global"]
+  - directory_name: "amazon-voc-browser-scraper"
+    declared_skill_name: "amazon-voc-browser-scraper"
+    canonical_entry: "jp-commerce-insights"
+    internal_role: "LEGACY_VOC_COMPATIBILITY"
+    scopes: ["codex_global"]
+  - directory_name: "amazon-keyword-miner"
+    declared_skill_name: "amazon-keyword-miner"
+    canonical_entry: "jp-commerce-insights"
+    internal_role: "KEYWORD_EVIDENCE"
+    scopes: ["codex_global"]
+  - directory_name: "amazon-listing-asset-capture"
+    declared_skill_name: "amazon-listing-asset-capture"
+    canonical_entry: "jp-commerce-insights"
+    internal_role: "LISTING_ASSET_EVIDENCE"
+    scopes: ["codex_global"]
+  - directory_name: "product-intel"
+    declared_skill_name: "product-intel"
+    canonical_entry: "jp-commerce-insights"
+    internal_role: "COMPETITOR_FACT_EVIDENCE"
+    scopes: ["codex_global"]
+  - directory_name: "sorftime-market-intel"
+    declared_skill_name: "sorftime-market-intel"
+    canonical_entry: "jp-commerce-insights"
+    internal_role: "MARKET_EVIDENCE_ADAPTER"
+    scopes: ["codex_global"]
+  - directory_name: "amazon-japan-pdp-generator"
+    declared_skill_name: "amazon-japan-pdp-generator"
+    canonical_entry: "jp-commerce-content-flow"
+    internal_role: "SPEC_TEMPLATE_RENDERER"
+    scopes: ["codex_global"]
+  - directory_name: "amazon-listing-creative"
+    declared_skill_name: "amazon-listing-creative"
+    canonical_entry: "jp-commerce-content-flow"
+    internal_role: "CONTROLLED_CREATIVE_MODULE"
+    scopes: ["codex_global"]
+  - directory_name: "jp-commerce-creative-flow"
+    declared_skill_name: "jp-commerce-creative-flow"
+    canonical_entry: "jp-commerce-content-flow"
+    internal_role: "SOURCE_GOVERNANCE_OVERLAY"
+    scopes: ["codex_global", "project"]
+  - directory_name: "japan-listing-demo"
+    declared_skill_name: "japan-listing-demo"
+    canonical_entry: "jp-commerce-content-flow"
+    internal_role: "UPSTREAM_LISTING_ROUTER"
+    scopes: ["codex_global", "project"]
+  - directory_name: "listing-planning"
+    declared_skill_name: "listing-planning"
+    canonical_entry: "jp-commerce-content-flow"
+    internal_role: "STAGE_0_TO_7_PLANNING"
+    scopes: ["codex_global", "project"]
+  - directory_name: "listing-production"
+    declared_skill_name: "listing-production"
+    canonical_entry: "jp-commerce-content-flow"
+    internal_role: "STAGE_7_5_TO_8_PRODUCTION"
+    scopes: ["codex_global", "project"]
+  - directory_name: "listing-hardening"
+    declared_skill_name: "listing-hardening"
+    canonical_entry: "jp-commerce-content-flow"
+    internal_role: "STAGE_8_5_TO_10_HARDENING"
+    scopes: ["codex_global", "project"]
+  - directory_name: "listing-evidence-auditor"
+    declared_skill_name: "listing-evidence-auditor"
+    canonical_entry: "jp-commerce-content-flow"
+    internal_role: "FINAL_EVIDENCE_AUDITOR"
+    scopes: ["codex_global", "project"]
+
+protected_discovery_entries:
+  - "project-context-resolver"
+  - "project-memory-manager"
+  - "product-knowledge"
+  - "customer-review-intelligence"
+
+migration_policy:
+  default_mode: "PLAN_ONLY"
+  apply_requires_clean_main: true
+  preserve_symlink_target: true
+  delete_source_files: false
+  overwrite_existing_internal_target: false
+  restore_supported: true
+
+known_capability_drift:
+  - capability: "visual_reference_inbox_executable"
+    repository_status: "SCHEMA_ONLY_RUNTIME_NOT_REGISTERED"
+    legacy_global_status: "CLAIMED_BY_UNVERIFIED_MIRROR"
+    decision: "DO_NOT_SYNC_AS_WORKING_FEATURE"
+    fallback: "BLOCKED_RUNTIME_MISSING"
