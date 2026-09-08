@@ -11,6 +11,8 @@
 - Production Handoff；
 - 中文Review摘要与待确认项。
 
+已有Campaign策略包时，Creative Strategy Kernel / Production Handoff同时保留 `gtm_decision_pack`（project_id、strategy_version、path、sha256）及 `decision_ids`。策略结论由已接受版本继承；重新定义核心价值属于策略变更，不是页面局部创意修改。
+
 ## CREATIVE_EXPLORE
 
 - 9或10个概念上真正不同的方向；

@@ -115,3 +115,5 @@ SwitchBot 产品先读取当前项目的 Product Knowledge 或官方资料。找
 当用户要求继续制作Amazon Gallery、A+、Listing文案、视觉稿或HTML时，不在本 Skill 内重新搭建生产流程。先冻结当前 Insight Pack，再交给 `$jp-commerce-content-flow`。
 
 研究洞察不能自动升级为产品事实或Approved Claim。下游仍必须执行 Product Truth 与人工审批。
+
+当研究由 Campaign 的 GTM答案完整度地图触发时，按同一 `question_id` 输出来源支持理由、范围、反证和缺口，交回 `$switchbot-japan-campaign` 的策略决策包，不跳过 Strategy Review直接进入内容制作。只补当前决策需要的证据，不默认重做FULL研究；见输出契约的 `decision_evidence`。

@@ -79,6 +79,10 @@ Source Intake
 
 研究结论和Claim Candidate不能自动升级为Approved Claim。
 
+Campaign Context存在 `gtm_decision_pack` 时，先按 [策略继承契约](../switchbot-japan-campaign/references/gtm-strategy.md) 读取准确版本及接受记录，并运行 `check-brief`。Planning的受众、核心场景、定位、核心价值和信息层级继承该包；不同Asset只改变表达/证明职责，不自行重新定位。记录 `gtm_decision_pack` 和 `decision_ids`；不匹配或上游变化时标记受影响Asset并回到现有Strategy Gate，不能覆盖原批准版本。
+
+没有策略包的旧项目继续使用有效Accepted Decision及原Planning流程；已批准方向下LOCAL_REVISION不重跑十四问。策略继承不等于Product Truth、Claim或Creative Approval。
+
 ### 4. Project Visual Resolution
 
 Visual Router 是共享内部能力，不是新的用户入口。进入 Planning / Visual Production 前按以下顺序执行：

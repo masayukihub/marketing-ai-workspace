@@ -23,6 +23,8 @@ description: 统一创建、优化、审查、重排和继续 SwitchBot 日本�
 
 优先复用 `$switchbot-japan-campaign` 输出的 Campaign Context；没有时只补齐当前 EDM 的最小信息，不重做完整 GTM。
 
+Campaign Context含 `gtm_decision_pack` 时，按 [策略继承契约](../switchbot-japan-campaign/references/gtm-strategy.md) 运行 `check-brief`，让EDM Brief引用准确的strategy_version、path、sha256和decision_ids。受众、核心场景、定位与价值继承同一批准版本；可改变邮件任务和表达，不自行重新定位。匹配失败时回到现有Strategy Gate，不静默改写或沿用旧哈希。无新pack的旧项目及局部改稿保持原流程，不强制十四问；策略接受不等于Claim、最终内容或发送批准。
+
 至少盘点：
 
 `目标/活动阶段 | 受众 | 产品/SKU | 产品角色 | MSRP/活动价/折扣/券/赠品 | 日期 | Claim/证据 | CTA/落地页/Tracking | 素材/授权 | Footer/Legal | 输出格式`

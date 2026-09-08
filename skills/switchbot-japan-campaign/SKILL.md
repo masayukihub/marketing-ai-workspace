@@ -34,6 +34,8 @@ description: 统一完成 SwitchBot 日本市场 Campaign 的 GTM 策略、活�
 
 对重要内容标记 `FACT`、`DECISION`、`HYPOTHESIS`、`RECOMMENDATION`、`DATA GAP` 或 `RISK`。缺失或冲突内容标记 `NEED_CONFIRMATION`，不得写成 0 或自行补齐。
 
+新品GTM或实质策略变更使用 `gtm_decision_pack` 引用承载受众、场景、定位、核心价值和信息层级：记录 `project_id, strategy_version, path, sha256`。Product Truth继续使用原权威指针，不复制另一套事实。历史活动及已批准方向的局部修改不强制迁移。
+
 ## 工作流程
 
 ### 1. 盘点来源并冻结口径
@@ -46,7 +48,13 @@ description: 统一完成 SwitchBot 日本市场 Campaign 的 GTM 策略、活�
 
 ### 2. 完成策划与 GTM 判断
 
-依次回答：
+新品完整GTM，或目标受众、场景、定位、核心价值、主信息实质改变时，先读 [GTM策略决策契约](references/gtm-strategy.md) 和 [思想来源与应用边界](references/gtm-theory.md)，调用仓库 `scripts/gtm_strategy.py`。首份输出必须是 `00_gtm_answer_completeness_map.md`，不得先给管理判断、One Pager或渠道计划。
+
+十四问后比较候选、记录取舍及反证、按影响决策的缺口补证，停在现有 `STRATEGY_SCOPE_GATE`。来源不支持、范围不匹配、过期、冲突或关键前置答案未知时，不能靠自填High通过。脚本结构PASS不等于证据真实或人工批准。只有准确版本的人审接受记录才允许渲染One Pager和策略Brief交接。
+
+单次活动机制、KOL名单、局部文案或尺寸改版沿用现有范围，不扩大为十四问；有有效Accepted Decision就继承，没有新pack的旧项目使用 `LEGACY_SCOPED_REVIEW`。不重问已批准方向；发现实质变更时创建新候选版本并标记受影响Brief，不覆盖baseline。
+
+上述范围之外的轻量活动策划，依次回答：
 
 1. 商业目标和用户问题是什么；
 2. 核心受众、使用场景和购买障碍是什么；
@@ -125,7 +133,7 @@ description: 统一完成 SwitchBot 日本市场 Campaign 的 GTM 策略、活�
 6. RACI、行动计划、风险清单与管理层摘要；
 7. 清洗数据、复盘报告或 HTML 管理报告。
 
-每份正式文档开头先给管理判断，再给证据、执行细节和待确认项。沿用历史形式时保留其有效结构与字段，但不要复制过期价格、产品、日期或结论。
+每份正式文档开头先给管理判断，再给证据、执行细节和待确认项；新品GTM/策略变更例外，必须先交付完整度地图。沿用历史形式时保留其有效结构与字段，但不要复制过期价格、产品、日期或结论。
 
 ## 上下游衔接
 
@@ -133,6 +141,7 @@ description: 统一完成 SwitchBot 日本市场 Campaign 的 GTM 策略、活�
 - 需要选品、关键词、竞品或 VOC 时交给 `$jp-commerce-insights`。
 - 需要 Amazon Gallery、A+ 或 Listing 内容时交给 `$jp-commerce-content-flow`。
 - 下游不得重新解释已冻结事实；发现冲突时回到本 Skill 的 Source Map 和 Readiness Gate。
+- 有 `gtm_decision_pack` 时，Amazon/EDM/PR/KOL Brief共同引用准确版本、哈希和 `decision_ids`，按策略契约运行 `check-brief`；不同表达不等于重新决定受众/价值。`STRATEGY_INHERITED` 不批准Claim、预算、资产、制作或发布。
 
 ## 完成检查
 

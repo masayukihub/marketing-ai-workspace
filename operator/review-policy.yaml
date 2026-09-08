@@ -147,6 +147,7 @@ material_human_gates:
 
   - gate_id: STRATEGY_SCOPE_GATE
     trigger:
+      - new_product_gtm_strategy
       - target_audience_change
       - positioning_or_primary_message_change
       - channel_or_page_scope_change
@@ -154,8 +155,12 @@ material_human_gates:
     automation_may:
       - compare_options
       - recommend_one
+      - generate_gtm_answer_completeness_map_and_evidence_gaps
+      - flag_briefs_affected_by_new_strategy_version
     automation_must_not:
       - treat_silence_as_approval
+      - promote_evidence_readiness_to_human_acceptance
+      - overwrite_accepted_strategy_baseline
 
   - gate_id: VISUAL_DIRECTION_GATE
     trigger:

@@ -381,4 +381,12 @@ supersedes
 output_refs
 ```
 
+### GTM策略版本继承（有策略决策包的项目）
+
+增量记录 `gtm_decision_pack: {project_id, strategy_version, path, sha256}`、`decision_ids` 和接受记录引用。受众、核心场景、定位、价值与主信息的唯一来源是已接受策略版本；原有Product Truth、Claim及素材指针不复制进另一套事实库。
+
+Amazon、EDM、PR、KOL均按 [Campaign策略契约](../../skills/switchbot-japan-campaign/references/gtm-strategy.md) 的 `check-brief` 检查引用；重复保存的策略结论使用 `strategy_assertions` 校验。渠道可改自然表达和证明形式，不能无记录改受众、定位或核心价值。自动检查不会理解任意自由文本，最终Brief仍需对照源策略做Logic QA。
+
+策略候选变化时生成影响列表，保留旧Brief与批准对象；只有新版本通过原Strategy Gate后才逐份更新引用。无pack的历史项目继续原Accepted Decision/Context，小改不重跑完整GTM。`STRATEGY_INHERITED`仅表示策略交接，不能代替制作与发布审批。
+
 跨项目可复用的是 Brief 结构和 QA 规则，不是单次产品事实、价格、日期或文案。

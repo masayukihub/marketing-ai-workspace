@@ -35,6 +35,12 @@ need_confirmation: []
 sources: []
 ```
 
+## GTM 决策缺口交接（仅在被策略问题触发时）
+
+保留现有Pack，增量附加 `decision_evidence`，每项记录 `question_id, current_finding, source_ids, support_reason, scope, limitations, contradictions, validation_status, next_test`；不复制Product Truth。把研究返回 `$switchbot-japan-campaign` 的同一问题ID，而非默认直接进制作。
+
+只补齐会改变受众、场景、定位、价值或证明判断的证据。区分真实日本需求证据、其他市场启发和方法论引用；候选方向、Source Idea、Synthesized Insight、New Hypothesis不得自动变成已批准决策。完整接口见 [GTM策略决策契约](../../switchbot-japan-campaign/references/gtm-strategy.md)。
+
 ## Creative Handoff
 
 只传递下游制作需要的目标用户与场景、购买任务与矛盾、购买驱动和障碍、关键词意图、竞品表达空位、有证据的Proof机会、素材缺口、候选信息层级和禁止升级为事实的推测。
