@@ -11,7 +11,24 @@ description: 将产品营销资料、Product Knowledge、飞书来源、Commerce
 
 任务指向现有仓库项目时，先运行 `project-context-resolver`。只消费 Amazon/Design/Visual Context Package 返回的 Product Truth、Decision、Approved Claim、Visual Context/Profile/Freeze 与 Asset 指针；`project.yaml` 是导航和 Gate，`project-context.yaml` 仅是 Visual Router 输入，两者都不替代 Product Truth。
 
-每次执行先读取 [capability-map.md](references/capability-map.md) 与 [runtime-contract.md](references/runtime-contract.md)。需要定义交付物或完成条件时再读取 [output-contract.md](references/output-contract.md)。进入 Planning、Visual Production 或继续老项目时，还必须读取 [visual-router-integration.md](references/visual-router-integration.md)。
+每次执行先读取 [capability-map.md](references/capability-map.md)、[internal-components.md](references/internal-components.md) 与 [runtime-contract.md](references/runtime-contract.md)。需要定义交付物或完成条件时再读取 [output-contract.md](references/output-contract.md)。进入 Planning、Visual Production 或继续老项目时，还必须读取 [visual-router-integration.md](references/visual-router-integration.md)。
+
+## 直接这样用
+
+```text
+使用 $jp-commerce-content-flow，读取【产品/项目】的Product Truth、已批准Claim、
+正式项目状态和视觉锁。目标渠道为【Amazon.co.jp】，本次范围为【Gallery/A+/Listing】。
+自动继承已批准决定，只执行到下一个人工审核Gate；未确认内容保持“未确认”。
+```
+
+继续老项目时不需要再写内部 Skill 名称：
+
+```text
+使用 $jp-commerce-content-flow，继续【项目名】的【资产ID/阶段】。
+只修改【明确范围】，其他已批准内容保持锁定，完成后给我审核HTML。
+```
+
+用户无需分别调用 `JP Commerce Creative Flow`、`Japan Listing Demo`、`Amazon Japan PDP Generator`、`Amazon Listing Creative` 或各个 Listing Stage；主入口按正式状态自动选择内部模块。
 
 ## 选择执行模式
 

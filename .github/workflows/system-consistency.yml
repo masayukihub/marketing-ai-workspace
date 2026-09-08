@@ -5,7 +5,9 @@ on:
     paths:
       - "skills/**"
       - "AGENTS.md"
+      - "operator/task-routing.yaml"
       - "runtime/skill-lock.json"
+      - "runtime/skill-surface.yaml"
       - "projects/*/project.yaml"
       - "projects/*/chatgpt-context.md"
       - "memory/project-memory/**"
@@ -18,14 +20,18 @@ on:
       - "scripts/runtime_contract.py"
       - "scripts/verify_codex_runtime.py"
       - "scripts/sync_codex_skill_mirror.py"
+      - "scripts/consolidate_codex_skill_surface.py"
       - "tests/test_system_consistency.py"
+      - "tests/test_skill_surface.py"
       - ".github/workflows/system-consistency.yml"
   push:
     branches: [main]
     paths:
       - "skills/**"
       - "AGENTS.md"
+      - "operator/task-routing.yaml"
       - "runtime/skill-lock.json"
+      - "runtime/skill-surface.yaml"
       - "projects/*/project.yaml"
       - "projects/*/chatgpt-context.md"
       - "memory/project-memory/**"
@@ -34,6 +40,7 @@ on:
       - "docs/SKILL_CATALOG.md"
       - "scripts/**"
       - "tests/test_system_consistency.py"
+      - "tests/test_skill_surface.py"
       - ".github/workflows/system-consistency.yml"
   workflow_dispatch:
 
@@ -64,6 +71,7 @@ jobs:
         run: >-
           python -m pytest -q
           tests/test_system_consistency.py
+          tests/test_skill_surface.py
           skills/project-context-resolver/tests
           skills/project-memory-manager/tests
       - name: Workspace and Secret validation

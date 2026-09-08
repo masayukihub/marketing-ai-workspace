@@ -62,13 +62,20 @@ def build_plan(workspace: Path, lock: dict[str, Any], codex_home: Path) -> list[
     return rows
 
 
+def remove_runtime_path(path: Path) -> None:
+    if path.is_symlink() or path.is_file():
+        path.unlink()
+    elif path.exists():
+        shutil.rmtree(path)
+
+
 def apply_skill(workspace: Path, codex_home: Path, skill: dict[str, Any]) -> None:
     name = skill["name"]
     source_root = (workspace / skill["repository_path"]).resolve()
     mirror_parent = (codex_home / "skills").resolve()
     mirror_parent.mkdir(parents=True, exist_ok=True)
-    target = (mirror_parent / name).resolve()
-    if target.parent != mirror_parent or target.name != name or target.is_symlink():
+    target = mirror_parent / name
+    if target.parent != mirror_parent or target.name != name:
         raise RuntimeContractError(f"UNSAFE_GLOBAL_MIRROR_TARGET:{name}")
 
     repository_hashes = repository_file_hashes(workspace, skill["repository_path"])
@@ -85,16 +92,18 @@ def apply_skill(workspace: Path, codex_home: Path, skill: dict[str, Any]) -> Non
         staged_hashes = directory_file_hashes(staging)
         if compare_hashes(repository_hashes, staged_hashes):
             raise RuntimeContractError(f"STAGING_HASH_VERIFICATION_FAILED:{name}")
-        if target.exists():
+        if target.exists() or target.is_symlink():
             target.rename(backup)
         staging.rename(target)
-        if backup.exists():
-            shutil.rmtree(backup)
+        if backup.exists() or backup.is_symlink():
+            remove_runtime_path(backup)
     except Exception:
-        if target.exists() and backup.exists():
-            shutil.rmtree(target)
+        backup_present = backup.exists() or backup.is_symlink()
+        target_present = target.exists() or target.is_symlink()
+        if target_present and backup_present:
+            remove_runtime_path(target)
             backup.rename(target)
-        elif backup.exists() and not target.exists():
+        elif backup_present and not target_present:
             backup.rename(target)
         if staging.exists():
             shutil.rmtree(staging)

@@ -4,10 +4,16 @@
 
 优先级：
 
-1. 当前工作区中的 `masayukihub/jp-commerce-creative-flow`；
-2. 当前仓库 `.agents/skills/jp-commerce-creative-flow/` 与其Sibling Skills；
-3. 已验证的 `heymio/japan-listing-demo` 加 SwitchBot JP Overlay；
-4. 仅做策略/Brief，不声称实际渲染。
+1. `marketing-ai-workspace` GitHub `main` 中锁定的入口与兼容模块；
+2. 已登记commit的 `masayukihub/jp-commerce-creative-flow`；
+3. fork内的 SwitchBot JP Overlay；
+4. fork内未修改的 `heymio/japan-listing-demo` Upstream Core；
+5. 当前项目 `.agents/internal-skills/<module>/`；
+6. `$CODEX_HOME/internal-skills/<module>/`；
+7. 迁移期兼容位置 `.agents/skills/<module>/` 或 `$CODEX_HOME/skills/<module>/`；
+8. 仅做策略/Brief，不声称实际渲染。
+
+解析细节见 [internal-components.md](internal-components.md)。GitHub规则和旧Global副本不一致时，以已验证的GitHub Runtime为准；不得把旧Global声明当成可用功能。
 
 ## 阶段所有权
 

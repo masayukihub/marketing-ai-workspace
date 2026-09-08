@@ -10,6 +10,8 @@
 | Amazon VOC Browser Scraper | `VOC` | 在合规边界内采集可见评论并形成证据包 | VOC Evidence Pack |
 | Amazon Listing Asset Capture | `ASSET_CAPTURE` | 盘点页面模块、图片角色和可见素材 | Asset/Module Inventory |
 
+具体内部负责人、兼容关系与运行时解析顺序见 [internal-components.md](internal-components.md)。其中 `amazon-review-scraper` 是Amazon评论采集的唯一负责人，`amazon-voc-browser-scraper` 只保留为兼容入口。
+
 ## 路由原则
 
 - 用户问“值不值得做/卖什么”时，从 `SELECTION` 开始。

@@ -1,6 +1,6 @@
 interface:
   display_name: "日本电商内容生成"
-  short_description: "从产品资料生成日本Amazon页面、视觉稿、HTML与QA"
-  default_prompt: "Use $jp-commerce-content-flow to turn confirmed product sources into a reviewable Japan Amazon Gallery, A+, and standalone HTML with Chinese status updates."
+  short_description: "基于已确认事实生成日亚Gallery、A+、文案、视觉稿与审核HTML"
+  default_prompt: "使用 $jp-commerce-content-flow，读取指定项目的已确认事实和洞察，生成可审核的日亚Gallery、A+或Listing内容，并停在下一人工Gate。"
 policy:
   allow_implicit_invocation: true

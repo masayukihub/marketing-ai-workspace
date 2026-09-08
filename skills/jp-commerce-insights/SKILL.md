@@ -11,7 +11,7 @@ description: 统一完成日本电商选品、市场机会、Amazon关键词、�
 
 任务指向现有仓库项目时，先运行 `project-context-resolver`，按 Competitor/VOC/Amazon 任务类型只读取 Context Package 返回的最小 Project Memory、Decision、Product Truth 与视觉/资产指针。研究结果只能作为 Insight、Hypothesis、Risk 或 Claim Candidate 回写提案，不得直接改变 Manifest Gate 或 Product Truth。
 
-先读取 [capability-map.md](references/capability-map.md)，根据用户需求选择最小模式：
+先读取 [capability-map.md](references/capability-map.md) 与 [internal-components.md](references/internal-components.md)，根据用户需求选择最小模式。用户不需要再调用 `Amazon Keyword Miner`、`Amazon Competitor Reviews`、`Amazon VOC Browser Scraper`、`Amazon Listing Asset Capture` 或“电商选品情报”；这些旧名称会自动路由到下列内部模块：
 
 - `FULL`：完整机会研究，串联全部必要模块。
 - `SELECTION`：品类、需求、竞争、价格带与进入机会。
@@ -22,6 +22,26 @@ description: 统一完成日本电商选品、市场机会、Amazon关键词、�
 - `UPDATE`：对既有 Insight Pack 做增量更新，不重做稳定结论。
 
 用户说“帮我研究这个产品”且未指定模块时，默认使用 `FULL`。用户只问一个明确问题时，只运行相关模块。
+
+## 直接这样用
+
+```text
+使用 $jp-commerce-insights，研究【产品/品类】在日本【渠道】的机会。
+我要决定【是否进入/页面怎么写/优先做哪个用户场景】；
+请输出关键词、竞品、VOC、证据缺口、结论和下一步。
+```
+
+只做单一任务时，直接说明范围：
+
+```text
+使用 $jp-commerce-insights，只分析【ASIN/产品】的竞品评论。
+时间范围为【日期】，输出购买动机、主要抱怨、用户原话、样本限制和内容建议。
+```
+
+```text
+使用 $jp-commerce-insights，只采集【URL/ASIN】的Gallery、A+和视频结构。
+保留来源和采集时间；只做证据包，不生成创意。
+```
 
 ## 固定流程
 
