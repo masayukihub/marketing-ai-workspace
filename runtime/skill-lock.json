@@ -16,7 +16,7 @@
       ],
       "user_visible": false,
       "mirror_required": true,
-      "last_verified_commit": "cf7c9996c86f44057a88006830422d30e7038c78"
+      "last_verified_commit": "dd80d248fe7216f68efcc091cc205daa24ac7fb7"
     },
     {
       "name": "project-memory-manager",
@@ -33,7 +33,7 @@
       ],
       "user_visible": false,
       "mirror_required": true,
-      "last_verified_commit": "cf7c9996c86f44057a88006830422d30e7038c78"
+      "last_verified_commit": "dd80d248fe7216f68efcc091cc205daa24ac7fb7"
     },
     {
       "name": "product-knowledge",
@@ -51,7 +51,7 @@
       ],
       "user_visible": false,
       "mirror_required": true,
-      "last_verified_commit": "cf7c9996c86f44057a88006830422d30e7038c78"
+      "last_verified_commit": "dd80d248fe7216f68efcc091cc205daa24ac7fb7"
     },
     {
       "name": "jp-commerce-insights",
@@ -68,7 +68,7 @@
       ],
       "user_visible": true,
       "mirror_required": true,
-      "last_verified_commit": "cf7c9996c86f44057a88006830422d30e7038c78"
+      "last_verified_commit": "dd80d248fe7216f68efcc091cc205daa24ac7fb7"
     },
     {
       "name": "jp-commerce-content-flow",
@@ -85,7 +85,7 @@
       ],
       "user_visible": true,
       "mirror_required": true,
-      "last_verified_commit": "cf7c9996c86f44057a88006830422d30e7038c78"
+      "last_verified_commit": "dd80d248fe7216f68efcc091cc205daa24ac7fb7"
     },
     {
       "name": "switchbot-japan-campaign",
@@ -104,7 +104,7 @@
       ],
       "user_visible": true,
       "mirror_required": true,
-      "last_verified_commit": "cf7c9996c86f44057a88006830422d30e7038c78"
+      "last_verified_commit": "dd80d248fe7216f68efcc091cc205daa24ac7fb7"
     },
     {
       "name": "switchbot-japan-edm",
@@ -119,7 +119,7 @@
       ],
       "user_visible": true,
       "mirror_required": true,
-      "last_verified_commit": "cf7c9996c86f44057a88006830422d30e7038c78"
+      "last_verified_commit": "dd80d248fe7216f68efcc091cc205daa24ac7fb7"
     }
   ]
 }
