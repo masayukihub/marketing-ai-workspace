@@ -1,6 +1,6 @@
 ---
 name: amazon-listing-creative
-description: "基于已确认的产品事实，规划、评审和迭代 Amazon Listing 图片组、A+/EBC 内容、3×3 九宫格创意方向、单张深化方案、多语言文案与 AI 图片提示词。适用于从零生成或重构 Amazon 主图/副图策略、探索九个视觉方向、选择并深化某个方向、修改既有电商视觉，以及为实际图片生成准备可执行 Brief。"
+description: "Amazon Listing 内部创意模块：负责九宫格概念探索、单张深化、局部创意和生产提示词。用户直接请求完整日亚页面、Gallery 套图或 A+/EBC 成品时，必须先按完整范围转交 jp-commerce-content-flow；不得把 EBC 请求误路由为九宫格，也不得只交套图就结束。"
 ---
 
 # Amazon Listing Creative
@@ -11,12 +11,37 @@ description: "基于已确认的产品事实，规划、评审和迭代 Amazon L
 
 若用户指定现有项目，先使用 `project-context-resolver`，只读取 Amazon Context Package 返回的 Product Truth、Decision、Approved Claim、Visual Profile/Freeze 与 Asset。Manifest 只负责导航和 Gate，不替代 Fact Lock。
 
-## 先确定工作模式
+## 先路由，再创意（完整页面不得停在九宫格）
+
+本模块是 `jp-commerce-content-flow` 的内部创意方法，不是第二套完整 Listing Runtime。
+**EBC / A+ / A＋ / 商品紹介コンテンツ指完整页面内容时，不等于 A+/EBC 9-Grid。**
+
+先从用户完整请求确认 `scope` 和 `intent`，而不是看到旧 Skill 名称就进入探索：
+
+| 用户请求 | scope / intent | 执行方式 |
+|---|---|---|
+| 完整日亚页面、套图＋EBC、Gallery＋A+ | full / create | 转交 `$jp-commerce-content-flow`；Gallery 与 A+ 都是必交付范围 |
+| 只生成/补齐 EBC、已有套图不要重做 | aplus / create 或 resume | 转交主入口；保留 Gallery 精确文件，只做 A+ 缺失项 |
+| 只做套图、不做 A+ | gallery / create | 转交主入口；不擅自扩大到 EBC |
+| 只出策划/Brief | 明确范围 / plan | PLAN_ONLY，不声称已出图 |
+| 明确要求九宫格、九个创意方向 | concept / explore | 留在本模块，使用 9-Grid；不是 EBC 成品 |
+| 深化一个已选方向 | concept / deep_dive | 留在本模块，使用 Direction Deep Dive |
+| 修改指定页面/文件 | 明确范围 / revise | 主入口 LOCAL_REVISION；本模块仅处理受托的创意修改 |
+
+规范化后运行 `python3 scripts/aplus_delivery.py route --scope <scope> --intent <intent>`（路径相对本 Skill）。它输出路由与 `required_outputs`，不调用图片服务，也不批准生产。**将该范围和 [A+ 生产交接契约](references/aplus-production-handoff.md) 一并交给主入口；不得只转交一句“调用主流程”。** 主入口仍负责 Product Truth、Runtime、人工 Gate、实际生产和 QA。
+
+已批准 Handoff 时按正式状态继续生产；没有批准时只停在现有 Material Human Gate。委派到主入口后，不得又把完整请求反向路由回本模块形成循环。用户已要求“生成套图和 EBC”，无需再询问“是否还要生成 EBC”。
+
+“逐张生产”是生产队列的粒度，不是每做完一张就结束整个任务。已完成 Gallery 也不能替代 A+ 完成。资源不足、素材/Claim/Runtime 缺失时，保留精确进度并单独报告 A+ 阻塞点；不重画已锁定套图。
+
+以下创意步骤仅适用于主入口委派的探索/深化子任务；不能拿 9/10 个方向、提示词、缩略图板或模块清单当成完整 EBC 交付。样例中的 9 图不是固定平台数量；继承用户范围和已批准资产集合。
+
+## 先确定创意子任务模式
 
 根据用户目标选择一种模式，并在输出开头说明：
 
-1. **Listing Set**：规划或重构完整 Listing 图片组。先生成 10 个候选视觉方向并推荐 Top 3，再把选定策略映射到图片 1–9。
-2. **A+/EBC 9-Grid**：为一个信息点生成 9 个真正不同的创意方向，并在用户需要时制作 3×3 探索板。
+1. **Listing Set（策略子任务）**：为主入口规划或重构 Listing 图片组策略。先生成 10 个候选视觉方向并推荐 Top 3，再把选定策略映射到图片 1–9。
+2. **A+/EBC 9-Grid（仅明确要求探索时）**：为一个信息点生成 9 个真正不同的创意方向，并在用户需要时制作 3×3 探索板。
 3. **Direction Deep Dive**：把用户选中的一个方向深化为完整单张 Brief、文案和生成提示词。
 4. **Local Revision**：只修改用户指定的元素；其余事实、构图、产品外观、文案或风格保持锁定。
 
@@ -102,7 +127,7 @@ Feature → Advantage → Benefit → Evidence
 
 ### 8. 生成实际视觉
 
-只有用户要求实际图片时才调用图片生成或编辑能力。先用产品参考图逐张生成，再组合 3×3 探索板；不要用一次生成九格的方式牺牲产品一致性与可读文字。
+用户已要求实际图片或 EBC 成品，即构成生成意图，但不替代现有 Handoff/素材/Claim 审批。完整生产由主入口执行。仅在明确的九宫格探索子任务中，逐张完成概念候选后再组合 3×3 探索板；不得把九宫格当成 A+ 页面。产品本体来自官方/批准素材，AI 仅处理允许的 Scene Layer；文字、UI 和技术标注独立排版。
 
 实际生成后逐张检查产品结构、SKU、手部与场景物理关系、文案拼写、手机端可读性和九张之间的一致性。无法确认的视觉细节标记为 `Needs Manual QA`。
 
@@ -135,3 +160,9 @@ Feature → Advantage → Benefit → Evidence
 - 用户“输出所有方向”时，分别生成完整 Brief；实际图片仍需逐张制作与 QA。
 - 用户“修改”时，先列出锁定项和变更项，只改指定内容。
 - 保留版本号与变更摘要，避免迭代时漂移产品外观、核心 Claim 或已批准文案。
+
+## 完整交付防漏检
+
+从本入口转交的成品请求，交付前必须按 [A+ 生产交接契约](references/aplus-production-handoff.md) 分别核对 Gallery 与 A+。使用兼容 `PRODUCT_PAGE_SPEC.json` 时运行 `scripts/aplus_delivery.py audit`，即使 renderer 中途报错也核对已落盘文件；保存原始错误，不能让文件检查覆盖原始失败。
+
+检查器只确认约定图像文件/原生字段的产物覆盖，执行可用的图像解码检查，但不是 Browser QA、Claim 批准或 Publish Gate。完整 A+ 还必须完成模块装配、全部轮播页、Native Copy 和实际 Desktop/Mobile 浏览器检查。任何 A+ 缺口都必须在最终回答单独列出，不能只说“套图生成完成”。
