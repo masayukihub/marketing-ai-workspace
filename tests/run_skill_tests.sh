@@ -11,6 +11,11 @@ python3 -m pytest -q skills/customer-review-intelligence/tests
 python3 -m pytest -q skills/switchbot-japan-campaign/tests
 python3 -m pytest -q skills/switchbot-japan-edm/tests
 
+# Do not silently skip EBC image coverage tests when Pillow is missing.
+python3 -c 'from PIL import Image'
+python3 -m unittest discover -s skills/amazon-listing-creative/tests -p 'test_*.py' -v
+node skills/amazon-listing-creative/tests/aplus_runtime_smoke.mjs
+
 node skills/amazon-japan-pdp-generator/tests/production_safety_regression.mjs
 node skills/amazon-japan-pdp-generator/tests/reference_system_regression.mjs
 

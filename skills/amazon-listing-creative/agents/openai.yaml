@@ -1,6 +1,6 @@
 interface:
   display_name: "内部模块｜Listing创意"
   short_description: "单张方向探索、深化和局部修改能力"
-  default_prompt: "请先使用 $jp-commerce-content-flow；本模块只在主流程内部处理单张Listing的方向探索、深化和局部修改。"
+  default_prompt: "先读取 SKILL.md 的范围路由。完整页面或 Gallery+A+/EBC 请求转交 $jp-commerce-content-flow，并携带完整 required_outputs 和 A+ 生产交接契约；已有套图仅补 EBC 时保留套图。仅用户明确要求九宫格或单张探索时留在本模块。"
 policy:
   allow_implicit_invocation: false
