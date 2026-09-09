@@ -107,7 +107,7 @@
       "name": "switchbot-japan-edm",
       "role": "user_entry_japan_edm",
       "repository_path": "skills/switchbot-japan-edm",
-      "repository_tree_hash": "f1a50f4e296ccc1b9529ce5516622745e50801efc2698b7bacb1fdbd01316a3d",
+      "repository_tree_hash": "9e02bf6529068c78b278968c15e354558c0552df6870e511736a882801574db7",
       "required_runtime_files": [
         "SKILL.md",
         "agents/openai.yaml",
@@ -117,7 +117,8 @@
         "references/portable-input-contract.md",
         "references/visual-pattern-integration.md",
         "scripts/edm_history.py",
-        "scripts/render_edm.py"
+        "scripts/render_edm.py",
+        "scripts/editable_review.py"
       ],
       "user_visible": true,
       "mirror_required": true,

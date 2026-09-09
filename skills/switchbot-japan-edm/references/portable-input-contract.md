@@ -8,7 +8,7 @@
 {"campaign_type":"sale_launch","stage":"launch","channel":"amazon","product_count":4,"preferred_recipe":"autumn-sale-open-v1","explicit_new_design":false}
 ```
 
-当前版式：`autumn-sale-open-v1`、`pd-sale-open-v1`（2–6 SKU 开售），`category-security-v1`（2–6 SKU 专题，阶段为 `mid_campaign` / `reminder`），`product-reveal-v1`（1 SKU 新品）。未知任务不能静默套用。项目已有批准的视觉方向时，先保持该决定的范围，不能用此候选库覆盖冻结结果。
+当前版式：`autumn-sale-open-v1`、`pd-sale-open-v1`（2–6 SKU 开售），`category-security-v1`（2–6 SKU 专题，阶段为 `mid_campaign` / `reminder`），`product-reveal-v1`（1 SKU 新品）。新增 `autumn-catalog-v1` 为 10–18 SKU 的大促目录版，继承真实参考图的双列商品、独立新品入口、Coupon、品牌与 LINE 模块。用户明确要求 10 个以上商品时使用目录版，不让 2–6 SKU 的旧范围限制本轮交付。未知任务不能静默套用。项目已有批准的视觉方向时，先保持该决定的范围，不能用此候选库覆盖冻结结果。
 
 `evidence.json` 为每个相关历史样本记录：
 
@@ -34,8 +34,20 @@
 
 上述本地素材和字体支持绝对路径或相对路径；CLI 的相对路径按 `render-input.json` 所在目录解析，不依赖当前命令目录。
 
-价格只有 `offer.status: CONFIRMED`、存在 `offer.source` 且 `sale_price_jpy` 为非负整数时才展示；`reference_price_jpy` 如提供，不能低于现价。这些字段是当前来源核对后的输入，不能自动从历史图片提取；未知价格省略数字，保留查价行动。当前版本不自动计算或展示百分比、券和赠品，避免把比较价来源误当折扣批准。
+来源可核对的价格支持 `offer.status: CONFIRMED`，以及当前来源明确为草稿的 `DRAFT`。必须存在 `offer.source`、正确的 `channel`，且 `sale_price_jpy` 为非负整数；DRAFT 数字在内部 HTML 和预览中保留，并标明 `参考価格・要確認`，发送状态仍阻塞。不得为显示价格将 DRAFT 升为 CONFIRMED；`reference_price_jpy` 如提供，不能低于现价。这些字段是当前来源核对后的输入，不能自动从历史图片提取；未知价格省略数字，保留查价行动。当前版本不自动计算百分比或赠品。目录版可展示有完整当前证据的 Coupon：`status`、`source`、`channel`、`code`、`benefit_text`、`terms`、`valid_from`、`valid_until` 缺一不可。缺信息时仅在内部预览保留待配置版位，不沿用历史券码或金额。
 
 `product-reveal-v1` 可带 `details[]`，每项含 `title`、`body`、`source`、`status: CONFIRMED`；无证据的细节不渲染。缺图或超出支持范围会返回具体阻塞，不能用另一产品或生成假产品填充。
 
 输出包括 `email.html`（发送结构草稿）、`email-preview.html`、`review.html`、`copy-ja.md`、`plan.json`、`inheritance-map.json`、`asset-manifest.json`、`qa-report.json`；离线依赖就绪时输出 600/390 参考长图。`status` 保持 `INTERNAL_DRAFT`，适配器不能通过输入自报浏览器 PASS 或内容批准；不执行 ESP 发送。
+
+
+## 目录版及编辑页
+
+- `subject_options` 恰好 3 项：每项 `id`、`label`、`subject`、`preheader`；`subject` 和 `preheader` 为当前采用项。
+- `hero_product_ids` 为 4–6 个现有产品 ID；不把十几款商品挤进首屏。
+- `discovery`、`coupon`、`brand`、`line` 为可选模块；`module_enabled` 可显示或隐藏这些模块。用户参考中的“即将上市”不能用于已经开售或上市时间未知的产品。
+- 新品入口支持 `discovery.product`：官方产品图、产品与图片来源、相同的 `id` / `asset_product_id`；不能用生成图片补产品。
+- LINE 支持经核实的 `url`、`source`，以及按该 URL 编码的 `qr_image` / `qr_target`。二维码目标须与当前链接相同，不把历史二维码直接复用。
+- `editable-review.html` 内含 3 组标题、中文编辑控件、实时预览、JSON 导入/导出、原生邮件 HTML 导出和可继续编辑的 HTML 保存。所有编辑保留内部草稿身份；修改价格/券/链接不能自动通过事实审核。
+- 原生邮件导出移除脚本、编辑控件和内嵌预览图片。编辑后的 HTML 与 JSON 必须重新渲染，已有 PNG 不会随编辑自动更新；不可把旧图冒充改后渲染图。
+- 非浏览器 DOM 测试只能证明编辑与导出逻辑，不证明浏览器或 Gmail/Outlook 实际呈现。

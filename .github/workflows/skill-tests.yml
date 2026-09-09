@@ -32,5 +32,9 @@ jobs:
         run: npm install --prefix skills/amazon-japan-pdp-generator --no-audit --no-fund
       - name: Install EDM offline rendering dependencies
         run: python -m pip install -r skills/switchbot-japan-edm/scripts/requirements-offline.txt
+      - name: Install EDM editor DOM test dependency
+        run: npm install --prefix "${{ runner.temp }}/edm-editor-test" --no-audit --no-fund linkedom@0.18.13
       - name: Run Skill tests
+        env:
+          EDM_TEST_DOM_MODULE: ${{ runner.temp }}/edm-editor-test/node_modules/linkedom
         run: bash tests/run_skill_tests.sh

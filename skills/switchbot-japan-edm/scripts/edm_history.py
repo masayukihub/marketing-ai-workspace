@@ -18,6 +18,7 @@ from typing import Any
 SCHEMA_VERSION = "1.0"
 DEFAULT_CATALOG = Path(__file__).resolve().parents[1] / "assets/history-recipes.json"
 LIVE_DELIVERIES = {"marketing_received_copy", "sent_marketing"}
+USER_VISUAL_REFERENCES = {"SB-UPLOADED-PD-CATALOG-2026"}
 CAMPAIGN_TYPES = {"sale_launch", "seasonal_promotion", "category_promotion", "product_launch"}
 SAFE_ID = re.compile(r"^[A-Za-z][A-Za-z0-9_.:-]{0,127}$")
 RECIPE_FIELDS = {
@@ -202,10 +203,20 @@ def qualify_evidence(evidence: Any, evidence_base_dir: Path) -> tuple[dict, list
             continue
         if identifiers[ref] > 1:
             reasons.append("DUPLICATE_REFERENCE_ID")
-        if sample.get("delivery_status") not in LIVE_DELIVERIES:
-            reasons.append("NOT_LIVE_MARKETING_SAMPLE")
-        if sample.get("html_read") is not True:
-            reasons.append("HTML_NOT_READ")
+        uploaded = (ref in USER_VISUAL_REFERENCES
+                    and sample.get("evidence_type") == "user_uploaded_visual")
+        if uploaded:
+            if sample.get("delivery_status") != "user_provided_reference":
+                reasons.append("UPLOADED_REFERENCE_NOT_IDENTIFIED")
+            if sample.get("html_read") is not False:
+                reasons.append("UPLOADED_IMAGE_CANNOT_ASSERT_HTML_READ")
+        else:
+            if ref in USER_VISUAL_REFERENCES:
+                reasons.append("UPLOADED_REFERENCE_REQUIRES_VISUAL_EVIDENCE_TYPE")
+            if sample.get("delivery_status") not in LIVE_DELIVERIES:
+                reasons.append("NOT_LIVE_MARKETING_SAMPLE")
+            if sample.get("html_read") is not True:
+                reasons.append("HTML_NOT_READ")
         if sample.get("visual_reviewed") is not True:
             reasons.append("VISUAL_NOT_REVIEWED")
         paths = sample.get("visual_files")
@@ -236,6 +247,8 @@ def qualify_evidence(evidence: Any, evidence_base_dir: Path) -> tuple[dict, list
                              "duplicate_of": duplicate_of})
             continue
         qualified[ref] = {"reference_id": ref, "delivery_status": sample["delivery_status"],
+                          "evidence_type": "user_uploaded_visual" if uploaded else "marketing_email",
+                          "html_read": sample.get("html_read") is True,
                           "source_images": images}
         for info in images:
             seen_images[info["sha256"]] = ref
@@ -260,6 +273,7 @@ def make_plan(brief: Any, evidence: Any, catalog: Any,
                                          "evidence_sha256": digest(evidence),
                                          "catalog_sha256": digest(catalog)},
         "source_image_hashes": [],
+        "evidence_kinds": [],
         "blockers": [],
         "next_actions": [],
         "approval": "NOT_APPROVED",
@@ -353,6 +367,9 @@ def make_plan(brief: Any, evidence: Any, catalog: Any,
         "campaign_context": {key: brief[key] for key in ("campaign_type", "stage", "channel", "product_count")},
         "selected_recipe": recipe,
         "selected_reference_ids": refs,
+        "evidence_kinds": [{"reference_id": ref, "evidence_type": qualified[ref]["evidence_type"],
+                            "delivery_status": qualified[ref]["delivery_status"],
+                            "html_read": qualified[ref]["html_read"]} for ref in refs],
         "module_mapping": map_modules(recipe, refs),
         "source_image_hashes": [
             {"reference_id": ref, **info} for ref in refs for info in qualified[ref]["source_images"]

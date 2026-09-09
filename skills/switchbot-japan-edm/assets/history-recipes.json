@@ -5,7 +5,8 @@
     "SB-AUTUMN-2025-AMAZON-OPEN": {"campaign":"2025 Amazon autumn opening", "gmail_query":"after:2025/10/03 before:2025/10/06 SwitchBot プライム感謝祭", "match_date":"2025-10-04", "required_visual_regions":["campaign hero","featured product card","secondary product grouping"]},
     "SB-PD-2026-AMAZON-OPEN": {"campaign":"2026 Prime Day opening", "gmail_query":"after:2026/07/06 before:2026/07/09 SwitchBot セール", "match_date":"2026-07-07", "required_visual_regions":["campaign hero","priority product chapter","secondary product grouping"]},
     "SB-PD-2026-SECURITY": {"campaign":"2026 Prime Day security theme", "gmail_query":"after:2026/07/08 before:2026/07/11 SwitchBot 防犯", "match_date":"2026-07-09", "required_visual_regions":["security hero","scenario product card"]},
-    "SB-MINDCLIP-2026-LAUNCH": {"campaign":"2026 AI MindClip launch", "gmail_query":"after:2026/08/21 before:2026/08/24 マインドクリップ", "match_date":"2026-08-22", "required_visual_regions":["single product hero","daily use story","feature evidence"]}
+    "SB-MINDCLIP-2026-LAUNCH": {"campaign":"2026 AI MindClip launch", "gmail_query":"after:2026/08/21 before:2026/08/24 マインドクリップ", "match_date":"2026-08-22", "required_visual_regions":["single product hero","daily use story","feature evidence"]},
+    "SB-UPLOADED-PD-CATALOG-2026": {"campaign": "User-supplied 2026 PD catalogue visual reference", "source_type": "user_uploaded_visual", "required_visual_regions": ["dense two-column catalogue", "discovery section", "coupon ticket", "brand and LINE footer"], "scope": "Visual composition only; delivery, HTML, historical prices and claim currency are not asserted."}
   },
   "recipes": [
     {
@@ -107,6 +108,128 @@
       "observed_features": ["Dark blue security theme with restrained gold contrast", "Entrance, windows and away-from-home scenarios organize discovery", "Red actions connect a specific scenario to the relevant product"],
       "controlled_adaptations": ["Use only current source-supported security benefits", "No shield, certification or protection guarantee without evidence", "Retain the campaign destination as the primary action"],
       "forbidden_inheritance": ["Universal burglary prevention guarantee", "Historical percentage discounts", "Unverified surveillance or compatibility claims"]
+    },
+    {
+      "id": "autumn-catalog-v1",
+      "name": "秋促商品目录：季节首屏＋双列商品＋发现新品＋优惠券与品牌入口",
+      "status": "OBSERVED_CANDIDATE",
+      "campaign_types": [
+        "sale_launch",
+        "seasonal_promotion"
+      ],
+      "stages": [
+        "launch"
+      ],
+      "channels": [
+        "amazon"
+      ],
+      "product_range": [
+        10,
+        18
+      ],
+      "source_refs": [
+        "SB-UPLOADED-PD-CATALOG-2026",
+        "SB-AUTUMN-2025-AMAZON-OPEN"
+      ],
+      "primary_source_ref": "SB-UPLOADED-PD-CATALOG-2026",
+      "hero_style": "autumn_festival",
+      "card_layout": "dense_two_column_catalog",
+      "modules": [
+        "campaign_hero",
+        "product_catalog",
+        "discovery",
+        "coupon",
+        "brand",
+        "line",
+        "closing_cta",
+        "legal_footer"
+      ],
+      "module_treatments": {
+        "campaign_hero": {
+          "treatment": "adapted",
+          "source_refs": [
+            "SB-AUTUMN-2025-AMAZON-OPEN"
+          ],
+          "reason": "Preserve the prior autumn sky and gold seasonal hero; show four to six official product images only."
+        },
+        "product_catalog": {
+          "treatment": "adapted",
+          "source_refs": [
+            "SB-UPLOADED-PD-CATALOG-2026"
+          ],
+          "reason": "Adapt the observed dense two-column product catalogue, with one benefit, price and action per item; retain two columns at 390px."
+        },
+        "discovery": {
+          "treatment": "adapted",
+          "source_refs": [
+            "SB-UPLOADED-PD-CATALOG-2026"
+          ],
+          "reason": "Keep a separate discovery chapter; describe known releases truthfully and do not copy historical coming-soon status."
+        },
+        "coupon": {
+          "treatment": "adapted",
+          "source_refs": [
+            "SB-UPLOADED-PD-CATALOG-2026"
+          ],
+          "reason": "Keep the coupon ticket visual role; current code, conditions, dates and channel need their own source."
+        },
+        "brand": {
+          "treatment": "adapted",
+          "source_refs": [
+            "SB-UPLOADED-PD-CATALOG-2026"
+          ],
+          "reason": "Keep a separate brand chapter; historical No.1 or awards must never be inherited."
+        },
+        "line": {
+          "treatment": "adapted",
+          "source_refs": [
+            "SB-UPLOADED-PD-CATALOG-2026"
+          ],
+          "reason": "Keep the separate LINE relationship action; current destination only."
+        },
+        "closing_cta": {
+          "treatment": "adapted",
+          "source_refs": [
+            "SB-AUTUMN-2025-AMAZON-OPEN"
+          ],
+          "reason": "Repeat the single current channel destination after optional discovery and offer modules."
+        },
+        "legal_footer": {
+          "treatment": "new",
+          "source_refs": [],
+          "reason": "Current sender and ESP terms only; historical footer is not adopted."
+        }
+      },
+      "tokens": {
+        "canvas_width": 600,
+        "paper": "#fff5e5",
+        "ink": "#252947",
+        "accent": "#ff5731",
+        "secondary": "#ffcd38",
+        "hero": "#cce5f4",
+        "card_radius": 16
+      },
+      "observed_features": [
+        "A large seasonal campaign hero precedes the catalogue",
+        "Ten or more products use a compact two-column white card grid on cream",
+        "Each card groups official image, one benefit, price and direct purchase action",
+        "Separate discovery and coupon-ticket chapters follow the catalogue",
+        "Brand and LINE actions have separate footer sections"
+      ],
+      "controlled_adaptations": [
+        "Retain the reviewed autumn hero instead of importing the orange PD campaign",
+        "Keep two columns at 390px; use readable 14px benefit text and 44px purchase targets",
+        "Show only four to six products in the hero strip",
+        "Source-backed draft prices stay explicitly unapproved",
+        "Unconfirmed coupon and LINE details appear as editable pending shells in internal previews only"
+      ],
+      "forbidden_inheritance": [
+        "Historical discount figures and reference prices",
+        "Old coupon code or expiry",
+        "Historical No.1, ranking or award",
+        "Unverified coming-soon status",
+        "Recipient information, tracking pixels or private links"
+      ]
     }
   ]
 }

@@ -293,6 +293,144 @@ class HistoryRendererTests(unittest.TestCase):
         _, report = self.build(data=data)
         self.assertNotEqual(report["browser_qa"].get("status"), "PASS")
 
+    def catalogue_case(self, count=12):
+        data = copy.deepcopy(self.data)
+        products = []
+        for index in range(count):
+            product = copy.deepcopy(self.data["products"][index % 4])
+            product.update({"id":f"sku_{index}", "asset_product_id":f"sku_{index}",
+                            "name":f"SwitchBot Current SKU {index}", "url":f"https://www.amazon.co.jp/current/{index}"})
+            products.append(product)
+        data["products"] = products
+        evidence = copy.deepcopy(self.samples)
+        sample = next(s for s in evidence if s["reference_id"] == "SB-UPLOADED-PD-CATALOG-2026")
+        sample.update({"evidence_type":"user_uploaded_visual", "delivery_status":"user_provided_reference", "html_read":False})
+        brief = {**self.brief, "product_count":count, "preferred_recipe":"autumn-catalog-v1"}
+        plan = history.make_plan(brief, {"samples":evidence}, self.catalog, evidence_base_dir=self.root)
+        return data, plan, evidence, brief
+
+    def test_catalogue_twelve_cards_two_columns_and_four_hero_products(self):
+        data, plan, _, _ = self.catalogue_case()
+        out, report = self.build(data=data, plan=plan, label="catalogue")
+        markup = (out/"email.html").read_text()
+        structure = Structure(markup)
+        self.assertEqual(len(structure.cards), 12)
+        self.assertEqual(structure.groups()["product_catalog"], [p["id"] for p in data["products"]])
+        self.assertEqual(markup.count('data-geometry="catalog_two_column"'), 6)
+        # Empty notes still reserve a common slot so adjacent card actions align.
+        self.assertEqual(markup.count('class="catalog-note"'), 12)
+        self.assertEqual(markup.count('class="catalog-title"'), 12)
+        self.assertIn('.catalog-title{min-height:70px!important;}', markup)
+        self.assertIn('.catalog-note{min-height:53px!important;}', markup)
+        hero = next(node for node in structure.modules if node["attrs"]["data-module"] == "campaign_hero")
+        hero_images = [node for node in structure.images if structure.inside(node, hero) and "data-product-id" in node["attrs"]]
+        self.assertEqual(len(hero_images), 4)
+        self.assertIn('.catalog-cell{display:table-cell!important;width:49%!important;}', markup)
+        self.assertEqual(report["recipe_id"], "autumn-catalog-v1")
+
+    def test_uploaded_visual_reference_never_claims_html_read_or_marketing_delivery(self):
+        _, plan, evidence, brief = self.catalogue_case()
+        self.assertEqual(plan["planning_status"], "READY_FOR_INTERNAL_RENDER")
+        kind = next(item for item in plan["evidence_kinds"] if item["reference_id"] == "SB-UPLOADED-PD-CATALOG-2026")
+        self.assertEqual(kind["evidence_type"], "user_uploaded_visual")
+        self.assertFalse(kind["html_read"])
+        self.assertEqual(kind["delivery_status"], "user_provided_reference")
+        sample = next(item for item in evidence if item["reference_id"] == "SB-UPLOADED-PD-CATALOG-2026")
+        sample["html_read"] = True
+        blocked = history.make_plan(brief, {"samples":evidence}, self.catalog, evidence_base_dir=self.root)
+        self.assertEqual(blocked["planning_status"], "BLOCKED_HISTORY_EVIDENCE")
+
+    def test_catalogue_scope_accepts_eighteen_and_rejects_nineteen(self):
+        data, plan, _, _ = self.catalogue_case(18)
+        out, _ = self.build(data=data, plan=plan, label="eighteen")
+        self.assertEqual(len(Structure((out/"email.html").read_text()).cards), 18)
+        _, plan, _, _ = self.catalogue_case(19)
+        self.assertEqual(plan["planning_status"], "BLOCKED_RUNTIME_SCOPE")
+
+    def test_source_backed_draft_price_is_visible_but_never_approved(self):
+        data, plan, _, _ = self.catalogue_case()
+        data["products"][0]["offer"] = {"status":"DRAFT", "source":"https://official.example.invalid/current-draft",
+            "channel":"amazon", "sale_price_jpy":13980, "reference_price_jpy":19980, "tax_included":True}
+        out, report = self.build(data=data, plan=plan, label="draft-price")
+        for filename in ("email.html", "email-preview.html"):
+            markup = (out/filename).read_text()
+            self.assertIn("¥13,980", markup)
+            self.assertIn("¥19,980", markup)
+            self.assertIn('data-price-status="DRAFT"', markup)
+            self.assertIn("参考価格・要確認", markup)
+        self.assertEqual(data["products"][0]["offer"]["status"], "DRAFT")
+        self.assertEqual(report["draft_price_product_ids"], ["sku_0"])
+        self.assertIn("DRAFT_PRICES_REQUIRE_APPROVAL", report["commercial_blockers"])
+        self.assertEqual(report["send_readiness"], "BLOCKED")
+        data["products"][0]["offer"]["channel"] = "official"
+        with self.assertRaises(ValueError):
+            self.build(data=data, plan=plan, label="wrong-channel-price")
+
+    def test_pending_coupon_never_imports_historical_code_and_is_preview_only(self):
+        data, plan, _, _ = self.catalogue_case()
+        data["coupon"] = {"status":"UNCONFIRMED", "code":"OLD99OFF", "benefit_text":"OLD-OFFER", "terms":"OLD-TERMS"}
+        out, report = self.build(data=data, plan=plan, label="pending-coupon")
+        native = (out/"email.html").read_text()
+        preview = (out/"email-preview.html").read_text()
+        self.assertNotIn('data-module="coupon"', native)
+        self.assertIn('data-module="coupon"', preview)
+        self.assertIn("クーポン特典を準備中", preview)
+        self.assertIn("要確認", preview)
+        for old in ("OLD99OFF", "OLD-OFFER", "OLD-TERMS"):
+            self.assertNotIn(old, native + preview)
+        self.assertIn("coupon", report["optional_modules_omitted_from_native"])
+
+    def test_confirmed_coupon_requires_complete_current_terms_and_channel(self):
+        data, plan, _, _ = self.catalogue_case()
+        data["coupon"] = {"status":"CONFIRMED", "source":"https://official.example.invalid/current-coupon",
+                          "channel":"amazon", "code":"SYNTHETIC-CURRENT", "benefit_text":"Current synthetic benefit",
+                          "terms":"Current synthetic terms", "valid_from":"2030-10-13", "valid_until":"2030-10-19"}
+        out, _ = self.build(data=data, plan=plan, label="confirmed-coupon")
+        self.assertIn("SYNTHETIC-CURRENT", (out/"email.html").read_text())
+        data["coupon"].pop("terms")
+        with self.assertRaises(ValueError):
+            self.build(data=data, plan=plan)
+
+    def test_optional_modules_can_hide_without_hiding_required_legal_or_products(self):
+        data, plan, _, _ = self.catalogue_case()
+        data["module_enabled"] = {"coupon":False, "line":False}
+        out, report = self.build(data=data, plan=plan, label="optional-hidden")
+        self.assertNotIn("coupon", report["preview_module_order"])
+        self.assertNotIn("line", report["preview_module_order"])
+        self.assertIn("legal_footer", report["preview_module_order"])
+        data["module_enabled"]["legal_footer"] = False
+        with self.assertRaises(ValueError):
+            self.build(data=data, plan=plan)
+
+    def test_discovery_official_product_binding_and_line_qr_target_are_checked(self):
+        data, plan, _, _ = self.catalogue_case()
+        product = copy.deepcopy(data["products"][0])
+        product.update({"id":"new_product", "asset_product_id":"new_product"})
+        data["discovery"] = {"status":"CONFIRMED", "source":"https://official.example.invalid/current-new-product",
+                             "title":"Current discovery", "body":"Current product benefit", "product":product}
+        qr = self.root/"synthetic-qr.png"
+        qr.write_bytes(synthetic_png((10,200,20)))
+        data["line"] = {"status":"CONFIRMED", "source":"https://official.example.invalid/line",
+                        "url":"https://line.example.invalid/current", "qr_target":"https://line.example.invalid/current",
+                        "qr_image":str(qr)}
+        out, _ = self.build(data=data, plan=plan, label="illustrated-discovery")
+        structure = Structure((out/"email.html").read_text())
+        discovery = next(node for node in structure.modules if node["attrs"]["data-module"] == "discovery")
+        images = [node for node in structure.images if structure.inside(node, discovery)]
+        self.assertEqual(len(images), 1)
+        self.assertEqual(images[0]["attrs"]["data-product-id"], "new_product")
+        self.assertIn("{{ASSET_LINE_QR_URL}}", (out/"email.html").read_text())
+        records = json.loads((out/"asset-manifest.json").read_text())
+        self.assertTrue(any(record.get("product_id") == "new_product" for record in records))
+        self.assertTrue(any(record.get("target_url") == data["line"]["url"] for record in records))
+        data["discovery"]["product"]["asset_product_id"] = "wrong_product"
+        with self.assertRaises(ValueError):
+            self.build(data=data, plan=plan)
+        data["discovery"]["product"]["asset_product_id"] = "new_product"
+        data["line"]["qr_target"] = "https://line.example.invalid/wrong"
+        with self.assertRaises(ValueError):
+            self.build(data=data, plan=plan)
+
     @unittest.skipUnless(importlib.util.find_spec("weasyprint") and importlib.util.find_spec("fitz"),
                          "Optional offline export dependencies are unavailable")
     def test_offline_export_creates_two_real_pngs_without_claiming_browser_validation(self):
