@@ -30,5 +30,7 @@ jobs:
           matplotlib Jinja2 pdfplumber
       - name: Install Amazon PDP Node dependencies
         run: npm install --prefix skills/amazon-japan-pdp-generator --no-audit --no-fund
+      - name: Install EDM offline rendering dependencies
+        run: python -m pip install -r skills/switchbot-japan-edm/scripts/requirements-offline.txt
       - name: Run Skill tests
         run: bash tests/run_skill_tests.sh
