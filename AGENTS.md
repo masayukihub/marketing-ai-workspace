@@ -188,3 +188,19 @@ Project Manifest
 - Mobile QA：是否真实检查目标宽度和交互？
 - Regression QA：是否影响现有 Skill、项目或已批准资产？
 - Secret QA：是否可能泄露凭证、私人联系方式或未授权数据？
+
+## 15. Context Resilience
+
+1. 一个线程默认只处理一个 Deliverable、Material Gate 或 PR 阶段；项目切换、Architecture 转 Business 时开新线程。
+2. PR 创建/合并、Human Gate、Phase 切换、大型 Source Discovery、完整回归、Compact 请求或失败后生成 Handoff。
+3. Context 使用量可见时：70% 准备 Handoff，80% 停止新的大范围读取，90% 强制新线程；不可见时不得伪造百分比。
+4. 超过 `runtime/context-policy.yaml` 限制的日志、Diff、JSON、HTML、飞书正文和测试输出必须落入 `private-runtime/`。
+5. 聊天只返回结论、关键失败和文件路径；不得回显完整 Event Payload、长日志或大段正文。
+6. 使用 `python3 scripts/contextctl.py capture --name <name> -- <command>` 捕获大型命令输出。
+7. 使用 `python3 scripts/contextctl.py handoff` 保存当前 Branch、Project、Goal、唯一 Next Action、Blocker 与测试路径。
+8. 新线程只从 `AGENTS.md + project.yaml + Handoff + git status` 恢复，不依赖旧聊天、ChatGPT Memory 或 `/resume` 作为正式状态。
+9. Compact Failure 后不要反复 Retry；读取最新 Handoff 并使用 `contextctl.py resume --project <id> --latest` 开新线程。
+10. Handoff 不得保存完整聊天、日志、Diff、HTML、飞书正文、Secret，也不得把 Recommendation 变成 Decision。
+11. 生成 Handoff 后提示使用新线程，并只给出下一线程的唯一动作。
+
+详细契约见 `docs/architecture/CODEX_CONTEXT_RESILIENCE.md`。

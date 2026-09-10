@@ -15,7 +15,10 @@ REQUIRED_ROOT = ["README.md", "AGENTS.md", ".gitignore", ".env.example"]
 REQUIRED_MEMORY = ["PROJECT.md", "STATUS.md", "DECISIONS.md", "SOURCES.md", "TODO.md"]
 PROHIBITED_NAMES = {".env", ".env.local", "credentials.json", "token.json"}
 PROHIBITED_SUFFIXES = {".pem", ".key", ".p12"}
-SKIP_PARTS = {".git", ".venv", "node_modules", "__pycache__", ".pytest_cache"}
+SKIP_PARTS = {
+    ".git", ".venv", "node_modules", "__pycache__", ".pytest_cache",
+    "private-runtime", ".codex-local",
+}
 TEXT_SUFFIXES = {
     ".md", ".txt", ".json", ".jsonl", ".yaml", ".yml", ".csv", ".py",
     ".js", ".mjs", ".ts", ".tsx", ".rb", ".sh", ".html", ".css", ".toml"

@@ -1,0 +1,43 @@
+{
+  "hooks": {
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 scripts/codex_context_hook.py --event pre-compact",
+            "timeout": 2,
+            "async": false,
+            "statusMessage": "Saving context checkpoint"
+          }
+        ]
+      }
+    ],
+    "PostCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 scripts/codex_context_hook.py --event post-compact",
+            "timeout": 2,
+            "async": false,
+            "statusMessage": "Verifying context checkpoint"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 scripts/codex_context_hook.py --event session-end",
+            "timeout": 2,
+            "async": false,
+            "statusMessage": "Saving final context checkpoint"
+          }
+        ]
+      }
+    ]
+  }
+}

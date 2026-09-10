@@ -31,3 +31,6 @@ private/
 raw-private/
 cookies*.json
 session*.json
+private-runtime/
+.codex-local/
+*.context.log
