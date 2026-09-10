@@ -1,0 +1,59 @@
+policy_version: "1.0"
+
+thread_unit:
+  default: one_deliverable_or_gate_or_pr_stage
+  project_switch_requires_new_thread: true
+  architecture_to_business_switch_requires_new_thread: true
+
+context_thresholds:
+  prepare_handoff_percent: 70
+  stop_large_reads_percent: 80
+  force_new_thread_percent: 90
+  measurement_source: client_status_line_when_available
+  unknown_behavior: apply_operator_rules_without_inventing_a_percentage
+
+inline_output_limits:
+  max_lines: 80
+  max_chars: 12000
+  max_log_lines: 40
+  max_diff_lines: 80
+  max_json_lines: 80
+
+handoff:
+  max_required_reads: 12
+  max_resume_prompt_chars: 6000
+  max_handoff_chars: 12000
+
+handoff_triggers:
+  - pull_request_created
+  - pull_request_merged
+  - material_human_gate_reached
+  - project_changed
+  - architecture_to_business_switch
+  - implementation_phase_changed
+  - large_source_discovery_completed
+  - full_regression_completed
+  - compaction_requested
+  - compaction_failed
+  - session_end
+
+large_output:
+  destination: private-runtime/context-runs
+  inline_mode: summary_and_path_only
+  default_timeout_seconds: 900
+  redact_before_persist: true
+
+authority:
+  runtime: github_main_repository
+  project_entry: project_manifest
+  durable_context: project_memory
+  product_truth: product_knowledge_and_canonical_sources
+  global_skill_mirror: installation_mirror_only
+
+forbidden_inline_content:
+  - full_logs
+  - full_diffs
+  - full_html
+  - raw_feishu_bodies
+  - secrets
+  - session_payloads

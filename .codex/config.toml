@@ -1,0 +1,3 @@
+[tui]
+status_line = ["model-with-reasoning", "git-branch", "context-used", "thread-id"]
+status_line_use_colors = true
