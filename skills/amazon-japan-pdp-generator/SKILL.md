@@ -86,6 +86,8 @@ Headline、Sub Copy、产品图、Scene、Template、卖点顺序发生变化时
 
 ## Visual Quality Layer
 
+名称中的 Quality 指模板参数与结构节奏处理，不表示已完成商业画面生成或视觉验收。品牌适配/模板感未实际看图时保持 `NOT_VISUALLY_REVIEWED`，不输出固定高分作为成片通过依据。商业场景/机理请求先读取 [商业画面制作](../amazon-listing-creative/references/commercial-visual-production.md)，确认实际生产能力并检查代表图；不支持目标类型时不得静默退回模板信息图。
+
 `VISUAL_QUALITY=ON` 是正式默认渲染模式；`VISUAL_QUALITY=OFF` 只用于 Before/After regression 与排障。该层不增加 Workflow Phase、人工 Gate、Reference、Primitive、模块、内容单元或工作簿，只参数化现有 19 个 Primitive 的背景、构图、商品位置、卡片结构、密度、比例与 Mobile 行为。
 
 每个 Gallery / A+ 模块必须获得 IMPACT、EXPLAIN、DETAIL、BREATHE、SCENARIO、PROOF、COMPARE、CLOSURE 之一的视觉角色。系统对 Background、Layout Family、Product Position、Card Structure、Text Density 与 Product Scale 分开检查；连续三次及以上相同即输出 `VISUAL_RHYTHM_WARNING`。只有 Story 连贯性确实需要时才能保留，并写明 Decision Reason，禁止随机换版、机械深浅交替或删减必要信息提高分数。

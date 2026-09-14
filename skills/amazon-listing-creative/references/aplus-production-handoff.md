@@ -12,6 +12,7 @@
 - 已批准的 Gallery 精确文件与哈希、现有 A+ 模块/内容单元/轮播页 ID；
 - 本轮缺失产物清单、可继承的批准、下一 Material Human Gate；
 - 本契约及旧模板/实际运行时适配状态。
+- 商业参考任务的逐图 `visual_type`、已实际查看的参考、对象/动作/可见结果、生产方法，以及代表图观察与文件绑定；见 [商业画面制作](commercial-visual-production.md)。不得在转交中丢掉这些决定而退回默认信息图。
 
 `CREATIVE_EXPLORE` 只用于用户明确要求概念发散。不要因为调用了旧名，就把“做 EBC”变成“一张 EBC 的九个点子”。原 mode-contracts/output-templates 中的九宫格继续用于创意子任务，不定义完整交付。
 
@@ -80,6 +81,8 @@ python3 scripts/aplus_delivery.py audit --scope full \
 原生文字/表格检查使用显式 `delivery_kind: native`、非空 `native_content` 和 `preview_binding`。这些只代表结构化输入存在，不证明已渲染。若正式运行时字段名不同，在 Review 目录生成可追溯到原 Spec 哈希的只读审计投影；禁止修改冻结 Spec 去迁就检查器，禁止省略未映射模块。未知模块应报告适配缺口。
 
 **ARTIFACTS_PRESENT 绝不等于 DELIVERY_READY。** 该检查不验证产品真实性、Placeholder 来源、文案批准、渠道尺寸、预览挂载、浏览器或 Seller Central。必须继续运行已有安全、内容和浏览器 QA。
+
+它也不验证商业画面类型、场景融合或功能效果。商业参考任务另运行 `visual-check --contract <visual-contract.json> --output-dir <task-dir>` 核对观察记录与实际成片；结果仅为记录完整性，不是自动视觉评分。类型错误应先改镜头与制作方式，不批量增加同样错误的轮播页。
 
 ## 7. 预览与实图都要交付
 

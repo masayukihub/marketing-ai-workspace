@@ -4,10 +4,14 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { spawnSync } from "node:child_process";
 import { buildAssetProvenance, classifyAssetSource } from "../scripts/asset_provenance.mjs";
-import { blockFinalOutputs, syncFinalExports } from "../scripts/phase_system.mjs";
-import { ratingDisplayModel } from "../scripts/render_v4.mjs";
+import { blockFinalOutputs, readProjectState, syncFinalExports, writeProjectState } from "../scripts/phase_system.mjs";
+import { ratingDisplayModel, renderFromSpec } from "../scripts/render_v4.mjs";
 import { assertStoryMutationAllowed, assertStorySequenceIntegrity, assertStorySequenceStateIntegrity, lockStorySequence, storySequenceFingerprint } from "../scripts/story_sequence_lock.mjs";
+import { brandFitAssessment, templateFeelingAssessment, visualQualityManifest, visualRhythmScore } from "../scripts/visual_quality_system.mjs";
+import { buildProductPageSpec, readTemplateLibrary, refreshSpec, STAGES, validateSpec, writeSpecBundle } from "../scripts/spec_system.mjs";
+import { validateData } from "../scripts/pdp_lib.mjs";
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const clone = (value) => JSON.parse(JSON.stringify(value));
@@ -18,6 +22,259 @@ const storySpec = {
   product_images: Array.from({ length: 7 }, (_, index) => ({ id: `IMAGE-${String(index + 1).padStart(2, "0")}`, sequence: index + 1, stage: `stage-${index + 1}` })),
   aplus_modules: Array.from({ length: 7 }, (_, index) => ({ id: `APLUS-M${String(index + 1).padStart(2, "0")}`, sequence: index + 1, units: [{ id: `APLUS-U${String(index + 1).padStart(2, "0")}`, stage: `stage-${index + 1}` }] })),
 };
+
+// Even a complete set of varied profile tags cannot review pixels or approve
+// commercial artwork. ON/OFF must not manufacture a brand score or LOW risk.
+for (const mode of ["ON", "OFF"]) {
+  const brand = brandFitAssessment(mode);
+  assert.equal(brand.visual_review_status, "NOT_VISUALLY_REVIEWED");
+  assert.equal(brand.score, null);
+  assert.equal(brand.risk, "NOT_VISUALLY_REVIEWED");
+  assert.ok(Object.values(brand.dimensions).every((value) => value === null));
+  const feeling = templateFeelingAssessment(mode);
+  assert.equal(feeling.visual_review_status, "NOT_VISUALLY_REVIEWED");
+  for (const key of ["overall_risk", "gallery_risk", "aplus_risk"]) assert.equal(feeling[key], "NOT_VISUALLY_REVIEWED");
+  assert.deepEqual(feeling.signals, []);
+}
+const qualityManifest = visualQualityManifest(storySpec);
+assert.equal(qualityManifest.visual_review_status, "NOT_VISUALLY_REVIEWED");
+assert.equal(qualityManifest.brand_fit.score, null);
+assert.equal(qualityManifest.template_feeling.overall_risk, "NOT_VISUALLY_REVIEWED");
+const rhythm = visualRhythmScore(qualityManifest);
+assert.ok(Number.isFinite(rhythm.score));
+assert.match(rhythm.score_scope, /STRUCTURAL_HEURISTIC.*not rendered-image quality/);
+assert.equal(rhythm.visual_review_status, "NOT_VISUALLY_REVIEWED");
+
+const renderSpec = {
+  meta: { spec_sha256: "production-safety-render-fixture" },
+  strategy: { coreValue: "Synthetic render regression" },
+  product: { name: "Synthetic render regression", main_asset: "assets/product.svg" },
+  human_gates: { final_render_authorized: true, story_approval: { status: "Approved — Internal QA" }, layout_approval: { status: "Approved — Internal QA" } },
+  template_library: { source_policy: {}, registered_template_count: 19 },
+  titles: { recommendedKey: "main", main: "Synthetic render regression" },
+  bullets: [], faq: [], sources: [],
+  copy_review: { status: "Draft" },
+  publish_gate: { status: "BLOCKED", sections: {} },
+  asset_resolution_plan: { records: [] },
+  product_images: ["P-MAIN-OFFICIAL", "P-TECHNICAL-PROOF"].map((template_id, index) => ({
+    id: `IMAGE-0${index + 1}`, sequence: index + 1, template_id, headline: "Fixture", sub_copy: "Regression", key_message: "Fixture",
+    layers: { product_layer: { source: "assets/product.svg" }, scene_layer: { source: "" } },
+    template_snapshot: { name: "Regression", grid: {}, safe_area: {}, headline_length: {}, mobile_rules: [] },
+    outputs: { svg: `design/svg/image_0${index + 1}.svg`, wireframe_svg: `design/svg/wireframe_0${index + 1}.svg`, jpeg: `design/product_images/image_0${index + 1}.jpg` },
+    product_body_ai_generated: false, source_origin: "Internal Placeholder", asset_resolution: { product_layer_allowed: false },
+  })),
+  aplus_modules: [],
+};
+const visualQualityEnv = process.env.VISUAL_QUALITY;
+try {
+  for (const mode of ["ON", "OFF"]) {
+    process.env.VISUAL_QUALITY = mode;
+    for (const visualType of ["commercial_scene", "mechanism_visual"]) {
+      for (const target of ["gallery", "module", "unit"]) {
+        const request = clone(renderSpec);
+        let expectedPath;
+        if (target === "gallery") {
+          request.product_images[1].visual_type = visualType;
+          expectedPath = "product_images[1].visual_type";
+        } else {
+          request.aplus_modules = [{ id: "APLUS-M01", template_id: "A-50-50-FEATURE", units: [{ id: "APLUS-U01" }] }];
+          if (target === "module") request.aplus_modules[0].visual_type = visualType;
+          else request.aplus_modules[0].units[0].visual_type = visualType;
+          expectedPath = target === "module" ? "aplus_modules[0].visual_type" : "aplus_modules[0].units[0].visual_type";
+        }
+        const targetDir = path.join(temp, `capability-${mode}-${visualType}-${target}`);
+        // Exercise the renderer entry point, including incremental selection;
+        // a selection cannot hide a declared unsupported visual in the Spec.
+        const result = await renderFromSpec(request, targetDir, { product_ids: ["IMAGE-01"], aplus_ids: [] });
+        assert.equal(result.status, "VISUAL_CAPABILITY_MISMATCH");
+        assert.equal(result.rendered, false);
+        assert.equal(result.visual_capability_check.mismatches[0].field_path, expectedPath);
+        await assert.rejects(fs.access(targetDir), { code: "ENOENT" });
+      }
+    }
+  }
+  process.env.VISUAL_QUALITY = "ON";
+  for (const declared of [false, true]) {
+    const request = clone(renderSpec);
+    if (declared) {
+      request.product_images[0].visual_type = "official_packshot";
+      request.product_images[1].visual_type = "information_graphic";
+    }
+    const targetDir = path.join(temp, declared ? "declared-template-render" : "legacy-template-render");
+    await fs.mkdir(path.join(targetDir, "assets"), { recursive: true });
+    await fs.writeFile(path.join(targetDir, "assets/product.svg"), '<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect x="25" y="10" width="50" height="80" fill="#777"/></svg>');
+    const result = await renderFromSpec(request, targetDir);
+    assert.equal(result.status, "Rendered");
+    assert.equal(result.rendered, true);
+    for (const item of request.product_images) {
+      const jpeg = await fs.readFile(path.join(targetDir, item.outputs.jpeg));
+      assert.equal(jpeg.readUInt16BE(0), 0xffd8);
+    }
+    const manifest = JSON.parse(await fs.readFile(path.join(targetDir, "reports/visual_production_manifest.json"), "utf8"));
+    assert.equal(manifest.visual_capability_check.status, "NO_EXPLICIT_CAPABILITY_MISMATCH");
+    assert.match(manifest.visual_capability_check.scope, /Legacy records without visual_type are not covered/);
+    assert.deepEqual(manifest.visual_capability_check.undeclared_visual_type_ids, declared ? [] : ["IMAGE-01", "IMAGE-02"]);
+    assert.equal(request.publish_gate.status, "BLOCKED");
+  }
+} finally {
+  if (visualQualityEnv === undefined) delete process.env.VISUAL_QUALITY;
+  else process.env.VISUAL_QUALITY = visualQualityEnv;
+}
+
+// Build a structurally valid full Spec through the production builder, then
+// exercise the real CLI, including refresh/validation and persisted Spec read.
+const cliFixtureDir = path.join(temp, "cli-fixture");
+await fs.mkdir(cliFixtureDir, { recursive: true });
+await fs.writeFile(path.join(cliFixtureDir, "placeholder.svg"), '<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect width="100" height="100" fill="#ddd"/></svg>');
+const cliInput = {
+  meta: { market: "JP", productAssetOrigin: "Internal Placeholder", externalPublishReady: false },
+  product: { name: "CLI Regression Fixture", brand: "Regression", category: "Synthetic fixture", mainImage: "placeholder.svg", productBodyAiGenerated: false },
+  strategy: { coreValue: "回帰テスト", heroSellingPoint: { feature: "構造確認", status: "Need Verification" } },
+  titles: { main: "回帰テスト", recommendedKey: "main" },
+  bullets: Array.from({ length: 5 }, () => ({ headline: "確認", body: "構造テスト用です。" })),
+  images: STAGES.map(([stage], index) => ({ id: `IMAGE-0${index + 1}`, stage, headline: index === 0 ? "" : "確認", subcopy: "構造テスト用です。" })),
+  aplusModules: Array.from({ length: 7 }, (_, index) => ({ id: `APLUS-M0${index + 1}`, purpose: "構造確認", units: [{ id: `APLUS-U0${index + 1}`, stage: STAGES[index][0], headline: "確認", copy: "構造テスト用です。" }] })),
+  journey: STAGES.map(([id, label, question]) => ({ id, label, question })),
+  comparison: {}, seo: {}, faq: Array.from({ length: 8 }, (_, index) => ({ question: `構造テスト${index + 1}ですか。`, answer: "回帰テスト用の合成データです。" })),
+  claims: [], sources: [], assets: [], missingInformation: [],
+};
+assert.deepEqual(validateData(cliInput).errors, []);
+const cliInputFile = path.join(cliFixtureDir, "input.json");
+await fs.writeFile(cliInputFile, JSON.stringify(cliInput));
+const library = await readTemplateLibrary(root);
+const cliBaseSpec = await buildProductPageSpec(cliInput, cliInputFile, path.join(cliFixtureDir, "built"), library, "internal-test");
+assert.deepEqual(validateSpec(cliBaseSpec, library), []);
+assert.equal(cliBaseSpec.human_gates.final_render_authorized, true);
+assert.equal(cliBaseSpec.publish_gate.status, "BLOCKED");
+for (const record of [...cliBaseSpec.product_images, ...cliBaseSpec.aplus_modules, ...cliBaseSpec.aplus_modules.flatMap((module) => module.units)]) {
+  assert.equal(Object.hasOwn(record, "visual_type"), false, "Undeclared legacy input must not acquire an inferred visual_type");
+}
+const cliTypeLocations = [
+  { target: "gallery", inputRecord: (input) => input.images[1], specRecord: (spec) => spec.product_images[1], fieldPath: "product_images[1].visual_type" },
+  { target: "module", inputRecord: (input) => input.aplusModules[0], specRecord: (spec) => spec.aplus_modules[0], fieldPath: "aplus_modules[0].visual_type" },
+  { target: "unit", inputRecord: (input) => input.aplusModules[0].units[0], specRecord: (spec) => spec.aplus_modules[0].units[0], fieldPath: "aplus_modules[0].units[0].visual_type" },
+];
+for (const visualType of ["commercial_scene", "mechanism_visual"]) {
+  for (const { target, inputRecord, specRecord, fieldPath } of cliTypeLocations) {
+    const declaredInput = clone(cliInput);
+    inputRecord(declaredInput).visual_type = visualType;
+    const request = await buildProductPageSpec(declaredInput, cliInputFile, path.join(cliFixtureDir, `built-${target}-${visualType}`), library, "internal-test");
+    assert.equal(specRecord(request).visual_type, visualType);
+    refreshSpec(request, library);
+    assert.equal(specRecord(request).visual_type, visualType);
+    assert.deepEqual(validateSpec(request, library), []);
+    const specFile = path.join(cliFixtureDir, `${target}-${visualType}.json`);
+    const cliOutput = path.join(temp, `cli-${target}-${visualType}`);
+    await fs.writeFile(specFile, JSON.stringify(request));
+    const child = spawnSync(process.execPath, [path.join(root, "scripts/render_from_spec.mjs"), "--spec", specFile, "--output", cliOutput], { encoding: "utf8", timeout: 30000 });
+    assert.ifError(child.error);
+    assert.equal(child.status, 1, child.stderr);
+    assert.equal(child.stdout.trim(), "");
+    const result = JSON.parse(child.stderr);
+    assert.equal(result.structural_gate, "Pass");
+    assert.equal(result.render, "VISUAL_CAPABILITY_MISMATCH");
+    assert.equal(result.rendered, false);
+    assert.match(result.reason, /no completed-artwork input path/);
+    assert.equal(result.visual_capability_check.mismatches[0].visual_type, visualType);
+    assert.equal(result.visual_capability_check.mismatches[0].field_path, fieldPath);
+    assert.equal(result.workbooks, 0);
+    assert.equal(result.publish_gate, "BLOCKED");
+    const persisted = JSON.parse(await fs.readFile(path.join(cliOutput, "spec/PRODUCT_PAGE_SPEC.json"), "utf8"));
+    assert.deepEqual(validateSpec(persisted, library), []);
+    assert.equal(specRecord(persisted).visual_type, visualType);
+    assert.deepEqual(await fs.readdir(cliOutput), ["spec"]);
+  }
+}
+
+async function assertNoFinalVisualOutputs(outputDir) {
+  for (const relative of ["design/product_images", "design/aplus", "workbooks", "final", "export"]) {
+    await assert.rejects(fs.access(path.join(outputDir, relative)), { code: "ENOENT" });
+  }
+}
+
+const generatedSpecs = {};
+for (const visualType of ["commercial_scene", "mechanism_visual"]) {
+  const declaredInput = clone(cliInput);
+  for (const { inputRecord } of cliTypeLocations) inputRecord(declaredInput).visual_type = visualType;
+  assert.deepEqual(validateData(declaredInput).errors, []);
+  const inputFile = path.join(cliFixtureDir, `raw-${visualType}.json`);
+  const outputDir = path.join(temp, `generate-${visualType}`);
+  await fs.writeFile(inputFile, JSON.stringify(declaredInput));
+  const child = spawnSync(process.execPath, [path.join(root, "scripts/generate_pdp.mjs"), "--input", inputFile, "--output", outputDir, "--gate-mode", "internal-test"], { encoding: "utf8", timeout: 30000 });
+  assert.ifError(child.error);
+  assert.equal(child.status, 1, child.stderr);
+  assert.equal(child.stdout.trim(), "");
+  const result = JSON.parse(child.stderr);
+  assert.equal(result.structural_gate, "Pass");
+  assert.equal(result.status, "VISUAL_CAPABILITY_MISMATCH");
+  assert.equal(result.rendered, false);
+  assert.equal(result.workbooks, 0);
+  assert.equal(result.visual_capability_check.mismatches.length, 3);
+  const specFile = path.join(outputDir, "spec/PRODUCT_PAGE_SPEC.json");
+  const persisted = JSON.parse(await fs.readFile(specFile, "utf8"));
+  assert.deepEqual(validateSpec(persisted, library), []);
+  for (const { specRecord } of cliTypeLocations) assert.equal(specRecord(persisted).visual_type, visualType);
+  const report = JSON.parse(await fs.readFile(path.join(outputDir, "qa/generation.json"), "utf8"));
+  assert.equal(report.status, "VISUAL_CAPABILITY_MISMATCH");
+  await assertNoFinalVisualOutputs(outputDir);
+  generatedSpecs[visualType] = { spec: persisted, specFile };
+}
+
+// A matching, passing synthetic browser-QA record must reach the capability
+// guard without turning PROJECT_STATE.qa_status into pass.
+const attachDir = path.join(temp, "attach-qa-capability");
+const attachSource = generatedSpecs.commercial_scene;
+const qaFile = path.join(cliFixtureDir, "browser-qa.json");
+await fs.writeFile(qaFile, JSON.stringify({ status: "Pass", spec_sha256: attachSource.spec.meta.spec_sha256, checked_at: "2026-08-19", pages: { mobile: { viewport: "390x844", root_width: 390, document_width: 390, overflow_nodes: [] } } }));
+const attachState = await readProjectState(attachDir);
+attachState.qa_status = "pending_browser_qa";
+await writeProjectState(attachDir, attachState);
+const attachChild = spawnSync(process.execPath, [path.join(root, "scripts/attach_browser_qa.mjs"), "--spec", attachSource.specFile, "--output", attachDir, "--qa", qaFile], { encoding: "utf8", timeout: 30000 });
+assert.ifError(attachChild.error);
+assert.equal(attachChild.status, 1, attachChild.stderr);
+assert.equal(attachChild.stdout.trim(), "");
+const attachResult = JSON.parse(attachChild.stderr);
+assert.equal(attachResult.status, "VISUAL_CAPABILITY_MISMATCH");
+assert.equal(attachResult.workbooks, 0);
+assert.equal(attachResult.project_state_qa, "blocked_visual_capability");
+const attachedSpec = JSON.parse(await fs.readFile(path.join(attachDir, "spec/PRODUCT_PAGE_SPEC.json"), "utf8"));
+assert.deepEqual(validateSpec(attachedSpec, library), []);
+assert.equal(attachedSpec.quality_evidence.mobile.validated_spec_sha256, attachSource.spec.meta.spec_sha256);
+assert.equal(attachedSpec.quality_evidence.mobile.status, "Pass");
+const attachedState = await readProjectState(attachDir);
+assert.equal(attachedState.qa_status, "blocked_visual_capability");
+assert.equal(attachedState.publish_gate, "blocked");
+await assertNoFinalVisualOutputs(attachDir);
+
+// PRODUCE receives valid internal approvals and the real sequence lock mirrored
+// into state; no --force or bypass of its structural/Story/Layout gates is used.
+const produceDir = path.join(temp, "produce-capability");
+const produceSpec = clone(generatedSpecs.mechanism_visual.spec);
+lockStorySequence(produceSpec, { lockedBy: "Regression — Internal QA", lockedOn: "2026-08-19" });
+refreshSpec(produceSpec, library);
+assert.deepEqual(validateSpec(produceSpec, library), []);
+await writeSpecBundle(produceSpec, produceDir);
+const produceState = await readProjectState(produceDir);
+Object.assign(produceState, { current_phase: "design", know_status: "complete", reference_mode: "OFF", reference_status: "disabled", plan_status: "complete", story_gate: "approved_internal_test", story_sequence_locked: true, story_sequence_fingerprint: produceSpec.story_sequence_lock.fingerprint, design_status: "complete", layout_gate: "approved_internal_test" });
+assert.equal(assertStorySequenceStateIntegrity(produceSpec, produceState).pass, true);
+assert.match(produceSpec.human_gates.story_approval.status, /^Approved/);
+assert.match(produceSpec.human_gates.layout_approval.status, /^Approved/);
+await writeProjectState(produceDir, produceState);
+const produceChild = spawnSync(process.execPath, [path.join(root, "scripts/run_phase.mjs"), "--output", produceDir, "--phase", "produce"], { encoding: "utf8", timeout: 30000 });
+assert.ifError(produceChild.error);
+assert.equal(produceChild.status, 1, produceChild.stderr);
+assert.equal(produceChild.stdout.trim(), "");
+const produceResult = JSON.parse(produceChild.stderr);
+assert.equal(produceResult.status, "blocked");
+assert.match(produceResult.error, /^VISUAL_CAPABILITY_MISMATCH:/);
+assert.deepEqual(produceResult.force_warnings, []);
+const stoppedState = await readProjectState(produceDir);
+assert.equal(stoppedState.produce_status, "blocked");
+assert.equal(stoppedState.qa_status, "blocked_visual_capability");
+assert.equal(stoppedState.publish_gate, "blocked");
+assert.equal(stoppedState.story_sequence_fingerprint, produceSpec.story_sequence_lock.fingerprint);
+await assertNoFinalVisualOutputs(produceDir);
+
 lockStorySequence(storySpec, { lockedBy: "Regression", lockedOn: "2026-08-19" });
 assert.throws(() => assertStoryMutationAllowed(storySpec, "REORDER"), /Story Sequence Lock BLOCKED REORDER/);
 const reordered = clone(storySpec);
@@ -131,6 +388,13 @@ console.log(JSON.stringify({
   status: "PASS",
   story_lock_negative: "PASS",
   fake_rating: "PASS",
+  visual_quality_not_auto_approved: "PASS",
+  explicit_visual_capability_guard: "PASS",
+  cli_visual_capability_exit: "PASS",
+  raw_input_builder_capability: "PASS",
+  attach_qa_capability_exit: "PASS",
+  produce_capability_exit: "PASS",
+  legacy_and_template_render_entry: "PASS",
   placeholder_provenance: "PASS",
   external_reference: "PASS",
   publish_blocked: "PASS",

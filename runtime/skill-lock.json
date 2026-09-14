@@ -75,7 +75,7 @@
       "name": "jp-commerce-content-flow",
       "role": "user_entry_japan_commerce_content",
       "repository_path": "skills/jp-commerce-content-flow",
-      "repository_tree_hash": "ad5b8219edd74fdb59d22e3dbc1feb05d223c1fa7bff5917a6a2a26f54c6bd7b",
+      "repository_tree_hash": "46bc353144681802415a29234c96163c32da12207161225a7a1829eff90710c3",
       "required_runtime_files": [
         "SKILL.md",
         "agents/openai.yaml",

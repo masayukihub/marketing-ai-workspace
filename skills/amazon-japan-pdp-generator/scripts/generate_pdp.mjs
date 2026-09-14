@@ -5,7 +5,6 @@ import { fileURLToPath } from "node:url";
 import { validateData } from "./pdp_lib.mjs";
 import { buildProductPageSpec, parseArgs, readSpec, readTemplateLibrary, validateSpec, writeSpecBundle } from "./spec_system.mjs";
 import { renderFromSpec } from "./render_v4.mjs";
-import { renderWorkbooksFromSpec } from "./workbook_renderer.mjs";
 
 const args = parseArgs(process.argv);
 if (!args.input || !args.output) {
@@ -37,6 +36,13 @@ await writeSpecBundle(spec, outputDir);
 // Downstream renderers reload the persisted Spec. The input object is never used again.
 const persistedSpec = await readSpec(path.join(outputDir, "spec", "PRODUCT_PAGE_SPEC.json"));
 const renderResult = await renderFromSpec(persistedSpec, outputDir);
+if (renderResult.status === "VISUAL_CAPABILITY_MISMATCH") {
+  const report = { structural_gate: "Pass", publish_gate: persistedSpec.publish_gate.status, ...renderResult, workbooks: 0, spec_sha256: persistedSpec.meta.spec_sha256 };
+  await fs.writeFile(path.join(outputDir, "qa", "generation.json"), `${JSON.stringify(report, null, 2)}\n`, "utf8");
+  console.error(JSON.stringify(report, null, 2));
+  process.exit(1);
+}
+const { renderWorkbooksFromSpec } = await import("./workbook_renderer.mjs");
 const workbooks = await renderWorkbooksFromSpec(persistedSpec, outputDir);
 const report = {
   structural_gate: "Pass",

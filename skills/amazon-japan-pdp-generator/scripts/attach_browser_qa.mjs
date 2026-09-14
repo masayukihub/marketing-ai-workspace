@@ -3,7 +3,6 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { readSpec, readTemplateLibrary, refreshSpec, writeSpecBundle, parseArgs } from "./spec_system.mjs";
 import { renderFromSpec } from "./render_v4.mjs";
-import { renderWorkbooksFromSpec } from "./workbook_renderer.mjs";
 import { readProjectState, syncFinalExports, writeProjectState } from "./phase_system.mjs";
 
 const args = parseArgs(process.argv);
@@ -30,6 +29,15 @@ const library = await readTemplateLibrary(skillDir);
 refreshSpec(spec, library);
 await writeSpecBundle(spec, path.resolve(args.output));
 const render = await renderFromSpec(spec, path.resolve(args.output));
+if (render.status === "VISUAL_CAPABILITY_MISMATCH") {
+  const state = await readProjectState(path.resolve(args.output));
+  state.qa_status = "blocked_visual_capability";
+  state.publish_gate = "blocked";
+  await writeProjectState(path.resolve(args.output), state);
+  console.error(JSON.stringify({ ...render, workbooks: 0, project_state_qa: state.qa_status }, null, 2));
+  process.exit(1);
+}
+const { renderWorkbooksFromSpec } = await import("./workbook_renderer.mjs");
 const workbooks = await renderWorkbooksFromSpec(spec, path.resolve(args.output));
 const exports = await syncFinalExports(spec, path.resolve(args.output));
 const state = await readProjectState(path.resolve(args.output));

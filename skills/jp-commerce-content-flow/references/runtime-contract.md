@@ -33,6 +33,12 @@ affected_asset_ids: []
 
 不得在下游静默补写上游决策。
 
+## 画面类型与制作能力
+
+Production Handoff 额外传递 `visual_type`、实际看过的参考及视觉证据任务，详见 [商业画面制作](../../amazon-listing-creative/references/commercial-visual-production.md)。运行记录同时写 requested visual type、实际 Renderer/工具、输入输出和替代行为。
+
+模板/排字/预览 Renderer 不等于摄影或机理 CG 生产服务。具备 Layout ID 或输出 PNG，不证明它能完成指定镜头、场景融合和部件动作。不具备能力时明确 `VISUAL_CAPABILITY_MISMATCH`，将缺口交回 Production；不能静默输出信息图后继续宣称商业成片达标。外部制作或自写脚本若被采用，也必须如实记录其身份并接受同一代表图检查，不继承未执行 Runtime 的通过状态。
+
 ## 状态与恢复
 
 正式状态至少保留：

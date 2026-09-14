@@ -205,10 +205,18 @@ def main() -> int:
     checking.add_argument("--scope", choices=["full", "gallery", "aplus"], required=True)
     checking.add_argument("--spec", type=Path, required=True)
     checking.add_argument("--output-dir", type=Path, required=True)
+    visual = sub.add_parser("visual-check", help="Read-only visual-contract and review-evidence check; no visual approval")
+    visual.add_argument("--contract", type=Path, required=True)
+    visual.add_argument("--output-dir", type=Path, required=True)
     args = parser.parse_args()
     try:
         if args.command == "route":
             result = route(args.scope, args.intent)
+        elif args.command == "visual-check":
+            from visual_contract import check_file, exit_code
+            result = check_file(args.contract, args.output_dir)
+            print(json.dumps(result, ensure_ascii=False, indent=2))
+            return exit_code(result)
         else:
             raw = args.spec.read_bytes()
             spec = json.loads(raw)
