@@ -60,8 +60,13 @@
 - Benefit:
 - Evidence:
 - Visual Concept:
+- Visual Type / Viewed Reference:
+- Visual Proof — Object / Action / Visible Result:
+- Production Method / Capability Gap:
 - Key Visual Elements:
 - Composition / Reading Order:
+- Camera Match / Lighting / Contact / Occlusion:
+- Effect Origin / Contact Surface / Endpoint:
 - Product Lock:
 - H1:
 - Support Copy:
@@ -132,6 +137,7 @@
 - Negative Constraints:
 - Real Asset Overlay:
 - Manual QA:
+- Representative Image vs Viewed Reference — Type / Integration / Visible Mechanism:
 ```
 
 ## AI 图片提示词
@@ -159,7 +165,7 @@ Art direction:
 [brand style, palette, lighting, realism, mood, aspect ratio]
 
 Allowed changes:
-[background, camera angle, lighting, approved props]
+[background, lighting and approved props; match the camera to an existing official product view]
 
 Do not:
 - change the product design, SKU, proportions, materials, colors, controls, ports, or accessories
@@ -170,6 +176,8 @@ Do not:
 ```
 
 若画面需要真实 UI、参数、图表、认证、包装文字或法律说明，将其列入 `Post-production Overlay`，并使用原始资产叠加。
+
+上面是完整画面的制作 Brief，不是允许 image model 重画产品的授权。传给图片服务时按实际工具能力拆成匹配官方机位的空场景和独立效果请求；产品层仍来自官方素材。正式 CG/剖透需要批准的几何来源。先决定作用过程和镜头，再留文字空间，不默认生成白顶栏海报。详见 [商业画面制作](commercial-visual-production.md)。
 
 ## 评分与推荐
 
@@ -190,4 +198,4 @@ Do not:
 - Confidence: High / Medium / Low
 ```
 
-评分只用于比较方向，不能替代事实门槛。`Product Accuracy` 或 `Evidence Strength` 有硬伤时，Gate 必须为 `Blocked` 或 `Revise`。
+这些分数仅用于标明依据的方向预估，CTR Potential 不等于实测 CTR。未实际查看成片时写 `NOT_VISUALLY_REVIEWED`，不能预填固定高分或 Pass。实际视觉比较记录观察、参考和文件，不用平均分覆盖类型错误；`Product Accuracy` 或 `Evidence Strength` 有硬伤时，Gate 必须为 `Blocked` 或 `Revise`。

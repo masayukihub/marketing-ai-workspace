@@ -4,10 +4,13 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { spawnSync } from "node:child_process";
 import { buildAssetProvenance, classifyAssetSource } from "../scripts/asset_provenance.mjs";
 import { blockFinalOutputs, syncFinalExports } from "../scripts/phase_system.mjs";
-import { ratingDisplayModel } from "../scripts/render_v4.mjs";
+import { ratingDisplayModel, renderFromSpec } from "../scripts/render_v4.mjs";
 import { assertStoryMutationAllowed, assertStorySequenceIntegrity, assertStorySequenceStateIntegrity, lockStorySequence, storySequenceFingerprint } from "../scripts/story_sequence_lock.mjs";
+import { brandFitAssessment, templateFeelingAssessment, visualQualityManifest, visualRhythmScore } from "../scripts/visual_quality_system.mjs";
+import { buildProductPageSpec, readTemplateLibrary, refreshSpec, STAGES, validateSpec } from "../scripts/spec_system.mjs";
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const clone = (value) => JSON.parse(JSON.stringify(value));
@@ -18,6 +21,154 @@ const storySpec = {
   product_images: Array.from({ length: 7 }, (_, index) => ({ id: `IMAGE-${String(index + 1).padStart(2, "0")}`, sequence: index + 1, stage: `stage-${index + 1}` })),
   aplus_modules: Array.from({ length: 7 }, (_, index) => ({ id: `APLUS-M${String(index + 1).padStart(2, "0")}`, sequence: index + 1, units: [{ id: `APLUS-U${String(index + 1).padStart(2, "0")}`, stage: `stage-${index + 1}` }] })),
 };
+
+// Even a complete set of varied profile tags cannot review pixels or approve
+// commercial artwork. ON/OFF must not manufacture a brand score or LOW risk.
+for (const mode of ["ON", "OFF"]) {
+  const brand = brandFitAssessment(mode);
+  assert.equal(brand.visual_review_status, "NOT_VISUALLY_REVIEWED");
+  assert.equal(brand.score, null);
+  assert.equal(brand.risk, "NOT_VISUALLY_REVIEWED");
+  assert.ok(Object.values(brand.dimensions).every((value) => value === null));
+  const feeling = templateFeelingAssessment(mode);
+  assert.equal(feeling.visual_review_status, "NOT_VISUALLY_REVIEWED");
+  for (const key of ["overall_risk", "gallery_risk", "aplus_risk"]) assert.equal(feeling[key], "NOT_VISUALLY_REVIEWED");
+  assert.deepEqual(feeling.signals, []);
+}
+const qualityManifest = visualQualityManifest(storySpec);
+assert.equal(qualityManifest.visual_review_status, "NOT_VISUALLY_REVIEWED");
+assert.equal(qualityManifest.brand_fit.score, null);
+assert.equal(qualityManifest.template_feeling.overall_risk, "NOT_VISUALLY_REVIEWED");
+const rhythm = visualRhythmScore(qualityManifest);
+assert.ok(Number.isFinite(rhythm.score));
+assert.match(rhythm.score_scope, /STRUCTURAL_HEURISTIC.*not rendered-image quality/);
+assert.equal(rhythm.visual_review_status, "NOT_VISUALLY_REVIEWED");
+
+const renderSpec = {
+  meta: { spec_sha256: "production-safety-render-fixture" },
+  strategy: { coreValue: "Synthetic render regression" },
+  product: { name: "Synthetic render regression", main_asset: "assets/product.svg" },
+  human_gates: { final_render_authorized: true, story_approval: { status: "Approved — Internal QA" }, layout_approval: { status: "Approved — Internal QA" } },
+  template_library: { source_policy: {}, registered_template_count: 19 },
+  titles: { recommendedKey: "main", main: "Synthetic render regression" },
+  bullets: [], faq: [], sources: [],
+  copy_review: { status: "Draft" },
+  publish_gate: { status: "BLOCKED", sections: {} },
+  asset_resolution_plan: { records: [] },
+  product_images: ["P-MAIN-OFFICIAL", "P-TECHNICAL-PROOF"].map((template_id, index) => ({
+    id: `IMAGE-0${index + 1}`, sequence: index + 1, template_id, headline: "Fixture", sub_copy: "Regression", key_message: "Fixture",
+    layers: { product_layer: { source: "assets/product.svg" }, scene_layer: { source: "" } },
+    template_snapshot: { name: "Regression", grid: {}, safe_area: {}, headline_length: {}, mobile_rules: [] },
+    outputs: { svg: `design/svg/image_0${index + 1}.svg`, wireframe_svg: `design/svg/wireframe_0${index + 1}.svg`, jpeg: `design/product_images/image_0${index + 1}.jpg` },
+    product_body_ai_generated: false, source_origin: "Internal Placeholder", asset_resolution: { product_layer_allowed: false },
+  })),
+  aplus_modules: [],
+};
+const visualQualityEnv = process.env.VISUAL_QUALITY;
+try {
+  for (const mode of ["ON", "OFF"]) {
+    process.env.VISUAL_QUALITY = mode;
+    for (const visualType of ["commercial_scene", "mechanism_visual"]) {
+      for (const target of ["gallery", "module", "unit"]) {
+        const request = clone(renderSpec);
+        let expectedPath;
+        if (target === "gallery") {
+          request.product_images[1].visual_type = visualType;
+          expectedPath = "product_images[1].visual_type";
+        } else {
+          request.aplus_modules = [{ id: "APLUS-M01", template_id: "A-50-50-FEATURE", units: [{ id: "APLUS-U01" }] }];
+          if (target === "module") request.aplus_modules[0].visual_type = visualType;
+          else request.aplus_modules[0].units[0].visual_type = visualType;
+          expectedPath = target === "module" ? "aplus_modules[0].visual_type" : "aplus_modules[0].units[0].visual_type";
+        }
+        const targetDir = path.join(temp, `capability-${mode}-${visualType}-${target}`);
+        // Exercise the renderer entry point, including incremental selection;
+        // a selection cannot hide a declared unsupported visual in the Spec.
+        const result = await renderFromSpec(request, targetDir, { product_ids: ["IMAGE-01"], aplus_ids: [] });
+        assert.equal(result.status, "VISUAL_CAPABILITY_MISMATCH");
+        assert.equal(result.rendered, false);
+        assert.equal(result.visual_capability_check.mismatches[0].field_path, expectedPath);
+        await assert.rejects(fs.access(targetDir), { code: "ENOENT" });
+      }
+    }
+  }
+  process.env.VISUAL_QUALITY = "ON";
+  for (const declared of [false, true]) {
+    const request = clone(renderSpec);
+    if (declared) {
+      request.product_images[0].visual_type = "official_packshot";
+      request.product_images[1].visual_type = "information_graphic";
+    }
+    const targetDir = path.join(temp, declared ? "declared-template-render" : "legacy-template-render");
+    await fs.mkdir(path.join(targetDir, "assets"), { recursive: true });
+    await fs.writeFile(path.join(targetDir, "assets/product.svg"), '<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect x="25" y="10" width="50" height="80" fill="#777"/></svg>');
+    const result = await renderFromSpec(request, targetDir);
+    assert.equal(result.status, "Rendered");
+    assert.equal(result.rendered, true);
+    for (const item of request.product_images) {
+      const jpeg = await fs.readFile(path.join(targetDir, item.outputs.jpeg));
+      assert.equal(jpeg.readUInt16BE(0), 0xffd8);
+    }
+    const manifest = JSON.parse(await fs.readFile(path.join(targetDir, "reports/visual_production_manifest.json"), "utf8"));
+    assert.equal(manifest.visual_capability_check.status, "NO_EXPLICIT_CAPABILITY_MISMATCH");
+    assert.match(manifest.visual_capability_check.scope, /Legacy records without visual_type are not covered/);
+    assert.deepEqual(manifest.visual_capability_check.undeclared_visual_type_ids, declared ? [] : ["IMAGE-01", "IMAGE-02"]);
+    assert.equal(request.publish_gate.status, "BLOCKED");
+  }
+} finally {
+  if (visualQualityEnv === undefined) delete process.env.VISUAL_QUALITY;
+  else process.env.VISUAL_QUALITY = visualQualityEnv;
+}
+
+// Build a structurally valid full Spec through the production builder, then
+// exercise the real CLI, including refresh/validation and persisted Spec read.
+const cliFixtureDir = path.join(temp, "cli-fixture");
+await fs.mkdir(cliFixtureDir, { recursive: true });
+await fs.writeFile(path.join(cliFixtureDir, "placeholder.svg"), '<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect width="100" height="100" fill="#ddd"/></svg>');
+const cliInput = {
+  meta: { market: "JP", productAssetOrigin: "Internal Placeholder", externalPublishReady: false },
+  product: { name: "CLI Regression Fixture", mainImage: "placeholder.svg", productBodyAiGenerated: false },
+  strategy: { coreValue: "回帰テスト" },
+  titles: { main: "回帰テスト", recommendedKey: "main" },
+  bullets: Array.from({ length: 5 }, () => ({ headline: "確認", body: "構造テスト用です。" })),
+  images: STAGES.map(([stage], index) => ({ id: `IMAGE-0${index + 1}`, stage, headline: index === 0 ? "" : "確認", subcopy: "構造テスト用です。" })),
+  aplusModules: Array.from({ length: 7 }, (_, index) => ({ id: `APLUS-M0${index + 1}`, purpose: "構造確認", units: [{ id: `APLUS-U0${index + 1}`, headline: "確認", copy: "構造テスト用です。" }] })),
+  journey: [], comparison: {}, seo: {}, faq: [], claims: [], sources: [],
+};
+const cliInputFile = path.join(cliFixtureDir, "input.json");
+await fs.writeFile(cliInputFile, JSON.stringify(cliInput));
+const library = await readTemplateLibrary(root);
+const cliBaseSpec = await buildProductPageSpec(cliInput, cliInputFile, path.join(cliFixtureDir, "built"), library, "internal-test");
+assert.deepEqual(validateSpec(cliBaseSpec, library), []);
+assert.equal(cliBaseSpec.human_gates.final_render_authorized, true);
+assert.equal(cliBaseSpec.publish_gate.status, "BLOCKED");
+for (const visualType of ["commercial_scene", "mechanism_visual"]) {
+  const request = clone(cliBaseSpec);
+  request.product_images[1].visual_type = visualType;
+  refreshSpec(request, library);
+  assert.deepEqual(validateSpec(request, library), []);
+  const specFile = path.join(cliFixtureDir, `${visualType}.json`);
+  const cliOutput = path.join(temp, `cli-${visualType}`);
+  await fs.writeFile(specFile, JSON.stringify(request));
+  const child = spawnSync(process.execPath, [path.join(root, "scripts/render_from_spec.mjs"), "--spec", specFile, "--output", cliOutput], { encoding: "utf8", timeout: 30000 });
+  assert.ifError(child.error);
+  assert.equal(child.status, 1, child.stderr);
+  assert.equal(child.stdout.trim(), "");
+  const result = JSON.parse(child.stderr);
+  assert.equal(result.structural_gate, "Pass");
+  assert.equal(result.render, "VISUAL_CAPABILITY_MISMATCH");
+  assert.equal(result.rendered, false);
+  assert.match(result.reason, /no completed-artwork input path/);
+  assert.equal(result.visual_capability_check.mismatches[0].visual_type, visualType);
+  assert.equal(result.visual_capability_check.mismatches[0].field_path, "product_images[1].visual_type");
+  assert.equal(result.workbooks, 0);
+  assert.equal(result.publish_gate, "BLOCKED");
+  const persisted = JSON.parse(await fs.readFile(path.join(cliOutput, "spec/PRODUCT_PAGE_SPEC.json"), "utf8"));
+  assert.deepEqual(validateSpec(persisted, library), []);
+  assert.equal(persisted.product_images[1].visual_type, visualType);
+  assert.deepEqual(await fs.readdir(cliOutput), ["spec"]);
+}
+
 lockStorySequence(storySpec, { lockedBy: "Regression", lockedOn: "2026-08-19" });
 assert.throws(() => assertStoryMutationAllowed(storySpec, "REORDER"), /Story Sequence Lock BLOCKED REORDER/);
 const reordered = clone(storySpec);
@@ -131,6 +282,10 @@ console.log(JSON.stringify({
   status: "PASS",
   story_lock_negative: "PASS",
   fake_rating: "PASS",
+  visual_quality_not_auto_approved: "PASS",
+  explicit_visual_capability_guard: "PASS",
+  cli_visual_capability_exit: "PASS",
+  legacy_and_template_render_entry: "PASS",
   placeholder_provenance: "PASS",
   external_reference: "PASS",
   publish_blocked: "PASS",

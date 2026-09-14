@@ -326,10 +326,41 @@ async function writeReports(spec, outputDir, manifest) {
   if (manifest.visual_quality) await fs.writeFile(path.join(reports,"VISUAL_QUALITY_MANIFEST.json"),`${JSON.stringify(manifest.visual_quality,null,2)}\n`,"utf8");
 }
 
+function checkVisualCapability(spec) {
+  // All current paths compose fixed templates from product/scene layers. None
+  // accepts a completed commercial artwork master without recomposing it.
+  const unsupportedTypes = new Set(["commercial_scene", "mechanism_visual"]);
+  const records = [
+    ...(spec.product_images || []).map((record, index) => ({ record, field_path: `product_images[${index}].visual_type` })),
+    ...(spec.aplus_modules || []).flatMap((module, index) => [
+      { record: module, field_path: `aplus_modules[${index}].visual_type` },
+      ...(module.units || []).map((record, unitIndex) => ({ record, field_path: `aplus_modules[${index}].units[${unitIndex}].visual_type`, template_id: module.template_id })),
+    ]),
+  ];
+  const mismatches = records
+    .filter(({ record }) => unsupportedTypes.has(String(record.visual_type || "").trim().toLowerCase()))
+    .map(({ record, field_path, template_id }) => ({ visual_id: record.id, field_path, visual_type: record.visual_type, template_id: template_id || record.template_id }));
+  return {
+    status: mismatches.length ? "VISUAL_CAPABILITY_MISMATCH" : "NO_EXPLICIT_CAPABILITY_MISMATCH",
+    scope: "Checks explicit commercial_scene and mechanism_visual declarations only. Legacy records without visual_type are not covered.",
+    undeclared_visual_type_ids: records.filter(({ record }) => !record.visual_type).map(({ record }) => record.id),
+    mismatches,
+  };
+}
+
 export async function renderFromSpec(spec, outputDir, selection = null) {
+  const visualCapability = checkVisualCapability(spec);
+  if (visualCapability.mismatches.length) {
+    return {
+      status: "VISUAL_CAPABILITY_MISMATCH",
+      rendered: false,
+      reason: "The current renderer only composes fixed templates and has no completed-artwork input path for the declared visual type. No template fallback was rendered.",
+      visual_capability_check: visualCapability,
+    };
+  }
   await writeReviewPages(spec, outputDir);
   if (!spec.human_gates.final_render_authorized) {
-    return { status: "Stopped at Layout Approval", rendered: false, reason: spec.human_gates.layout_approval.status };
+    return { status: "Stopped at Layout Approval", rendered: false, reason: spec.human_gates.layout_approval.status, visual_capability_check: visualCapability };
   }
   const { default: sharp } = await import("sharp");
   assertRendererCoverage([...spec.product_images.map((item) => item.template_id), ...spec.aplus_modules.map((module) => module.template_id)]);
@@ -337,7 +368,7 @@ export async function renderFromSpec(spec, outputDir, selection = null) {
   const selectedAplusIds = selection ? new Set(selection.aplus_ids || []) : null;
   const visualQuality = visualQualityEnabled();
   const qualityManifest = visualQuality ? visualQualityManifest(spec) : null;
-  const manifest = { schema_version:"4.0",derived_from:"spec/PRODUCT_PAGE_SPEC.json",spec_sha256:spec.meta.spec_sha256,visual_quality_mode:visualQuality?"ON":"OFF",visual_quality:qualityManifest,product_images:[],aplus_modules:[],layer_policy:spec.template_library.source_policy };
+  const manifest = { schema_version:"4.0",derived_from:"spec/PRODUCT_PAGE_SPEC.json",spec_sha256:spec.meta.spec_sha256,visual_quality_mode:visualQuality?"ON":"OFF",visual_quality:qualityManifest,visual_capability_check:visualCapability,product_images:[],aplus_modules:[],layer_policy:spec.template_library.source_policy };
   for (const item of spec.product_images) {
     const productPath = item.layers.product_layer.source;
     const scenePath = item.layers.scene_layer.source;

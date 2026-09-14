@@ -60,6 +60,10 @@ export function visualQualityManifest(spec) {
   return {
     schema_version: "1.0",
     mode: "ON",
+    visual_review_status: "NOT_VISUALLY_REVIEWED",
+    assessment_scope: "Declared renderer parameters only; rendered artwork and references have not been visually compared.",
+    brand_fit: brandFitAssessment("ON"),
+    template_feeling: templateFeelingAssessment("ON"),
     principle: "Parameterize the existing 19 Layout Primitives; never change Story, Claims, Reference decisions, assets or sequence.",
     product_semantic_context_sha256: semanticContext.context_sha256,
     semantic_category: semanticContext.category_id,
@@ -140,40 +144,39 @@ export function visualRhythmScore(manifest) {
   };
   const score = Object.values(components).reduce((sum, value) => sum + value, 0);
   const warnings = detectRhythmWarnings(manifest);
-  return { score, components, warnings, evidence: { unique_roles: [...roles], background_longest_run: backgroundRun, layout_longest_run: layoutRun, product_position_longest_run: positionRun, high_density_longest_run: highRun, product_scales: [...scales], card_heavy_aplus_modules: cardHeavy, mobile_layout_families: [...mobileFamilies] } };
+  return { score, score_scope: "STRUCTURAL_HEURISTIC: declared profile tags only, not rendered-image quality or commercial visual approval", visual_review_status: "NOT_VISUALLY_REVIEWED", components, warnings, evidence: { unique_roles: [...roles], background_longest_run: backgroundRun, layout_longest_run: layoutRun, product_position_longest_run: positionRun, high_density_longest_run: highRun, product_scales: [...scales], card_heavy_aplus_modules: cardHeavy, mobile_layout_families: [...mobileFamilies] } };
 }
 
 export function brandFitAssessment(mode = "ON") {
-  const on = String(mode).toUpperCase() === "ON";
+  // Renderer mode is configuration evidence; it cannot establish visual quality.
   const dimensions = {
-    product_first: on ? 90 : 73,
-    smart_but_approachable: on ? 88 : 70,
-    functional_clarity: on ? 91 : 74,
-    japanese_home_fit: on ? 84 : 66,
-    everyday_benefit: on ? 87 : 69,
-    brand_restraint: on ? 92 : 72,
-    ecosystem_consistency: on ? 84 : 76,
-    human_product_balance: on ? 85 : 60,
+    product_first: null,
+    smart_but_approachable: null,
+    functional_clarity: null,
+    japanese_home_fit: null,
+    everyday_benefit: null,
+    brand_restraint: null,
+    ecosystem_consistency: null,
+    human_product_balance: null,
   };
-  const score = Math.round(Object.values(dimensions).reduce((sum, value) => sum + value, 0) / Object.keys(dimensions).length);
   return {
-    score,
-    risk: score >= 85 ? "LOW" : score >= 70 ? "MEDIUM" : "HIGH",
+    mode: String(mode).toUpperCase(),
+    visual_review_status: "NOT_VISUALLY_REVIEWED",
+    score: null,
+    risk: "NOT_VISUALLY_REVIEWED",
     dimensions,
-    basis: on
-      ? "SwitchBot white/mint/warm-neutral tokens, product-led scale, programmatic type, bounded dark contrast, and a late ownership breath."
-      : "Baseline is structurally consistent but relies on repeated rounded cards and a generic mobile card stack; the late A+ closure is visually under-resolved.",
+    basis: "Renderer mode and brand tokens do not prove brand fit. Compare the rendered artwork with the approved references before assigning a visual score or risk.",
   };
 }
 
 export function templateFeelingAssessment(mode = "ON") {
-  const on = String(mode).toUpperCase() === "ON";
   return {
-    overall_risk: on ? "LOW" : "HIGH",
-    gallery_risk: on ? "LOW" : "MEDIUM",
-    aplus_risk: on ? "LOW" : "HIGH",
-    signals: on
-      ? ["Each visual role has a bounded composition family.", "Only the parallel-detail module uses repeated semantic panels.", "Mobile variants preserve role differences instead of one universal card stack."]
-      : ["Rounded white cards recur across proof, detail, comparison and closure.", "All mobile A+ modules use the same title/body/product/card formula.", "The final FAQ module has a large unused field that reads as an unfinished template."],
+    mode: String(mode).toUpperCase(),
+    visual_review_status: "NOT_VISUALLY_REVIEWED",
+    overall_risk: "NOT_VISUALLY_REVIEWED",
+    gallery_risk: "NOT_VISUALLY_REVIEWED",
+    aplus_risk: "NOT_VISUALLY_REVIEWED",
+    signals: [],
+    basis: "Template names and profile variety do not prove visual variety. Inspect the rendered Gallery and A+ sequence, including mobile artwork, before assessing template feeling.",
   };
 }

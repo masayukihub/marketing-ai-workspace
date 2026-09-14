@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0",
+  "_example_notice": "Generic synthetic schema example only. No product facts, source pixels, approvals or image reviews are supplied. Replace template values after actual inspection; this example intentionally returns NEEDS_REVISION.",
+  "references": [
+    {
+      "id": "REF-SCENE",
+      "url": "https://example.invalid/synthetic-scene-reference",
+      "evidence_level": "UNAVAILABLE",
+      "observations": "Synthetic placeholder; no reference pixels were viewed."
+    }
+  ],
+  "assets": [
+    {
+      "id": "SYNTHETIC-SCENE",
+      "visual_type": "commercial_scene",
+      "reference_ids": ["REF-SCENE"],
+      "visual_proof": {
+        "object": "Generic authorized demonstration object",
+        "action": "A hand places the object on a tabletop",
+        "visible_result": "Contact with the tabletop and a coherent shadow are visible"
+      },
+      "production_method": "official_composite",
+      "product_body_source": "official_asset",
+      "geometry_view": "exterior"
+    }
+  ],
+  "anchor_asset_ids": ["SYNTHETIC-SCENE"],
+  "anchor_reviews": [
+    {
+      "asset_id": "SYNTHETIC-SCENE",
+      "file": "anchors/synthetic-scene.png",
+      "sha256": null,
+      "observed_visual_type": "commercial_scene",
+      "reviewer_type": "model",
+      "checks": {
+        "integration": {
+          "status": "NOT_CHECKED",
+          "observation": "Template only: inspect product scale, perspective, hand contact and shadow in the actual file."
+        },
+        "visual_proof": {
+          "status": "NOT_CHECKED",
+          "observation": "Template only: inspect whether object, action and visible result are actually visible."
+        },
+        "reference_match": {
+          "status": "NOT_CHECKED",
+          "observation": "Template only: view source pixels, then describe specific matching and differing features."
+        }
+      }
+    }
+  ]
+}

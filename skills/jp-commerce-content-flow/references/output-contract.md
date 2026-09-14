@@ -26,6 +26,7 @@
 - Whole-set Contact Sheet / Content Review；
 - 素材来源和授权状态；
 - 未解决的Claim与证据缺口。
+- 对商业参考任务，附目标画面类型、代表图实际观察及相应精确文件；类型未匹配时标为需修订，不能只以数量报告视觉完成。
 
 ## HARDEN
 

@@ -9,6 +9,8 @@ Execute every product image and A+ module in this order:
 ```text
 Selling Point
 → Page Role
+→ Visual Type / Viewed Reference
+→ Visual Proof / Camera / Production Method
 → Information Structure
 → Wireframe
 → Japanese Copy Review
@@ -32,6 +34,8 @@ Create `visual_composition_plan.xlsx` before rendering. Include at least:
 |---|---|
 | Visual ID | Image or A+ Module |
 | Role | The single purchase question it answers |
+| Visual Type / Reference Evidence | Packshot, commercial scene, mechanism visual or intentional information graphic; distinguish viewed pixels from DOM-only references |
+| Visual Proof / Production Capability | Object, action, visible result; actual tool, camera match and required assets |
 | Layout / Template | Product Layout MAIN/A–F or A+ SB-A01–SB-A08 |
 | Headline | Selected Japanese Option |
 | Sub Copy | One supporting benefit |
@@ -50,10 +54,12 @@ Create `visual_composition_plan.xlsx` before rendering. Include at least:
 
 Network images are visual references only unless commercial rights are confirmed.
 
+Separation describes editable layers and provenance, not a visibly disconnected collage. Match perspective, light direction, contact shadows and occlusion before adding copy. Effects belong at the verified contact/action area; arrows or a detached splash are not a substitute for the mechanism. Read [commercial visual production](../../amazon-listing-creative/references/commercial-visual-production.md) for reference-led commercial work. Approved geometry is required for cutaway/exploded views; missing geometry is not repaired with invented pipes.
+
 ## Two-round design
 
-- Round 1: render the selected template with real assets and selected copy.
-- Visual Review: check visual center, whitespace, hierarchy, Japanese line breaks, product scale/accuracy, scene dominance and five-second comprehension.
+- Round 1: produce representative artwork using the declared visual type and matching production method, with real assets and selected copy. A fixed template can establish structure but does not by itself create a commercial scene or mechanism render.
+- Visual Review: actually compare the representative artwork with viewed reference images; check type, camera/contact/light integration, action at the correct location, hierarchy and Japanese readability. A direction score or source hash is not this review.
 - Round 2: correct layout, scale, copy density and mobile safe area. Only Round 2 that passes QA enters `design/product_images/` or `design/aplus/`.
 - Preserve Round 1 in `design/editable/round_01/` and editable Final SVG in `design/editable/final/`.
 
@@ -62,13 +68,15 @@ Network images are visual references only unless commercial rights are confirmed
 Reject after Round 2 when any of these remain:
 
 - no fixed Layout / Template ID;
-- more than three information levels or more than four proof items;
+- information levels or proof items compete so the primary action/message cannot be read; item counts are design heuristics, not a substitute for inspecting the artwork;
 - Headline over 28 Japanese characters without an approved exception;
 - excessive supporting copy, broken Japanese wrapping or mobile unreadability;
 - product too small, cropped, distorted, obscured or visually secondary;
 - background competes with the product;
 - product body is AI-generated, AI-redrawn or source is untraceable;
 - user cannot state the image's one message within five seconds.
+- requested commercial/ mechanism visual has silently become an information graphic;
+- effects are detached from the action, or the product appears pasted/floating due to inconsistent contact, camera or light.
 
 Design QA and Publish Gate are independent. A visual may pass design QA but remain `Blocked` because official user-provided assets or approved Claims are missing.
 

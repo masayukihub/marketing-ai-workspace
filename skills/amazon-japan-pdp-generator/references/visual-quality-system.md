@@ -6,6 +6,8 @@ This layer changes only deterministic rendering parameters inside the existing 1
 
 `VISUAL_QUALITY=ON` is the production default. Set `VISUAL_QUALITY=OFF` only for regression or troubleshooting.
 
+This switch is a deterministic layout treatment, not an image-generation or commercial-art-quality service. The manifest records `NOT_VISUALLY_REVIEWED`; brand fit and template feeling remain unassessed until actual artwork is viewed. Structural rhythm heuristics must not be reported as a pixel-based score or acceptance result.
+
 ## Visual Roles
 
 - IMPACT: establish identity or value with dominant focus.
@@ -45,7 +47,7 @@ Until an approved comprehensive Brand Guideline is provided, treat these as infe
 - functional clarity;
 - believable Japanese home scale;
 - everyday benefit after technical explanation;
-- restrained white, mint and warm-neutral expression;
+- restrained white, mint and warm-neutral expression only as a fallback when no task-specific direction/reference is provided; a user's current direction is not overridden by an inferred palette;
 - consistent typography and programmatic Graphic Layer;
 - scene/product balance without AI-generated product bodies.
 
@@ -61,6 +63,8 @@ Reference learning may change information rhythm, but must never import competit
 
 ## Output and QA
 
-ON writes `reports/VISUAL_QUALITY_MANIFEST.json`, including Visual Role and deterministic parameters. The score and Template Feeling assessment are advisory; any Story, Claim, Asset, Mobile, renderer or Publish hard failure remains blocking.
+ON writes `reports/VISUAL_QUALITY_MANIFEST.json`, including Visual Role and deterministic parameters. Structural diagnostics are advisory; appearance remains unassessed until actual image review. Any Story, Claim, Asset, Mobile, renderer or Publish hard failure remains blocking.
+
+For reference-led commercial work, also follow [commercial visual production](../../amazon-listing-creative/references/commercial-visual-production.md). Inspect representative images for type match, product/scene integration and the visible mechanism before expanding the set. `brandFitAssessment()` and `templateFeelingAssessment()` have no image input and cannot supply that judgment. A lower template-feeling risk cannot be inferred merely from enabling this layer.
 
 Required regression freezes Product Brief, Claims, Reference Selection, Story Lock, sequence, Template IDs and Asset Resolution, then compares Baseline vs ON. Browser QA must cover Gallery, full A+, Design Review and Before/After Review at desktop and 390×844.
