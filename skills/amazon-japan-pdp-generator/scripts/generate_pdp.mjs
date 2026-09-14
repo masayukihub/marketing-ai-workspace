@@ -5,7 +5,6 @@ import { fileURLToPath } from "node:url";
 import { validateData } from "./pdp_lib.mjs";
 import { buildProductPageSpec, parseArgs, readSpec, readTemplateLibrary, validateSpec, writeSpecBundle } from "./spec_system.mjs";
 import { renderFromSpec } from "./render_v4.mjs";
-import { renderWorkbooksFromSpec } from "./workbook_renderer.mjs";
 
 const args = parseArgs(process.argv);
 if (!args.input || !args.output) {
@@ -43,6 +42,7 @@ if (renderResult.status === "VISUAL_CAPABILITY_MISMATCH") {
   console.error(JSON.stringify(report, null, 2));
   process.exit(1);
 }
+const { renderWorkbooksFromSpec } = await import("./workbook_renderer.mjs");
 const workbooks = await renderWorkbooksFromSpec(persistedSpec, outputDir);
 const report = {
   structural_gate: "Pass",

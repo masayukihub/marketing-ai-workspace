@@ -16,7 +16,6 @@ import {
   writeSpecBundle,
 } from "./spec_system.mjs";
 import { renderFromSpec, writeLayoutReview, writeStoryReview } from "./render_v4.mjs";
-import { renderWorkbooksFromSpec } from "./workbook_renderer.mjs";
 import { writeReferenceSelection } from "./reference_matcher.mjs";
 import { adaptReferencePlan, referenceTraceMarkdown } from "./reference_decision_adapter.mjs";
 import {
@@ -321,6 +320,7 @@ try {
       state.publish_gate = "blocked";
       throw new Error(`${render.status}: ${render.reason} ${JSON.stringify(render.visual_capability_check.mismatches)}`);
     }
+    const { renderWorkbooksFromSpec } = await import("./workbook_renderer.mjs");
     const workbooks = await renderWorkbooksFromSpec(spec, outputDir);
     const exports = await syncFinalExports(spec, outputDir);
     state.current_phase = "produce";
