@@ -315,6 +315,12 @@ try {
     refreshSpec(spec, library);
     await writeSpecBundle(spec, outputDir);
     const render = await renderFromSpec(spec, outputDir);
+    if (render.status === "VISUAL_CAPABILITY_MISMATCH") {
+      state.produce_status = "blocked";
+      state.qa_status = "blocked_visual_capability";
+      state.publish_gate = "blocked";
+      throw new Error(`${render.status}: ${render.reason} ${JSON.stringify(render.visual_capability_check.mismatches)}`);
+    }
     const workbooks = await renderWorkbooksFromSpec(spec, outputDir);
     const exports = await syncFinalExports(spec, outputDir);
     state.current_phase = "produce";

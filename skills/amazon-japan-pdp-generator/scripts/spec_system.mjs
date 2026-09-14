@@ -515,6 +515,7 @@ export async function buildProductPageSpec(inputData, inputFile, outputDir, libr
     assetRecords.push(resolution);
     productImages.push({
       id: record.id,
+      ...(Object.hasOwn(record, "visual_type") ? { visual_type: record.visual_type } : {}),
       sequence: index + 1,
       stage: record.stage,
       stage_label_cn: STAGES[index][1],
@@ -565,6 +566,7 @@ export async function buildProductPageSpec(inputData, inputFile, outputDir, libr
       assetRecords.push(resolution);
       units.push({
         id: unit.id,
+        ...(Object.hasOwn(unit, "visual_type") ? { visual_type: unit.visual_type } : {}),
         stage: unit.stage,
         purpose: unit.purpose,
         user_question: unit.userQuestion,
@@ -588,6 +590,7 @@ export async function buildProductPageSpec(inputData, inputFile, outputDir, libr
     }
     aplusModules.push({
       id: module.id,
+      ...(Object.hasOwn(module, "visual_type") ? { visual_type: module.visual_type } : {}),
       sequence: index + 1,
       template_id: templateId,
       template_snapshot: byTemplate.get(templateId),

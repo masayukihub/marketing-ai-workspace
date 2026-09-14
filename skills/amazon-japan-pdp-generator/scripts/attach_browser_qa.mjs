@@ -30,6 +30,14 @@ const library = await readTemplateLibrary(skillDir);
 refreshSpec(spec, library);
 await writeSpecBundle(spec, path.resolve(args.output));
 const render = await renderFromSpec(spec, path.resolve(args.output));
+if (render.status === "VISUAL_CAPABILITY_MISMATCH") {
+  const state = await readProjectState(path.resolve(args.output));
+  state.qa_status = "blocked_visual_capability";
+  state.publish_gate = "blocked";
+  await writeProjectState(path.resolve(args.output), state);
+  console.error(JSON.stringify({ ...render, workbooks: 0, project_state_qa: state.qa_status }, null, 2));
+  process.exit(1);
+}
 const workbooks = await renderWorkbooksFromSpec(spec, path.resolve(args.output));
 const exports = await syncFinalExports(spec, path.resolve(args.output));
 const state = await readProjectState(path.resolve(args.output));

@@ -61,7 +61,7 @@
 
 固定模板能验证信息结构；缺少场景、部件、效果和合成能力时，不能自称摄影/机理 CG 生成器。目标类型、实际 Renderer/工具、输入输出、替代方法与能力缺口写入 Run Manifest。若无法按目标制作，报告 `VISUAL_CAPABILITY_MISMATCH` 并定位缺口，不悄悄改成信息图交付。
 
-在现有 PDP Spec 中，将类型写入 `product_images[].visual_type`、`aplus_modules[].visual_type`；轮播中类型不同的单元写入 `aplus_modules[].units[].visual_type`。当前 `render_v4` 没有完整商业成片输入通道，显式 `commercial_scene` / `mechanism_visual` 会停止模板渲染；应按本 Brief 使用具备相应能力的制作工具完成候选，不能删除类型字段来绕过。旧 Spec 未声明类型时保持兼容，但不受该代码保护覆盖，仍需实际看图检查。
+原始制作输入使用 `images[].visual_type`、`aplusModules[].visual_type`、`aplusModules[].units[].visual_type`，Builder 原样保留显式声明。对应 PDP Spec 字段为 `product_images[].visual_type`、`aplus_modules[].visual_type`、`aplus_modules[].units[].visual_type`。当前 `render_v4` 没有完整商业成片输入通道，显式 `commercial_scene` / `mechanism_visual` 会停止模板渲染；应按本 Brief 使用具备相应能力的制作工具完成候选，不能删除类型字段来绕过。旧 Spec 未声明类型时保持兼容，但不受该代码保护覆盖，仍需实际看图检查。
 
 旧 `VISUAL_QUALITY` 只调整模板参数和统计结构节奏。模板数量、源图哈希、PNG 解码、无溢出与结构分均不证明商业视觉达标。自写脚本也须做类型比对；未执行正式 Runtime，不声称正式 Flow 已跑通。
 
