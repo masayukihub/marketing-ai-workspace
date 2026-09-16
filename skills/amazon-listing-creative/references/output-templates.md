@@ -3,6 +3,10 @@
 ## 目录
 
 - [Fact Lock](#fact-lock)
+- [Page Story Map](#page-story-map)
+- [Brand Story Brief](#brand-story-brief)
+- [Series Comparison Matrix](#series-comparison-matrix)
+- [Copy Visual Fidelity](#copy-visual-fidelity)
 - [候选方向](#候选方向)
 - [Listing 图片 Brief](#listing-图片-brief)
 - [九宫格方向矩阵](#九宫格方向矩阵)
@@ -31,6 +35,113 @@
 - Forbidden / Unsupported Claims:
 ```
 
+## Page Story Map
+
+```markdown
+## Why This Product Exists
+
+- Consumer Problem:
+- Category Trade-off / Existing Alternative:
+- Product Answer:
+- Hero Promise:
+- Proof Pillars:
+
+## Page Story Spine
+
+| # | Consumer Question | Page Unit | Story Role | Message | Proof | Asset / Native Field | Status |
+|---:|---|---|---|---|---|---|---|
+| 1 | What is it? | | | | | | |
+| 2 | Why should I care? | | | | | | |
+| 3 | Why is it different? | | | | | | |
+| 4 | Can I believe it? | | | | | | |
+| 5 | Is it for me? | | | | | | |
+| 6 | Which one should I buy? | | | | | | |
+| 7 | Why this brand? | | | | | | |
+```
+
+Page Unit 可使用 `Gallery`、`A+ Module`、`Carousel`、`Native Copy`、`Brand Story`、`Series Comparison`、`FAQ`。不是每个问题都必须独立占一个模块；重点是消费者问题被完整回答且不同单元不过度重复。
+
+## Brand Story Brief
+
+```markdown
+## Brand Story Brief
+
+- Brand Promise:
+- Brand Role in Consumer Life:
+- Product Philosophy:
+- Why This Product Fits the Brand:
+- Ecosystem Connection:
+- Trust Evidence:
+- Cross-sell Products:
+- Consumer Takeaway:
+- Visual Direction:
+- Native Copy / CTA:
+- Source / Approval Status:
+- Prohibited / Unsupported Brand Claims:
+```
+
+Brand Promise、Product Philosophy 与当前产品卖点必须分开。没有正式 Source 时不得生成企业使命、No.1、奖项、规模、用户数量或生态覆盖 Claim。
+
+## Series Comparison Matrix
+
+```markdown
+## Comparison Mode
+
+- Mode: Internal Competitor Matrix / Publishable Series Comparison
+- Publishability:
+- Source Date:
+
+| Decision Dimension | User Meaning | Current Product | Alternative A | Alternative B | Source | Status |
+|---|---|---|---|---|---|---|
+| Recommended For | | | | | | |
+| Home / Usage Fit | | | | | | |
+| Core Cleaning Method | | | | | | |
+| Body Size / Placement | | | | | | |
+| Station / Maintenance | | | | | | |
+| Key Differentiator | | | | | | |
+```
+
+内部竞品矩阵允许跨品牌研究，但不得直接成为 Amazon 发布资产。正式 Series Comparison 默认只使用同品牌、已确认、渠道允许的产品/Variant。
+
+## Copy Visual Fidelity
+
+```markdown
+## Copy ↔ Visual Fidelity
+
+| Asset | H1 / Claim | Consumer Takeaway | Visual Proof | Proof Visible Without Copy | Visual Introduces New Claim | Mobile Proof Visible | Gate |
+|---|---|---|---|---|---|---|---|
+| | | | | Yes / Partial / No | Yes / No | Yes / Partial / No | PASS / WEAK / FAIL |
+```
+
+单个 Asset 详细字段：
+
+```yaml
+message:
+copy_claim:
+consumer_takeaway:
+visual_proof:
+  proof_object:
+  proof_action:
+  proof_visibility:
+copy_role:
+  headline:
+  support:
+  native_text:
+render_role:
+  scene:
+  product:
+  mechanism:
+  evidence:
+semantic_match:
+  copy_supported_by_visual:
+  visual_introduces_new_claim:
+  proof_visible_without_copy:
+mobile:
+  readable:
+  proof_visible:
+gate: PASS | WEAK | FAIL
+```
+
 ## 候选方向
 
 ```markdown
@@ -52,7 +163,7 @@
 ## Listing 图片 Brief
 
 ```markdown
-## Image [1–9] — [Role]
+## Image [ID] — [Role]
 
 - Purpose:
 - Audience Question:
@@ -60,6 +171,7 @@
 - Benefit:
 - Evidence:
 - Visual Concept:
+- Visual Proof:
 - Key Visual Elements:
 - Composition / Reading Order:
 - Product Lock:
@@ -67,6 +179,7 @@
 - Support Copy:
 - Text Safe Zone:
 - Post-production Overlay:
+- Copy-Visual Fidelity Target:
 - Risk / Pending Verification:
 - AI Image Prompt:
 - Negative Constraints:
@@ -120,12 +233,15 @@
 - Allowed Changes:
 - Forbidden Changes:
 
-### Copy & Layout
+### Copy & Visual Proof
 - H1:
 - Support Copy:
 - Disclaimer:
+- Visual Proof:
+- Proof Visible Without Copy:
 - Text Safe Zone:
 - Mobile Thumbnail Check:
+- Copy-Visual Fidelity Gate:
 
 ### Production
 - AI Image Prompt:
@@ -174,9 +290,9 @@ Do not:
 ## 评分与推荐
 
 ```markdown
-| Direction | CTR Potential | Instant Understanding | Differentiation | Brand Premium | Amazon Suitability | Evidence Strength | Product Accuracy | Gate |
-|---|---:|---:|---:|---:|---:|---:|---:|---|
-| | /10 | /10 | /10 | /10 | /10 | /10 | /10 | Pass / Revise / Blocked |
+| Direction | CTR Potential | Instant Understanding | Differentiation | Brand Premium | Amazon Suitability | Evidence Strength | Product Accuracy | Copy-Visual Fidelity | Gate |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| | /10 | /10 | /10 | /10 | /10 | /10 | /10 | /10 | Pass / Revise / Blocked |
 ```
 
 ```markdown
@@ -190,4 +306,4 @@ Do not:
 - Confidence: High / Medium / Low
 ```
 
-评分只用于比较方向，不能替代事实门槛。`Product Accuracy` 或 `Evidence Strength` 有硬伤时，Gate 必须为 `Blocked` 或 `Revise`。
+评分只用于比较方向，不能替代事实门槛。`Product Accuracy`、`Evidence Strength` 或 `Copy-Visual Fidelity` 有硬伤时，Gate 必须为 `Blocked` 或 `Revise`。
