@@ -150,6 +150,9 @@ def main() -> int:
             errors = []
             if not inventory_path.is_file() or inventory_path.read_text(encoding="utf-8") != inventory:
                 errors.append("SKILL_INVENTORY_OUT_OF_DATE")
+                for row in rows:
+                    if row["skill_name"] == "amazon-listing-creative":
+                        print("EXPECTED_AMAZON_LISTING_CREATIVE_ROW=" + ",".join(row[field] for field in FIELDS))
             if not catalog_path.is_file() or catalog_path.read_text(encoding="utf-8") != catalog:
                 errors.append("SKILL_CATALOG_OUT_OF_DATE")
             if errors:
